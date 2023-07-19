@@ -3,5 +3,39 @@
 <div class="login-container">
     <h2>Anmeldung</h2>
     <p>Wir empfehlen Dir, die E-Mail-Adresse zu nutzen, die Du bei der Arbeit verwendest</p>
-</div>
+    <div [formGroup]="loginForm" class="login-content">
+        
+        
+        <mat-form-field appearance="outline" class="fullWidth custom-field">
+            <mat-label>Email</mat-label>
+            <input formControlName="email" required matInput type="text">
+            <mat-icon matIconPrefix>email</mat-icon>
+              <mat-error *ngIf="loginForm.controls['email'].hasError('required')">Bitte email eingeben</mat-error>
+            <mat-error *ngIf="loginForm.controls['email'].hasError('email')">Ungültige email</mat-error>
+        </mat-form-field>
+<div class="spacer"></div>
+        <mat-form-field appearance="outline" class="fullWidth">
+            <mat-label>Passwort</mat-label>
+            <input formControlName="password" matInput [type]="hide ? 'password' : 'text'">
+            <mat-icon matIconPrefix>lock</mat-icon>
+            <mat-icon (click)="hide = !hide" matSuffix>{{hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+            <mat-error *ngIf="loginForm.hasError('required')">Bitte Passwort eingeben</mat-error>
+        </mat-form-field>
+
+    </div>
+    <span class="important">Passwort vergessen?</span>
+
+    <div class="devider">
+        
+        <div class="text">ODER</div>
+    </div>
+   
+    <div (click)="loginWithGoogle()" class="google-card">
+        <app-google-login-card></app-google-login-card>
+    </div>
+    <div class="button-section">
+        <button [disabled]="loginForm.invalid" class="darkButton">Anmelden</button>
+        <button class="lightButton">Gäste-Login</button>
+    </div>
+
 </div>
