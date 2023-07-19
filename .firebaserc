@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "my-dabubble": {
+      "hosting": {
+        "DABubble": [
+          "my-dabubble"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "my-dabubble"
+  }
+}
