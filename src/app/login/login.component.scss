@@ -1,0 +1,14 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--background-color);
+}
+
+.login-container {
+    background-color: white;
+    border-radius: 10px;
+
+}

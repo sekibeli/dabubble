@@ -1,0 +1,61 @@
+.background-container {
+    position: relative;
+    background: linear-gradient(0deg, #313AE5 0%, #797EF3 100%);
+    width: 100vw;
+    height: 100vh;
+display: flex;
+justify-content: center;
+align-items: center;
+.logo-animation {
+    
+    z-index: 2;
+    animation: goLeft 500ms ease 0s 1 normal forwards;
+    img{
+        width: 250px;
+        height: 150px;
+    }
+    
+}
+}
+
+@keyframes goLeft {
+	0% {
+		opacity: 1;
+		transform: translateX(250px);
+	}
+    40% {
+		opacity: 1;
+		transform: translateX(250px);
+	}
+    100% {
+		opacity: 1;
+		transform: translateX(0);
+	}
+
+}
+
+.text-animation {
+  
+    animation: goRight 500ms ease 500ms 1 normal forwards;
+    opacity: 0;
+    color: white;
+    font-size: 4em;
+}
+@keyframes goRight {
+	0% {
+		opacity: 0;
+		transform: translateX(-250px);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateX(0);
+	}
+  
+}
+
+.together {
+    display: flex;
+    align-items:  center;;
+    animation: goUpLeft 500ms ease 1s 1 normal forwards; 
+}
