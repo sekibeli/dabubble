@@ -1,5 +1,9 @@
 <div class="container">
    
+    <div class="logo">
+        <img src="../../assets/img/logo.svg" alt="">
+    </div>
+
 <div class="login-container">
     <h2>Anmeldung</h2>
     <p>Wir empfehlen Dir, die E-Mail-Adresse zu nutzen, die Du bei der Arbeit verwendest</p>
@@ -34,8 +38,14 @@
         <app-google-login-card></app-google-login-card>
     </div>
     <div class="button-section">
-        <button [disabled]="loginForm.invalid" class="darkButton">Anmelden</button>
+        <button  (click)="loginWithEmailAndPassword()" [disabled]="loginForm.invalid" class="darkButton">Anmelden</button>
         <button class="lightButton">Gäste-Login</button>
     </div>
 
+</div>
+
+<div class="sign-in">
+   <span>Neu bei DABubble?</span> 
+   <span class="important" routerLink="/signup"> Konto erstellen</span>
+</div>
 </div>

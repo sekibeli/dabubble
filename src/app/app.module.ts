@@ -19,6 +19,8 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { GoogleLoginCardComponent } from './google-login-card/google-login-card.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
+import { HomeComponent } from './home/home.component';
 
 
 
@@ -27,7 +29,9 @@ import { GoogleLoginCardComponent } from './google-login-card/google-login-card.
     AppComponent,
     StartComponent,
     LoginComponent,
-    GoogleLoginCardComponent
+    GoogleLoginCardComponent,
+    SignUpComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

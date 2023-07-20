@@ -63,6 +63,16 @@ color: white;
     }
 }
 
+button:disabled {
+    background-color: rgba(0,0,0,0.5);
+
+    &:hover {
+        background-color:  rgba(0,0,0,0.5);
+        cursor: auto;
+        filter: brightness(1)
+    }
+}
+
 // ::ng-deep .mdc-notched-outline > * {
 //     border-color: var(--background-color) !important;
   

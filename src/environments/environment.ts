@@ -8,3 +8,5 @@ export const environment = {
     messagingSenderId: '1040295854943',
   },
 };
+
+// Das soll nicht mehr hochgeladen werden

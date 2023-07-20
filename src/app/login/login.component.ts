@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {MatIconModule} from '@angular/material/icon';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -9,6 +10,7 @@ import {MatIconModule} from '@angular/material/icon';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+  constructor(public auth: AuthService, private route: Router){}
   passwordControl: FormControl = new FormControl('', Validators.required);
   hide = true;
 
@@ -18,4 +20,16 @@ export class LoginComponent {
   })
 
   loginWithGoogle(){}
+
+  loginWithEmailAndPassword(){
+    console.log(this.loginForm.value);
+    const userData = Object.assign({email: this.loginForm.value.username}, this.loginForm.value);
+    console.log(userData);
+    this.auth.loginWithEmailAndPassword(userData).then((result: any) => {
+      this.route.navigateByUrl('home');
+        }).catch( (error: any) => {
+          console.error(error);
+        })  ;
+    
+  }
 }
