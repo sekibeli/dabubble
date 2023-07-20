@@ -1,0 +1,43 @@
+.sidenavLeft {
+    
+    width: 300px;
+    background-color: white;
+    border-radius:20px;
+    margin-right: 15px;
+}
+
+.sidenavRight {
+    height: 80vh;
+    width: 485px;
+    background-color: white;
+    border-radius:20px;
+    margin-left: 15px;
+}
+.main{
+   height: 80vh;
+   min-width: 500px;
+    border: 1px solid lightgrey;
+    border-radius: 20px;
+    background-color: white;
+}
+
+.content {
+    width: 100%;
+    margin: 80px 15px 15px 15px;
+    background-color: var(--background-color);
+  
+   
+}
+
+mat-drawer {
+    margin: 25px 10px;
+}
+
+mat-drawer-content {
+
+    margin: 25px 10px;
+}
+
+.example-container{
+    background-color: var(--background-color);
+} 

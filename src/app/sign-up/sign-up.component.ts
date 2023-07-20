@@ -51,7 +51,7 @@ export class SignUpComponent {
 
 
 
-      this.route.navigateByUrl('home');
+      this.route.navigateByUrl('login');
       console.log(result);
         }).catch( (error: any) => {
           console.error(error);

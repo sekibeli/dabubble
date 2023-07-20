@@ -12,6 +12,17 @@ body {
     padding: 0;
 }
 
+.container {
+    position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+      height: 100vh;
+      background-color: var(--background-color);
+  
+  }
+  
 h2 {
     color: #444DF2;
     font-size: 2em;
@@ -103,3 +114,17 @@ button:disabled {
 //     width: 25px !important;
 //   }
   
+.logo {
+    position: absolute;
+    top: 60px;
+    left: 60px;
+
+    display: flex;
+    align-items: center;
+    font-size: 2em;
+     img {
+      padding-right: 5px;
+      width: 60px;
+      height: 60px;
+     }
+  }

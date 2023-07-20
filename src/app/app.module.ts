@@ -21,6 +21,7 @@ import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { GoogleLoginCardComponent } from './google-login-card/google-login-card.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { HomeComponent } from './home/home.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 
 
@@ -44,6 +45,7 @@ import { HomeComponent } from './home/home.component';
     AngularFireAuthModule,
     ReactiveFormsModule,
     FormsModule,
+    MatSidenavModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),
