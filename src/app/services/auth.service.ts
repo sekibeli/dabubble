@@ -6,7 +6,7 @@ import { GoogleAuthProvider } from 'firebase/auth';
   providedIn: 'root'
 })
 export class AuthService {
-
+username = '';
   constructor(private afs: AngularFireAuth) { }
 
 
@@ -19,7 +19,20 @@ export class AuthService {
   }
 
   loginWithEmailAndPassword(user: {email: string, password: string}){
-    return this.afs.signInWithEmailAndPassword(user.email, user.password);
+    return this.afs.signInWithEmailAndPassword(user.email, user.password).then(result => {
+      console.log(result.user);
+      this.username = result.user.displayName;
+      console.log('username: ' ,this.username);
+      // this.afs.onAuthStateChanged(user => {
+      //   if (user) {
+      //     console.log('user logged in with', user.email);
+      //   }
+      // })
+    });
   }
 
+  
+  
+
 }
+ 

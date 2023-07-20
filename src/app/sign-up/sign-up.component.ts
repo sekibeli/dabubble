@@ -30,6 +30,7 @@ export class SignUpComponent {
     console.log(userData);
     this.auth.registerWithEmailAndPassword(userData).then((result: any) => {
       this.route.navigateByUrl('home');
+      console.log(result);
         }).catch( (error: any) => {
           console.error(error);
         })  ;
