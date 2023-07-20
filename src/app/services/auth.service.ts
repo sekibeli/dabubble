@@ -15,22 +15,20 @@ username = '';
   }
 
   registerWithEmailAndPassword(user: {email: string, password: string}){
-    return this.afs.createUserWithEmailAndPassword(user.email, user.password);
+   return this.afs.createUserWithEmailAndPassword(user.email, user.password);
   }
+
+
 
   loginWithEmailAndPassword(user: {email: string, password: string}){
     return this.afs.signInWithEmailAndPassword(user.email, user.password).then(result => {
       console.log(result.user);
-      this.username = result.user.displayName;
       console.log('username: ' ,this.username);
-      // this.afs.onAuthStateChanged(user => {
-      //   if (user) {
-      //     console.log('user logged in with', user.email);
-      //   }
-      // })
-    });
+         });
   }
 
+
+  
   
   
 

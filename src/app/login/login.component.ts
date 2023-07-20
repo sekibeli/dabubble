@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Inject, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {MatIconModule} from '@angular/material/icon';
 import { AuthService } from '../services/auth.service';
+import { Firestore, collection, collectionData } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-login',
@@ -10,6 +11,7 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+  firestore: Firestore = inject(Firestore);
   constructor(public auth: AuthService, private route: Router){}
   passwordControl: FormControl = new FormControl('', Validators.required);
   hide = true;
@@ -26,6 +28,7 @@ export class LoginComponent {
     const userData = Object.assign({email: this.loginForm.value.username}, this.loginForm.value);
     console.log(userData);
     this.auth.loginWithEmailAndPassword(userData).then((result: any) => {
+
       this.route.navigateByUrl('home');
         }).catch( (error: any) => {
           console.error(error);

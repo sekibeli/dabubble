@@ -1,16 +1,15 @@
 export class User {
     id?: string;
-    firstName: string;
-    lastName: string;
+    username: string;
+   
     email: string;
-    img: string;
-    active: boolean;
+    img?: string;
+    active?: boolean;
 
 
     constructor(obj?:any){
         this.id = obj ? obj.id: '';
-        this.firstName = obj ? obj.firstName : '';
-        this.lastName = obj ? obj.lastName : '';
+        this.username = obj ? obj.username : '';
         this.email = obj ? obj.email : '';
         this.img = obj ?  obj.img : '';
         this.active = obj ? obj.active : true;
@@ -21,8 +20,7 @@ export class User {
     public toJSON(){
     return {
         id: this.id,
-        firstName : this.firstName,
-        lastName : this.lastName ,
+        username : this.username,
         email : this.email,
         img: this.img,
         active : this.active
