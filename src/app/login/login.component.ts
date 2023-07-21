@@ -12,12 +12,12 @@ import { User } from '../models/user.class';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+  hide = true;
   user: User;
   firestore: Firestore = inject(Firestore);
   constructor(public auth: AuthService, private route: Router) { }
   passwordControl: FormControl = new FormControl('', Validators.required);
-  hide = true;
-
+ 
   loginForm: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required)
@@ -26,9 +26,10 @@ export class LoginComponent {
   loginWithGoogle() {
     const userData = Object.assign({ email: this.loginForm.value.username }, this.loginForm.value);
     this.auth.signinWithGoogle().then((result: any) => {
+      if(result && result.user){
       const collRef = doc(this.firestore, 'users', result.user.uid);
-      console.log(result);
-      console.log(result.additionalUserInfo.isNewUser);
+      // console.log(result);
+      // console.log(result.additionalUserInfo.isNewUser);
 
       if (result.additionalUserInfo.isNewUser) {
         this.user = new User({
@@ -41,7 +42,12 @@ export class LoginComponent {
 
         setDoc(collRef, this.user.toJSON());
       }
+    } else {
+      console.log('nix da');
+    }
 
+    }).catch((error)=> {
+      console.error('Hier ist der Fehler: ', error)
     });
 
     this.route.navigateByUrl('home');

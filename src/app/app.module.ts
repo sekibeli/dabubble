@@ -22,7 +22,7 @@ import { GoogleLoginCardComponent } from './google-login-card/google-login-card.
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { HomeComponent } from './home/home.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
-import { ProfileComponent } from './profile/profile.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 
 
@@ -34,7 +34,7 @@ import { ProfileComponent } from './profile/profile.component';
     GoogleLoginCardComponent,
     SignUpComponent,
     HomeComponent,
-    ProfileComponent
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
