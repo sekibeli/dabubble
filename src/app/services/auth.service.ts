@@ -1,11 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { GoogleAuthProvider } from 'firebase/auth';
+
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+ 
+
 username = '';
   constructor(private afs: AngularFireAuth) { }
 

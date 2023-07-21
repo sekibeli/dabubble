@@ -1,9 +1,10 @@
 import { Component, Inject, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../services/auth.service';
-import { Firestore, collection, collectionData } from '@angular/fire/firestore';
+import { Firestore, collection, collectionData, doc, setDoc } from '@angular/fire/firestore';
+import { User } from '../models/user.class';
 
 @Component({
   selector: 'app-login',
@@ -11,8 +12,9 @@ import { Firestore, collection, collectionData } from '@angular/fire/firestore';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+  user: User;
   firestore: Firestore = inject(Firestore);
-  constructor(public auth: AuthService, private route: Router){}
+  constructor(public auth: AuthService, private route: Router) { }
   passwordControl: FormControl = new FormControl('', Validators.required);
   hide = true;
 
@@ -21,18 +23,41 @@ export class LoginComponent {
     password: new FormControl('', Validators.required)
   })
 
-  loginWithGoogle(){}
+  loginWithGoogle() {
+    const userData = Object.assign({ email: this.loginForm.value.username }, this.loginForm.value);
+    this.auth.signinWithGoogle().then((result: any) => {
+      const collRef = doc(this.firestore, 'users', result.user.uid);
+      console.log(result);
+      console.log(result.additionalUserInfo.isNewUser);
 
-  loginWithEmailAndPassword(){
+      if (result.additionalUserInfo.isNewUser) {
+        this.user = new User({
+          id: result.user.uid,
+          username: result.additionalUserInfo.profile['name'],
+          email: result.user.email,
+          img: result.additionalUserInfo.profile.picture,
+          active: true
+        })
+
+        setDoc(collRef, this.user.toJSON());
+      }
+
+    });
+
+    this.route.navigateByUrl('home');
+
+  }
+
+  loginWithEmailAndPassword() {
     console.log(this.loginForm.value);
-    const userData = Object.assign({email: this.loginForm.value.username}, this.loginForm.value);
+    const userData = Object.assign({ email: this.loginForm.value.username }, this.loginForm.value);
     console.log(userData);
     this.auth.loginWithEmailAndPassword(userData).then((result: any) => {
 
       this.route.navigateByUrl('home');
-        }).catch( (error: any) => {
-          console.error(error);
-        })  ;
-    
+    }).catch((error: any) => {
+      console.error(error);
+    });
+
   }
 }

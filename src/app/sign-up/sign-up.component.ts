@@ -34,9 +34,8 @@ export class SignUpComponent {
     console.log(userData);
     this.auth.registerWithEmailAndPassword(userData).then((result: any) => {
 
-
       const collRef = doc(this.firestore, 'users', result.user.uid);
-      // doc(collRef, result.user.uid)
+     
       
 
       this.user = new User({
