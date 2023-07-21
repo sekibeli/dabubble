@@ -9,12 +9,15 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  public userLoggedIn_UID; 
+  public userLoggedIn_UID : string; 
+  currentUser: any;
   users: any;
   user: any;
 
   constructor(public userService: UserService, public authService: AuthService){
-this.userLoggedIn_UID = this.authService.userUID;
+
+
+
    
     
   }
@@ -26,6 +29,13 @@ this.userLoggedIn_UID = this.authService.userUID;
    }, error => {
     console.error('Es gab eine fahler beim Abruf der Daten:', error);
    });
+
+   this.userLoggedIn_UID = this.authService.userUID;
+  
+
+setTimeout(()=> { this.authService.getCurrentUser(this.authService.userUID);},3000)
+   
+    
    
   //  console.log('Hier die ID:',this.userLoggedIn_UID);
    
@@ -41,5 +51,7 @@ this.userLoggedIn_UID = this.authService.userUID;
  testfunktion(){
   console.log('Home Comp. Ausserhalb: ', this.authService.userUID);
 }
+
+
 
 }
