@@ -28,8 +28,8 @@ export class LoginComponent {
     this.auth.signinWithGoogle().then((result: any) => {
       if(result && result.user){
       const collRef = doc(this.firestore, 'users', result.user.uid);
-      // console.log(result);
-      // console.log(result.additionalUserInfo.isNewUser);
+        // console.log(result);
+        // console.log(result.additionalUserInfo.isNewUser);
 
       if (result.additionalUserInfo.isNewUser) {
         this.user = new User({
@@ -43,14 +43,14 @@ export class LoginComponent {
         setDoc(collRef, this.user.toJSON());
       }
     } else {
-      console.log('nix da');
+      console.log('keine Neuanlage');
     }
 
     }).catch((error)=> {
       console.error('Hier ist der Fehler: ', error)
     });
 
-    this.route.navigateByUrl('home');
+   setTimeout(()=> {this.route.navigateByUrl('home');},4000); 
 
   }
 

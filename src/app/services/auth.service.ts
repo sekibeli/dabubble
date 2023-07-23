@@ -1,94 +1,85 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, OnInit, inject } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Firestore, collection, collectionData, doc, docData, getDoc, onSnapshot } from '@angular/fire/firestore';
 import { GoogleAuthProvider } from 'firebase/auth';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '../models/user.class';
 
-
+// Service 
+// • für die Anmeldung des Users
+// • für die Speicherung der Daten des angemeldeten Users
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
-  public userUID;
-  public currentUser;
-  
+export class AuthService implements OnInit {
+  public userUID: string; //String mit der ID
+  public currentUser; // User mit allen Eigenschaften
+
   firestore: Firestore = inject(Firestore);
-  // public currentUser: Observable<any>;
-  // private currentUserSubject: BehaviorSubject<any>;
-//  userLoggedIn_UID;
-//  userLoggedIn;
 
-  constructor(private afs: AngularFireAuth) {
-   
-   }
+  constructor(private afs: AngularFireAuth) { }
 
+  ngOnInit() { }
 
-  signinWithGoogle(){
-    return this.afs.signInWithPopup(new GoogleAuthProvider())
-    
-    .then(result => {
-      if(result.user){
-        console.log(result.user.uid);
-       this.userUID = result.user.uid;
-       this.currentUser = result.user;
-       console.log('UserID-innerhalb:', this.userUID);
-       console.log('User-innerhalb:', this.currentUser);
-      }
-         else {
-          console.error('sorry, kein User da');
-         }  
-    })
-    .catch(error => {
+  async signinWithGoogle() {
+    await this.afs.signInWithPopup(new GoogleAuthProvider())
+
+      .then(result => {
+
+        console.log('result user aus authService: ', result.user);
+        this.userUID = result.user.uid;
+        this.currentUser = result.user;
+        console.log('Eingeloggter User:', this.userUID);
+        this.saveCurrentUserIDInLocalStorage(this.userUID);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
+
+  registerWithEmailAndPassword(user: { email: string, password: string }) {
+    return this.afs.createUserWithEmailAndPassword(user.email, user.password);
+  }
+
+  loginWithEmailAndPassword(user: { email: string, password: string }) {
+    return this.afs.signInWithEmailAndPassword(user.email, user.password).then(result => {
+
+      this.userUID = result.user.uid;
+      console.log('Eingeloggter User:', this.userUID);
+      this.saveCurrentUserIDInLocalStorage(this.userUID);
+
+    }).catch(error => {
       console.error(error);
     });
-
-   
   }
 
-  registerWithEmailAndPassword(user: {email: string, password: string}){
-   return this.afs.createUserWithEmailAndPassword(user.email, user.password)
-   
-   ;
-  }
+  /**
+   * 
+   * @param id uid vom gerade eingeloggten User
+   * Ruft mit der uid die dazugehörigen User-Daten vom Firestore ab
+   */
+  // getCurrentUser(id: string) {
+  //   const collRef = collection(this.firestore, 'users');
+  //   const collData = doc(collRef, id);
 
-
-  loginWithEmailAndPassword(user: {email: string, password: string}){
-    return this.afs.signInWithEmailAndPassword(user.email, user.password).then(result => {
-      console.log(result.user);
-      if(result.user){
-        console.log(result.user.uid);
-       this.userUID = result.user.uid;
-       console.log('UserID-innerhalb:', this.userUID);
-      }
-         else {
-          console.error('sorry, kein User da');
-         }  
-         }) .catch(error => {
-          console.error(error);
-        });
-  }
- 
-   getCurrentUser(id:string){
-   
-    const collRef = collection(this.firestore, 'users');
-   const collData = doc(collRef, id);
-
-
-    onSnapshot(collData, (user) => {
-      console.log('current', user);
-      if (user.exists()) {
-        this.currentUser = new User(user.data());
-        console.log(this.currentUser);
-      } else {
-        console.log('User nicht vorhanden!');
-      }
-    });
-
+  //   docData(collData).subscribe(data => {
+  //     this.currentUser = data;
     
-  
+  //   }, error => {
+  //     console.log('Fehler', error);
+  //   });
+
+  //   return docData(collData);
+  // }
+
+  saveCurrentUserIDInLocalStorage(id: string) {
+       localStorage.setItem('currentUserID', id);
+  }
+
+   getCurrentUserIDFromLocalStorage(){
+  return localStorage.getItem('currentUserID');
+   
   }
 
 }
- 
