@@ -23,6 +23,12 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { HomeComponent } from './home/home.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { LeftDrawerComponent } from './left-drawer/left-drawer.component';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { PostContainerComponent } from './post-container/post-container.component';
+import { InputComponent } from './input/input.component';
+import { PostheaderComponent } from './postheader/postheader.component';
+
 
 
 
@@ -34,7 +40,11 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     GoogleLoginCardComponent,
     SignUpComponent,
     HomeComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    LeftDrawerComponent,
+    PostContainerComponent,
+    InputComponent,
+    PostheaderComponent
   ],
   imports: [
     BrowserModule,
@@ -48,6 +58,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     ReactiveFormsModule,
     FormsModule,
     MatSidenavModule,
+    MatExpansionModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),

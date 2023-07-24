@@ -1,15 +1,43 @@
 <div class="container">
-  <div class="profile-up-right">
-    <app-user-profile *ngIf="this.currentUser" [currentUser]="this.currentUser"></app-user-profile>
+  
+  <div class="layerToggle" (click)="leftDrawer.toggle()">
+    <div class="rotatedText">Workspace open / close</div>
   </div>
-    <div class="content">
 
+<div class="header">
+  <div class="logo_small">
+    <img src="../../assets/img/logo.svg" alt="">
+    <div>DABubble</div>
+</div>
+
+<div class="search"></div>
+  <div class="profile-up-right">
+    <app-user-profile
+      *ngIf="this.currentUser"
+      [currentUser]="this.currentUser"
+    ></app-user-profile>
+  </div>
+
+</div>
+
+ 
+
+
+  <div class="content">
     <mat-drawer-container class="example-container" autosize>
-        <mat-drawer #leftDrawer class="sidenavLeft" mode="side" opened="true">Drawer channels content</mat-drawer>
-        <mat-drawer-content class="main">Main content</mat-drawer-content>
-        <mat-drawer #rightDrawer class="sidenavRight" position="end" mode="side" opened = "true" >Drawer thread content 
-   
+      <mat-drawer #leftDrawer class="sidenavLeft" mode="side" opened="true">
+       
+        <app-left-drawer></app-left-drawer>
         </mat-drawer>
-      </mat-drawer-container>
-      </div>
+      <mat-drawer-content class="main">Main content</mat-drawer-content>
+      <mat-drawer
+        #rightDrawer
+        class="sidenavRight"
+        position="end"
+        mode="side"
+        opened="false"
+        >Drawer thread content
+      </mat-drawer>
+    </mat-drawer-container>
+  </div>
 </div>
