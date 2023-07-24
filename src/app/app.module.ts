@@ -3,15 +3,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
-import { provideAuth,getAuth } from '@angular/fire/auth';
-import { provideDatabase,getDatabase } from '@angular/fire/database';
-import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideDatabase, getDatabase } from '@angular/fire/database';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StartComponent } from './start/start.component';
 import { LoginComponent } from './login/login.component';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 
@@ -21,13 +21,14 @@ import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { GoogleLoginCardComponent } from './google-login-card/google-login-card.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { HomeComponent } from './home/home.component';
-import {MatSidenavModule} from '@angular/material/sidenav';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { LeftDrawerComponent } from './left-drawer/left-drawer.component';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { PostContainerComponent } from './post-container/post-container.component';
 import { InputComponent } from './input/input.component';
 import { PostheaderComponent } from './postheader/postheader.component';
+import { PostDetailComponent } from './post-detail/post-detail.component';
 
 
 
@@ -44,7 +45,8 @@ import { PostheaderComponent } from './postheader/postheader.component';
     LeftDrawerComponent,
     PostContainerComponent,
     InputComponent,
-    PostheaderComponent
+    PostheaderComponent,
+    PostDetailComponent
   ],
   imports: [
     BrowserModule,
