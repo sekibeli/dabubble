@@ -10,10 +10,19 @@ export class PostContainerComponent {
 posts;
 
   constructor(public postService: PostService){
-    this.posts = this.postService.posts;
-    console.log('Posts: ');
+    this.getPosts();
+   
+   
   }
 
-  
+  async getPosts(){
+   this.postService.getAllPosts('9Gwz1Ce763caWx5FCBZL').then((postings)=>{
+postings.subscribe((posts)=>{
+  this.posts = posts;
+  console.log('Posts:', posts);
+})
+   });
+   
+  }
 
 }

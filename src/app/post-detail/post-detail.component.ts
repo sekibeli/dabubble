@@ -6,5 +6,5 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./post-detail.component.scss']
 })
 export class PostDetailComponent {
-@Input() posts;
+@Input() post;
 }
