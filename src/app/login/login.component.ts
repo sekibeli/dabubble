@@ -50,7 +50,7 @@ export class LoginComponent {
       console.error('Hier ist der Fehler: ', error)
     });
 
-   setTimeout(()=> {this.route.navigateByUrl('home');},4000); 
+   setTimeout(()=> {this.route.navigateByUrl('home/channel/9Gwz1Ce763caWx5FCBZL');},1000); 
 
   }
 
@@ -60,7 +60,7 @@ export class LoginComponent {
     console.log(userData);
     this.auth.loginWithEmailAndPassword(userData).then((result: any) => {
 
-      this.route.navigateByUrl('home');
+      this.route.navigateByUrl('home/channel/9Gwz1Ce763caWx5FCBZL');
     }).catch((error: any) => {
       console.error(error);
     });

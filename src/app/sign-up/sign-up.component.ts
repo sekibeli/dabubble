@@ -42,7 +42,7 @@ export class SignUpComponent {
         id: result.user.uid,
         username: userData.name,
         email : userData.email,
-        img: '',
+        img: '../../assets/img/profile_img/benutzer.png',
         active : true
       })
 

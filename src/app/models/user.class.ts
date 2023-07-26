@@ -11,7 +11,7 @@ export class User {
         this.id = obj ? obj.id: '';
         this.username = obj ? obj.username : '';
         this.email = obj ? obj.email : '';
-        this.img = obj?.img ?? null;
+        this.img = obj? obj.img : '../../assets/img/profile_img/benutzer.png';
         this.active = obj ? obj.active : true;
       
 
