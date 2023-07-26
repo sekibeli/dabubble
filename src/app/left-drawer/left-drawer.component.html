@@ -1,8 +1,8 @@
 <div class="leftDrawerTop">
-    <img src="../../assets/img/WorkspaceLogo.svg" alt="">
-    <div class="leftDrawerTopic">Code learning</div>
-    <mat-icon>editOutlined</mat-icon>
-  </div>
+  <img src="../../assets/img/WorkspaceLogo.svg" alt="" />
+  <div class="leftDrawerTopic">Code learning</div>
+  <mat-icon>editOutlined</mat-icon>
+</div>
 <!-- 
 <mat-expansion-panel>
     <mat-expansion-panel-header>
@@ -16,12 +16,22 @@
    <div># Entwicklerteam</div>
 
   </mat-expansion-panel> -->
-  <div class="channelContainer">
-    <div class="channelsTop"><mat-icon>workspacesOutlined</mat-icon>Channels</div>
-    <div>
-        <ul>
-            <li class="klick" (click)="zeigmal('9Gwz1Ce763caWx5FCBZL')"># Entwicklerteam</li>
-            <li class="klick" (click)="zeigmal('OnQ02XRJqwZRA0ts0qc5')"># Schneckenteam</li>
-        </ul>
-    </div>
+<div class="channelContainer">
+  <div class="channelsTop"><mat-icon>workspacesOutlined</mat-icon>Channels</div>
+  <div>
+    <ul>
+      <li
+        class="klick"
+        [routerLink]="['/home', 'channel', '9Gwz1Ce763caWx5FCBZL']"
+        routerLinkActive="active">
+        # Entwicklerteam
+      </li>
+      <li
+        class="klick"
+        [routerLink]="['/home', 'channel', 'OnQ02XRJqwZRA0ts0qc5']"
+        routerLinkActive="active">
+        # Office-Team
+      </li>
+    </ul>
   </div>
+</div>

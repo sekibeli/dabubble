@@ -29,6 +29,7 @@ import { PostContainerComponent } from './post-container/post-container.componen
 import { InputComponent } from './input/input.component';
 import { PostheaderComponent } from './postheader/postheader.component';
 import { PostDetailComponent } from './post-detail/post-detail.component';
+import { MainComponent } from './main/main.component';
 
 
 
@@ -46,7 +47,8 @@ import { PostDetailComponent } from './post-detail/post-detail.component';
     PostContainerComponent,
     InputComponent,
     PostheaderComponent,
-    PostDetailComponent
+    PostDetailComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,

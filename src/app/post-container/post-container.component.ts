@@ -8,6 +8,7 @@ import { PostService } from '../services/post.service';
 })
 export class PostContainerComponent {
 posts;
+id;
 
   constructor(public postService: PostService){
     this.getPosts();
