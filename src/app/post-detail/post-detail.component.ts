@@ -1,6 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { User } from '../models/user.class';
+import { DrawerService } from '../services/drawer.service';
+import { MatDrawer } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-post-detail',
@@ -12,11 +14,12 @@ export class PostDetailComponent implements OnInit {
 author;
 time;
 
-constructor(private userService: UserService){
+constructor(private userService: UserService, private drawerService: DrawerService){
 
 }
 
 ngOnInit(){
+
    this.getAuthorDetails(this.post);
   this.getTimeFromTimestamp(this.post['timestamp']);
 }
@@ -43,6 +46,10 @@ getTimeFromTimestamp(timestamp){
   let minutes = date.getMinutes();
   this.time = hours + ':' + minutes;
 
+}
+
+getThreads(channelID, postID){
+this.drawerService.toggle();
 }
 
 }
