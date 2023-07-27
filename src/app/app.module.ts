@@ -30,6 +30,8 @@ import { InputComponent } from './input/input.component';
 import { PostheaderComponent } from './postheader/postheader.component';
 import { PostDetailComponent } from './post-detail/post-detail.component';
 import { MainComponent } from './main/main.component';
+import { ThreadContainerComponent } from './thread-container/thread-container.component';
+import { ThreadDetailComponent } from './thread-detail/thread-detail.component';
 
 
 
@@ -48,7 +50,9 @@ import { MainComponent } from './main/main.component';
     InputComponent,
     PostheaderComponent,
     PostDetailComponent,
-    MainComponent
+    MainComponent,
+    ThreadContainerComponent,
+    ThreadDetailComponent
   ],
   imports: [
     BrowserModule,

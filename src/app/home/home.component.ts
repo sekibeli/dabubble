@@ -20,7 +20,7 @@ public currentUser;
   constructor(public userService: UserService, public authService: AuthService) { 
     this.userLoggedIn_UID = this.authService.getCurrentUserIDFromLocalStorage();
     console.log('constructor home');
-    console.log('ID home: ',this.userLoggedIn_UID);
+    console.log('ID currentUser: ',this.userLoggedIn_UID);
    this.userService.getCurrentUser(this.userLoggedIn_UID).then(currentUser => {
       currentUser.subscribe(user => {
       console.log(user);

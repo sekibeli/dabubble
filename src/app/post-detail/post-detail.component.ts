@@ -17,8 +17,7 @@ constructor(private userService: UserService){
 }
 
 ngOnInit(){
-  console.log(this.post);
-  this.getAuthorDetails(this.post);
+   this.getAuthorDetails(this.post);
   this.getTimeFromTimestamp(this.post['timestamp']);
 }
 

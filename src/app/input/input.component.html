@@ -1,8 +1,10 @@
 <div class="input-container">
-<form class="chatInput">
+<form class="chatInput" [formGroup]="chatMessage">
 <mat-form-field  appearance="outline" class="fullWidth">
     <mat-label>Schreibe eine Nachricht ...</mat-label>
-    <textarea matInput placeholder="Schreibe eine Nachricht"></textarea>
+    <textarea formControlName="description" matInput placeholder="Schreibe eine Nachricht" ></textarea>
   </mat-form-field>
 </form>
 </div>
+
+<div class="buttonSend" (click)="this.savePost(this.chatMessage)"><mat-icon>send</mat-icon></div>
