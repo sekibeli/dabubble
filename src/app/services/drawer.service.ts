@@ -13,7 +13,7 @@ export class DrawerService {
     this.drawer = drawer;
   }
 
-  toggle():void{
-    this.drawer?.toggle();
+  open():void{
+    this.drawer?.open();
   }
 }

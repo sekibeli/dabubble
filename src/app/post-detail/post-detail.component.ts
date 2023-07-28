@@ -49,7 +49,7 @@ getTimeFromTimestamp(timestamp){
 }
 
 getThreads(channelID, postID){
-this.drawerService.toggle();
+this.drawerService.open();
 }
 
 }
