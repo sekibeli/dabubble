@@ -46,7 +46,7 @@ export class PostContainerComponent implements OnInit, OnDestroy {
     this.postService.getAllPosts(id).then((postings) => {
       postings.subscribe((posts) => {
         this.posts = posts;   
-     
+    
        
       })
     });

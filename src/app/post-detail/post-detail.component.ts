@@ -3,6 +3,8 @@ import { UserService } from '../services/user.service';
 import { User } from '../models/user.class';
 import { DrawerService } from '../services/drawer.service';
 import { MatDrawer } from '@angular/material/sidenav';
+import { ThreadService } from '../services/thread.service';
+import { PostService } from '../services/post.service';
 
 @Component({
   selector: 'app-post-detail',
@@ -13,8 +15,9 @@ export class PostDetailComponent implements OnInit {
 @Input() post;
 author;
 time;
+currentChannel;
 
-constructor(private userService: UserService, private drawerService: DrawerService){
+constructor(private userService: UserService, private drawerService: DrawerService, private threadService: ThreadService, private postService: PostService){
 
 }
 
@@ -22,6 +25,8 @@ ngOnInit(){
 
    this.getAuthorDetails(this.post);
   this.getTimeFromTimestamp(this.post['timestamp']);
+  
+
 }
 
 async getAuthorDetails(post){
@@ -48,8 +53,10 @@ getTimeFromTimestamp(timestamp){
 
 }
 
-getThreads(channelID, postID){
+getThread(channelID, postID){
 this.drawerService.open();
+
+this.threadService.getThread(channelID, postID);
 }
 
 }

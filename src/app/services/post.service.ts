@@ -6,6 +6,7 @@ import { Post } from '../models/post.class';
   providedIn: 'root'
 })
 export class PostService {
+  activeChannel;
   posts;
   post;
   firestore: Firestore = inject(Firestore);
@@ -15,10 +16,14 @@ export class PostService {
 
   async getAllPosts(channelID) {
     const collRef = collection(this.firestore, 'channels', channelID, 'posts');
-    const postData = await collectionData(collRef);
+    const postData = await collectionData(collRef,  {idField: 'id'});
 
-    await collectionData(collRef).subscribe((post) => {
+    await postData.subscribe((post) => {
       this.posts = post;
+      this.activeChannel = channelID;
+      console.log(post);
+      console.log('1.activeChannel', this.activeChannel);
+     
       // console.log('Postings:',this.posts);
     })
     return postData;
@@ -27,7 +32,7 @@ export class PostService {
   savePost(author, channelID, description) {
     console.log('author:', author);
        this.post = new Post({
-      id: '', 
+      id: this.post.id, 
       author: localStorage.getItem('currentUserID'),
       description: description,
      timestamp: new Date().getTime()})
