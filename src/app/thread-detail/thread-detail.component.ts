@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./thread-detail.component.scss']
 })
 export class ThreadDetailComponent {
+author;
 
+constructor(){
+  
+}
 }

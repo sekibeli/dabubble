@@ -16,4 +16,8 @@ export class DrawerService {
   open():void{
     this.drawer?.open();
   }
+
+  close():void{
+    this.drawer?.close();
+  }
 }
