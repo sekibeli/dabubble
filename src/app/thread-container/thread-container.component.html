@@ -1,7 +1,7 @@
 <p>it works</p>
 <div class="close" (click)="this.closeThread()"><mat-icon>close</mat-icon></div>
 <app-postheader></app-postheader>
-<div *ngFor="let thread of threads">
+<div *ngFor="let thread of (threads|objectToArray)">
 <app-thread-detail [thread]="thread"></app-thread-detail>
 </div>
 <app-input></app-input>

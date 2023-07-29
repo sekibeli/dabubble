@@ -50,7 +50,7 @@ export class LoginComponent {
       console.error('Hier ist der Fehler: ', error)
     });
 
-   setTimeout(()=> {this.route.navigateByUrl('home/channel/9Gwz1Ce763caWx5FCBZL');},1000); 
+   this.route.navigateByUrl('home/channel/9Gwz1Ce763caWx5FCBZL');
 
   }
 

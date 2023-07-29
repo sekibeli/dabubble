@@ -1,7 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit} from '@angular/core';
 import { PostService } from '../services/post.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-post-container',
@@ -9,6 +10,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./post-container.component.scss']
 })
 export class PostContainerComponent implements OnInit, OnDestroy {
+
   posts;
   id;
   subscription: Subscription;
@@ -45,9 +47,8 @@ export class PostContainerComponent implements OnInit, OnDestroy {
   async getPosts(id) {
     this.postService.getAllPosts(id).then((postings) => {
       postings.subscribe((posts) => {
-        this.posts = posts;   
-    
-       
+        this.posts = posts;  
+          
       })
     });
 
