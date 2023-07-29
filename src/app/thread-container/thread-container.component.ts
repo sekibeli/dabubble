@@ -9,7 +9,8 @@ import { ThreadService } from '../services/thread.service';
 })
 export class ThreadContainerComponent implements OnInit{
 threads;
-observ;
+// observ;
+countsOfThreads;
   constructor(private drawerService: DrawerService, private threadService: ThreadService ){
 
   }
@@ -17,9 +18,10 @@ observ;
  ngOnInit():void {
   this.threadService.threads.subscribe((threads)=>{
     this.threads = threads;
+    this.countsOfThreads = this.threads.length;
   })
  this.threads = this.threadService.threads;
- console.log('threads:', this.threads);
+//  console.log('threads:', this.threads);
   }
 
 

@@ -16,6 +16,7 @@ export class PostDetailComponent implements OnInit {
 author;
 time;
 currentChannel;
+numberOfThreads = 0;
 
 constructor(private userService: UserService, private drawerService: DrawerService, private threadService: ThreadService, private postService: PostService){
 
@@ -25,10 +26,15 @@ ngOnInit(){
 
    this.getAuthorDetails(this.post);
   this.getTimeFromTimestamp(this.post['timestamp']);
+  console.log('channel:', this.postService.activeChannel, 'postID:', this.post.id);
+   this.getThread(this.postService.activeChannel, this.post.id);
   
-
+  
 }
 
+/**
+ * Abruf von author-Daten anhand des Posts
+ */       
 async getAuthorDetails(post){
   const userDataRef = await this.userService.getCurrentUser(post['author']).then((data)=>{
    
@@ -54,9 +60,10 @@ getTimeFromTimestamp(timestamp){
 }
 
 getThread(channelID, postID){
-this.drawerService.open();
+this.threadService.getThread(channelID, postID).then((threads:any) => {
+ this.numberOfThreads = threads.length;
+});
 
-this.threadService.getThread(channelID, postID);
 }
 
 }

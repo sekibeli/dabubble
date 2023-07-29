@@ -9,6 +9,7 @@ export class ThreadDetailComponent {
 author;
 @Input() thread;
 
+
 constructor(){
   
 }

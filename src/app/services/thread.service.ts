@@ -6,9 +6,10 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class ThreadService {
+  public numberOfThreads;
 firestore: Firestore = inject(Firestore);
-private _threads = new BehaviorSubject<any[]>([]);
-readonly threads = this._threads.asObservable();
+public _threads = new BehaviorSubject<any[]>([]);
+public readonly threads = this._threads.asObservable();
 
   constructor() { }
 
@@ -18,14 +19,18 @@ readonly threads = this._threads.asObservable();
     const collRef = await collection(this.firestore, 'channels', channelID, 'posts', postID, 'threads');
     const userData = collectionData(collRef);
 
+    return new Promise((resolve, reject) => {
     userData.subscribe((threads)=>{
       this._threads.next(threads);
-      console.log('service:', this._threads.getValue());
-      
-    })
-//  this.threadData = userData;
-//  console.log(this.threadData);
+      this.numberOfThreads = this._threads.getValue().length;
+   
+      resolve(threads);
+     
+      // return threads;
+    }, reject)
+    });
    
       }
+     
 }
 

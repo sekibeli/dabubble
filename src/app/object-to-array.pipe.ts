@@ -8,7 +8,7 @@ export class ObjectToArrayPipe implements PipeTransform {
   transform = (objects: any =[]) =>
   {
     let items = Object.values(objects);
-    console.log(items);
+    // console.log(items);
     return items;
   
   }
