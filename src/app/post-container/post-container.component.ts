@@ -54,6 +54,10 @@ export class PostContainerComponent implements OnInit, OnDestroy {
 
   }
 
+  async getPost(channelID, docID){
+    this.postService.getPost(channelID, docID);
+  }
+
   
 
 }

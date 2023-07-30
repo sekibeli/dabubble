@@ -33,6 +33,7 @@ import { MainComponent } from './main/main.component';
 import { ThreadContainerComponent } from './thread-container/thread-container.component';
 import { ThreadDetailComponent } from './thread-detail/thread-detail.component';
 import { ObjectToArrayPipe } from './object-to-array.pipe';
+import { SinglePostComponent } from './single-post/single-post.component';
 
 
 
@@ -54,7 +55,8 @@ import { ObjectToArrayPipe } from './object-to-array.pipe';
     MainComponent,
     ThreadContainerComponent,
     ThreadDetailComponent,
-    ObjectToArrayPipe
+    ObjectToArrayPipe,
+    SinglePostComponent
   ],
   imports: [
     BrowserModule,

@@ -34,4 +34,15 @@ export class UserService implements OnInit{
     return docData(docRef);
   
    }
+
+
+   async getAuthorDetails(post){
+    const userDataRef = await this.getCurrentUser(post['author']).then((data)=>{
+     
+      data.subscribe((value)=>{
+        // this.author = value;
+      return value;
+      })
+    })
+  }
 }

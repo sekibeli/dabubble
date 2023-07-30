@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, addDoc, collection, collectionData } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, collectionData, doc, onSnapshot } from '@angular/fire/firestore';
 import { Post } from '../models/post.class';
 
 @Injectable({
@@ -45,12 +45,22 @@ export class PostService {
     }).catch((error)=>{
       console.log(error);
     });
-  
-    
+    }
 
-  }
+ getPost(channelID, docID){
+  const docRef = collection(this.firestore, 'channels', channelID, 'posts' );
+  const collData = doc(docRef, docID);
 
-  countThreads(){}
+
+  onSnapshot(collData, (post) => {
+    if (post.exists()) {
+      this.post = post.data();
+      console.log('DieserPost:', this.post);
+    } else {
+      console.log('User nicht vorhanden!');
+    }
+  });
+ }
 }
 
 // ref => ref.orderBy('timestamp')

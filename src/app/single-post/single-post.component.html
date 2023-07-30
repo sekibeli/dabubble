@@ -1,0 +1,11 @@
+
+
+<div *ngIf="singlePost" class="singlePost">
+    <div class="profile-pic"><img src="{{author['img']}}"></div>
+    <div class="post-content">
+       <div class="firstRow"> <div class="post-author">{{author['username']}}</div> <div class="postTime">{{time}} Uhr</div></div>
+        <div class="post-description">{{singlePost['description']}}</div>
+       <!-- <div class="postAnswer" (click)="getThread(this.postService.activeChannel, this.post.id); this.drawerService.open(); this.threadService.getPostForThread(this.post, this.author)">{{numberOfThreads}} Antworten <span class="postTime">letzte Antwort 14:35</span></div> -->
+    </div>
+</div>
+

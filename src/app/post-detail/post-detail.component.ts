@@ -28,6 +28,12 @@ ngOnInit(){
   this.getTimeFromTimestamp(this.post['timestamp']);
   console.log('channel:', this.postService.activeChannel, 'postID:', this.post.id);
    this.getThread(this.postService.activeChannel, this.post.id);
+  //  this.userService.getAuthorDetails(this.post).then((value:any)=>{
+  //  value.subscribe((item)=>{
+  //   console.log(item);
+  //  })
+  //  })
+   
   
   
 }

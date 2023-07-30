@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { PostService } from '../services/post.service';
+import { DrawerService } from '../services/drawer.service';
 
 @Component({
   selector: 'app-left-drawer',
@@ -7,7 +8,7 @@ import { PostService } from '../services/post.service';
   styleUrls: ['./left-drawer.component.scss']
 })
 export class LeftDrawerComponent {
-constructor(public postService: PostService){}
+constructor(public postService: PostService, public drawerService: DrawerService){}
 posts;
 
 // getAllPosts(id){

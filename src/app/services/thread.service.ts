@@ -6,10 +6,16 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class ThreadService {
+  private _postForThread: BehaviorSubject<any> = new BehaviorSubject<any>([]);
+  private _author: BehaviorSubject<any> = new BehaviorSubject<any>([])
+  // private author;
+  public thread;
   public numberOfThreads;
 firestore: Firestore = inject(Firestore);
 public _threads = new BehaviorSubject<any[]>([]);
 public readonly threads = this._threads.asObservable();
+public readonly postForThread$ = this._postForThread.asObservable();
+public readonly author$ = this._author.asObservable();
 
   constructor() { }
 
@@ -23,14 +29,18 @@ public readonly threads = this._threads.asObservable();
     userData.subscribe((threads)=>{
       this._threads.next(threads);
       this.numberOfThreads = this._threads.getValue().length;
-   
       resolve(threads);
-     
-      // return threads;
     }, reject)
     });
    
       }
      
+
+
+      getPostForThread(post, author){
+        // console.log('neuer Versuch:', post, author);
+this._postForThread.next(post);
+this._author.next(author);
+      }
 }
 
