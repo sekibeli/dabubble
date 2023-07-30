@@ -4,12 +4,16 @@
     <mat-label>Schreibe eine Nachricht ...</mat-label>
     <textarea formControlName="description" matInput placeholder="Schreibe eine Nachricht" ></textarea>
   </mat-form-field> -->
-<textarea formControlName="description" id="message" name="meineTextarea"  rows="6" placeholder="Schreibe eine Nachricht">
+<textarea *ngIf="!singlePost" formControlName="description" id="message" name="meineTextarea"  rows="6" placeholder="Nachricht schreiben ...">
+  
+</textarea>
+<textarea *ngIf="singlePost" formControlName="description" id="message" name="meineTextarea"  rows="6" placeholder="Antworten ...">
   
 </textarea>
 
 </form>
-<div class="buttonSend" (click)="this.savePost(this.chatMessage)"><mat-icon>send</mat-icon></div>
+<div *ngIf="!singlePost" class="buttonSend" (click)="this.savePost(this.chatMessage)"><mat-icon>send</mat-icon></div>
+<div *ngIf="singlePost" class="buttonSend" (click)="this.savePost(this.chatMessage, this.singlePost['id'])"><mat-icon>send</mat-icon></div>
 </div>
 
 <!-- <div class="buttonSend" (click)="this.savePost(this.chatMessage)"><mat-icon>send</mat-icon></div> -->

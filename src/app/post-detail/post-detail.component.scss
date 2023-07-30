@@ -1,6 +1,8 @@
 .singlePost {
     display: flex;
     align-items:flex-start;
+    margin-top: 30px;
+    margin: 30px 15px 10px 15px;
 }
 
 .post-content {
@@ -18,10 +20,7 @@
         height: 60px;
     }
     }
-.singlePost {
-    margin-top: 30px;
-    margin: 30px 15px 10px 15px;
-}   
+
 
 .post-author {
     font-weight: 700;

@@ -22,6 +22,7 @@ this.time = new Date(this.singlePost['timestamp']).toLocaleTimeString('de-DE', {
   })
 })
   
+console.log('SinglePost:', this.singlePost);
   }
 
 

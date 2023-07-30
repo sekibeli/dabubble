@@ -8,7 +8,7 @@ import { ThreadService } from '../services/thread.service';
   styleUrls: ['./thread-container.component.scss']
 })
 export class ThreadContainerComponent implements OnInit{
-
+singlePost: any;
 threads;
 thread;
 // observ;
@@ -23,10 +23,13 @@ countsOfThreads;
     this.countsOfThreads = this.threads.length;
     this.thread = this.threadService.thread;
 
- 
   })
+
+  this.threadService.postForThread$.subscribe((post)=> {
+    this.singlePost = post;})
 //  this.threads = this.threadService.threads;
 //  console.log('threads:', this.threads);
+
   }
 
 

@@ -29,22 +29,33 @@ export class PostService {
     return postData;
   }
 
-  savePost(author, channelID, description) {
+  savePost(author, channelID, description, postId?) {
     console.log('author:', author);
        this.post = new Post({
       id: '', 
       author: localStorage.getItem('currentUserID'),
       description: description,
      timestamp: new Date().getTime()})
- 
-     console.log('channelID:', channelID);
-    const collDocRef = collection(this.firestore, 'channels', channelID, 'posts');
 
-    addDoc(collDocRef, this.post.toJSON()).then((result)=>{
+     console.log('channelID:', channelID);
+    
+     if(!postId){ const collDocRef = collection(this.firestore, 'channels', channelID, 'posts');
+     addDoc(collDocRef, this.post.toJSON()).then((result)=>{
+      console.log('Anlage erfolgreich')
+    }).catch((error)=>{
+      console.log(error);
+    });} else {
+      channelID = this.activeChannel;
+      const collDocRef = collection(this.firestore, 'channels', channelID, 'posts', postId, 'threads');
+     addDoc(collDocRef, this.post.toJSON()).then((result)=>{
       console.log('Anlage erfolgreich')
     }).catch((error)=>{
       console.log(error);
     });
+    }
+   
+
+  
     }
 
  getPost(channelID, docID){

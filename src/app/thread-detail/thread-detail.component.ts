@@ -9,6 +9,7 @@ import { UserService } from '../services/user.service';
 export class ThreadDetailComponent implements OnInit {
 author;
 @Input() thread;
+time;
 
 
 constructor(private userService: UserService){
@@ -20,7 +21,7 @@ ngOnInit(){
   if(this.thread && this.thread.author){
     this.getAuthorDetails(this.thread);
   }
-    
+    this.time =  new Date(this.thread['timestamp']).toLocaleTimeString('de-DE', {hour: '2-digit', minute:'2-digit'});
 }
 
 async getAuthorDetails(post){

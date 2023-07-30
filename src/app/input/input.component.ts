@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Post } from '../models/post.class';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PostService } from '../services/post.service';
@@ -11,6 +11,7 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./input.component.scss']
 })
 export class InputComponent implements OnInit {
+  @Input() singlePost;
   currentUser;
   currentChannel;
   post: Post;
@@ -31,14 +32,15 @@ export class InputComponent implements OnInit {
 
   }
 
-  savePost(description){
+  savePost(description, postId){
+    
   
     this.currentChannel = this.activatedRoute.snapshot.params['id'];
 let channelID = this.currentChannel;
  
 description = this.chatMessage.value.description;
 
-    this.postService.savePost(this.currentUser, channelID, description);
+    this.postService.savePost(this.currentUser, channelID, description, postId);
     this.chatMessage.reset();
   }
 
