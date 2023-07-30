@@ -35,7 +35,7 @@
     background-color: white;
     border-radius:20px;
     margin-left: 15px;
-    padding: 20px;
+    // padding: 20px;
 }
 .main{
     position: relative;
@@ -44,7 +44,8 @@
     border: 20px solid var(--background-color);
     border-radius: 40px;
     background-color: white;
-    padding: 65px 20px 5px 20px;
+    // padding: 65px 20px 5px 20px;
+    padding: 0 0 5px 0;
 }
 
 .layerToggle {

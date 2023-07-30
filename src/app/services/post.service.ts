@@ -21,7 +21,7 @@ export class PostService {
     await postData.subscribe((post) => {
       this.posts = post;
       this.activeChannel = channelID;
-      console.log(post);
+      console.log('2. Post mit ID: ', post);
       console.log('1.activeChannel', this.activeChannel);
      
       // console.log('Postings:',this.posts);
@@ -32,7 +32,7 @@ export class PostService {
   savePost(author, channelID, description) {
     console.log('author:', author);
        this.post = new Post({
-      id: this.post.id, 
+      id: '', 
       author: localStorage.getItem('currentUserID'),
       description: description,
      timestamp: new Date().getTime()})

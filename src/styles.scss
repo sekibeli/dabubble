@@ -33,7 +33,7 @@ h2 {
 }
 
 .fullWidth {
-    width: 100%;
+    width: 90%;
 }
 
 .important {
@@ -129,3 +129,16 @@ button:disabled {
       height: 60px;
      }
   }
+
+  .scrollContainer {
+ padding-bottom: 80px;
+    height: 100%;
+    overflow: scroll;
+}
+
+.singlePost {
+    display: flex;
+    align-items:flex-start;
+    margin-top: 30px;
+    margin: 30px 15px 10px 15px;
+}

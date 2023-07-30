@@ -1,10 +1,15 @@
 <div class="input-container">
-<form class="chatInput" [formGroup]="chatMessage">
-<mat-form-field  appearance="outline" class="fullWidth">
+<form class="chatInput input-container" [formGroup]="chatMessage">
+<!-- <mat-form-field  appearance="outline" class="fullWidth">
     <mat-label>Schreibe eine Nachricht ...</mat-label>
     <textarea formControlName="description" matInput placeholder="Schreibe eine Nachricht" ></textarea>
-  </mat-form-field>
+  </mat-form-field> -->
+<textarea formControlName="description" id="message" name="meineTextarea"  rows="6" placeholder="Schreibe eine Nachricht">
+  
+</textarea>
+
 </form>
+<div class="buttonSend" (click)="this.savePost(this.chatMessage)"><mat-icon>send</mat-icon></div>
 </div>
 
-<div class="buttonSend" (click)="this.savePost(this.chatMessage)"><mat-icon>send</mat-icon></div>
+<!-- <div class="buttonSend" (click)="this.savePost(this.chatMessage)"><mat-icon>send</mat-icon></div> -->

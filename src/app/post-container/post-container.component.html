@@ -1,8 +1,9 @@
 
 <app-postheader></app-postheader>
-
-<div  *ngFor="let post of  posts">
+<div class="scrollContainer">
+<div *ngFor="let post of  posts">
   <app-post-detail [post]="post"></app-post-detail>
 </div>
-
+</div>
 <app-input></app-input>
+

@@ -1,6 +1,6 @@
 .singlePost {
-    display: flex;
-    align-items:flex-start;
+    // display: flex;
+    // align-items:flex-start;
     border-bottom: 1px solid var(--background-color);
 }
 
@@ -19,9 +19,7 @@
         height: 60px;
     }
     }
-.singlePost {
-    margin-top: 70px;
-}   
+ 
 
 .post-author {
     font-weight: 700;

@@ -1,11 +1,12 @@
 .postheader {
+  position: -webkit-sticky;
     border-top-right-radius: 20px;
     border-top-left-radius: 20px;
     z-index: 0;
-    position: absolute;
+    position: sticky;
     top: 0px;
-    left: 0px;
-  right: 0px;
+  //   left: 0px;
+  // right: 0px;
   height: 65px;
     background-color: white;
     box-shadow: 0 2px 4px -1px rgb(195, 195, 195);

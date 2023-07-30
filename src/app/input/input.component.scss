@@ -1,17 +1,33 @@
 .input-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
     z-index: 0;
-    position: absolute;
-    bottom: 25px;
-    left: 10px;
-  right: 10px;
+    position: sticky;
+    bottom: -5px;
+    left: 30px;
+  right: 30px;
     background-color: white;
+    // margin-bottom: 20px;
+   
+
+    textarea {
+      font-family: 'Nunito';
+      padding: 20px;
+      // margin-left: 20px;
+      // margin-right: 20px;
+      margin: 10px 20px;
+      width: calc(100% - 80px);
+      border: 1px solid var(--background-color);
+      border-radius: 20px;
+    }
 
 }
 .buttonSend {
-  position: absolute;
-  bottom: 45px;
+  position: sticky;
+margin-top: 90px;
   color: darkblue;
-right: 40px;
+right: 60px;
 cursor: pointer;
 
 }
