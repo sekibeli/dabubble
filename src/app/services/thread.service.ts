@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, collection, collectionData } from '@angular/fire/firestore';
+import { Firestore, collection, collectionData, orderBy, query } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -23,7 +23,8 @@ public readonly author$ = this._author.asObservable();
   async getThread(channelID, postID){
     console.log(channelID);
     const collRef = await collection(this.firestore, 'channels', channelID, 'posts', postID, 'threads');
-    const userData = collectionData(collRef);
+    const answer = query(collRef, orderBy('timestamp'))
+    const userData = collectionData(answer);
 
     return new Promise((resolve, reject) => {
     userData.subscribe((threads)=>{

@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, addDoc, collection, collectionData, doc, onSnapshot } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, collectionData, doc, onSnapshot, orderBy } from '@angular/fire/firestore';
 import { Post } from '../models/post.class';
 
 @Injectable({
@@ -16,16 +16,16 @@ export class PostService {
 
   async getAllPosts(channelID) {
     const collRef = collection(this.firestore, 'channels', channelID, 'posts');
+    
     const postData = await collectionData(collRef,  {idField: 'id'});
 
-    await postData.subscribe((post) => {
+   postData.subscribe((post) => {
       this.posts = post;
       this.activeChannel = channelID;
       console.log('2. Post mit ID: ', post);
       console.log('1.activeChannel', this.activeChannel);
      
-      // console.log('Postings:',this.posts);
-    })
+        })
     return postData;
   }
 
@@ -39,8 +39,10 @@ export class PostService {
 
      console.log('channelID:', channelID);
     
-     if(!postId){ const collDocRef = collection(this.firestore, 'channels', channelID, 'posts');
+     if(!postId){ 
+      const collDocRef = collection(this.firestore, 'channels', channelID, 'posts');
      addDoc(collDocRef, this.post.toJSON()).then((result)=>{
+     
       console.log('Anlage erfolgreich')
     }).catch((error)=>{
       console.log(error);
