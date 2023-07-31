@@ -3,37 +3,18 @@
   <div class="leftDrawerTopic">Code learning</div>
   <mat-icon>editOutlined</mat-icon>
 </div>
-<!-- 
-<mat-expansion-panel>
-    <mat-expansion-panel-header>
-        <mat-icon>account_circle</mat-icon>
-      <mat-panel-title>
-      Channels
-      </mat-panel-title>
-     
-    </mat-expansion-panel-header>
 
-   <div># Entwicklerteam</div>
-
-  </mat-expansion-panel> -->
 <div class="channelContainer">
   <div class="channelsTop"><mat-icon>workspacesOutlined</mat-icon>Channels</div>
   <div>
     <ul>
-      <li
+      <li *ngFor="let channel of channels"
       (click)="this.drawerService.close()"
         class="klick"
-        [routerLink]="['/home', 'channel', '9Gwz1Ce763caWx5FCBZL']"
+        [routerLink]="['/home', 'channel', this.channel['id']]"
         routerLinkActive="active">
-        # Entwicklerteam
+        # {{this.channel['title']}}
       </li>
-      <li
-      (click)="this.drawerService.close()"
-        class="klick"
-        [routerLink]="['/home', 'channel', 'OnQ02XRJqwZRA0ts0qc5']"
-        routerLinkActive="active">
-        # Office-Team
-      </li>
-    </ul>
+     </ul>
   </div>
 </div>

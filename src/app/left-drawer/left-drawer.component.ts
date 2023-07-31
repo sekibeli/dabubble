@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { PostService } from '../services/post.service';
 import { DrawerService } from '../services/drawer.service';
 import { ActivatedRoute } from '@angular/router';
+import { Firestore, collection, collectionData } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-left-drawer',
@@ -9,10 +10,23 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./left-drawer.component.scss']
 })
 export class LeftDrawerComponent {
-constructor(public postService: PostService, public drawerService: DrawerService, public activatedRoute: ActivatedRoute){}
+  channels;
+  firestore: Firestore = inject(Firestore);
+constructor(public postService: PostService, public drawerService: DrawerService){
+this.getChannels().then((items)=> {
+  items.subscribe((value)=>{
+    this.channels = value;
+    });
+ 
+})
+}
 posts;
 
-
+ async getChannels(){
+  const collRef = collection(this.firestore, 'channels');
+  const docChannel = await collectionData(collRef, {idField: 'id'});
+  return docChannel;
+ }
 
 
 }
