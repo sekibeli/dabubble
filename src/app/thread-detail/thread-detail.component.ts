@@ -17,7 +17,6 @@ constructor(private userService: UserService){
 }
 
 ngOnInit(){
-  console.log('EIN thread', this.thread);
   if(this.thread && this.thread.author){
     this.getAuthorDetails(this.thread);
   }
@@ -29,8 +28,7 @@ async getAuthorDetails(post){
    
     data.subscribe((value)=>{
       this.author = value;
-      console.log('Author:', this.author.username);
-    
+        
     })
   })
 }

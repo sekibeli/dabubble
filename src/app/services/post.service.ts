@@ -22,9 +22,7 @@ export class PostService {
    postData.subscribe((post) => {
       this.posts = post;
       this.activeChannel = channelID;
-      console.log('2. Post mit ID: ', post);
-      console.log('1.activeChannel', this.activeChannel);
-     
+       
         })
     return postData;
   }
@@ -37,7 +35,7 @@ export class PostService {
       description: description,
      timestamp: new Date().getTime()})
 
-     console.log('channelID:', channelID);
+   
     
      if(!postId){ 
       const collDocRef = collection(this.firestore, 'channels', channelID, 'posts');

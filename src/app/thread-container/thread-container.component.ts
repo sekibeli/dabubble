@@ -27,8 +27,7 @@ countsOfThreads;
 
   this.threadService.postForThread$.subscribe((post)=> {
     this.singlePost = post;})
-//  this.threads = this.threadService.threads;
-//  console.log('threads:', this.threads);
+
 
   }
 

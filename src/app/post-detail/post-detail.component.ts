@@ -31,17 +31,8 @@ export class PostDetailComponent implements OnInit {
 
     this.getAuthorDetails(this.post);
     this.getTimeFromTimestamp(this.post['timestamp']);
-    console.log('channel:', this.postService.activeChannel, 'postID:', this.post.id);
-    this.getThread(this.postService.activeChannel, this.post.id);
+       this.getThread(this.postService.activeChannel, this.post.id);
    this.getFormatedDateFromTimestamp(this.post['timestamp']);
-
-    //  this.userService.getAuthorDetails(this.post).then((value:any)=>{
-    //  value.subscribe((item)=>{
-    //   console.log(item);
-    //  })
-    //  })
-
-console.log('Diesmal:', this.trueFalse);
 
   }
 
@@ -59,12 +50,6 @@ console.log('Diesmal:', this.trueFalse);
   }
 
   getTimeFromTimestamp(timestamp) {
-    console.log(timestamp);
-    //   let date = new Date(milliseconds);
-    //   let heute = new Date();
-    //  let heutezahl = heute.getTime();
-    //   this.time = date.toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'});
-
     let date = new Date(timestamp);
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -83,8 +68,7 @@ console.log('Diesmal:', this.trueFalse);
 
     let date = new Date(timestamp);
      this.formatedDate = new Date(timestamp).toLocaleString('de-DE', { weekday: 'long', day: '2-digit', month: 'long' });
-          console.log('Formatiertes Datum: ', this.formatedDate);
- 
+     
   }
 
   

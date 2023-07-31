@@ -11,37 +11,36 @@ export class ThreadService {
   // private author;
   public thread;
   public numberOfThreads;
-firestore: Firestore = inject(Firestore);
-public _threads = new BehaviorSubject<any[]>([]);
-public readonly threads = this._threads.asObservable();
-public readonly postForThread$ = this._postForThread.asObservable();
-public readonly author$ = this._author.asObservable();
+  firestore: Firestore = inject(Firestore);
+  public _threads = new BehaviorSubject<any[]>([]);
+  public readonly threads = this._threads.asObservable();
+  public readonly postForThread$ = this._postForThread.asObservable();
+  public readonly author$ = this._author.asObservable();
 
   constructor() { }
 
 
-  async getThread(channelID, postID){
-    console.log(channelID);
+  async getThread(channelID, postID) {
+
     const collRef = await collection(this.firestore, 'channels', channelID, 'posts', postID, 'threads');
     const answer = query(collRef, orderBy('timestamp'))
     const userData = collectionData(answer);
 
     return new Promise((resolve, reject) => {
-    userData.subscribe((threads)=>{
-      this._threads.next(threads);
-      this.numberOfThreads = this._threads.getValue().length;
-      resolve(threads);
-    }, reject)
+      userData.subscribe((threads) => {
+        this._threads.next(threads);
+        this.numberOfThreads = this._threads.getValue().length;
+        resolve(threads);
+      }, reject)
     });
-   
-      }
-     
+
+  }
 
 
-      getPostForThread(post, author){
-        // console.log('neuer Versuch:', post, author);
-this._postForThread.next(post);
-this._author.next(author);
-      }
+
+  getPostForThread(post, author) {
+    this._postForThread.next(post);
+    this._author.next(author);
+  }
 }
 
