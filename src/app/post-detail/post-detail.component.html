@@ -1,4 +1,10 @@
+<div *ngIf="trueFalse" class="deviderBox">
+       <div class="formatedDate">{{formatedDate}}</div>
+</div>
+<div  class="dateDevider"></div>
+
 <div *ngIf="author" class="singlePost">
+
     <div class="profile-pic"><img src="{{author['img']}}"></div>
     <div class="post-content">
        <div class="firstRow"> <div class="post-author">{{author['username']}}</div> <div class="postTime">{{time}} Uhr</div></div>

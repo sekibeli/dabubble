@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, addDoc, collection, collectionData, doc, onSnapshot, orderBy } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, collectionData, doc, onSnapshot, orderBy, query } from '@angular/fire/firestore';
 import { Post } from '../models/post.class';
 
 @Injectable({
@@ -16,8 +16,8 @@ export class PostService {
 
   async getAllPosts(channelID) {
     const collRef = collection(this.firestore, 'channels', channelID, 'posts');
-    
-    const postData = await collectionData(collRef,  {idField: 'id'});
+    const answer = query(collRef, orderBy('timestamp'))
+    const postData = await collectionData(answer,   {idField: 'id'});
 
    postData.subscribe((post) => {
       this.posts = post;
