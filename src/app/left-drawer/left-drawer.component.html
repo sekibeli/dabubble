@@ -8,8 +8,8 @@
   <div class="channelsTop"><mat-icon>workspacesOutlined</mat-icon>Channels</div>
   <div>
     <ul>
-      <li *ngFor="let channel of channels"
-      (click)="this.drawerService.close()"
+      <li *ngFor="let channel of channels; let i = index"
+      (click)="this.drawerService.close(); this.currentChannel(i)"
         class="klick"
         [routerLink]="['/home', 'channel', this.channel['id']]"
         routerLinkActive="active">

@@ -9,9 +9,9 @@ import { UserService } from '../services/user.service';
 export class ThreadDetailComponent implements OnInit {
 author;
 @Input() thread;
-@Input() trueFalse: boolean;
+// @Input() trueFalse: boolean;
 time;
-formatedDate;
+// formatedDate;
 
 
 constructor(private userService: UserService){
@@ -23,8 +23,8 @@ ngOnInit(){
     this.getAuthorDetails(this.thread);
   }
     this.time =  new Date(this.thread['timestamp']).toLocaleTimeString('de-DE', {hour: '2-digit', minute:'2-digit'});
-    console.log(this.trueFalse);
-    this.getFormatedDateFromTimestamp(this.thread['timestamp']);
+    // console.log(this.trueFalse);
+    // this.getFormatedDateFromTimestamp(this.thread['timestamp']);
 }
 
 async getAuthorDetails(post){
@@ -36,12 +36,12 @@ async getAuthorDetails(post){
     })
   })
 }
-getFormatedDateFromTimestamp(timestamp) {
+// getFormatedDateFromTimestamp(timestamp) {
 
-  let date = new Date(timestamp);
-   this.formatedDate = new Date(timestamp).toLocaleString('de-DE', { weekday: 'long', day: '2-digit', month: 'long' });
+//   let date = new Date(timestamp);
+//    this.formatedDate = new Date(timestamp).toLocaleString('de-DE', { weekday: 'long', day: '2-digit', month: 'long' });
    
-}
+// }
 
 
 }

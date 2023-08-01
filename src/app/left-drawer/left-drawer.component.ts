@@ -28,6 +28,8 @@ export class LeftDrawerComponent {
   //   const docChannel = await collectionData(collRef, { idField: 'id' });
   //   return docChannel;
   // }
-
+ currentChannel(id){
+  this.channelService.currentChannel(id);
+ }
 
 }
