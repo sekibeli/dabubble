@@ -62,7 +62,7 @@
     cursor: pointer;
 }
 .deviderBox {
-    
+    z-index: 0;
     margin-top: 15px;
     position: relative;
 }
@@ -75,7 +75,7 @@
 }
 
 .formatedDate{
-    z-index: 2;
+    z-index: 1;
     text-align: center;
     position: absolute;
     padding: 5px 0;

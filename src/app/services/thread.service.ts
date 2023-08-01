@@ -42,5 +42,10 @@ export class ThreadService {
     this._postForThread.next(post);
     this._author.next(author);
   }
+
+
+
+
+  
 }
 

@@ -85,15 +85,15 @@ export class PostContainerComponent implements OnInit, OnDestroy {
       * @returns a new array with only booleans for use if a date of a post is shown or not
       */
  dateCompare(strings) {
-    let neuesArray = [true]; // Der erste Wert ist immer true
+    let newArray = [true]; // Der erste Wert ist immer true
     for(let i = 1; i < strings.length; i++) {
         if(strings[i] !== strings[i - 1]) {
-            neuesArray.push(true);
+            newArray.push(true);
         } else {
-            neuesArray.push(false);
+            newArray.push(false);
         }
     }
-    return neuesArray;
+    return newArray;
 }
   
 }

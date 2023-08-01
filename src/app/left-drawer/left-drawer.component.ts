@@ -3,6 +3,7 @@ import { PostService } from '../services/post.service';
 import { DrawerService } from '../services/drawer.service';
 import { ActivatedRoute } from '@angular/router';
 import { Firestore, collection, collectionData } from '@angular/fire/firestore';
+import { ChannelService } from '../services/channel.service';
 
 @Component({
   selector: 'app-left-drawer',
@@ -12,21 +13,21 @@ import { Firestore, collection, collectionData } from '@angular/fire/firestore';
 export class LeftDrawerComponent {
   channels;
   firestore: Firestore = inject(Firestore);
-constructor(public postService: PostService, public drawerService: DrawerService){
-this.getChannels().then((items)=> {
-  items.subscribe((value)=>{
-    this.channels = value;
-    });
- 
-})
-}
-posts;
+  constructor(public postService: PostService, public drawerService: DrawerService, public channelService: ChannelService) {
+    this.channelService.getChannels().then((items) => {
+      items.subscribe((value) => {
+        this.channels = value;
+      });
 
- async getChannels(){
-  const collRef = collection(this.firestore, 'channels');
-  const docChannel = await collectionData(collRef, {idField: 'id'});
-  return docChannel;
- }
+    })
+  }
+  // posts;
+
+  // async getChannels() {
+  //   const collRef = collection(this.firestore, 'channels');
+  //   const docChannel = await collectionData(collRef, { idField: 'id' });
+  //   return docChannel;
+  // }
 
 
 }

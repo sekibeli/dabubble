@@ -27,6 +27,14 @@ export class PostService {
     return postData;
   }
 
+
+  /**
+   * 
+   * @param author 
+   * @param channelID 
+   * @param description 
+   * @param postId 
+   */
   savePost(author, channelID, description, postId?) {
     console.log('author:', author);
        this.post = new Post({
