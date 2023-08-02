@@ -1,13 +1,16 @@
-import { Injectable, OnInit, inject } from '@angular/core';
-import { Firestore, collection, collectionData } from '@angular/fire/firestore';
+import { EventEmitter, Injectable, OnInit, inject } from '@angular/core';
+import { Firestore, collection, collectionData, doc, docData } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChannelService implements OnInit {
 firestore: Firestore = inject(Firestore)
-channelID: string;
-channels;
+// channelID: string ;
+
+// channels;
+activeChannel = new EventEmitter<string>();
+
   constructor() {
    
    }
@@ -19,9 +22,12 @@ channels;
    }
 
    ngOnInit(){
-console.log(this.channels);
+
    }
-   currentChannel(id){
-this.channelID = id;
+   pushActiveChannel(title){
+    
+      this.activeChannel.emit(title);
+
    }
+
 }

@@ -2,10 +2,10 @@
 <!-- <app-postheader></app-postheader> -->
 <app-header></app-header>
 
-<app-single-post></app-single-post>
+<app-single-post [countsOfThreads]="countsOfThreads"></app-single-post>
 <div class="scrollContainer">
 <div *ngFor="let thread of threads | objectToArray">
   <app-thread-detail [thread]="thread"></app-thread-detail>
 </div>
 </div>
-<app-input [singlePost]="singlePost"></app-input>
+<app-input  [singlePost]="singlePost"></app-input>

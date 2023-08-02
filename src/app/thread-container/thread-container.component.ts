@@ -12,7 +12,7 @@ export class ThreadContainerComponent implements OnInit{
 singlePost: any;
 threads;
 thread;
-countsOfThreads;
+countsOfThreads; //  Anzahl der Threads
 trueFalseArray;
   constructor(private drawerService: DrawerService, private threadService: ThreadService ){
 
@@ -24,6 +24,7 @@ trueFalseArray;
     this.countsOfThreads = this.threads.length;
     this.thread = this.threadService.thread;
     this.createTimestampArray(this.threads);
+  
 
   })
 

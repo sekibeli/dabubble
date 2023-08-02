@@ -9,25 +9,33 @@ import { ChannelService } from '../services/channel.service';
 export class PostheaderComponent implements OnInit {
   channels;
   channel;
-  channelID;
+  // channelID ;
+  // chan = 0;
+  activeChannel = 'Angular';
 constructor( public channelService: ChannelService){
  this.getChannels();
 }
 
 ngOnInit(){
- this.channelID = this.channelService.channelID;
+this.channelService.activeChannel.subscribe(
+  (value) => {
+     this.activeChannel = value;
+    console.log(this.activeChannel);
+  }
+)
+
+
 
 }
-
 
 getChannels(){
   this.channelService.getChannels().then((items) => {
     items.subscribe((value) => {
       this.channels = value;
-      console.log(this.channels);
-      console.log(this.channelService.channelID);
+      // console.log(this.channels[this.chan].title);  
     });
-
   })
 }
+
+
 }

@@ -108,6 +108,7 @@ button:disabled {
 }
 
 .singlePost {
+   
     display: flex;
     align-items:flex-start;
     margin-top: 30px;
@@ -140,4 +141,17 @@ button:disabled {
     background-color: white;
     border: 1px solid var(--light-purple-lines);
     border-radius: 15px;
+}
+.singlePostContainer {
+    position: relative;
+}
+.answers {
+    font-size: 0.8em;
+    position: absolute;
+    padding-right: 5px;
+    padding-left: 5px;
+    bottom: -8px;
+    background-color: white;
+    left: 5px;
+    color: var(--light-purple-lines);
 }

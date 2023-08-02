@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ThreadService } from '../services/thread.service';
 
 @Component({
@@ -10,6 +10,8 @@ export class SinglePostComponent implements OnInit {
 time;
 singlePost: any;
 author: any;
+@Input() countsOfThreads;
+
   constructor(public threadService: ThreadService){}
 
   ngOnInit() {

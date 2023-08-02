@@ -72,7 +72,7 @@ export class PostContainerComponent implements OnInit, OnDestroy {
  * creates an array with the dates of all posts
  */
   createTimestampArray(posts){
-    let timestamps = [];
+   
     posts.forEach((element) => {
        this.timestamps.push(new Date(element['timestamp']).toLocaleString('de-DE', { weekday: 'long', day: '2-digit', month: 'long' }));
      });

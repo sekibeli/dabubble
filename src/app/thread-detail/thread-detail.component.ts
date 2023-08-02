@@ -9,6 +9,7 @@ import { UserService } from '../services/user.service';
 export class ThreadDetailComponent implements OnInit {
 author;
 @Input() thread;
+
 // @Input() trueFalse: boolean;
 time;
 // formatedDate;

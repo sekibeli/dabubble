@@ -13,23 +13,25 @@ import { ChannelService } from '../services/channel.service';
 export class LeftDrawerComponent {
   channels;
   firestore: Firestore = inject(Firestore);
+  
   constructor(public postService: PostService, public drawerService: DrawerService, public channelService: ChannelService) {
+      
     this.channelService.getChannels().then((items) => {
       items.subscribe((value) => {
         this.channels = value;
       });
-
     })
-  }
-  // posts;
 
-  // async getChannels() {
-  //   const collRef = collection(this.firestore, 'channels');
-  //   const docChannel = await collectionData(collRef, { idField: 'id' });
-  //   return docChannel;
-  // }
- currentChannel(id){
-  this.channelService.currentChannel(id);
+   
+  }
+ 
+ currentChannel(title){
+  this.channelService.pushActiveChannel(title);
+  
  }
+
+//  getChannel(id){
+// this.channelService.getchannel(id);
+//  }
 
 }

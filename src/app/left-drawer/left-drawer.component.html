@@ -9,7 +9,7 @@
   <div>
     <ul>
       <li *ngFor="let channel of channels; let i = index"
-      (click)="this.drawerService.close(); this.currentChannel(i)"
+      (click)="this.drawerService.close(); this.currentChannel(this.channel['title'])"
         class="klick"
         [routerLink]="['/home', 'channel', this.channel['id']]"
         routerLinkActive="active">
