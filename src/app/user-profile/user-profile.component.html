@@ -1,7 +1,9 @@
 <div class="profile-overview">
-  
+    <div class="profile-name">{{ this.currentUser['username']}}</div>
 <img class="profile-img" src="{{this.currentUser['img']}}" alt="">
-<div class="profile-name">{{ this.currentUser['username']}}</div>
+<button (click)="logUserOut()"
+[routerLink]="['/']">Logout</button>
+
 
 
 </div>

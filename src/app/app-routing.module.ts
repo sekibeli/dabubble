@@ -6,6 +6,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { HomeComponent } from './home/home.component';
 import { PostContainerComponent } from './post-container/post-container.component';
 import { MainComponent } from './main/main.component';
+import { ChatComponent } from './chat/chat.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'start', pathMatch: 'full'},
@@ -15,7 +16,8 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent,
 children: [
   {path:'', component: MainComponent},
-  {path:'channel/:id', component: PostContainerComponent}
+  {path:'channel/:id', component: PostContainerComponent},
+  {path:'chat/:id', component: ChatComponent}
 ]},
  
 ];

@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../services/auth.service';
 import { Firestore, collection, collectionData, doc, setDoc } from '@angular/fire/firestore';
 import { User } from '../models/user.class';
+import { getAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-login',
@@ -12,6 +13,7 @@ import { User } from '../models/user.class';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+aut = getAuth();
   hide = true;
   user: User;
   firestore: Firestore = inject(Firestore);
@@ -24,7 +26,7 @@ export class LoginComponent {
   })
 
   loginWithGoogle() {
-    const userData = Object.assign({ email: this.loginForm.value.username }, this.loginForm.value);
+    const userData = Object.assign(this.aut, { email: this.loginForm.value.username }, this.loginForm.value);
     this.auth.signinWithGoogle().then((result: any) => {
       if(result && result.user){
       const collRef = doc(this.firestore, 'users', result.user.uid);
@@ -56,7 +58,7 @@ export class LoginComponent {
 
   loginWithEmailAndPassword() {
     console.log(this.loginForm.value);
-    const userData = Object.assign({ email: this.loginForm.value.username }, this.loginForm.value);
+    const userData = Object.assign(this.aut, { email: this.loginForm.value.username }, this.loginForm.value);
     console.log(userData);
     this.auth.loginWithEmailAndPassword(userData).then((result: any) => {
 
@@ -66,4 +68,8 @@ export class LoginComponent {
     });
 
   }
+
+  // logUserOut(aut){
+  //   this.auth.logUserOut(aut);
+  // }
 }

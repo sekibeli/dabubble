@@ -1,5 +1,5 @@
 import { Injectable, OnInit, inject } from '@angular/core';
-import { Firestore, collection, collectionData, doc, docData } from '@angular/fire/firestore';
+import { Firestore, collection, collectionData, doc, docData, setDoc, updateDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.class';
 
@@ -44,5 +44,17 @@ export class UserService implements OnInit{
       return value;
       })
     })
+  }
+
+  async setUserStatus(id, status){
+    const docRef = doc(this.firestore, 'users', id);
+    try{
+    await updateDoc(docRef,
+      {
+        active: status,
+      } );
+    } catch(error) {
+console.error ('Fehler: ', error);
+    }
   }
 }

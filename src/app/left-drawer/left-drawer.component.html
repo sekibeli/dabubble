@@ -24,15 +24,18 @@
   <div class="channelsTop"><mat-icon>account_circleOutlined</mat-icon>Direktnachrichten</div>
   <div>
     <ul>
-      <li *ngFor="let user of users">
+      <li *ngFor="let user of users let i = index"
+      [routerLink]="['/home','chat', user['id']]"
+      routerLinkActive="active">
      
         <div class="profile-overview">
-  
-          <img class="profile-img" src="{{this.user['img']}}" alt="">
-          <div class="profile-name">{{ this.user['username']}}</div>
-          
-          
-          </div>
+          <div class="relativePic">
+            <img class="profile-img" src="{{user['img']}}" alt="">
+            <div class="status"  [ngClass]="{'green': user['active'], 'grey': !user['active']}" ></div>
+            </div>
+            <div *ngIf="user['id'] != this.currentUserID" class="profile-name">{{ user['username']}}</div>
+            <div *ngIf="user['id'] == this.currentUserID" class="profile-name">{{ user['username']}} (Du)</div>
+       </div>
       
        
       </li>

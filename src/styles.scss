@@ -155,3 +155,27 @@ button:disabled {
     left: 5px;
     color: var(--light-purple-lines);
 }
+
+.relativePic{
+    position: relative;
+}
+
+.status{
+    z-index: 1;
+    position: absolute;
+    bottom: 5px;
+    right: 22px;
+    width: 10px;
+    height: 10px;
+   
+    border-radius: 50%;
+    border: 2px solid white;
+}
+
+.green {
+    background-color: rgb(8, 149, 8);
+}
+
+.grey {
+    background-color: rgb(105, 105, 105);
+}

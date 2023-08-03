@@ -15,6 +15,7 @@ import { User } from '../models/user.class';
 export class LeftDrawerComponent implements OnInit{
   users;
   channels;
+  currentUserID;
   firestore: Firestore = inject(Firestore);
   
   constructor(public postService: PostService, public drawerService: DrawerService, public channelService: ChannelService, public userService: UserService) {
@@ -30,10 +31,13 @@ export class LeftDrawerComponent implements OnInit{
   ngOnInit(): void {
     this.userService.getUserData().then((data)=> {
       data.subscribe((users)=> {
-        console.log(users);
-        this.users = users;
+         this.users = users;
+         console.log(users);
+        
       })
     })
+    this.currentUserID = localStorage.getItem('currentUserID');
+    console.log(this.currentUserID);
   }
  
  

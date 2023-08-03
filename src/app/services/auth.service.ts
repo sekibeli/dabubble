@@ -1,9 +1,10 @@
 import { Injectable, OnInit, inject } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Firestore, collection, collectionData, doc, docData, getDoc, onSnapshot } from '@angular/fire/firestore';
-import { GoogleAuthProvider } from 'firebase/auth';
+import { GoogleAuthProvider, signOut } from 'firebase/auth';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '../models/user.class';
+
 
 // Service 
 // • für die Anmeldung des Users
@@ -13,6 +14,7 @@ import { User } from '../models/user.class';
   providedIn: 'root'
 })
 export class AuthService implements OnInit {
+ 
   public userUID: string; //String mit der ID
   public currentUser; // User mit allen Eigenschaften
 
@@ -42,7 +44,7 @@ export class AuthService implements OnInit {
     return this.afs.createUserWithEmailAndPassword(user.email, user.password);
   }
 
-  loginWithEmailAndPassword(user: { email: string, password: string }) {
+  loginWithEmailAndPassword( user: { email: string, password: string }) {
     return this.afs.signInWithEmailAndPassword(user.email, user.password).then(result => {
 
       this.userUID = result.user.uid;
@@ -81,5 +83,14 @@ export class AuthService implements OnInit {
   return localStorage.getItem('currentUserID');
    
   }
+
+// logUserOut(aut){
+// signOut(aut)
+// .then(() => {
+//   console.log('Der User wurde ausgeloggt');
+// })
+// .catch((err) => {
+//   console.log(err.message)})
+// }
 
 }

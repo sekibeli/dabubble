@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { User } from '../models/user.class';
+import { signOut } from '@angular/fire/auth';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -11,13 +14,26 @@ export class UserProfileComponent implements OnInit{
   @Input() currentUser;
   user: User;
 
-  constructor() {
+  constructor(private afAuth: AngularFireAuth, private userService: UserService) {
    
   }
 
   ngOnInit(): void {
-  // console.log(this.currentUser);
+    this.userService.setUserStatus(this.currentUser['id'], true);
    
+  }
+
+  logUserOut(){
+   this.afAuth.signOut().then(()=>{
+    this.currentUser['active'] = false;
+ console.log( this.currentUser['id'])
+    console.log('User ist ausgeloggt')
+    this.userService.setUserStatus(this.currentUser['id'], false);
+
+   }).catch((err)=>{
+    console.log(err.message);
+   });
+   localStorage.setItem('currentUserID', '');
   }
 
 }

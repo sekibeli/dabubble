@@ -12,7 +12,7 @@ export class User {
         this.username = obj ? obj.username : '';
         this.email = obj ? obj.email : '';
         this.img = obj? obj.img : '../../assets/img/profile_img/benutzer.png';
-        this.active = obj ? obj.active : true;
+        this.active = obj ? obj.active : false;
       
 
     }

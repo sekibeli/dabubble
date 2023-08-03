@@ -36,6 +36,8 @@ import { ObjectToArrayPipe } from './object-to-array.pipe';
 import { SinglePostComponent } from './single-post/single-post.component';
 import { HeaderComponent } from './header/header.component';
 import { ChatComponent } from './chat/chat.component';
+import { ChatHeaderComponent } from './chat-header/chat-header.component';
+import { ChatContainerComponent } from './chat-container/chat-container.component';
 
 
 
@@ -61,7 +63,9 @@ import { ChatComponent } from './chat/chat.component';
     ObjectToArrayPipe,
     SinglePostComponent,
     HeaderComponent,
-    ChatComponent
+    ChatComponent,
+    ChatHeaderComponent,
+    ChatContainerComponent
   
   ],
   imports: [
