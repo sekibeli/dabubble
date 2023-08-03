@@ -23,9 +23,9 @@ export class UserService implements OnInit{
    
   }
   
-  getUserData(){
+  async getUserData(){
     const collRef = collection(this.firestore, 'users');
-    const userData = collectionData(collRef);
+    const userData = await collectionData(collRef);
     return userData;
       }
 

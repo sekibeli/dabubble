@@ -95,5 +95,4 @@ export class PostContainerComponent implements OnInit, OnDestroy {
     }
     return newArray;
 }
-  
-}
+  }

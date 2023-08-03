@@ -23,6 +23,7 @@ export class PostDetailComponent implements OnInit {
   lastWeekday = '';
   einTag;
   newDay = true;
+  countsOfThreads;
   constructor(private userService: UserService, private drawerService: DrawerService, private threadService: ThreadService, private postService: PostService) {
 
   }
@@ -33,6 +34,10 @@ export class PostDetailComponent implements OnInit {
     this.getTimeFromTimestamp(this.post['timestamp']);
        this.getThread(this.postService.activeChannel, this.post.id);
    this.getFormatedDateFromTimestamp(this.post['timestamp']);
+
+  //  this.threadService.countsOfThreadsNew.subscribe((value)=>{
+  //   this.countsOfThreads = value;
+  //  })
 
   }
 

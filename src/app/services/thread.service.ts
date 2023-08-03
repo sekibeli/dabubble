@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { EventEmitter, Injectable, inject } from '@angular/core';
 import { Firestore, collection, collectionData, orderBy, query } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
 
@@ -16,7 +16,7 @@ export class ThreadService {
   public readonly threads = this._threads.asObservable();
   public readonly postForThread$ = this._postForThread.asObservable();
   public readonly author$ = this._author.asObservable();
-
+// countsOfThreadsNew = new EventEmitter();
   constructor() { }
 
 
@@ -44,7 +44,9 @@ export class ThreadService {
   }
 
 
-
+  // pushCountsOfThreads(counts){
+  //   this.countsOfThreadsNew.emit(counts);
+  // }
 
   
 }

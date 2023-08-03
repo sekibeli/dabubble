@@ -24,7 +24,7 @@ trueFalseArray;
     this.countsOfThreads = this.threads.length;
     this.thread = this.threadService.thread;
     this.createTimestampArray(this.threads);
-  
+  // this.pushCountsOfThreads(this.countsOfThreads);
 
   })
 
@@ -35,7 +35,9 @@ trueFalseArray;
 
   }
 
-
+// pushCountsOfThreads(counts){
+//   this.threadService.pushCountsOfThreads(counts);
+// }
 
 
   closeThread(){

@@ -17,4 +17,26 @@
       </li>
      </ul>
   </div>
+
+
+
+
+  <div class="channelsTop"><mat-icon>account_circleOutlined</mat-icon>Direktnachrichten</div>
+  <div>
+    <ul>
+      <li *ngFor="let user of users">
+     
+        <div class="profile-overview">
+  
+          <img class="profile-img" src="{{this.user['img']}}" alt="">
+          <div class="profile-name">{{ this.user['username']}}</div>
+          
+          
+          </div>
+      
+       
+      </li>
+     </ul>
+  </div>
+
 </div>

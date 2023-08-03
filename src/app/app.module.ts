@@ -35,6 +35,8 @@ import { ThreadDetailComponent } from './thread-detail/thread-detail.component';
 import { ObjectToArrayPipe } from './object-to-array.pipe';
 import { SinglePostComponent } from './single-post/single-post.component';
 import { HeaderComponent } from './header/header.component';
+import { ChatComponent } from './chat/chat.component';
+
 
 
 
@@ -58,7 +60,9 @@ import { HeaderComponent } from './header/header.component';
     ThreadDetailComponent,
     ObjectToArrayPipe,
     SinglePostComponent,
-    HeaderComponent
+    HeaderComponent,
+    ChatComponent
+  
   ],
   imports: [
     BrowserModule,
