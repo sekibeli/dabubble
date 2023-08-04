@@ -1,0 +1,23 @@
+
+
+<!-- <div *ngIf="trueFalse" class="deviderBox">
+    <div class="formatedDate">{{formatedDate}}</div>
+</div>
+<div *ngIf="trueFalse" class="dateDevider"></div> -->
+
+<!-- <div *ngIf="author"  (click)="getThread(this.postService.activeChannel, this.post.id); this.drawerService.open(); this.threadService.getPostForThread(this.post, this.author)" class="singlePost"> -->
+<div *ngIf="messageAuthor" class="ml-20">
+    <div class="profile-pic">
+        <img src="{{messageAuthor['img']}}">
+    </div>
+    <div class="post-content">
+       <div class="firstRow"> 
+        <div class="post-author">{{messageAuthor['username']}}</div> 
+       <!-- <div class="postTime">{{time}} Uhr</div></div> -->
+        <div class="post-description">{{chat['description']}}</div>
+       <!-- <div class="postAnswer">{{numberOfThreads}} Antworten <span class="postTime">letzte Antwort 14:35</span></div> -->
+    </div>
+</div>
+</div>
+   <!-- </div> -->
+   

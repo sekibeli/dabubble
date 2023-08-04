@@ -1,1 +1,4 @@
 <p>chat-container works!</p>
+<div *ngFor="let chat of chats">
+<app-chat-detail [chat]="chat"></app-chat-detail>
+</div>

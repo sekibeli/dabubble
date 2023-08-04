@@ -6,6 +6,7 @@ import { Firestore, collection, collectionData } from '@angular/fire/firestore';
 import { ChannelService } from '../services/channel.service';
 import { UserService } from '../services/user.service';
 import { User } from '../models/user.class';
+import { MessageService } from '../services/message.service';
 
 @Component({
   selector: 'app-left-drawer',
@@ -18,7 +19,7 @@ export class LeftDrawerComponent implements OnInit{
   currentUserID;
   firestore: Firestore = inject(Firestore);
   
-  constructor(public postService: PostService, public drawerService: DrawerService, public channelService: ChannelService, public userService: UserService) {
+  constructor(public postService: PostService, public drawerService: DrawerService, public channelService: ChannelService, public userService: UserService, public messageService: MessageService) {
       
     this.channelService.getChannels().then((items) => {
       items.subscribe((value) => {

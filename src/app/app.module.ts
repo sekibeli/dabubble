@@ -38,6 +38,7 @@ import { HeaderComponent } from './header/header.component';
 import { ChatComponent } from './chat/chat.component';
 import { ChatHeaderComponent } from './chat-header/chat-header.component';
 import { ChatContainerComponent } from './chat-container/chat-container.component';
+import { ChatDetailComponent } from './chat-detail/chat-detail.component';
 
 
 
@@ -65,7 +66,8 @@ import { ChatContainerComponent } from './chat-container/chat-container.componen
     HeaderComponent,
     ChatComponent,
     ChatHeaderComponent,
-    ChatContainerComponent
+    ChatContainerComponent,
+    ChatDetailComponent
   
   ],
   imports: [

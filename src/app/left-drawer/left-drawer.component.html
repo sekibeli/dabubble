@@ -25,6 +25,8 @@
   <div>
     <ul>
       <li *ngFor="let user of users let i = index"
+      class="message"
+      (click)="this.messageService.getThisChat(user['id'])"
       [routerLink]="['/home','chat', user['id']]"
       routerLinkActive="active">
      
