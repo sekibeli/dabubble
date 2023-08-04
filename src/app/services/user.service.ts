@@ -47,8 +47,10 @@ export class UserService implements OnInit{
   }
 
   async setUserStatus(id, status){
-    const docRef = doc(this.firestore, 'users', id);
+    console.log('id:', id);
     try{
+    const docRef = doc(this.firestore, 'users', id);
+
     await updateDoc(docRef,
       {
         active: status,

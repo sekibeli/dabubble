@@ -32,7 +32,7 @@ export class LeftDrawerComponent implements OnInit{
     this.userService.getUserData().then((data)=> {
       data.subscribe((users)=> {
          this.users = users;
-         console.log(users);
+        //  console.log(users);
         
       })
     })

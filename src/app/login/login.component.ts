@@ -13,7 +13,7 @@ import { getAuth } from '@angular/fire/auth';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-aut = getAuth();
+// aut = getAuth();
   hide = true;
   user: User;
   firestore: Firestore = inject(Firestore);
@@ -26,11 +26,11 @@ aut = getAuth();
   })
 
   loginWithGoogle() {
-    const userData = Object.assign(this.aut, { email: this.loginForm.value.username }, this.loginForm.value);
+    const userData = Object.assign({ email: this.loginForm.value.username }, this.loginForm.value);
     this.auth.signinWithGoogle().then((result: any) => {
       if(result && result.user){
       const collRef = doc(this.firestore, 'users', result.user.uid);
-        // console.log(result);
+        console.log('....->', result.user.uid);
         // console.log(result.additionalUserInfo.isNewUser);
 
       if (result.additionalUserInfo.isNewUser) {
@@ -52,17 +52,23 @@ aut = getAuth();
       console.error('Hier ist der Fehler: ', error)
     });
 
+  
+setTimeout(() => {
    this.route.navigateByUrl('home/channel/9Gwz1Ce763caWx5FCBZL');
-
+}, 4000);
   }
 
   loginWithEmailAndPassword() {
     console.log(this.loginForm.value);
-    const userData = Object.assign(this.aut, { email: this.loginForm.value.username }, this.loginForm.value);
+    const userData = Object.assign( { email: this.loginForm.value.username }, this.loginForm.value);
     console.log(userData);
     this.auth.loginWithEmailAndPassword(userData).then((result: any) => {
 
-      this.route.navigateByUrl('home/channel/9Gwz1Ce763caWx5FCBZL');
+      
+setTimeout(() => {
+  this.route.navigateByUrl('home/channel/9Gwz1Ce763caWx5FCBZL');
+}, 2000);
+
     }).catch((error: any) => {
       console.error(error);
     });

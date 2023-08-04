@@ -14,7 +14,7 @@ import { User } from '../models/user.class';
   providedIn: 'root'
 })
 export class AuthService implements OnInit {
- 
+ result;
   public userUID: string; //String mit der ID
   public currentUser; // User mit allen Eigenschaften
 
@@ -25,7 +25,7 @@ export class AuthService implements OnInit {
   ngOnInit() { }
 
   async signinWithGoogle() {
-    await this.afs.signInWithPopup(new GoogleAuthProvider())
+   return await this.afs.signInWithPopup(new GoogleAuthProvider())
 
       .then(result => {
 
