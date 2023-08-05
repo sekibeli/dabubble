@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MessageService } from '../services/message.service';
 import { ActivatedRoute } from '@angular/router';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-chat-container',
@@ -13,9 +14,9 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
   id;
   chats;
   data1;
-  mergedData;
+  
 
-  constructor(private messageService: MessageService, public activatedRoute: ActivatedRoute) {
+  constructor(private messageService: MessageService, public activatedRoute: ActivatedRoute, public userService: UserService) {
 
   }
 
@@ -23,6 +24,8 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
     this.subscription = this.activatedRoute.params.subscribe(
       (params) => {
         this.id = params['id'];
+        console.log('params:',params['id']);
+        console.log('localStorage:', localStorage.getItem('currentUserID'));
         this.getThisChat(this.id);
       });
   }
@@ -34,6 +37,9 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
       });
       const docRef2 = value.docRef2.subscribe((data2) => {
         this.chats = this.data1.concat(data2);
+        this.chats.sort((a,b) =>{  // sortiert den Datensatz this.chats nach timestamp
+          return a.timestamp - b.timestamp;
+        })
       });
     });
 
@@ -42,5 +48,7 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
+
+
 
 }

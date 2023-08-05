@@ -51,4 +51,8 @@ export class LeftDrawerComponent implements OnInit{
 // this.channelService.getchannel(id);
 //  }
 
+setMode(mode:boolean){
+  localStorage.setItem('directMessage', JSON.stringify(mode));
+  localStorage.setItem('channelMessage', JSON.stringify(!mode));
+}
 }

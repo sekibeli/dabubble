@@ -1,16 +1,15 @@
 <div class="input-container">
 <form class="chatInput input-container" [formGroup]="chatMessage">
 
-<textarea *ngIf="!singlePost" formControlName="description" id="message" name="meineTextarea"  rows="6" placeholder="Nachricht schreiben ...">
-  
-</textarea>
-<textarea *ngIf="singlePost" formControlName="description" id="message" name="meineTextarea"  rows="6" placeholder="Antworten ...">
-  
-</textarea>
+<textarea *ngIf="!singlePost && channelMessage" formControlName="description" id="message" name="meineTextarea"  rows="6" placeholder="Nachricht an Channel schreiben ..."></textarea>
+<textarea *ngIf="singlePost " formControlName="description" id="message" name="meineTextarea"  rows="6" placeholder="Antworten ..."></textarea>
+<textarea *ngIf="directMessage " formControlName="description" id="message" name="meineTextarea"  rows="6" placeholder="Direktnachricht an   "></textarea>
+
 
 </form>
-<div *ngIf="!singlePost" class="buttonSend" (click)="this.savePost(this.chatMessage)"><mat-icon>send</mat-icon></div>
+<div *ngIf="!singlePost && channelMessage" class="buttonSend" (click)="this.savePost(this.chatMessage)"><mat-icon>send</mat-icon></div>
 <div *ngIf="singlePost" class="buttonSend" (click)="this.savePost(this.chatMessage, this.singlePost['id'])"><mat-icon>send</mat-icon></div>
+<div *ngIf="directMessage" class="buttonSend" (click)="this.saveMessage(this.chatMessage)"><mat-icon>send</mat-icon></div>
 </div>
 
 <!-- <div class="buttonSend" (click)="this.savePost(this.chatMessage)"><mat-icon>send</mat-icon></div> -->

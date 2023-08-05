@@ -25,7 +25,7 @@ getDetailsFromID(fromID){
   });
 }
 
-getDetailsToID(toID){}
+
 }
 
 
