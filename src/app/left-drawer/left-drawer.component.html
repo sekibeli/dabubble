@@ -26,7 +26,7 @@
     <ul>
       <li *ngFor="let user of users let i = index"
       class="message"
-      (click)="this.messageService.getThisChat(user['id']);setMode(true); this.drawerService.close()"
+      (click)="this.messageService.getThisChat(user['id']);setMode(true); this.drawerService.close(); this.messageService.setChatUser(user); this.pushChatUser(user)"
       [routerLink]="['/home','chat', user['id']]"
       routerLinkActive="active">
      

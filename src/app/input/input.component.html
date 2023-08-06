@@ -3,7 +3,7 @@
 
 <textarea *ngIf="!singlePost && channelMessage" formControlName="description" id="message" name="meineTextarea"  rows="6" placeholder="Nachricht an Channel schreiben ..."></textarea>
 <textarea *ngIf="singlePost " formControlName="description" id="message" name="meineTextarea"  rows="6" placeholder="Antworten ..."></textarea>
-<textarea *ngIf="directMessage " formControlName="description" id="message" name="meineTextarea"  rows="6" placeholder="Direktnachricht an   "></textarea>
+<textarea *ngIf="directMessage " formControlName="description" id="message" name="meineTextarea"  rows="6" placeholder="Direktnachricht an {{currentChatUser['username']}}  "></textarea>
 
 
 </form>

@@ -1,4 +1,4 @@
-import { Injectable, OnInit, inject } from '@angular/core';
+import { EventEmitter, Injectable, OnInit, inject } from '@angular/core';
 import { Firestore, collection, collectionData, doc, docData, setDoc, updateDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.class';
@@ -13,6 +13,7 @@ export class UserService implements OnInit{
   firestore: Firestore = inject(Firestore);
  users!: Observable<User>;
  observeUsers: Observable<any>;
+//  activeChatUser = new EventEmitter<User>();
 // user;
 
   constructor() {
@@ -67,4 +68,10 @@ getAuthorDetails(post){
 console.error ('Fehler: ', error);
     }
   }
+
+
+
+  // pushActiveChatUser(user){
+  //   this.activeChatUser.emit(user);
+  // }
 }

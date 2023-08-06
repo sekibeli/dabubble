@@ -1,7 +1,8 @@
-import { Injectable, inject } from '@angular/core';
+import { EventEmitter, Injectable, inject } from '@angular/core';
 import { Firestore, addDoc, and, collection, collectionData, or, orderBy, query, where } from '@angular/fire/firestore';
 import { Message } from '../models/message.class';
-import { from } from 'rxjs';
+import { BehaviorSubject, from } from 'rxjs';
+import { User } from '../models/user.class';
 
 @Injectable({
   providedIn: 'root'
@@ -10,48 +11,67 @@ export class MessageService {
   firestore: Firestore = inject(Firestore);
   currentUserID;
   message: Message;
+  activeChatUser = new EventEmitter();
 
   constructor() {
     this.currentUserID = localStorage.getItem('currentUserID');
     console.log(this.currentUserID);
+
+
+   
+
+
+    // this.user = new BehaviorSubject<User>(null);
+    const currentUser = JSON.parse(localStorage.getItem('currentChatUser'));
+
+    // this.updateUser(currentUser);
   }
 
 
- getThisChat(toID) {
-     localStorage.setItem('currentChatID', toID);
+  getThisChat(toID) {
+    this.setCurrentChatInformationInLocalStorage(toID);
+
     const collRef = query(collection(this.firestore, 'messages'), where('fromID', 'in', [this.currentUserID, toID]), where('toID', 'in', [toID, this.currentUserID]));
-    const collRefOrdered = query(collRef,  orderBy('timestamp'));
-   
+    const collRefOrdered = query(collRef, orderBy('timestamp'));
+
     const docRef = collectionData(collRefOrdered);
-    
+
     return docRef;
 
   }
 
-  getChatToDetails(toID) {
+  // getChatToDetails(toID) {
+  //   localStorage.setItem('currentChatID', toID);
+  // }
+
+  setCurrentChatInformationInLocalStorage(toID) {
     localStorage.setItem('currentChatID', toID);
+ 
   }
 
+  setChatUser(user){
+    localStorage.setItem('currentChatUser', JSON.stringify(user));
+  }
 
-//   async getThisChat(toID) {
-//     localStorage.setItem('currentChatID', toID);
-//    const collRef1 = query(collection(this.firestore, 'messages'), where('fromID', '==', this.currentUserID), where('toID', '==', toID));
-//    const collRef2 = query(collection(this.firestore, 'messages'), where('fromID', '==', toID), where('toID', '==', this.currentUserID));
+  //   async getThisChat(toID) {
+  //     localStorage.setItem('currentChatID', toID);
+  //    const collRef1 = query(collection(this.firestore, 'messages'), where('fromID', '==', this.currentUserID), where('toID', '==', toID));
+  //    const collRef2 = query(collection(this.firestore, 'messages'), where('fromID', '==', toID), where('toID', '==', this.currentUserID));
 
 
-//    const docRef1 =  collectionData(collRef1);
-//    const docRef2 =  collectionData(collRef2);
+  //    const docRef1 =  collectionData(collRef1);
+  //    const docRef2 =  collectionData(collRef2);
 
-//   //  const docRef = {
-//   //    docRef1: docRef1,
-//   //    docRef2: docRef2
-//   //  }
+  //   //  const docRef = {
+  //   //    docRef1: docRef1,
+  //   //    docRef2: docRef2
+  //   //  }
 
-//   const docRef = await Promise.all([docRef1, docRef2]);
-//   console.log(docRef);
-//    return from(docRef);
+  //   const docRef = await Promise.all([docRef1, docRef2]);
+  //   console.log(docRef);
+  //    return from(docRef);
 
-//  }
+  //  }
 
   saveMessage(description) {
 
@@ -76,6 +96,14 @@ export class MessageService {
   }
 
 
+  pushChatUser(newUser){
+  this.activeChatUser.emit(newUser)
+  }
+
+
+  // updateUser(newUser: User) {
+  //   this.activeChatUser.next(newUser); // Benutzerwert aktualisieren
+  // }
 
 }
 

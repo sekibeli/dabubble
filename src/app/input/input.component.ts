@@ -14,18 +14,22 @@ import { MessageService } from '../services/message.service';
 })
 export class InputComponent implements OnInit {
   @Input() singlePost;
-  @Input() user; // aus message der User an den die Message ist
+  // @Input() user; // aus message der User an den die Message ist
+  user;
   currentUser;
   currentChannel;
   post: Post;
   directMessage; // sets if input is directMessage or not
   channelMessage;
   currentChatID;
+  currentChatUser;
   chatMessage: FormGroup = new FormGroup({
     description: new FormControl('', [Validators.required, Validators.minLength(2)]),
   })
 
   constructor(public postService: PostService, public activatedRoute: ActivatedRoute, public messageService: MessageService) {
+    this.user = JSON.parse(localStorage.getItem('currentChatUser'));
+    console.log('USER:', this.user);
 // this.directMessage = localStorage.getItem('directMessage');
 // console.log(this.directMessage);
 // this.currentChatID = localStorage.getItem('currentChatID');
@@ -35,7 +39,9 @@ export class InputComponent implements OnInit {
     this.currentUser = localStorage.getItem('currentUserID');
     this.directMessage = JSON.parse(localStorage.getItem('directMessage'));
     this.channelMessage = JSON.parse(localStorage.getItem('channelMessage'));
-    // console.log('nachricht an ', this.user);
+  console.log('inputFeld: ', localStorage.getItem('currentChatID'));
+  this.currentChatUser = JSON.parse(localStorage.getItem('currentChatUser'));
+  console.log('ChatBunny:', this.currentChatUser);
     }
 
   savePost(description, postId) {

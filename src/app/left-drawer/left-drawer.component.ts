@@ -7,6 +7,7 @@ import { ChannelService } from '../services/channel.service';
 import { UserService } from '../services/user.service';
 import { User } from '../models/user.class';
 import { MessageService } from '../services/message.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-left-drawer',
@@ -18,6 +19,7 @@ export class LeftDrawerComponent implements OnInit{
   channels;
   currentUserID;
   firestore: Firestore = inject(Firestore);
+  user;
   
   constructor(public postService: PostService, public drawerService: DrawerService, public channelService: ChannelService, public userService: UserService, public messageService: MessageService) {
       
@@ -47,9 +49,22 @@ export class LeftDrawerComponent implements OnInit{
   
  }
 
+ pushChatUser(user){
+  this.messageService.pushChatUser(user);
+ 
+ }
+ 
+ 
+
 //  getChannel(id){
 // this.channelService.getchannel(id);
 //  }
+
+currentUserChat(user){
+  this.messageService.pushChatUser(user);
+ 
+  
+ }
 
 setMode(mode:boolean){
   localStorage.setItem('directMessage', JSON.stringify(mode));

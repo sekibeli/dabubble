@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -6,19 +6,22 @@ import { UserService } from '../services/user.service';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss']
 })
-export class ChatComponent {
-chatTo;
-user;
+export class ChatComponent  {
+// chatTo;
+// user;
   constructor(public userService: UserService){
-    this.chatTo = localStorage.getItem('currentChatID');
+  //   this.chatTo = localStorage.getItem('currentChatID');
+  //  this.user = JSON.parse(localStorage.getItem('currentChatUser'));
+  //  console.log('USER:', this.user);
   }
 
 
-  getUserDetails(){
-    this.userService.getCurrentUser(this.chatTo).subscribe((user)=>{
-    
-        this.user = user;
-      })
-    }
+
+  // getUserDetails(){
+  //   this.userService.getCurrentUser(this.chatTo).subscribe((user)=>{
+  //   console.log('UUUSer:', user);
+  //       this.user = user;
+  //     })
+  //   }
   }
 

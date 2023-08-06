@@ -9,3 +9,21 @@
     box-shadow: 0 2px 4px -1px rgb(195, 195, 195);
 
 }
+
+.profile-overview {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 10px 20px 10px 30px;
+  
+    cursor: pointer;
+}
+
+.profile-pic {
+    
+    margin: 0 20px 0 0;
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+}

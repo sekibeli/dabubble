@@ -1,1 +1,14 @@
-<div class="chatheader"></div>
+<div class="chatheader" *ngIf="(user | async) as currentUser" >
+    <div class="profile-overview">
+        <div class="relativePic">
+          <img class="profile-pic" src="{{currentUser['img']}}" alt="">
+          <div class="status"  [ngClass]="{'green': currentUser['active'], 'grey': !currentUser['active']}" ></div>
+          </div>
+          <div *ngIf="currentUser['id'] != this.currentUserID" class="profile-name">{{ currentUser['username']}}</div>
+          <div *ngIf="currentUser['id'] == this.currentUserID" class="profile-name">{{ currentUser['username']}} (Du)</div>
+     </div>
+  <!-- <div class="profile-overview">
+    <img class="profile-pic" src="{{ user['img'] }}" />
+    <div>{{ user["username"] }}</div>
+  </div> -->
+</div>
