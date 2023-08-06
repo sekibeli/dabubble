@@ -71,15 +71,14 @@ export class PostService {
   const collData = doc(docRef, docID);
 
 
-  onSnapshot(collData, (post) => {
-    if (post.exists()) {
-      this.post = post.data();
-      console.log('DieserPost:', this.post);
-    } else {
-      console.log('User nicht vorhanden!');
-    }
-  });
+  // onSnapshot(collData, (post) => {
+  //   if (post.exists()) {
+  //     this.post = post.data();
+  //     console.log('DieserPost:', this.post);
+  //   } else {
+  //     console.log('User nicht vorhanden!');
+  //   }
+  // });
  }
 }
 
-// ref => ref.orderBy('timestamp')

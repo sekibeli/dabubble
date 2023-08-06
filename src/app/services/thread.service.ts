@@ -21,7 +21,7 @@ export class ThreadService {
 
 
   async getThread(channelID, postID) {
-
+localStorage.setItem('threadMessage', 'true');
     const collRef = await collection(this.firestore, 'channels', channelID, 'posts', postID, 'threads');
     const answer = query(collRef, orderBy('timestamp'))
     const userData = collectionData(answer);

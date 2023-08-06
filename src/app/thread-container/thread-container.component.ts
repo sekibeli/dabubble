@@ -42,6 +42,7 @@ trueFalseArray;
 
   closeThread(){
     this.drawerService.close();
+    localStorage.setItem('threadMessage', 'false');
   }
 
   /**

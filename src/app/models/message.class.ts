@@ -1,5 +1,5 @@
 export class Message {
-    id?: string;
+   
     fromID: string;
     toID: string;
     description: string;
@@ -7,7 +7,7 @@ export class Message {
 
 
     constructor(obj?: any) {
-        this.id = obj ? obj.id : '';
+       
         this.fromID = obj ? obj.fromID : '';
         this.toID = obj ? obj.toID : '';
         this.description = obj ? obj.description : '';
@@ -19,7 +19,7 @@ export class Message {
 
     public toJSON() {
         return {
-            id: this.id,
+          
             fromID: this.fromID,
             toID: this.toID,
             description: this.description,

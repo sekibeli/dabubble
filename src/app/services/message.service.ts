@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Firestore, addDoc, and, collection, collectionData, or, orderBy, query, where } from '@angular/fire/firestore';
 import { Message } from '../models/message.class';
+import { from } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,20 +18,21 @@ export class MessageService {
 
 
   async getThisChat(toID) {
-    //  localStorage.setItem('currentChatID', toID);
-    const collRef1 = query(collection(this.firestore, 'messages'), where('fromID', '==', this.currentUserID), where('toID', '==', toID));
-    const collRef2 = query(collection(this.firestore, 'messages'), where('fromID', '==', toID), where('toID', '==', this.currentUserID));
+     localStorage.setItem('currentChatID', toID);
+    const collRef = query(collection(this.firestore, 'messages'), where('fromID', 'in', [this.currentUserID, toID]), where('toID', 'in', [toID, this.currentUserID]));
+    const collRefOrdered = query(collRef,  orderBy('timestamp'));
+    // const collRef2 = query(collection(this.firestore, 'messages'), where('fromID', '==', toID), where('toID', '==', this.currentUserID));
 
 
-    const docRef1 = await collectionData(collRef1);
-    const docRef2 = await collectionData(collRef2);
+    const docRef = await collectionData(collRefOrdered);
+    // const docRef2 = await collectionData(collRef2);
 
-    const docRef = {
-      docRef1: docRef1,
-      docRef2: docRef2
-    }
+    // const docRef = {
+    //   docRef1: docRef1,
+    //   docRef2: docRef2
+    // }
 
-    return docRef;
+    return from(docRef);
 
   }
 
@@ -38,11 +40,31 @@ export class MessageService {
     localStorage.setItem('currentChatID', toID);
   }
 
+
+//   async getThisChat(toID) {
+//     localStorage.setItem('currentChatID', toID);
+//    const collRef1 = query(collection(this.firestore, 'messages'), where('fromID', '==', this.currentUserID), where('toID', '==', toID));
+//    const collRef2 = query(collection(this.firestore, 'messages'), where('fromID', '==', toID), where('toID', '==', this.currentUserID));
+
+
+//    const docRef1 =  collectionData(collRef1);
+//    const docRef2 =  collectionData(collRef2);
+
+//   //  const docRef = {
+//   //    docRef1: docRef1,
+//   //    docRef2: docRef2
+//   //  }
+
+//   const docRef = await Promise.all([docRef1, docRef2]);
+//   console.log(docRef);
+//    return from(docRef);
+
+//  }
+
   saveMessage(description) {
 
     this.message = new Message(
       {
-        id: '',
         fromID: localStorage.getItem('currentUserID'),
         toID: localStorage.getItem('currentChatID'),
         description: description,
