@@ -44,16 +44,16 @@ export class PostContainerComponent implements OnInit, OnDestroy {
    * @param id document ID 
    * Die Postings eines Channels werden abgerufen
    */
-  async getPosts(id) {
-    this.postService.getAllPosts(id).then((postings) => {
-      postings.subscribe((posts) => {
+getPosts(id) {
+    this.postService.getAllPosts(id).subscribe((posts) => {
+    
         this.posts = posts;
      this.createTimestampArray(posts);
-      })
+      });
     
-    });
+    }
 
-  }
+  
 
   /**
    * 
@@ -62,9 +62,9 @@ export class PostContainerComponent implements OnInit, OnDestroy {
    * 
    * gets a certain post from firestore
    */
-  async getPost(channelID, docID) {
-    this.postService.getPost(channelID, docID);
-  }
+  // async getPost(channelID, docID) {
+  //   this.postService.getPost(channelID, docID);
+  // }
 
 /**
  * 

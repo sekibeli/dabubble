@@ -17,15 +17,15 @@ ngOnInit(): void {
   this.getDetailsFromID(this.chat['fromID']);
 }
 getDetailsFromID(fromID){
-  this.userService.getCurrentUser(fromID).then((value)=>{
-    value.subscribe((user)=>{
+  this.userService.getCurrentUser(fromID).subscribe((user)=>{
+  
       this.messageAuthor = user;
       console.log(this.messageAuthor);
     });
-  });
+  }
 }
 
 
-}
+
 
 

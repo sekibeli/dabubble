@@ -44,15 +44,14 @@ export class PostDetailComponent implements OnInit {
   /**
    * Abruf von author-Daten anhand des Posts
    */
-  async getAuthorDetails(post) {
-    const userDataRef = await this.userService.getCurrentUser(post['author']).then((data) => {
-
-      data.subscribe((value) => {
+  getAuthorDetails(post) {
+    const userDataRef = this.userService.getCurrentUser(post['author']).subscribe((value) => {
+     
         this.author = value;
 
-      })
-    })
-  }
+      });
+    }
+  
 
   getTimeFromTimestamp(timestamp) {
     let date = new Date(timestamp);

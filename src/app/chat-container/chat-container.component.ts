@@ -3,6 +3,8 @@ import { MessageService } from '../services/message.service';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { doc, onSnapshot } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-chat-container',
@@ -15,7 +17,7 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
   id;
   chats;
   data1;
-  ObservChats$;
+ 
 
   constructor(private messageService: MessageService, public activatedRoute: ActivatedRoute, public userService: UserService) {
 
@@ -31,55 +33,25 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
       });
   }
 
-  getThisChat(toID) {
-    this.messageService.getThisChat(toID).then((value) => {
+//   getThisChat(toID) {
+//    this.messageService.getThisChat(toID).then((value) => {
      
-      value.subscribe((chats)=> {
-        this.chats = chats;
-        // this.chats.sort((a,b) =>{  // sortiert den Datensatz this.chats nach timestamp
-        //         return a.timestamp - b.timestamp;
-        //       })
-        
-      });
-    
-    //   const docRef1 = value.docRef1.subscribe((data1) => {
-    //     this.data1 = data1;
-    //   });
-    //   const docRef2 = value.docRef2.subscribe((data2) => {
-    //     this.chats = this.data1.concat(data2);
-    //     this.chats.sort((a,b) =>{  // sortiert den Datensatz this.chats nach timestamp
-    //       return a.timestamp - b.timestamp;
-    //     })
-    //   });
-    //   return this.chats;
-    // });
-  });
-}
-
-
-// getThisChat(toID) {
-
-// const messRef = this.messageService.getThisChat(toID);
-//  messRef.then((data)=>{
- 
-//  })
-//   this.messageService.getThisChat(toID).subscribe((value) => {
-//     const unsub1 = onSnapshot(value.docRef1, (doc) => {
-//       this.data1 = doc.data();
-//     });
-
-//     const unsub2 = onSnapshot(value.docRef2, (doc) => {
-//       this.chats = this.data1.concat(doc.data());
-//       this.chats.sort((a, b) => {
-//         return a.timestamp - b.timestamp;
+//       value.subscribe((chats)=> {
+//         this.chats = chats;
+      
 //       });
-//     });
-
-    
-//   });
+//      });
 // }
 
-  ngOnDestroy(): void {
+
+getThisChat(toID) {
+  this.messageService.getThisChat(toID).subscribe((chats) => {
+                this.chats = chats;
+                console.log(this.chats);
+          });
+    }
+
+ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 

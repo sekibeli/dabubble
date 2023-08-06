@@ -17,22 +17,14 @@ export class MessageService {
   }
 
 
-  async getThisChat(toID) {
+ getThisChat(toID) {
      localStorage.setItem('currentChatID', toID);
     const collRef = query(collection(this.firestore, 'messages'), where('fromID', 'in', [this.currentUserID, toID]), where('toID', 'in', [toID, this.currentUserID]));
     const collRefOrdered = query(collRef,  orderBy('timestamp'));
-    // const collRef2 = query(collection(this.firestore, 'messages'), where('fromID', '==', toID), where('toID', '==', this.currentUserID));
-
-
-    const docRef = await collectionData(collRefOrdered);
-    // const docRef2 = await collectionData(collRef2);
-
-    // const docRef = {
-    //   docRef1: docRef1,
-    //   docRef2: docRef2
-    // }
-
-    return from(docRef);
+   
+    const docRef = collectionData(collRefOrdered);
+    
+    return docRef;
 
   }
 

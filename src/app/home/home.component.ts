@@ -26,16 +26,13 @@ public currentUser;
    
     console.log('ID currentUser: ',this.userLoggedIn_UID);
    
-    this.userService.getCurrentUser(this.userLoggedIn_UID).then(currentUser => {
-      currentUser.subscribe(user => {
+    this.userService.getCurrentUser(this.userLoggedIn_UID).subscribe(user => {
+    
       // console.log('User:', user);
       this.currentUser = user;
-    })
+   
 
-   }).catch((error)=>{
-    console.log(error.message);
    });
-
   }
 
   

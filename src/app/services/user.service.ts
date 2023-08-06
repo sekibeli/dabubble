@@ -29,22 +29,30 @@ export class UserService implements OnInit{
     return userData;
       }
 
-   async getCurrentUser(id:string){
-    const docRef = await doc(this.firestore, 'users', id);
+   getCurrentUser(id:string){
+    const docRef = doc(this.firestore, 'users', id);
     return docData(docRef);
   
    }
 
 
-   async getAuthorDetails(post){
-    const userDataRef = await this.getCurrentUser(post['author']).then((data)=>{
+  //  async getAuthorDetails(post){
+  //   const userDataRef = await this.getCurrentUser(post['author']).then((data)=>{
      
-      data.subscribe((value)=>{
-        // this.author = value;
+  //     data.subscribe((value)=>{
+  //       // this.author = value;
+  //     return value;
+  //     })
+  //   })
+  // }
+
+getAuthorDetails(post){
+    const userDataRef = this.getCurrentUser(post['author']).subscribe((value)=>{
+         
       return value;
-      })
-    })
-  }
+      });
+    }
+  
 
   async setUserStatus(id, status){
     console.log('id:', id);

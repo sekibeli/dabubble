@@ -28,15 +28,15 @@ ngOnInit(){
     // this.getFormatedDateFromTimestamp(this.thread['timestamp']);
 }
 
-async getAuthorDetails(post){
-  const userDataRef = await this.userService.getCurrentUser(post['author']).then((data)=>{
+getAuthorDetails(post){
+  const userDataRef = this.userService.getCurrentUser(post['author']).subscribe((value)=>{
    
-    data.subscribe((value)=>{
+   
       this.author = value;
         
-    })
-  })
-}
+    });
+  }
+
 // getFormatedDateFromTimestamp(timestamp) {
 
 //   let date = new Date(timestamp);

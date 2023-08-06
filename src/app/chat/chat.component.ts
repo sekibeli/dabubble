@@ -15,10 +15,10 @@ user;
 
 
   getUserDetails(){
-    this.userService.getCurrentUser(this.chatTo).then((value)=>{
-      value.subscribe((user)=> {
+    this.userService.getCurrentUser(this.chatTo).subscribe((user)=>{
+    
         this.user = user;
       })
-    })
+    }
   }
-}
+

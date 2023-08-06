@@ -14,10 +14,25 @@ export class PostService {
   constructor() { }
 
 
-  async getAllPosts(channelID) {
+  // async getAllPosts(channelID) {
+  //   const collRef = collection(this.firestore, 'channels', channelID, 'posts');
+  //   const answer = query(collRef, orderBy('timestamp'))
+  //   const postData = await collectionData(answer,   {idField: 'id'});
+
+  //  postData.subscribe((post) => {
+  //     this.posts = post;
+  //     this.activeChannel = channelID;
+       
+  //       })
+  //   return postData;
+  // }
+
+
+
+  getAllPosts(channelID) {
     const collRef = collection(this.firestore, 'channels', channelID, 'posts');
     const answer = query(collRef, orderBy('timestamp'))
-    const postData = await collectionData(answer,   {idField: 'id'});
+    const postData = collectionData(answer,   {idField: 'id'});
 
    postData.subscribe((post) => {
       this.posts = post;
@@ -26,7 +41,6 @@ export class PostService {
         })
     return postData;
   }
-
 
   /**
    * 
