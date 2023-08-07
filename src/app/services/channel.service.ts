@@ -15,9 +15,9 @@ activeChannel = new EventEmitter<string>();
    
    }
 
-  async getChannels(){
+getChannels(){
     const collRef = collection(this.firestore, 'channels');
-    const docChannel = await collectionData(collRef, {idField: 'id'});
+    const docChannel = collectionData(collRef, {idField: 'id'});
     return docChannel;
    }
 

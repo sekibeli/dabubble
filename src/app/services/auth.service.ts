@@ -84,13 +84,5 @@ export class AuthService implements OnInit {
    
   }
 
-// logUserOut(aut){
-// signOut(aut)
-// .then(() => {
-//   console.log('Der User wurde ausgeloggt');
-// })
-// .catch((err) => {
-//   console.log(err.message)})
-// }
 
 }

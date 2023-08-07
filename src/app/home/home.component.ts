@@ -40,19 +40,5 @@ public currentUser;
   ngAfterViewInit(): void {
 this.drawerService.setDrawer(this.rightDrawer);
 
-// this.userLoggedIn_UID = this.authService.getCurrentUserIDFromLocalStorage();
-   
-// console.log('ID currentUser: ',this.userLoggedIn_UID);
-
-// this.userService.getCurrentUser(this.userLoggedIn_UID).then(currentUser => {
-//   currentUser.subscribe(user => {
-//   // console.log(user);
-//   this.currentUser = user;
-// })
-
-// }).catch((error)=>{
-// console.log(error.message);
-// });
-
   }
 }

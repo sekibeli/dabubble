@@ -3,6 +3,8 @@ import { Firestore, addDoc, and, collection, collectionData, or, orderBy, query,
 import { Message } from '../models/message.class';
 import { BehaviorSubject, from } from 'rxjs';
 import { User } from '../models/user.class';
+import { UserService } from './user.service';
+import { throwMatDuplicatedDrawerError } from '@angular/material/sidenav';
 
 @Injectable({
   providedIn: 'root'
@@ -12,19 +14,13 @@ export class MessageService {
   currentUserID;
   message: Message;
   activeChatUser = new EventEmitter();
+  chatLengthEmitter = new EventEmitter();
 
-  constructor() {
+  constructor(public userService: UserService) {
     this.currentUserID = localStorage.getItem('currentUserID');
     console.log(this.currentUserID);
-
-
-   
-
-
-    // this.user = new BehaviorSubject<User>(null);
     const currentUser = JSON.parse(localStorage.getItem('currentChatUser'));
 
-    // this.updateUser(currentUser);
   }
 
 
@@ -40,9 +36,6 @@ export class MessageService {
 
   }
 
-  // getChatToDetails(toID) {
-  //   localStorage.setItem('currentChatID', toID);
-  // }
 
   setCurrentChatInformationInLocalStorage(toID) {
     localStorage.setItem('currentChatID', toID);
@@ -52,26 +45,6 @@ export class MessageService {
   setChatUser(user){
     localStorage.setItem('currentChatUser', JSON.stringify(user));
   }
-
-  //   async getThisChat(toID) {
-  //     localStorage.setItem('currentChatID', toID);
-  //    const collRef1 = query(collection(this.firestore, 'messages'), where('fromID', '==', this.currentUserID), where('toID', '==', toID));
-  //    const collRef2 = query(collection(this.firestore, 'messages'), where('fromID', '==', toID), where('toID', '==', this.currentUserID));
-
-
-  //    const docRef1 =  collectionData(collRef1);
-  //    const docRef2 =  collectionData(collRef2);
-
-  //   //  const docRef = {
-  //   //    docRef1: docRef1,
-  //   //    docRef2: docRef2
-  //   //  }
-
-  //   const docRef = await Promise.all([docRef1, docRef2]);
-  //   console.log(docRef);
-  //    return from(docRef);
-
-  //  }
 
   saveMessage(description) {
 
@@ -97,13 +70,21 @@ export class MessageService {
 
 
   pushChatUser(newUser){
-  this.activeChatUser.emit(newUser)
+    this.userService.getCurrentUser(newUser['id']).subscribe((user)=>{
+      this.activeChatUser.emit(user);
+    });
+ 
   }
 
 
-  // updateUser(newUser: User) {
-  //   this.activeChatUser.next(newUser); // Benutzerwert aktualisieren
-  // }
+
+  getChatLength(toID){
+    this.getThisChat(toID).subscribe((value)=>{
+      let length = value.length;
+      console.log(value.length);
+      this.chatLengthEmitter.emit(length);
+    });
+  }
 
 }
 

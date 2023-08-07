@@ -6,6 +6,8 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { PostContainerComponent } from '../post-container/post-container.component';
 import { MessageService } from '../services/message.service';
+import { BehaviorSubject } from 'rxjs';
+import { User } from '../models/user.class';
 
 @Component({
   selector: 'app-input',
@@ -14,8 +16,9 @@ import { MessageService } from '../services/message.service';
 })
 export class InputComponent implements OnInit {
   @Input() singlePost;
+  chatLength: BehaviorSubject<number>;
   // @Input() user; // aus message der User an den die Message ist
-  user;
+  user: BehaviorSubject<User> = new BehaviorSubject<User>(null);
   currentUser;
   currentChannel;
   post: Post;
@@ -23,25 +26,31 @@ export class InputComponent implements OnInit {
   channelMessage;
   currentChatID;
   currentChatUser;
+  currentChatLength;
   chatMessage: FormGroup = new FormGroup({
     description: new FormControl('', [Validators.required, Validators.minLength(2)]),
   })
 
   constructor(public postService: PostService, public activatedRoute: ActivatedRoute, public messageService: MessageService) {
-    this.user = JSON.parse(localStorage.getItem('currentChatUser'));
-    console.log('USER:', this.user);
-// this.directMessage = localStorage.getItem('directMessage');
-// console.log(this.directMessage);
-// this.currentChatID = localStorage.getItem('currentChatID');
+    const currentChatPartner = JSON.parse(localStorage.getItem('currentChatUser'))
+    this.user.next(currentChatPartner);
+    this.currentChatLength = (Number(localStorage.getItem('currentChatLength')));
+     
+
   }
 
   ngOnInit() {
+    this.messageService.activeChatUser.subscribe((value)=>{
+      this.user.next(value) ;
+   })
+
+   this.messageService.chatLengthEmitter.subscribe((value)=>{
+ this.currentChatLength = value;
+   });
     this.currentUser = localStorage.getItem('currentUserID');
     this.directMessage = JSON.parse(localStorage.getItem('directMessage'));
     this.channelMessage = JSON.parse(localStorage.getItem('channelMessage'));
-  console.log('inputFeld: ', localStorage.getItem('currentChatID'));
-  this.currentChatUser = JSON.parse(localStorage.getItem('currentChatUser'));
-  console.log('ChatBunny:', this.currentChatUser);
+
     }
 
   savePost(description, postId) {

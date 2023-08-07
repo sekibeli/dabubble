@@ -33,21 +33,12 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
       });
   }
 
-//   getThisChat(toID) {
-//    this.messageService.getThisChat(toID).then((value) => {
-     
-//       value.subscribe((chats)=> {
-//         this.chats = chats;
-      
-//       });
-//      });
-// }
-
 
 getThisChat(toID) {
   this.messageService.getThisChat(toID).subscribe((chats) => {
                 this.chats = chats;
-                console.log(this.chats);
+                localStorage.setItem('currentChatLength', this.chats.length);
+                console.log('aktueller Chat:', this.chats);
           });
     }
 

@@ -23,22 +23,19 @@ export class LeftDrawerComponent implements OnInit{
   
   constructor(public postService: PostService, public drawerService: DrawerService, public channelService: ChannelService, public userService: UserService, public messageService: MessageService) {
       
-    this.channelService.getChannels().then((items) => {
-      items.subscribe((value) => {
+    this.channelService.getChannels().subscribe((value) => {
+      
         this.channels = value;
       });
-    })
+   
 
   }
 
   ngOnInit(): void {
-    this.userService.getUserData().then((data)=> {
-      data.subscribe((users)=> {
-         this.users = users;
-        //  console.log(users);
-        
-      })
-    })
+    this.userService.getUserData().subscribe((users)=> {
+            this.users = users;
+         })
+   
     this.currentUserID = localStorage.getItem('currentUserID');
     console.log(this.currentUserID);
   }
@@ -55,17 +52,6 @@ export class LeftDrawerComponent implements OnInit{
  }
  
  
-
-//  getChannel(id){
-// this.channelService.getchannel(id);
-//  }
-
-// currentUserChat(user){
-//   this.messageService.pushChatUser(user);
- 
-  
-//  }
-
 setMode(mode:boolean){
   localStorage.setItem('directMessage', JSON.stringify(mode));
   localStorage.setItem('channelMessage', JSON.stringify(!mode));

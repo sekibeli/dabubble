@@ -9,19 +9,12 @@ import { UserService } from '../services/user.service';
 export class ChatComponent  {
 // chatTo;
 // user;
+chatLength;
   constructor(public userService: UserService){
-  //   this.chatTo = localStorage.getItem('currentChatID');
-  //  this.user = JSON.parse(localStorage.getItem('currentChatUser'));
-  //  console.log('USER:', this.user);
+this.chatLength = localStorage.getItem('currentChatLength');
   }
 
 
 
-  // getUserDetails(){
-  //   this.userService.getCurrentUser(this.chatTo).subscribe((user)=>{
-  //   console.log('UUUSer:', user);
-  //       this.user = user;
-  //     })
-  //   }
   }
 

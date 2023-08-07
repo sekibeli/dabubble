@@ -29,12 +29,12 @@ this.channelService.activeChannel.subscribe(
 }
 
 getChannels(){
-  this.channelService.getChannels().then((items) => {
-    items.subscribe((value) => {
+  this.channelService.getChannels().subscribe((value) => {
+   
       this.channels = value;
       // console.log(this.channels[this.chan].title);  
     });
-  })
+
 }
 
 

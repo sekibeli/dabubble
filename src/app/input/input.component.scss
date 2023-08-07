@@ -1,5 +1,6 @@
 .input-container {
   display: flex;
+  flex-direction:column;
   width: 100%;
   justify-content: center;
     z-index: 0;
@@ -30,4 +31,12 @@ margin-top: 90px;
 right: 60px;
 cursor: pointer;
 
+}
+
+.stick {
+  position: absolute;
+  bottom: 20px;
+  right: 60px;
+  color: darkblue;
+  cursor: pointer;
 }

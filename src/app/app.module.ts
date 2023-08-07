@@ -39,6 +39,7 @@ import { ChatComponent } from './chat/chat.component';
 import { ChatHeaderComponent } from './chat-header/chat-header.component';
 import { ChatContainerComponent } from './chat-container/chat-container.component';
 import { ChatDetailComponent } from './chat-detail/chat-detail.component';
+import { ChatNoMessageComponent } from './chat-no-message/chat-no-message.component';
 
 
 
@@ -67,7 +68,8 @@ import { ChatDetailComponent } from './chat-detail/chat-detail.component';
     ChatComponent,
     ChatHeaderComponent,
     ChatContainerComponent,
-    ChatDetailComponent
+    ChatDetailComponent,
+    ChatNoMessageComponent
   
   ],
   imports: [

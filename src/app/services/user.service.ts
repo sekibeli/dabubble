@@ -24,9 +24,9 @@ export class UserService implements OnInit{
    
   }
   
-  async getUserData(){
+getUserData(){
     const collRef = collection(this.firestore, 'users');
-    const userData = await collectionData(collRef);
+    const userData = collectionData(collRef);
     return userData;
       }
 
@@ -36,16 +36,6 @@ export class UserService implements OnInit{
   
    }
 
-
-  //  async getAuthorDetails(post){
-  //   const userDataRef = await this.getCurrentUser(post['author']).then((data)=>{
-     
-  //     data.subscribe((value)=>{
-  //       // this.author = value;
-  //     return value;
-  //     })
-  //   })
-  // }
 
 getAuthorDetails(post){
     const userDataRef = this.getCurrentUser(post['author']).subscribe((value)=>{
@@ -69,9 +59,4 @@ console.error ('Fehler: ', error);
     }
   }
 
-
-
-  // pushActiveChatUser(user){
-  //   this.activeChatUser.emit(user);
-  // }
 }
