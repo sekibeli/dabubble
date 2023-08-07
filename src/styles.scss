@@ -158,13 +158,15 @@ button:disabled {
 
 .relativePic{
     position: relative;
+    display: flex;
+    align-items: center;
 }
 
 .status{
     z-index: 1;
     position: absolute;
-    bottom: 5px;
-    right: 22px;
+    bottom: -2px;
+    right: 20px;
     width: 10px;
     height: 10px;
    

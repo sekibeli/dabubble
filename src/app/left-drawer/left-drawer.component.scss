@@ -44,12 +44,18 @@
 }
 
 .profile-overview {
+    padding: 0px 15px;
+    border-radius: 30px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    margin-right: 30px;
-    margin-bottom: 15px;
+    margin-right: 15px;
+    margin-bottom: 5px;
     cursor: pointer;
+
+    &:hover {
+        background-color: var(--background-color);
+    }
 }
 
 .profile-img {

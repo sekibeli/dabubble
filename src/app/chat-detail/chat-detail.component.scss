@@ -6,17 +6,19 @@
         width: 60px;
         height: 60px;
     }
-    }
+}
+
 .singlePost {
     margin-top: 30px;
-}   
+}
 
 .post-author {
     font-weight: 700;
 }
+
 .post-description {
     background-color: var(--background-color);
-    border-top-right-radius: 20px; 
+    border-top-right-radius: 20px;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     margin-top: 10px;
@@ -24,16 +26,68 @@
     padding: 10px;
 }
 
+.chatContentContainer {
+    display: flex;
+    align-items: flex-start;
+    padding-bottom: 10px;
+}
+
+.chatContentContainerFliped {
+    display: flex;
+    align-items: center;
+    padding-bottom: 10px;
+    flex-direction: row-reverse;
+    
+    .profile-pic {
+        margin-right: 30px;
+
+        img {
+            margin-left: 30px;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+        }
+
+    }
+}
+
+
 .firstRow {
     display: flex;
-  
+
     align-items: flex-start;
     flex-direction: column;
 
+}
+
+.firstRowFliped {
+    display: flex;
+
+    align-items: flex-end;
+    flex-direction: column;
+
+    .post-description {
+        background-color: var(--background-color);
+        border-top-right-radius: 0;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+        border-top-left-radius: 20px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        padding: 10px;
+    }
 }
 
 .postTime {
     margin-left: 20px;
     font-size: 12px;
     color: grey;
+}
+
+.rightSide {
+    background-color: antiquewhite;
+}
+
+.leftSide {
+    background-color: white;
 }
