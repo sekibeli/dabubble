@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { User } from '../models/user.class';
 import { MessageService } from '../services/message.service';
@@ -8,34 +8,25 @@ import { MessageService } from '../services/message.service';
   templateUrl: './chat-header.component.html',
   styleUrls: ['./chat-header.component.scss']
 })
-export class ChatHeaderComponent {
+export class ChatHeaderComponent implements OnInit{
   // @Input() user;
   user: BehaviorSubject<User> = new BehaviorSubject<User>(null);
-  currentUserID;
+  currentUserID; // ID vom eingeloggten User
 
 
   constructor(public messageService:MessageService){
-    this.user = new BehaviorSubject<User>(null);
- 
-    this.currentUserID = localStorage.getItem('currentUserID');
+      this.currentUserID = localStorage.getItem('currentUserID');
     const currentUser = JSON.parse(localStorage.getItem('currentChatUser'));
+   this.user.next(currentUser); // Damit beim ersten Aufruf ein Wert da ist.
+      }
 
-    // this.messageService.updateUser(currentUser);
 
+  ngOnInit(): void {
     this.messageService.activeChatUser.subscribe((value)=>{
-      console.log('Im Header value:', value);
-      
-      this.user.next(value) ;
-      console.log('Im Header:', this.user);
-    
-    })
-
-     
+           this.user.next(value) ;
+        })
   }
 
-  // updateUser(newUser: User){
-  //   this.user.next(newUser);
-  // }
 }
 
 

@@ -60,11 +60,11 @@ export class LeftDrawerComponent implements OnInit{
 // this.channelService.getchannel(id);
 //  }
 
-currentUserChat(user){
-  this.messageService.pushChatUser(user);
+// currentUserChat(user){
+//   this.messageService.pushChatUser(user);
  
   
- }
+//  }
 
 setMode(mode:boolean){
   localStorage.setItem('directMessage', JSON.stringify(mode));
