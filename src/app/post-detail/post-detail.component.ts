@@ -24,12 +24,20 @@ export class PostDetailComponent implements OnInit {
   einTag;
   newDay = true;
   countsOfThreads;
+  flip: boolean;
   constructor(private userService: UserService, private drawerService: DrawerService, private threadService: ThreadService, private postService: PostService) {
 
   }
 
   ngOnInit() {
-
+    if (this.post){
+     
+if(this.post['author'] === localStorage.getItem('currentUserID')) {
+  this.flip = true;
+} else {
+  this.flip = false;
+}
+    }
     this.getAuthorDetails(this.post);
     this.getTimeFromTimestamp(this.post['timestamp']);
        this.getThread(this.postService.activeChannel, this.post.id);

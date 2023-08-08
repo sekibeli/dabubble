@@ -8,6 +8,7 @@ import { PostContainerComponent } from '../post-container/post-container.compone
 import { MessageService } from '../services/message.service';
 import { BehaviorSubject } from 'rxjs';
 import { User } from '../models/user.class';
+import { ChannelService } from '../services/channel.service';
 
 @Component({
   selector: 'app-input',
@@ -20,7 +21,8 @@ export class InputComponent implements OnInit {
   // @Input() user; // aus message der User an den die Message ist
   user: BehaviorSubject<User> = new BehaviorSubject<User>(null);
   currentUser;
-  currentChannel;
+  currentChannel; // die ID
+  channelTitle: BehaviorSubject<String> = new BehaviorSubject<String>('Angular');
   post: Post;
   directMessage; // sets if input is directMessage or not
   channelMessage;
@@ -31,7 +33,7 @@ export class InputComponent implements OnInit {
     description: new FormControl('', [Validators.required, Validators.minLength(2)]),
   })
 
-  constructor(public postService: PostService, public activatedRoute: ActivatedRoute, public messageService: MessageService) {
+  constructor(public postService: PostService, public activatedRoute: ActivatedRoute, public messageService: MessageService, private channelService: ChannelService) {
     const currentChatPartner = JSON.parse(localStorage.getItem('currentChatUser'))
     this.user.next(currentChatPartner);
     this.currentChatLength = (Number(localStorage.getItem('currentChatLength')));
@@ -46,6 +48,10 @@ export class InputComponent implements OnInit {
 
    this.messageService.chatLengthEmitter.subscribe((value)=>{
  this.currentChatLength = value;
+   });
+
+   this.channelService.activeChannel.subscribe((value)=>{
+    this.channelTitle.next(value);
    });
     this.currentUser = localStorage.getItem('currentUserID');
     this.directMessage = JSON.parse(localStorage.getItem('directMessage'));

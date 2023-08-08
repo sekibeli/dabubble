@@ -24,7 +24,10 @@ ngOnInit(): void {
     const fromID = this.chat['fromID'];
     const userID = localStorage.getItem('currentUserID');
     this.flip = fromID === userID;
-    console.log(this.flip);
+
+    if(this.chat['fromID'] === this.chat['toID'])
+    this.flip = false;
+    // console.log(this.flip);
   }
   
   
@@ -33,7 +36,7 @@ getDetailsFromID(fromID){
   this.userService.getCurrentUser(fromID).subscribe((user)=>{
   
       this.messageAuthor = user;
-      console.log(this.messageAuthor);
+      // console.log(this.messageAuthor);
     });
   }
 }

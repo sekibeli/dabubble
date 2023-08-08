@@ -40,7 +40,7 @@
     </div>
     <div class="button-section">
         <button  (click)="loginWithEmailAndPassword()" [disabled]="loginForm.invalid" class="darkButton">Anmelden</button>
-        <button class="lightButton">Gäste-Login</button>
+        <button (click)="loginAsGuest()" class="lightButton">Gäste-Login</button>
     </div>
 
 </div>

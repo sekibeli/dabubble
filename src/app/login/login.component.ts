@@ -59,9 +59,10 @@ setTimeout(() => {
   }
 
   loginWithEmailAndPassword() {
+
     console.log(this.loginForm.value);
     const userData = Object.assign( { email: this.loginForm.value.username }, this.loginForm.value);
-    console.log(userData);
+    console.log('USERDATA:', userData);
     this.auth.loginWithEmailAndPassword(userData).then((result: any) => {
 
       
@@ -78,4 +79,26 @@ setTimeout(() => {
   // logUserOut(aut){
   //   this.auth.logUserOut(aut);
   // }
+
+
+  loginAsGuest(){
+
+    this.loginForm.controls['email'].setValue('gast@gast.de');
+    this.loginForm.controls['password'].setValue('jWq7cE6E9ir8bV@');
+    console.log(this.loginForm.value);
+    const userData = Object.assign( { email: this.loginForm.value.username }, this.loginForm.value);
+    console.log('USERDATA:', userData);
+    this.auth.loginWithEmailAndPassword(userData).then((result: any) => {
+
+      
+setTimeout(() => {
+  this.route.navigateByUrl('home/channel/9Gwz1Ce763caWx5FCBZL');
+}, 2000);
+
+    }).catch((error: any) => {
+      console.error(error);
+    });
+  }
 }
+
+

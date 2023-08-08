@@ -26,27 +26,42 @@ export class MessageService {
 
   getThisChat(toID) {
     this.setCurrentChatInformationInLocalStorage(toID);
+    const from = localStorage.getItem('currentUserID');
+    const to = localStorage.getItem('currentChatID');
+    if (from === to) {
+      console.log('von:', from, 'zu:', to);
+      const collRef = query(collection(this.firestore, 'messages', from, 'mess'), where('fromID', '==', this.currentUserID));
+      const collRefOrdered = query(collRef, orderBy('timestamp'));
+      const docRef = collectionData(collRefOrdered);
 
-    const collRef = query(collection(this.firestore, 'messages'), where('fromID', 'in', [this.currentUserID, toID]), where('toID', 'in', [toID, this.currentUserID]));
-    const collRefOrdered = query(collRef, orderBy('timestamp'));
+      return docRef;
+    } else {
+      const collRef = query(collection(this.firestore, 'messages'), where('fromID', 'in', [this.currentUserID, toID]), where('toID', 'in', [toID, this.currentUserID]));
+      const collRefOrdered = query(collRef, orderBy('timestamp'));
+      const docRef = collectionData(collRefOrdered);
 
-    const docRef = collectionData(collRefOrdered);
+      return docRef;
+    }
 
-    return docRef;
+
+
+
 
   }
 
 
   setCurrentChatInformationInLocalStorage(toID) {
     localStorage.setItem('currentChatID', toID);
- 
+
   }
 
-  setChatUser(user){
+  setChatUser(user) {
     localStorage.setItem('currentChatUser', JSON.stringify(user));
   }
 
   saveMessage(description) {
+    const from = localStorage.getItem('currentUserID');
+    const to = localStorage.getItem('currentChatID');
 
     this.message = new Message(
       {
@@ -59,27 +74,39 @@ export class MessageService {
 
     console.log('Message:', this.message);
 
-    const collDocRef = collection(this.firestore, 'messages');
-    addDoc(collDocRef, this.message.toJSON()).then((result) => {
+    if (from === to) { 
+      const collDocRef = collection(this.firestore, 'messages', from, 'mess');
+      addDoc(collDocRef, this.message.toJSON()).then((result) => {
+  
+        console.log('Anlage erfolgreich')
+      }).catch((error) => {
+        console.log(error);
+      });
+    } else {
+      const collDocRef = collection(this.firestore, 'messages');
+      addDoc(collDocRef, this.message.toJSON()).then((result) => {
 
-      console.log('Anlage erfolgreich')
-    }).catch((error) => {
-      console.log(error);
-    });
+        console.log('Anlage erfolgreich')
+      }).catch((error) => {
+        console.log(error);
+      });
+    }
+
+
   }
 
 
-  pushChatUser(newUser){
-    this.userService.getCurrentUser(newUser['id']).subscribe((user)=>{
+  pushChatUser(newUser) {
+    this.userService.getCurrentUser(newUser['id']).subscribe((user) => {
       this.activeChatUser.emit(user);
     });
- 
+
   }
 
 
 
-  getChatLength(toID){
-    this.getThisChat(toID).subscribe((value)=>{
+  getChatLength(toID) {
+    this.getThisChat(toID).subscribe((value) => {
       let length = value.length;
       console.log(value.length);
       this.chatLengthEmitter.emit(length);
