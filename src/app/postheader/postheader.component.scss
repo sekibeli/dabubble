@@ -15,7 +15,21 @@
 }
 
 .postingheader{
-    padding: 10px;
+    padding: 20px 10px;
     display: flex;
     justify-content: space-between;
+
+    .leftSide{
+      display: flex;
+    }
+}
+
+.topic{
+  font-size: 1.2em;
+  margin-right: 10px;
+}
+
+.channelTitle {
+  font-size: 0.8em;
+  color: #535AF1;
 }

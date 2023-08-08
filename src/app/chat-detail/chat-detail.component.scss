@@ -67,7 +67,7 @@
     flex-direction: column;
 
     .post-description {
-        background-color: var(--background-color);
+        background-color: #797EF3;
         border-top-right-radius: 0;
         border-bottom-left-radius: 20px;
         border-bottom-right-radius: 20px;
@@ -75,7 +75,9 @@
         margin-top: 10px;
         margin-bottom: 10px;
         padding: 10px;
+        color: white;
     }
+
 }
 
 .postTime {
@@ -84,10 +86,3 @@
     color: grey;
 }
 
-.rightSide {
-    background-color: antiquewhite;
-}
-
-.leftSide {
-    background-color: white;
-}

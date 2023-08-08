@@ -1,6 +1,14 @@
 <div class="postheader">
-<div class="postingheader">
-    <div *ngIf="this.activeChannel"># {{this.activeChannel}}</div>
-    <div>Mitglieder</div>
-</div>
+  <div class="postingheader">
+    <div class="leftSide">
+      <div class="topic" *ngIf="this.activeChannelTitle">
+        # {{ this.activeChannelTitle }}
+      </div>
+      <div><mat-icon> keyboard_arrow_down </mat-icon></div>
+    </div>
+    <div>Mitglieder
+        <div *ngIf="members">
+            <div *ngFor="let member of members.getValue() " >{{member['id']}}</div></div>
+    </div>
+  </div>
 </div>

@@ -50,7 +50,7 @@ export class InputComponent implements OnInit {
  this.currentChatLength = value;
    });
 
-   this.channelService.activeChannel.subscribe((value)=>{
+   this.channelService.activeChannelTitle.subscribe((value)=>{
     this.channelTitle.next(value);
    });
     this.currentUser = localStorage.getItem('currentUserID');

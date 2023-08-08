@@ -9,7 +9,7 @@
   <div>
     <ul>
       <li *ngFor="let channel of channels; let i = index"
-      (click)="this.drawerService.close(); this.currentChannel(this.channel['title']); setMode(false)"
+      (click)="this.drawerService.close(); this.currentChannel(this.channel['title'], this.channel['id']); setMode(false)"
         class="klick"
         [routerLink]="['/home', 'channel', this.channel['id']]"
         routerLinkActive="active">
@@ -22,8 +22,11 @@
 
 
   <div class="channelsTop"><mat-icon>account_circleOutlined</mat-icon>Direktnachrichten</div>
-  <div>
-    <ul>
+ 
+  <div class="userList">
+  <ng-container *ngFor="let user of users">
+    <app-user [user]="user" ></app-user>
+    <!-- <ul>
       <li *ngFor="let user of users let i = index"
       class="message"
       (click)="this.messageService.getThisChat(user['id']);setMode(true); this.drawerService.close(); this.messageService.setChatUser(user); this.pushChatUser(user); this.messageService.getChatLength(user['id'])"
@@ -41,7 +44,8 @@
       
        
       </li>
-     </ul>
-  </div>
+     </ul> -->
+    </ng-container>
+    </div>
 
 </div>

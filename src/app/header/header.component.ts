@@ -15,7 +15,7 @@ constructor(private channelService: ChannelService){
 }
 
 ngOnInit(): void {
-  this.channelService.activeChannel.subscribe((value)=>{
+  this.channelService.activeChannelTitle.subscribe((value)=>{
     if(this.channelTitle)
     this.channelTitle.next(value);
   console.log(this.channelTitle.getValue());

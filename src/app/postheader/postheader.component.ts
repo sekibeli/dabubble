@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ChannelService } from '../services/channel.service';
+import { BehaviorSubject } from 'rxjs';
+import { UserService } from '../services/user.service';
+import { identifierName } from '@angular/compiler';
 
 @Component({
   selector: 'app-postheader',
@@ -7,35 +10,45 @@ import { ChannelService } from '../services/channel.service';
   styleUrls: ['./postheader.component.scss']
 })
 export class PostheaderComponent implements OnInit {
-  channels;
-  channel;
-  // channelID ;
-  // chan = 0;
-  activeChannel = 'Angular';
-constructor( public channelService: ChannelService){
- this.getChannels();
-}
 
-ngOnInit(){
-this.channelService.activeChannel.subscribe(
-  (value) => {
-     this.activeChannel = value;
-    console.log(this.activeChannel);
-  }
-)
-
-
-
-}
-
-getChannels(){
-  this.channelService.getChannels().subscribe((value) => {
+  activeChannelTitle = 'Angular';
+  activeChannelID: BehaviorSubject<string> =   new BehaviorSubject<string>('9Gwz1Ce763caWx5FCBZL');
+  members: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  constructor(public channelService: ChannelService, public userService: UserService) {
    
-      this.channels = value;
-      // console.log(this.channels[this.chan].title);  
+  }
+
+  ngOnInit() {
+    this.channelService.activeChannelTitle.subscribe(
+      (value) => {
+        this.activeChannelTitle = value;
+      } );
+      this.channelService.getMembers(this.activeChannelID.getValue()).subscribe((initialMembers) => {
+        this.members.next(initialMembers);
     });
+  
 
-}
+    this.channelService.activeChannelID.subscribe((newActiveChannelID) => { 
 
+      //  this.channelService.getMembersTest(newActiveChannelID)
+      
+      this.channelService.getMembersTest(newActiveChannelID).subscribe((value)=>{
+        console.log(value);
+        this.members.next(value);
+        console.log(this.members.getValue());
+       });
+      // this.channelService.getMembers(newActiveChannelID).subscribe((value)=> {
+      //   this.members.next(value);
+      //   console.log(this.members.getValue());
+      // });
+    });
+  
+  }
+
+  
+
+
+  
+   
 
 }

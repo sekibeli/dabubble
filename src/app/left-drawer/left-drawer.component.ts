@@ -41,8 +41,8 @@ export class LeftDrawerComponent implements OnInit{
   }
  
  
- currentChannel(title){
-  this.channelService.pushActiveChannel(title);
+ currentChannel(title, id){
+  this.channelService.pushActiveChannel(title, id);
   
  }
 
