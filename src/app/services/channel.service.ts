@@ -1,24 +1,39 @@
 import { EventEmitter, Injectable, OnDestroy, OnInit, inject } from '@angular/core';
 import { Firestore, collection, collectionData, doc, docData } from '@angular/fire/firestore';
 import { UserService } from './user.service';
-import { BehaviorSubject, merge, mergeAll } from 'rxjs';
+import { BehaviorSubject, Subject, merge, mergeAll, takeUntil } from 'rxjs';
 import { User } from '../models/user.class';
 
 @Injectable({
    providedIn: 'root'
 })
 export class ChannelService implements OnInit, OnDestroy {
+   private destroy$: Subject<void> = new Subject<void>();
    firestore: Firestore = inject(Firestore)
    channelUser: BehaviorSubject<any[]> = new BehaviorSubject<any[]>(null);
    channelUserIDArray;
    channelUserArrayEmitter = new EventEmitter<any>();
+   
+   currentChannelUserArray = [{
 
-   currentChannelUserArray;
+      active: false,
+      email: "max@mustermann.de",
+      id: "0NGEM9WCfKN1M2QfVQ1SvoCxpbm2",
+      img: "../../assets/img/profile_img/avatar2.svg",
+      username: "Max Musterfrau"
+   }, {
+      active: false,
+      email: "java2011@me.com",
+      id: "DyGVMYTdzCXRsqa2VuBfavSbhvk2",
+      img: "../../assets/img/profile_img/Avatar.svg",
+      username: "Julia Finsterwalder"
+   }];
    activeChannelTitle = new EventEmitter<string>();
    activeChannelID = new EventEmitter<string>();
 
    constructor(private userService: UserService) {
-
+      
+      this.getInitials('9Gwz1Ce763caWx5FCBZL');
    }
 
    getChannels() {
@@ -27,86 +42,57 @@ export class ChannelService implements OnInit, OnDestroy {
       return docChannel;
    }
 
-   ngOnInit() {
-
+   ngOnInit() { 
+        
    }
+
    pushActiveChannel(title, id) {
       this.activeChannelTitle.emit(title);
-     
-      this.getMembersOfChannel(id).subscribe((value)=> {
+
+      this.getMembersOfChannel(id).subscribe((value) => {
          this.channelUserIDArray = value;
          this.getMembersData(this.channelUserIDArray);
          console.log('der erste Output:', this.channelUserIDArray);
       });
-   
    }
 
-getMembersData(userArray){
-   // console.log('Länge', userArray);
-   let fetchCount = userArray.length;
-  let usersArray = [];
-  
-   userArray.forEach(element => {
-      this.userService.getCurrentUser(element['id']).subscribe((user) => {
-         usersArray.push(user);
-         fetchCount--;
-   
-         if (fetchCount === 0) {
-            this.currentChannelUserArray = usersArray;
-            console.log('zweiter Output', this.currentChannelUserArray);
-           this.channelUserArrayEmitter.emit(this.currentChannelUserArray);
-         }
-   
+   getMembersData(userArray) {
+      this.currentChannelUserArray = [];
+      let fetchCount = userArray.length;
+      let usersArray = [];
+
+      userArray.forEach(element => {
+         this.userService.getCurrentUser(element['id']).pipe(takeUntil(this.destroy$)).subscribe((user) => {
+            usersArray.push(user);
+            fetchCount--;
+            if (fetchCount === 0) {
+               this.currentChannelUserArray = [];
+               this.currentChannelUserArray = usersArray;
+               console.log('zweiter Output', this.currentChannelUserArray);
+               this.channelUserArrayEmitter.emit(this.currentChannelUserArray);
+            }
+         });
       });
-   });
-
-  
-
-}
-
-
+   }
 
    getMembersOfChannel(channel) {
       const collRef = collection(this.firestore, 'channels', channel, 'members');
       const docRef = collectionData(collRef, { idField: 'id' });
       return docRef;
-
    }
 
-   // getMembersTest(channel) {
-   //    let usersArray = [];
-
-   //    const collRef = collection(this.firestore, 'channels', channel, 'members');
-   //    const docRef = collectionData(collRef, { idField: 'id' });
-
-   //    docRef.subscribe((value) => {
-   //       let fetchCount = value.length;
-
-   //       value.forEach((element) => {
-       
-   //         this.userService.getCurrentUser(element['id']).subscribe((user) => {
-   //             usersArray.push(user);
-   //             fetchCount--;
-
-   //             if (fetchCount === 0) {
-   //                this.channelUser.next(usersArray);
-                 
-   //             }
-
-   //          });
-
-   //       });
-   //    }
-   //    )
-   //    this.currentChannelUser.emit(this.channelUser)
-   //    console.log('channeluser:', this.channelUser);
-     
-   //    return this.channelUser;
-   // }
+getInitials(id){
+   const data = this.getMembersOfChannel(id);
+   data.subscribe((user)=>{
+      console.log('test', user);
+      this.channelUserIDArray = user;
+      console.log(this.channelUserIDArray);
+   })
+}
 
    ngOnDestroy(): void {
-   
-      console.log('zerstört');
+      this.destroy$.next();
+      this.destroy$.complete();
    }
 
 }
