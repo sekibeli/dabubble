@@ -6,9 +6,14 @@
       </div>
       <div><mat-icon> keyboard_arrow_down </mat-icon></div>
     </div>
-    <div>Mitglieder
-        <div *ngIf="members">
-            <div *ngFor="let member of members.getValue() " >{{member['id']}}</div></div>
+    <div>
+      <div class="miniProfilePicsRow" *ngIf="activeChannelID">
+        <div *ngFor="let member of members">
+          <img [src]="member['img']" />
+        </div>
+        <div class="amountOfMembers">{{ countsOfMembers }}</div>
+        <div class="addMember"> <img src="../../assets/img/add_member.svg" alt=""> </div>
+      </div>
     </div>
   </div>
 </div>
