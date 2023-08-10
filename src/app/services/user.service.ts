@@ -36,6 +36,11 @@ export class UserService implements OnInit {
 
   }
 
+  async getCurrentUserTest(id: string) {
+    const docRef = await doc(this.firestore, 'users', id);
+    return docData(docRef);
+
+  }
 
   getAuthorDetails(post) {
     const userDataRef = this.getCurrentUser(post['author']).subscribe((value) => {

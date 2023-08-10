@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable, OnDestroy, OnInit, inject } from '@angular/core';
-import { Firestore, collection, collectionData, doc, docData } from '@angular/fire/firestore';
+import { Firestore, addDoc, arrayUnion, collection, collectionData, doc, docData, updateDoc } from '@angular/fire/firestore';
 import { UserService } from './user.service';
 import { BehaviorSubject, Subject, merge, mergeAll, takeUntil } from 'rxjs';
 import { User } from '../models/user.class';
@@ -75,6 +75,26 @@ export class ChannelService implements OnInit, OnDestroy {
       });
    }
 
+   getMembersDataTest(userArray) {
+      this.currentChannelUserArray = [];
+      let fetchCount = userArray.length;
+      let usersArray = [];
+
+      userArray.forEach(element => {
+         this.userService.getCurrentUser(element['id']).pipe(takeUntil(this.destroy$)).subscribe((user) => {
+            usersArray.push(user);
+            fetchCount--;
+            if (fetchCount === 0) {
+               this.currentChannelUserArray = [];
+               this.currentChannelUserArray = usersArray;
+               console.log('zweiter Output', this.currentChannelUserArray);
+               this.channelUserArrayEmitter.emit(this.currentChannelUserArray);
+            }
+         });
+      });
+   }
+
+
    getMembersOfChannel(channel) {
       const collRef = collection(this.firestore, 'channels', channel, 'members');
       const docRef = collectionData(collRef, { idField: 'id' });
@@ -95,4 +115,13 @@ getInitials(id){
       this.destroy$.complete();
    }
 
+   saveChannel(channel){
+      const collRef = collection(this.firestore, 'channels');
+      addDoc(collRef, channel.toJSON());
+   }
+
+   addMemberToChannel(channelID, user){
+      const docRef = doc(this.firestore, 'channels', channelID);
+      updateDoc(docRef, {members: arrayUnion(user)})
+   }
 }

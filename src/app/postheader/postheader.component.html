@@ -12,7 +12,7 @@
           <img [src]="member['img']" />
         </div>
         <div class="amountOfMembers">{{ countsOfMembers }}</div>
-        <div class="addMember"> <img src="../../assets/img/add_member.svg" alt=""> </div>
+        <div class="addMember" (click)="openAddMemberDialog()"> <img src="../../assets/img/add_member.svg" alt=""> </div>
       </div>
     </div>
   </div>

@@ -24,11 +24,19 @@
   
 
     .channelsTop {
+        width: 100%;
         margin-top: 30px;
         display: flex;
         align-items: center;
+        justify-content: space-between;
     }
-
+    .messagesTop {
+        width: 100%;
+        margin-top: 30px;
+        display: flex;
+        align-items: center;
+      
+    }
    
 
     mat-icon {
@@ -73,6 +81,19 @@
      width: 100%;
      margin: 0;
 }
+.channelList{
+    width: 100%;
+    margin-top: 15px;
+}
+.spacer {
+    padding-top: 15px;
+}
 
+.head {
+    display: flex;
+}
 
+.pointer {
+    cursor: pointer;
+}
 

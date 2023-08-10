@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ChannelService } from '../services/channel.service';
 import { BehaviorSubject } from 'rxjs';
 import { UserService } from '../services/user.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogAddMemberComponent } from '../dialog-add-member/dialog-add-member.component';
 
 @Component({
   selector: 'app-postheader',
@@ -16,7 +18,7 @@ export class PostheaderComponent implements OnInit {
   countsOfMembers;
   currentChannelUser;
 
-  constructor(public channelService: ChannelService, public userService: UserService) {
+  constructor(public channelService: ChannelService, public userService: UserService, public dialog: MatDialog) {
     this.members = this.channelService.currentChannelUserArray;
 this.countsOfMembers = this.members.length;
     this.channelService.activeChannelID.subscribe((value) => {
@@ -39,5 +41,9 @@ this.countsOfMembers = this.members.length;
       this.countsOfMembers = this.members.length;
     });
    
+  }
+
+  openAddMemberDialog(){
+    this.dialog.open(DialogAddMemberComponent);
   }
 }

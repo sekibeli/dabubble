@@ -41,6 +41,11 @@ import { ChatContainerComponent } from './chat-container/chat-container.componen
 import { ChatDetailComponent } from './chat-detail/chat-detail.component';
 import { ChatNoMessageComponent } from './chat-no-message/chat-no-message.component';
 import { UserComponent } from './user/user.component';
+import { DialogNewChannelComponent } from './dialog-new-channel/dialog-new-channel.component';
+import { ChannelComponent } from './channel/channel.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogAddMemberComponent } from './dialog-add-member/dialog-add-member.component';
+
 
 
 
@@ -71,7 +76,11 @@ import { UserComponent } from './user/user.component';
     ChatContainerComponent,
     ChatDetailComponent,
     ChatNoMessageComponent,
-    UserComponent
+    UserComponent,
+  
+    DialogNewChannelComponent,
+    ChannelComponent,
+    DialogAddMemberComponent
   
   ],
   imports: [
@@ -80,7 +89,7 @@ import { UserComponent } from './user/user.component';
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
-
+    MatDialogModule,
     AngularFireModule,
     AngularFireAuthModule,
     ReactiveFormsModule,

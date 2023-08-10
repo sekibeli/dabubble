@@ -5,46 +5,32 @@
 </div>
 
 <div class="channelContainer">
-  <div class="channelsTop"><mat-icon>workspacesOutlined</mat-icon>Channels</div>
-  <div>
-    <ul>
-      <li *ngFor="let channel of channels; let i = index"
-      (click)="this.drawerService.close(); this.currentChannel(this.channel['title'], this.channel['id']); setMode(false)"
-        class="klick"
-        [routerLink]="['/home', 'channel', this.channel['id']]"
-        routerLinkActive="active">
-        # {{this.channel['title']}}
-      </li>
-     </ul>
+
+  <div class="channelsTop">
+    <div class="head" (click)="toggleChannelOpenClose()"><mat-icon class="pointer">{{ chArrowIcon}}</mat-icon><mat-icon>workspacesOutlined</mat-icon>
+      <div>Channels</div>
+    </div>
+   <div class="pointer" (click)="openDialogAddChannel()"><mat-icon >add</mat-icon></div>
+  </div>
+
+
+  <div *ngIf="chOpen"  class="channelList">
+
+    <ng-container class="spacer" *ngFor="let channel of channels">
+      <app-channel [channel]="channel" ></app-channel>
+   
+     </ng-container>
   </div>
 
 
 
 
-  <div class="channelsTop"><mat-icon>account_circleOutlined</mat-icon>Direktnachrichten</div>
+  <div class="messagesTop" (click)="toggleUserOpenClose()"><mat-icon class="pointer">{{ userArrowIcon }}</mat-icon><mat-icon>account_circleOutlined</mat-icon>Direktnachrichten</div>
  
-  <div class="userList">
+  <div *ngIf="userOpen" class="userList">
   <ng-container *ngFor="let user of users">
     <app-user [user]="user" ></app-user>
-    <!-- <ul>
-      <li *ngFor="let user of users let i = index"
-      class="message"
-      (click)="this.messageService.getThisChat(user['id']);setMode(true); this.drawerService.close(); this.messageService.setChatUser(user); this.pushChatUser(user); this.messageService.getChatLength(user['id'])"
-      [routerLink]="['/home','chat', user['id']]"
-      routerLinkActive="active">
-     
-        <div class="profile-overview">
-          <div class="relativePic">
-            <img class="profile-img" src="{{user['img']}}" alt="">
-            <div class="status"  [ngClass]="{'green': user['active'], 'grey': !user['active']}" ></div>
-            </div>
-            <div *ngIf="user['id'] != this.currentUserID" class="profile-name">{{ user['username']}}</div>
-            <div *ngIf="user['id'] == this.currentUserID" class="profile-name">{{ user['username']}} (Du)</div>
-       </div>
-      
-       
-      </li>
-     </ul> -->
+   
     </ng-container>
     </div>
 

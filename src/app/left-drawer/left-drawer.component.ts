@@ -8,6 +8,8 @@ import { UserService } from '../services/user.service';
 import { User } from '../models/user.class';
 import { MessageService } from '../services/message.service';
 import { BehaviorSubject } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogNewChannelComponent } from '../dialog-new-channel/dialog-new-channel.component';
 
 @Component({
   selector: 'app-left-drawer',
@@ -20,8 +22,13 @@ export class LeftDrawerComponent implements OnInit{
   currentUserID;
   firestore: Firestore = inject(Firestore);
   user;
+  chArrowIcon = 'arrow_drop_down';
+  userArrowIcon = 'arrow_drop_down';
+  chOpen = true;
+  userOpen = true;
   
-  constructor(public postService: PostService, public drawerService: DrawerService, public channelService: ChannelService, public userService: UserService, public messageService: MessageService) {
+  
+  constructor(public postService: PostService, public drawerService: DrawerService, public channelService: ChannelService, public userService: UserService, public messageService: MessageService, public dialog: MatDialog) {
       
     this.channelService.getChannels().subscribe((value) => {
       
@@ -41,19 +48,24 @@ export class LeftDrawerComponent implements OnInit{
   }
  
  
- currentChannel(title, id){
-  this.channelService.pushActiveChannel(title, id);
-  
- }
+ 
 
  pushChatUser(user){
   this.messageService.pushChatUser(user);
  
  }
  
- 
-setMode(mode:boolean){
-  localStorage.setItem('directMessage', JSON.stringify(mode));
-  localStorage.setItem('channelMessage', JSON.stringify(!mode));
+ openDialogAddChannel(){
+this.dialog.open(DialogNewChannelComponent)
+ }
+
+toggleChannelOpenClose() {
+  this.chOpen = !this.chOpen;
+  this.chArrowIcon = this.chArrowIcon === 'arrow_drop_down' ? 'arrow_right' : 'arrow_drop_down'
+}
+
+toggleUserOpenClose() {
+  this.userOpen = !this.userOpen;
+  this.userArrowIcon = this.userArrowIcon === 'arrow_drop_down' ? 'arrow_right' : 'arrow_drop_down'
 }
 }

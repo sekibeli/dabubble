@@ -1,0 +1,27 @@
+<div class="newChannelContainer">
+    <div class="close" (click)="dialogRef.close()"><mat-icon>close</mat-icon></div>
+    <div><h3>Channel erstellen</h3></div>
+<div class="description">Channels dienen deinem Team zur Kommunikation. Am besten sollten sie themenbezogen sein <br> #marketing zum Beispiel.</div>
+
+<div [formGroup]="newChannelForm" class="login-content">
+        
+        
+    <mat-form-field appearance="outline" class="fullWidth custom-field">
+        <mat-label>Channel-Name</mat-label>
+        <input formControlName="title" required matInput type="text">
+        <mat-icon matIconPrefix>#</mat-icon>
+          <mat-error *ngIf="newChannelForm.controls['title'].hasError('required')">Bitte Titel eingeben</mat-error>
+      
+    </mat-form-field>
+<div class="spacer"></div>
+    <mat-form-field appearance="outline" class="fullWidth">
+        <mat-label>Beschreibung</mat-label>
+        <input formControlName="description" matInput type="text">
+        <!-- <mat-icon matIconPrefix>lock</mat-icon> -->
+        <!-- <mat-icon (click)="hide = !hide" matSuffix>{{hide ? 'visibility_off' : 'visibility' }}</mat-icon> -->
+       
+    </mat-form-field>
+
+</div>
+<button  (click)="addNewChannel()" [disabled]="newChannelForm.invalid" class="darkButton">Erstellen</button>
+</div>
