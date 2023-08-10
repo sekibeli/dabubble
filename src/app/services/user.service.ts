@@ -35,6 +35,11 @@ export class UserService implements OnInit {
     return docData(docRef);
 
   }
+  // async getUsers(ids: string[]): Promise<any[]>{
+  //   const users = await Promise.all(ids.map(id => this.getCurrentUser(id)));
+  //   console.log('getUsers:', users);
+  //   return users;
+  // }
 
   async getCurrentUserTest(id: string) {
     const docRef = await doc(this.firestore, 'users', id);

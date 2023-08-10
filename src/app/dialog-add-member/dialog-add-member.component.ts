@@ -13,7 +13,7 @@ export class DialogAddMemberComponent {
 
 
   addMemberToChannel(channelID, user){
-    this.channelService.addMemberToChannel(channelID, user);
+    // this.channelService.addMemberToChannel(channelID, user);
 
   }
 }
