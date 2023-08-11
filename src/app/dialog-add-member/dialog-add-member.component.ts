@@ -1,10 +1,12 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, Inject, OnInit, inject } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ChannelService } from '../services/channel.service';
 import { FormGroup } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { Observable, Subject, combineLatest } from 'rxjs';
 import { Firestore, QuerySnapshot, collection, docData, endAt, getDocs, limit, orderBy, query, startAt } from '@angular/fire/firestore';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { User } from '../models/user.class';
 
 
 @Component({
@@ -21,11 +23,15 @@ export class DialogAddMemberComponent implements OnInit {
 users;
   startobs = this.startAt.asObservable();
   endobs = this.endAt.asObservable();
-channelTitle;
-  constructor(public dialogRef: MatDialogRef<DialogAddMemberComponent>, private channelService: ChannelService, private userService: UserService) { 
-    this.channelService.activeChannelTitle.subscribe((value)=>{
-    console.log(value);
-    })
+  notChosen = true;
+  chosenUser;
+public channelTitle;
+  constructor(public dialogRef: MatDialogRef<DialogAddMemberComponent>, private channelService: ChannelService, private userService: UserService, @Inject(MAT_DIALOG_DATA) public data: any) { 
+    
+    // this.channelService.activeChannelTitle.subscribe((value)=>{
+    // console.log(value);
+    // })
+    this.channelTitle = this.data.activeChannelTitle;
     console.log('addMember Component');
   }
 
@@ -51,6 +57,12 @@ channelTitle;
   }
 
   addNewMember() { }
+
+  chooseNewMember(user:User){
+    console.log(user);
+    this.notChosen = false;
+    this.chosenUser = user;
+  }
 
   searchUserInFirestore(start, end) {
     const collRef = collection(this.firestore, 'users');

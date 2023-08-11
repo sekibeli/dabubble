@@ -43,8 +43,15 @@ export class PostheaderComponent implements OnInit {
    
   }
 
-  openAddMemberDialog(){
-    this.dialog.open(DialogAddMemberComponent);
+  openAddMemberDialog(activeChannelTitle: string){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.position = {
+      top: '200px',  // Ändere diese Werte entsprechend deiner gewünschten Position
+      right: '10%'   // Ändere diese Werte entsprechend deiner gewünschten Position
+    };
+dialogConfig.data = { channelTitle: activeChannelTitle};
+   const dialogRef =  this.dialog.open(DialogAddMemberComponent, dialogConfig);
+   dialogRef.componentInstance.channelTitle = this.activeChannelTitle;
   }
 
   openShowMembersDialog(){
