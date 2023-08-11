@@ -1,0 +1,72 @@
+.app-wrapper .mat-dialog-container {
+    border-radius: 30px;
+}
+
+.showUserContainer{
+    margin: 15px;
+
+}
+
+.profile-overview {
+    padding: 0px 15px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-right: 15px;
+    margin-bottom: 5px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--background-color);
+        color: #535AF1;
+    }
+    
+}
+
+.profile-img {
+    
+    margin: 0 20px 0 0;
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+ul {
+    list-style: none; 
+    padding: 0;
+    outline: none;
+ }
+
+ .cdk-overlay-pane {
+    border-top-left-radius: 30px;
+    background-color: rgba(0, 0, 0, 0.5); /* Farbe des Overlay-Hintergrunds */
+  }
+
+  .lastItem {
+    display: flex;
+    align-items: center;
+   
+    border-radius: 30px;
+    padding: 2px 15px;
+
+    cursor: pointer;
+    &:hover {
+        background-color: var(--background-color);
+        color: #535AF1;
+    }
+
+    img{
+        margin-right: 20px;
+    }
+  }
+
+  .dialogHeader {
+    display: flex;
+    justify-content: space-between;
+  }
+  .close{
+    cursor: pointer;
+}
+

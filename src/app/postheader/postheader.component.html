@@ -6,9 +6,9 @@
       </div>
       <div><mat-icon> keyboard_arrow_down </mat-icon></div>
     </div>
-    <!-- <div> -->
+   
       <div class="miniProfilePicsRow" *ngIf="activeChannelID">
-        <div class="user">
+        <div class="user"  (click)="openShowMembersDialog()">
           
           <ng-container *ngFor="let member of members">
           <img [src]="member['img']" />
@@ -19,6 +19,6 @@
         </div>
         <div class="addMember" (click)="openAddMemberDialog()"> <img src="../../assets/img/add_member.svg" alt=""> </div>
       </div>
-    <!-- </div> -->
+   
   </div>
 </div>

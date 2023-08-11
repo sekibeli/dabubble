@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ChannelService } from '../services/channel.service';
 import { BehaviorSubject } from 'rxjs';
 import { UserService } from '../services/user.service';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialogRef , MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import { DialogAddMemberComponent } from '../dialog-add-member/dialog-add-member.component';
+import { DialogShowChanneluserComponent } from '../dialog-show-channeluser/dialog-show-channeluser.component';
 
 @Component({
   selector: 'app-postheader',
@@ -44,5 +45,16 @@ export class PostheaderComponent implements OnInit {
 
   openAddMemberDialog(){
     this.dialog.open(DialogAddMemberComponent);
+  }
+
+  openShowMembersDialog(){
+    const dialogConfig = new MatDialogConfig();
+  dialogConfig.position = {
+    top: '200px',  // Ändere diese Werte entsprechend deiner gewünschten Position
+    right: '10%'   // Ändere diese Werte entsprechend deiner gewünschten Position
+  };
+
+  
+    this.dialog.open(DialogShowChanneluserComponent, dialogConfig);
   }
 }
