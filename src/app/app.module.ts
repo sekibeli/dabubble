@@ -46,6 +46,8 @@ import { ChannelComponent } from './channel/channel.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogAddMemberComponent } from './dialog-add-member/dialog-add-member.component';
 
+import { OverlayShowChanneluserComponent } from './overlay-show-channeluser/overlay-show-channeluser.component';
+
 
 
 
@@ -80,7 +82,9 @@ import { DialogAddMemberComponent } from './dialog-add-member/dialog-add-member.
   
     DialogNewChannelComponent,
     ChannelComponent,
-    DialogAddMemberComponent
+    DialogAddMemberComponent,
+
+    OverlayShowChanneluserComponent
   
   ],
   imports: [

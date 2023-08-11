@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable, OnInit, inject } from '@angular/core';
-import { Firestore, collection, collectionData, doc, docData, setDoc, updateDoc } from '@angular/fire/firestore';
+import { Firestore, collection, collectionData, doc, docData, query, setDoc, updateDoc, where } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.class';
 
@@ -13,8 +13,6 @@ export class UserService implements OnInit {
   firestore: Firestore = inject(Firestore);
   users!: Observable<User>;
   observeUsers: Observable<any>;
-  //  activeChatUser = new EventEmitter<User>();
-  // user;
 
   constructor() {
     this.getUserData();
@@ -30,26 +28,15 @@ export class UserService implements OnInit {
     return userData;
   }
 
+
   getCurrentUser(id: string) {
     const docRef = doc(this.firestore, 'users', id);
-    return docData(docRef);
-
-  }
-  // async getUsers(ids: string[]): Promise<any[]>{
-  //   const users = await Promise.all(ids.map(id => this.getCurrentUser(id)));
-  //   console.log('getUsers:', users);
-  //   return users;
-  // }
-
-  async getCurrentUserTest(id: string) {
-    const docRef = await doc(this.firestore, 'users', id);
     return docData(docRef);
 
   }
 
   getAuthorDetails(post) {
     const userDataRef = this.getCurrentUser(post['author']).subscribe((value) => {
-
       return value;
     });
   }
@@ -68,7 +55,6 @@ export class UserService implements OnInit {
       console.error('Fehler: ', error);
     }
   }
-
-  
+ 
 
 }

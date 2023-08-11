@@ -20,14 +20,14 @@ export class PostheaderComponent implements OnInit {
 
   constructor(public channelService: ChannelService, public userService: UserService, public dialog: MatDialog) {
     this.members = this.channelService.currentChannelUserArray;
-this.countsOfMembers = this.members.length;
+// this.countsOfMembers = this.members.length;
     this.channelService.activeChannelID.subscribe((value) => {
       this.activeChannelID.next(value);
     });
   }
 
   ngOnInit() {
-    // this.channelService.pushActiveChannel('Angular', '9Gwz1Ce763caWx5FCBZL' );
+    this.channelService.pushActiveChannel('Angular', '9Gwz1Ce763caWx5FCBZL' );
 
     this.channelService.activeChannelTitle.subscribe(
       (value) => {
@@ -35,8 +35,7 @@ this.countsOfMembers = this.members.length;
       });
 
     this.channelService.channelUserArrayEmitter.subscribe((users) => {
-      
-      console.log(users);
+            
       this.members = users;
       this.countsOfMembers = this.members.length;
     });
