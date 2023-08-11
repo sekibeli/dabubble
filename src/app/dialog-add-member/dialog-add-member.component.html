@@ -1,1 +1,38 @@
-<div  class="addMemberContainer" (click)="addMemberToChannel('gtiybjxBKbnE4S1vXJ2N', 'DyGVMYTdzCXRsqa2VuBfavSbhvk2')">Einen User hinzufügen</div>
+
+<div class="addMemberContainer">
+    <div class="dialogHeader"> <div><h3>Leute hinzufügen</h3></div><div class="close"  (click)="dialogRef.close()"><mat-icon >close</mat-icon></div></div>
+<div class="channelTitle"># {{ channelTitle }}</div>
+    <div class="channel"></div>
+    <div>
+ 
+            <!-- <mat-form-field appearance="outline" class="fullWidth custom-field">
+                <input matInput placeholder="Suchen" (keyup)="searchMember($event.target.value)">
+              </mat-form-field> -->
+
+              <input class="search" type="text" [(ngModel)]="searchterm" (keyup)="searchMember($event)">
+
+              <ul *ngFor="let user of users">
+                <li 
+                class="message"
+              (click)="addNewMember()">
+               
+                  <div class="profile-overview">
+                    <div class="relativePic">
+                      <img class="profile-img" src="{{user['img']}}" alt="">
+                      <div class="status"  [ngClass]="{'green': user['active'], 'grey': !user['active']}" ></div>
+                      </div>
+                      <div *ngIf="user['id'] != this.currentUserID" class="profile-name">{{ user['username']}}</div>
+                      <div *ngIf="user['id'] == this.currentUserID" class="profile-name">{{ user['username']}} (Du)</div>
+                 </div>
+                
+                 
+                </li>
+             
+            
+            
+            
+            </ul>
+
+            <button  (click)="addNewMember()"  class="darkButton">hinzufügen</button>
+    </div>
+</div>

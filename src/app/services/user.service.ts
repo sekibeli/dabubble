@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable, OnInit, inject } from '@angular/core';
-import { Firestore, collection, collectionData, doc, docData, query, setDoc, updateDoc, where } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Firestore, collection, collectionData, doc, docData, limit, orderBy, query, setDoc, updateDoc, where } from '@angular/fire/firestore';
+import { Observable, Subject } from 'rxjs';
 import { User } from '../models/user.class';
 
 // Service
@@ -13,6 +13,8 @@ export class UserService implements OnInit {
   firestore: Firestore = inject(Firestore);
   users!: Observable<User>;
   observeUsers: Observable<any>;
+  startAt = new Subject();
+endAt = new Subject();
 
   constructor() {
     this.getUserData();
@@ -56,5 +58,11 @@ export class UserService implements OnInit {
     }
   }
  
+
+  // searchUserInFirestore(start, end){
+  //   const collRef = collection(this.firestore, 'users');
+  //  return  query(collRef, limit(4), orderBy('username'), startAt(start), this.endAt(end));
+
+  // }
 
 }
