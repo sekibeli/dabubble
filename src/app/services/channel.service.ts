@@ -3,18 +3,21 @@ import { Firestore, addDoc, arrayUnion, collection, collectionData, doc, docData
 import { UserService } from './user.service';
 import { BehaviorSubject, Subject, first, forkJoin, merge, mergeAll, takeUntil } from 'rxjs';
 import { User } from '../models/user.class';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { DialogAddMemberComponent } from '../dialog-add-member/dialog-add-member.component';
 
 @Injectable({
    providedIn: 'root'
 })
 export class ChannelService implements OnInit, OnDestroy {
+   currentChannelID = 'OnQ02XRJqwZRA0ts0qc5';
    private destroy$: Subject<void> = new Subject<void>();
    firestore: Firestore = inject(Firestore)
    channelUser: BehaviorSubject<any[]> = new BehaviorSubject<any[]>(null);
    channelUserIDArray;
    membersUserIDArray: any[];
    channelUserArrayEmitter = new EventEmitter<any>();
-   
+   currentChannelTitle;
    currentChannelUserArray
    = [{
 
@@ -33,7 +36,7 @@ export class ChannelService implements OnInit, OnDestroy {
    activeChannelTitle = new EventEmitter<string>();
    activeChannelID = new EventEmitter<string>();
 
-   constructor(private userService: UserService) {
+   constructor(private userService: UserService, public dialog: MatDialog) {
       
       this.getInitials('9Gwz1Ce763caWx5FCBZL');
    }
@@ -50,10 +53,11 @@ export class ChannelService implements OnInit, OnDestroy {
 
    pushActiveChannel(title, id) {
       this.activeChannelTitle.emit(title);
-
+this.currentChannelTitle = title;
+this.currentChannelID = id;
       this.getMembersOfChannelNEW(id).then(members => {
          this.membersUserIDArray = members;
-         console.log('Inhalt membersUserIDArray', this.membersUserIDArray); // Hier stimmts noch
+         console.log('Inhalt membersUserIDArray', this.membersUserIDArray); 
          this.getMembersData(this.membersUserIDArray);
        });
         }
@@ -123,7 +127,37 @@ getInitials(id){
    }
 
    addMemberToChannel(channelID, user){
+      if(this.checkIfUserIsAlreadyMemberOfChannel(channelID, user)){
       const docRef = doc(this.firestore, 'channels', channelID);
       updateDoc(docRef, {members: arrayUnion(user)})
+      } else {
+         console.log('User ist schon Mitglied!');
+      }
    }
+   
+   openAddMemberDialog(activeChannelTitle: string){
+      console.log('openDialog');
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.position = {
+        top: '200px',  // Ändere diese Werte entsprechend deiner gewünschten Position
+        right: '10%'   // Ändere diese Werte entsprechend deiner gewünschten Position
+      };
+  dialogConfig.data = { channelTitle: activeChannelTitle};
+     const dialogRef =  this.dialog.open(DialogAddMemberComponent, dialogConfig);
+     dialogRef.componentInstance.channelTitle = this.activeChannelTitle;
+    }
+   
+
+    checkIfUserIsAlreadyMemberOfChannel(channelID, user):boolean{
+let check;
+      this.getMembersOfChannelNEW(channelID).then((value)=>{
+if (value.includes(user)){
+   check = true;
+}else {
+   check = false;
+}
+      })
+return check;
+    }
+
 }

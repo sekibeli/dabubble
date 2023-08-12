@@ -31,8 +31,8 @@ public channelTitle;
     // this.channelService.activeChannelTitle.subscribe((value)=>{
     // console.log(value);
     // })
-    this.channelTitle = this.data.activeChannelTitle;
-    console.log('addMember Component');
+    // this.channelTitle = this.data.activeChannelTitle;
+    // console.log('addMember Component', this.channelTitle);
   }
 
   ngOnInit() {
@@ -45,8 +45,12 @@ public channelTitle;
   
     
   }
-  addMemberToChannel(channelID, user) {
-    // this.channelService.addMemberToChannel(channelID, user);
+  addMemberToChannel() {
+  
+    let channelID = this.channelService.currentChannelID;
+    this.channelService.addMemberToChannel(channelID, this.chosenUser.id);
+   this.dialogRef.close();
+
   }
 
 
@@ -56,9 +60,10 @@ public channelTitle;
     this.endAt.next(q + "\uf8ff")
   }
 
-  addNewMember() { }
+  // addNewMember() { }
 
   chooseNewMember(user:User){
+    this.chosenUser = user;
     console.log(user);
     this.notChosen = false;
     this.chosenUser = user;
@@ -66,7 +71,7 @@ public channelTitle;
 
   searchUserInFirestore(start, end) {
     const collRef = collection(this.firestore, 'users');
-    const queryRef = query(collRef, orderBy('username'), limit(3), startAt(start), endAt(end));
+    const queryRef = query(collRef, orderBy('username'), limit(4), startAt(start), endAt(end));
     const docRef = getDocs(queryRef);
     return docRef;
    

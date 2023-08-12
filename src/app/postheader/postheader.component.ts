@@ -44,6 +44,8 @@ export class PostheaderComponent implements OnInit {
   }
 
   openAddMemberDialog(activeChannelTitle: string){
+
+    // this.channelService.openAddMemberDialog(activeChannelTitle);
     const dialogConfig = new MatDialogConfig();
     dialogConfig.position = {
       top: '200px',  // Ändere diese Werte entsprechend deiner gewünschten Position
