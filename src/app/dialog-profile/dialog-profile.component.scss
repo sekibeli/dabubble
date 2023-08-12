@@ -1,0 +1,67 @@
+.dialogHeader {
+    display: flex;
+    justify-content: space-between;
+  }
+  .close{
+    cursor: pointer;
+}
+
+.showProfileContainer{
+display: flex;
+flex-direction: column;
+    margin: 25px;
+    width: 300px;
+    min-height: 500px;
+}
+
+.greenPoint {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: green;
+    margin-right: 15px;
+ 
+}
+.redPoint{
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: grey;
+    margin-right: 15px;
+}
+
+.isActive{
+   color: green;
+}
+.isInactive{
+    color: grey;
+}
+
+.profilePic {
+    display: flex;
+    justify-content: center;
+   
+    .profileImg{
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+    }
+}
+
+.email-details {
+    margin-top: 15px;
+display: flex;
+
+mat-icon {
+    margin-right: 15px;
+}
+}
+
+.profileStatus {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.colorMail {
+    color: #1381FF;
+}

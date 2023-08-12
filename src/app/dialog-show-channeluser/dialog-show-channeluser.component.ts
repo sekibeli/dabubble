@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialogRef , MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import { ChannelService } from '../services/channel.service';
 import { DialogAddMemberComponent } from '../dialog-add-member/dialog-add-member.component';
+import { DialogProfileComponent } from '../dialog-profile/dialog-profile.component';
 
 
 @Component({
@@ -42,7 +43,17 @@ dialogConfig.data = { channelTitle: this.channelService.currentChannelTitle }
  
 }
 
-openProfile(){}
+openProfile(user){
+  const dialogConfig = new MatDialogConfig();
+  // this.dialog.open(DialogProfileComponent, user)
+
+
+  dialogConfig.data = { user: user};
+  const dialogRef =  this.dialog.open(DialogProfileComponent, dialogConfig);
+  dialogRef.componentInstance.user = user;
+
+  this.dialogRef.close();
+}
 
 ngOnDestroy(): void {
   if(this.unsub){

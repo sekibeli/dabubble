@@ -1,14 +1,13 @@
-<div class="profile-overview">
-  <div
+<div class="profile-overview"
+ 
     (click)="
       this.drawerService.close();
       this.currentChannel(this.channel['title'], this.channel['id']);
-      setMode(false)
-    "
-    class="klick"
+      setMode(false)"
+   
     [routerLink]="['/home', 'channel', this.channel['id']]"
     routerLinkActive="active">
         # {{ this.channel["title"] }}
-</div>
+
 </div>
 

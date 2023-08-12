@@ -71,7 +71,7 @@ public channelTitle;
 
   searchUserInFirestore(start, end) {
     const collRef = collection(this.firestore, 'users');
-    const queryRef = query(collRef, orderBy('username'), limit(4), startAt(start), endAt(end));
+    const queryRef = query(collRef, orderBy('username'), limit(10), startAt(start), endAt(end));
     const docRef = getDocs(queryRef);
     return docRef;
    

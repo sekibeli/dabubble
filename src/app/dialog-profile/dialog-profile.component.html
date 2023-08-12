@@ -1,1 +1,48 @@
-<p>dialog-profile works!</p>
+
+<div class="showProfileContainer">
+  <div class="dialogHeader">
+    <div><h3>Profil</h3></div>
+    <div class="close" (click)="dialogRef.close()">
+      <mat-icon>close</mat-icon>
+    </div>
+  </div>
+
+  <div class="profilePic">
+    <img class="profileImg" src="{{ user['img'] }}" alt="" />
+  </div>
+  <div class="username"><h3>{{ user["username"] }}</h3></div>
+
+    <ng-container *ngIf="user['active']" >
+  <div class="profileStatus">
+    <div class="greenPoint"></div>
+    <div class="isActive">Aktiv</div>
+</div>
+</ng-container>
+ 
+
+<ng-container *ngIf="!user['active']">
+<div class="profileStatus">
+    <div class="redPoint"></div>
+    <div class="isInactive">Abwesend</div>
+</div>
+</ng-container>
+  
+<div class="email-details">
+    <div><mat-icon>mail_outlined</mat-icon></div>
+    <div>
+      <div>E-Mail-Adresse</div>
+      <div class="colorMail">{{ user["email"] }}</div>
+    </div>
+</div>
+
+<button   
+ 
+
+
+ (click)="this.messageService.getThisChat(user['id']);  this.messageService.setChatUser(user);this.messageService.pushChatUser(user); this.messageService.getChatLength(user['id']); this.dialogRef.close(); this.drawerService.close()"
+    [routerLink]="['/home','chat', user['id']]"
+    routerLinkActive="active"
+
+  class="darkButton"> Nachricht</button>
+  </div>
+
