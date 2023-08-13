@@ -99,3 +99,15 @@
     border: 1px solid var(--light-purple-lines);
     border-radius: 15px;
 }
+
+@media (max-width: 700px) {
+    .profile-pic {
+        margin-right: 20px;
+    
+        img {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+        }
+        }
+}

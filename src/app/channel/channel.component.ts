@@ -23,4 +23,16 @@ currentChannel(title, id){
   localStorage.setItem('directMessage', JSON.stringify(mode));
   localStorage.setItem('channelMessage', JSON.stringify(!mode));
 }
+
+onProfileClick(event: Event) {
+  this.drawerService.close();
+  this.currentChannel(this.channel['title'], this.channel['id']);
+  this.setMode(false);
+
+  if (window.innerWidth < 600) {
+    this.drawerService.toggle();
+    event.preventDefault();
+  }
+}
+
 }

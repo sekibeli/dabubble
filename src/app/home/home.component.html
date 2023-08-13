@@ -1,45 +1,46 @@
 <div class="container">
-  
-  <div class="layerToggle" (click)="leftDrawer.toggle()">
+  <div
+    class="layerToggle"
+    [ngClass]="{ 'd-none': isSmallScreen }"
+    (click)="leftDrawer.toggle()"
+  >
     <div class="rotatedText">Workspace open / close</div>
   </div>
 
-<div class="header">
-  <div class="logo_small">
-    <img src="../../assets/img/logo.svg" alt="">
-    <div>DABubble</div>
-</div>
+  <div class="header">
+    <div class="logo_small">
+      <img src="../../assets/img/logo.svg" alt="" />
+      <div>DABubble</div>
+    </div>
 
-<div class="search"></div>
-  <div class="profile-up-right">
-    <app-user-profile
-      *ngIf="this.currentUser"
-      [currentUser]="this.currentUser"
-    ></app-user-profile>
+    <div class="search"></div>
+    <div class="profile-up-right">
+      <app-user-profile
+        *ngIf="this.currentUser"
+        [currentUser]="this.currentUser"
+      ></app-user-profile>
+    </div>
   </div>
 
-</div>
-
- 
-
-
   <div class="content">
-    <mat-drawer-container class="example-container" autosize  [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-      <mat-drawer #leftDrawer class="sidenavLeft" mode="side" opened="true">
-       
-        <app-left-drawer></app-left-drawer>
-        </mat-drawer>
+    <mat-drawer-container class="example-container" autosize>
+      <mat-drawer 
+      #leftDrawer 
+      mode="side" 
+      class="sidenavLeft" 
+      [opened]="drawerService.getDrawerState() | async">
+        <app-left-drawer  (callToggle)="toggleLeftDrawer()"></app-left-drawer>
+      </mat-drawer>
       <mat-drawer-content class="main">
         <router-outlet></router-outlet>
-   
       </mat-drawer-content>
       <mat-drawer
         #rightDrawer
         class="sidenavRight"
         position="end"
-        mode="side"
+        mode="over"
         opened="false"
-        >
+      >
         <app-thread-container></app-thread-container>
       </mat-drawer>
     </mat-drawer-container>

@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output, inject } from '@angular/core';
 import { PostService } from '../services/post.service';
 import { DrawerService } from '../services/drawer.service';
 import { ActivatedRoute } from '@angular/router';
@@ -17,6 +17,8 @@ import { DialogNewChannelComponent } from '../dialog-new-channel/dialog-new-chan
   styleUrls: ['./left-drawer.component.scss']
 })
 export class LeftDrawerComponent implements OnInit{
+ isSmallScreen;
+  @Output() callToggle = new EventEmitter();
   users;
   channels;
   currentUserID;
@@ -29,7 +31,7 @@ export class LeftDrawerComponent implements OnInit{
   
   
   constructor(public postService: PostService, public drawerService: DrawerService, public channelService: ChannelService, public userService: UserService, public messageService: MessageService, public dialog: MatDialog) {
-      
+    this.checkScreenSize();
     this.channelService.getChannels().subscribe((value) => {
       
         this.channels = value;
@@ -47,7 +49,8 @@ export class LeftDrawerComponent implements OnInit{
     console.log(this.currentUserID);
   }
  
- 
+ triggerToggle(){this.callToggle.emit();
+}
  
 
  pushChatUser(user){
@@ -68,4 +71,17 @@ toggleUserOpenClose() {
   this.userOpen = !this.userOpen;
   this.userArrowIcon = this.userArrowIcon === 'arrow_drop_down' ? 'arrow_right' : 'arrow_drop_down'
 }
+@HostListener('window:resize', ['$event'])
+onResize(event) {
+  this.checkScreenSize();
+}
+
+checkScreenSize() {
+  if(window.innerWidth < 600) {
+    this.isSmallScreen = true;
+  } else {
+    this.isSmallScreen = false;
+  }
+}
+
 }

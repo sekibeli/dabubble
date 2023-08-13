@@ -1,13 +1,17 @@
 <div class="profile-overview"
  
-    (click)="
-      this.drawerService.close();
-      this.currentChannel(this.channel['title'], this.channel['id']);
-      setMode(false)"
-   
+    (click)="onProfileClick($event)"
+      
+    
+  
     [routerLink]="['/home', 'channel', this.channel['id']]"
     routerLinkActive="active">
         # {{ this.channel["title"] }}
 
 </div>
 
+<!-- this.drawerService.close();
+this.currentChannel(this.channel['title'], this.channel['id']);
+setMode(false);
+this.drawerService.toggle();
+$event.preventDefault()" -->

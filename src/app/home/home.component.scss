@@ -106,3 +106,14 @@ mat-drawer-container {
     background-color: var(--background-color);
 } 
 
+.d-none {
+    display: none;
+}
+
+@media (max-width: 600px){
+
+    .mat-drawer { 
+        margin: 25px 0px;
+    }
+   
+}
