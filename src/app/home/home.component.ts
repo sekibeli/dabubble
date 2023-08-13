@@ -1,10 +1,11 @@
-import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 import { UserService } from '../services/user.service';
 import { AuthService } from '../services/auth.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '../models/user.class';
 import { DrawerService } from '../services/drawer.service';
+import {MediaMatcher} from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +13,9 @@ import { DrawerService } from '../services/drawer.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements AfterViewInit {
+  mobileQuery: MediaQueryList;
+  private _mobileQueryListener: () => void;
+
   @ViewChild('rightDrawer') public rightDrawer:MatDrawer
 public currentUser;
   public userLoggedIn_UID: string;
@@ -19,7 +23,12 @@ public currentUser;
   users: Observable<any>;
   user: User;
 
-  constructor(public userService: UserService, public authService: AuthService, private drawerService: DrawerService) { 
+  constructor(public userService: UserService, public authService: AuthService, private drawerService: DrawerService, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) { 
+   
+    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this._mobileQueryListener);
+   
     this.userLoggedIn_UID = this.authService.getCurrentUserIDFromLocalStorage();
     localStorage.setItem('channelMessage', 'true');
 

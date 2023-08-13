@@ -46,6 +46,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DialogAddMemberComponent } from './dialog-add-member/dialog-add-member.component';
 import { DialogShowChanneluserComponent } from './dialog-show-channeluser/dialog-show-channeluser.component';
 import { DialogProfileComponent } from './dialog-profile/dialog-profile.component';
+import { ImpressumComponent } from './impressum/impressum.component';
+import { DialogLogoutComponent } from './dialog-logout/dialog-logout.component';
+import {MatButtonModule} from '@angular/material/button';
 
 
 
@@ -87,6 +90,8 @@ import { DialogProfileComponent } from './dialog-profile/dialog-profile.componen
     DialogAddMemberComponent,
     DialogShowChanneluserComponent,
     DialogProfileComponent,
+    ImpressumComponent,
+    DialogLogoutComponent,
     
 
    
@@ -104,6 +109,7 @@ import { DialogProfileComponent } from './dialog-profile/dialog-profile.componen
     ReactiveFormsModule,
     FormsModule,
     MatSidenavModule,
+    MatButtonModule,
     MatExpansionModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),

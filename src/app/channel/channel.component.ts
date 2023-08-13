@@ -13,6 +13,8 @@ export class ChannelComponent {
 constructor( private channelService: ChannelService, public drawerService: DrawerService){}
 
 currentChannel(title, id){
+  console.log('title:', title);
+  console.log('id:', id);
   this.channelService.pushActiveChannel(title, id);
   
  }

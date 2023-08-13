@@ -24,7 +24,7 @@
 
 
   <div class="content">
-    <mat-drawer-container class="example-container" autosize>
+    <mat-drawer-container class="example-container" autosize  [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
       <mat-drawer #leftDrawer class="sidenavLeft" mode="side" opened="true">
        
         <app-left-drawer></app-left-drawer>

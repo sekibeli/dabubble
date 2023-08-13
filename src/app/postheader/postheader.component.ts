@@ -33,6 +33,7 @@ export class PostheaderComponent implements OnInit {
     this.channelService.activeChannelTitle.subscribe(
       (value) => {
         this.activeChannelTitle = value;
+        console.log('Holmes3', this.activeChannelTitle);
       });
 
     this.channelService.channelUserArrayEmitter.subscribe((users) => {

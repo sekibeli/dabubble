@@ -1,8 +1,8 @@
-<div class="profile-overview">
+<div class="profile-overview" (click)="openLogoutMenu()">
     <div class="profile-name">{{ this.currentUser['username']}}</div>
 <img class="profile-img" src="{{this.currentUser['img']}}" alt="">
-<button (click)="logUserOut()"
-[routerLink]="['/']">Logout</button>
+<div><mat-icon> keyboard_arrow_down </mat-icon></div>
+
 
 
 

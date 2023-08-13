@@ -7,12 +7,14 @@ import { HomeComponent } from './home/home.component';
 import { PostContainerComponent } from './post-container/post-container.component';
 import { MainComponent } from './main/main.component';
 import { ChatComponent } from './chat/chat.component';
+import { ImpressumComponent } from './impressum/impressum.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'start', pathMatch: 'full'},
   {path: 'start', component: StartComponent},
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignUpComponent},
+  {path: 'impressum', component: ImpressumComponent},
   {path: 'home', component: HomeComponent,
 children: [
   {path:'', component: MainComponent},

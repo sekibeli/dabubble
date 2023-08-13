@@ -1,0 +1,11 @@
+.logout {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.2em;
+    margin: 15px 40px;
+
+    .item {
+        cursor: pointer;
+        margin: 10px 0;
+    }
+}

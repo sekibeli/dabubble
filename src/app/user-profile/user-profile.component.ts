@@ -3,6 +3,8 @@ import { User } from '../models/user.class';
 import { signOut } from '@angular/fire/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { UserService } from '../services/user.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { DialogLogoutComponent } from '../dialog-logout/dialog-logout.component';
 
 @Component({
   selector: 'app-user-profile',
@@ -14,7 +16,7 @@ export class UserProfileComponent implements OnInit, OnDestroy{
   @Input() currentUser;
   user: User;
 
-  constructor(private afAuth: AngularFireAuth, private userService: UserService) {
+  constructor(private afAuth: AngularFireAuth, private userService: UserService, private dialog: MatDialog) {
    
   }
 
@@ -39,6 +41,15 @@ export class UserProfileComponent implements OnInit, OnDestroy{
     console.log(err.message);
    });
    localStorage.setItem('currentUserID', '');
+  }
+
+  openLogoutMenu(){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.position = {
+      top: '100px',  // Ändere diese Werte entsprechend deiner gewünschten Position
+      right: '5%'   // Ändere diese Werte entsprechend deiner gewünschten Position
+    };
+this.dialog.open(DialogLogoutComponent, dialogConfig);
   }
 
 }
