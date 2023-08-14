@@ -83,4 +83,10 @@ this.drawerService.setDrawer(this.rightDrawer);
       this.drawerStateSubscription.unsubscribe();
     }
   }
+
+  goBack(){
+    this.drawerService.toggle();
+    // event.preventDefault();
+    this.drawerService.setMyVariable(false);
+  }
 }

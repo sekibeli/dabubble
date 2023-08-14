@@ -1,10 +1,12 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
 import { User } from '../models/user.class';
 import { signOut } from '@angular/fire/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { UserService } from '../services/user.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogLogoutComponent } from '../dialog-logout/dialog-logout.component';
+import { DrawerService } from '../services/drawer.service';
+
 
 @Component({
   selector: 'app-user-profile',
@@ -12,12 +14,13 @@ import { DialogLogoutComponent } from '../dialog-logout/dialog-logout.component'
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent implements OnInit, OnDestroy{
+  isSmallScreen;
   @Input()  userLoggedIn_UID;
   @Input() currentUser;
   user: User;
 
-  constructor(private afAuth: AngularFireAuth, private userService: UserService, private dialog: MatDialog) {
-   
+  constructor(private afAuth: AngularFireAuth, private userService: UserService, private dialog: MatDialog, public drawerService: DrawerService) {
+    this.checkScreenSize();
   }
 
   ngOnInit(): void {
@@ -50,6 +53,19 @@ export class UserProfileComponent implements OnInit, OnDestroy{
       right: '5%'   // Ändere diese Werte entsprechend deiner gewünschten Position
     };
 this.dialog.open(DialogLogoutComponent, dialogConfig);
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.checkScreenSize();
+  }
+
+  checkScreenSize() {
+    if(window.innerWidth < 600) {
+      this.isSmallScreen = true;
+    } else {
+      this.isSmallScreen = false;
+    }
   }
 
 }

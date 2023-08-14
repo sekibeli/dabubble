@@ -9,7 +9,7 @@
     </div>
    
       <div class="miniProfilePicsRow" *ngIf="activeChannelID">
-        <div class="user"  (click)="openShowMembersDialog()">
+        <div *ngIf="!isSmallScreen" class="user"  (click)="openShowMembersDialog()">
           
           <ng-container *ngFor="let member of members">
           <img [src]="member['img']" />

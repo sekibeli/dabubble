@@ -8,9 +8,15 @@
   </div>
 
   <div class="header">
-    <div class="logo_small">
+    <div  class="logo_small" *ngIf="isDrawerOpen  && !this.drawerService.showCodeLearningLogo.value" >
       <img src="../../assets/img/logo.svg" alt="" />
       <div>DABubble</div>
+    </div>
+    <div class="leftDrawerTop" *ngIf="this.drawerService.showCodeLearningLogo.value">
+      <mat-icon (click)="goBack()"> keyboard_arrow_left </mat-icon>
+      <img src="../../assets/img/WorkspaceLogo.svg" alt="" />
+      <div class="leftDrawerTopic">Code learning</div>
+     
     </div>
 
     <div class="search"></div>

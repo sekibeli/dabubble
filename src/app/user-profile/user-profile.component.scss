@@ -15,3 +15,17 @@
     object-fit: cover;
     border-radius: 50%;
 }
+
+
+@media(max-width: 600px){
+
+    .userProfile {
+   
+    }
+
+    .profile-img {
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+    }
+}

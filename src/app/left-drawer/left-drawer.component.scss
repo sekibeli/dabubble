@@ -97,3 +97,13 @@
     cursor: pointer;
 }
 
+@media (max-width: 600px){
+    .channelContainer {
+        margin: 0;
+    }
+
+    .channelsTop {
+        margin-top: 0;
+    }
+}
+

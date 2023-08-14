@@ -1,16 +1,19 @@
 import { HostListener, Injectable } from '@angular/core';
 import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DrawerService {
+  showCodeLearningLogo: BehaviorSubject<boolean> = new BehaviorSubject(false);
   isSmallScreen;
   private drawer: MatDrawer;
   private drawerState = new BehaviorSubject<boolean>(true);
 
-  constructor() { }
+  constructor() {
+    this.checkScreenSize();
+   }
 
 toggleDrawer(){
   this.drawerState.next(!this.drawerState.value);
@@ -41,7 +44,10 @@ getDrawerState() {
     }
   }
 
- 
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.checkScreenSize();
+  }
 
   checkScreenSize() {
     if(window.innerWidth < 600) {
@@ -49,5 +55,13 @@ getDrawerState() {
     } else {
       this.isSmallScreen = false;
     }
+  }
+
+  setMyVariable(value:boolean) {
+    this.showCodeLearningLogo.next(value);
+  }
+
+  codeLearning$(): Observable<boolean> {
+    return this.showCodeLearningLogo.asObservable();
   }
 }

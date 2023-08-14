@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ChannelService } from '../services/channel.service';
 import { BehaviorSubject } from 'rxjs';
 import { UserService } from '../services/user.service';
@@ -12,7 +12,7 @@ import { DialogShowChanneluserComponent } from '../dialog-show-channeluser/dialo
   styleUrls: ['./postheader.component.scss']
 })
 export class PostheaderComponent implements OnInit {
-
+isSmallScreen;
   activeChannelTitle = 'Angular';
   activeChannelID: BehaviorSubject<string> = new BehaviorSubject<string>('9Gwz1Ce763caWx5FCBZL');
   members;
@@ -20,6 +20,7 @@ export class PostheaderComponent implements OnInit {
   currentChannelUser;
 
   constructor(public channelService: ChannelService, public userService: UserService, public dialog: MatDialog) {
+    this.checkScreenSize();
     this.members = this.channelService.currentChannelUserArray;
 // this.countsOfMembers = this.members.length;
     this.channelService.activeChannelID.subscribe((value) => {
@@ -66,5 +67,18 @@ dialogConfig.data = { channelTitle: activeChannelTitle};
 
   
     this.dialog.open(DialogShowChanneluserComponent, dialogConfig);
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.checkScreenSize();
+  }
+
+  checkScreenSize() {
+    if(window.innerWidth < 600) {
+      this.isSmallScreen = true;
+    } else {
+      this.isSmallScreen = false;
+    }
   }
 }

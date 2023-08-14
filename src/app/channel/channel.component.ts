@@ -32,6 +32,10 @@ onProfileClick(event: Event) {
   if (window.innerWidth < 600) {
     this.drawerService.toggle();
     event.preventDefault();
+   console.log('-1', this.drawerService.codeLearning$); 
+    this.drawerService.setMyVariable(true)
+    console.log('-2', this.drawerService.codeLearning$); 
+    console.log('-3', this.drawerService.showCodeLearningLogo.value);
   }
 }
 

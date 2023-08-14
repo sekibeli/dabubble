@@ -1,4 +1,4 @@
-<div class="leftDrawerTop"  [ngClass]="{ 'd-none': this.drawerService.isSmallScreen}">
+<div class="leftDrawerTop" *ngIf="!isSmallScreen">
   <img src="../../assets/img/WorkspaceLogo.svg" alt="" />
   <div class="leftDrawerTopic">Code learning</div>
   <mat-icon>editOutlined</mat-icon>
@@ -25,7 +25,7 @@
 
 
 
-  <div class="messagesTop" (click)="toggleUserOpenClose(); triggerToggle()"><mat-icon class="pointer">{{ userArrowIcon }}</mat-icon><mat-icon>account_circleOutlined</mat-icon>Direktnachrichten</div>
+  <div class="messagesTop" (click)="toggleUserOpenClose()"><mat-icon class="pointer">{{ userArrowIcon }}</mat-icon><mat-icon>account_circleOutlined</mat-icon>Direktnachrichten</div>
  
   <div *ngIf="userOpen" class="userList">
   <ng-container *ngFor="let user of users">

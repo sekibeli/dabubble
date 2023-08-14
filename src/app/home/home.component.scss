@@ -113,7 +113,38 @@ mat-drawer-container {
 @media (max-width: 600px){
 
     .mat-drawer { 
-        margin: 25px 0px;
+        margin: 0px 0px;
+    }
+
+    .sidenavLeft {
+        border-radius: 0px;
+    }
+    .main {
+        border: 1px solid var(--background-color);
+        border-radius: 0;
+    }
+
+    mat-drawer {
+        margin: 0px ;
+    }
+    
+    mat-drawer-content {
+    border: 1px solid var(--background-color);
+        margin: 0px;
+    }
+
+    .leftDrawerTop {
+        padding: 10px 10px 10px 10px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        cursor: pointer;
+
+        img {
+            width: 40px;
+            height: 40px;
+        }
+        
     }
    
 }
