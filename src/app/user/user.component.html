@@ -1,7 +1,10 @@
 <ul>
     <li 
     class="message"
-    (click)="this.messageService.getThisChat(user['id']);setMode(true); this.drawerService.close(); this.messageService.setChatUser(user); this.pushChatUser(user); this.messageService.getChatLength(user['id'])"
+
+    (click)="onProfileClick($event)"
+
+   
     [routerLink]="['/home','chat', user['id']]"
     routerLinkActive="active">
    

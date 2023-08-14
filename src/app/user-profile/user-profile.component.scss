@@ -20,7 +20,8 @@
 @media(max-width: 600px){
 
     .userProfile {
-   
+   display: flex;
+   justify-content: flex-end;
     }
 
     .profile-img {

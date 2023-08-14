@@ -27,4 +27,22 @@ ngOnInit(): void {
     localStorage.setItem('directMessage', JSON.stringify(mode));
     localStorage.setItem('channelMessage', JSON.stringify(!mode));
   }
+
+  onProfileClick($event){
+    this.messageService.getThisChat(this.user['id']);
+    this.setMode(true); 
+    this.drawerService.close(); 
+    this.messageService.setChatUser(this.user); 
+    this.pushChatUser(this.user); 
+    this.messageService.getChatLength(this.user['id'])
+
+    if (window.innerWidth < 600) {
+      this.drawerService.toggle();
+      event.preventDefault();
+     console.log('-1', this.drawerService.codeLearning$); 
+      this.drawerService.setMyVariable(true)
+      console.log('-2', this.drawerService.codeLearning$); 
+      console.log('-3', this.drawerService.showCodeLearningLogo.value);
+    }
+  }
 }

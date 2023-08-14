@@ -13,7 +13,10 @@ import {MediaMatcher} from '@angular/cdk/layout';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements AfterViewInit, OnInit, OnDestroy {
+  public rightDrawerMode = "side"
 public isSmallScreen:boolean = false;
+public isBigScreen:boolean = false;
+public isMediumScreen:boolean = false;
 isDrawerOpen = true;
 private drawerStateSubscription?: Subscription;
 
@@ -70,8 +73,21 @@ this.drawerService.setDrawer(this.rightDrawer);
   checkScreenSize() {
     if(window.innerWidth < 600) {
       this.isSmallScreen = true;
+      this.rightDrawerMode = 'over'
     } else {
       this.isSmallScreen = false;
+    }
+
+    if(window.innerWidth > 1000){
+      this.isBigScreen = true;
+      this.rightDrawerMode = 'side'
+    } else {}
+
+    if(600 < window.innerWidth && window.innerWidth < 1000){
+      this.isMediumScreen = true;
+      this.rightDrawerMode = 'over';
+    } else {
+      this.isMediumScreen = false;
     }
   }
 

@@ -4,6 +4,28 @@
 <div *ngIf="trueFalse" class="dateDevider"></div>
 
 <div *ngIf="author"  (click)="getThread(this.postService.activeChannel, this.post.id); this.drawerService.open(); this.threadService.getPostForThread(this.post, this.author)" class="singlePost">
+<div class="reaction">
+   
+    <button class=" custom-icon-button"  >
+        <!-- <mat-icon>check_circle</mat-icon> -->
+        <img src="../../assets/img/checkok.svg" alt="">
+    </button>
+    <button class=" custom-icon-button"  >
+        <!-- <mat-icon>home</mat-icon> -->
+        <img src="../../assets/img/clap.svg" alt="">
+      </button>
+      <button class=" custom-icon-button"  >
+        <!-- <mat-icon>home</mat-icon> -->
+        <img src="../../assets/img/smile.svg" alt="">
+      </button>
+      <!-- <button class=" custom-icon-button"  >
+        <mat-icon>home</mat-icon>
+      </button> -->
+      <button class=" custom-icon-button"  >
+        <!-- <mat-icon>more_vert</mat-icon> -->
+        <img src="../../assets/img/morevert.png" alt="">
+      </button>
+</div>
 
     <div class="profile-pic"><img src="{{author['img']}}"></div>
     <div class="post-content">
@@ -12,3 +34,6 @@
        <div class="postAnswer">{{numberOfThreads}} Antworten <span class="postTime">letzte Antwort ....</span></div>
     </div>
 </div>
+
+
+ <!-- <a target="_blank" href="https://icons8.com/icon/JNPZ70My1I5A/men%C3%BC-2">Menü 2</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a> -->
