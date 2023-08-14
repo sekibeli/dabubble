@@ -22,14 +22,7 @@
             background-color: white;
         }
         .reaction {
-            // .icon-size {
-            //     font-size: 0.4em;
-            //     // font-size: 12px;
-            //     height: 12px;
-            //     width: 12px;
-            //   }
-            // display: none;
-            
+                       
             display: block;
             top: -18px;
             right: 70px;
@@ -63,10 +56,10 @@
                 background-color: rgba(0, 0, 0, 0.04); /* This gives a light gray background when hovered */
               }
               
-              /* Ensure that SVG icon changes color on hover */
-              .custom-icon-button:hover mat-icon {
-                color: #DA4567; /* Referencing the color change for SVG on hover from [4](https://css-tricks.com/the-many-ways-to-change-an-svg-fill-on-hover-and-when-to-use-them/) */
-              }
+              
+            //   .custom-icon-button:hover mat-icon {
+            //     color: #DA4567; 
+            //   }
               
               /* Remove focus styles if desired */
               .custom-icon-button:focus {
@@ -83,13 +76,6 @@
             img {
                 width: 18px;
                 height: 18px;
-
-                // &:hover {
-                   
-                //     background-color: #ADB0D9;
-                //     border-radius: 50%;
-                //     border: 3px solid #ADB0D9;
-                // }
             }
     
     
