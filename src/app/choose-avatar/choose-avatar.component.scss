@@ -64,6 +64,23 @@
   .small {
     font-size: 0.8em;
   }
+
+  .custom-icon-button {
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    border: none;
+    padding: 5px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .custom-icon-button:hover {
+    background-color: rgba(164, 171, 249, 0.1); /* This gives a light gray background when hovered */
+  }
+  
 @media (max-width: 1050px){
     .container {
         padding-top: 10px;

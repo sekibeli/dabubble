@@ -63,6 +63,20 @@ endAt = new Subject();
       console.error('Fehler: ', error);
     }
   }
+
+  async saveUserPic(id, image){
+    console.log('id:', id);
+    try {
+      const docRef = doc(this.firestore, 'users', id);
+
+      await updateDoc(docRef,
+        {
+          img: '../../assets/img/profile_img/'+ image,
+        });
+    } catch (error) {
+      console.error('Fehler: ', error);
+    }
+  }
  
 
   // searchUserInFirestore(start, end){

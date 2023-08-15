@@ -9,14 +9,14 @@
 <div class="avatar-container">
     <h2>Wähle deinen Avatar</h2>
     <div>
-        <img src="../../assets/img/profile_img/benutzer.png" alt="">
+        <img src="../../assets/img/profile_img/{{currentPic}}" alt="">
     </div>
     <div *ngIf = "newUser" class="newUser">{{this.newUser.username}}</div>
     <div class="avatarSection">
         <div>Wähle Dein Avatar</div>
         <div class="allProfilePics">
-        <div *ngFor="let avatar of avatars">
-            <img src="../../assets/img/profile_img/{{avatar}}" alt="">
+        <div *ngFor="let avatar of avatars" class="custom-icon-button" (click)="this.setNewPic(avatar)">
+            <img  src="../../assets/img/profile_img/{{avatar}}" alt="">
         </div>
         </div>
         <div class="ownPic">
@@ -24,7 +24,7 @@
             <button class="lightButton small">Foto hochladen</button>
         </div>
         <div class="button-section ">
-            <button  class="darkButton">Weiter</button>
+            <button (click)="this.saveNewPic(currentPic)" class="darkButton">Weiter</button>
          
         </div>
         
