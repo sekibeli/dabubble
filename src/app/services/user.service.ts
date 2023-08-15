@@ -37,6 +37,12 @@ endAt = new Subject();
 
   }
 
+  getUserByEmail(email: string){
+    const colRef = collection(this.firestore, 'users');
+    const docRef = query((colRef), where('email', '==', email));
+    console.log(docRef);
+  }
+
   getAuthorDetails(post) {
     const userDataRef = this.getCurrentUser(post['author']).subscribe((value) => {
       return value;

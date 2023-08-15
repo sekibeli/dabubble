@@ -49,6 +49,8 @@ import { DialogProfileComponent } from './dialog-profile/dialog-profile.componen
 import { ImpressumComponent } from './impressum/impressum.component';
 import { DialogLogoutComponent } from './dialog-logout/dialog-logout.component';
 import {MatButtonModule} from '@angular/material/button';
+import { DialogEditPlayerImgComponent } from './dialog-edit-player-img/dialog-edit-player-img.component';
+import { ChooseAvatarComponent } from './choose-avatar/choose-avatar.component';
 
 
 
@@ -93,6 +95,9 @@ import {MatButtonModule} from '@angular/material/button';
     DialogProfileComponent,
     ImpressumComponent,
     DialogLogoutComponent,
+  
+    DialogEditPlayerImgComponent,
+       ChooseAvatarComponent,
    
     
 

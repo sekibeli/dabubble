@@ -9,7 +9,7 @@
 
 }
 
-.login-container {
+.avatar-container {
     display: flex;
     flex-direction: column;
  
@@ -23,6 +23,47 @@
 
 }
 
+.legals {
+    margin: 30px 10px;
+   cursor: pointer;
+    color: #797EF3;
+    display: flex;
+    justify-content: space-around;
+
+    &:hover {
+      color: #565cf5;
+    }
+  }
+
+  .allProfilePics {
+    margin: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    img{
+        width: 40px;
+        height: 40px;
+    }
+
+  }
+.newUser {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+  .ownPic {
+    display: flex;
+    align-items: center;
+  }
+
+  .avatarSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items:first baseline;
+  }
+
+  .small {
+    font-size: 0.8em;
+  }
 @media (max-width: 1050px){
     .container {
         padding-top: 10px;

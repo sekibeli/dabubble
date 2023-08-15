@@ -48,9 +48,10 @@ export class SignUpComponent {
 
       setDoc( collRef, this.user.toJSON());
 
+      localStorage.setItem('currentUserID', result.user.uid);
 
 
-      this.route.navigateByUrl('login');
+      this.route.navigateByUrl('avatar');
       console.log(result);
         }).catch( (error: any) => {
           console.error(error);

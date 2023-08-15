@@ -1,0 +1,43 @@
+
+<div class="container">
+   
+    <div class="logo">
+        <img src="../../assets/img/logo.svg" alt="">
+        <div>DABubble</div>
+    </div>
+<div>
+<div class="avatar-container">
+    <h2>Wähle deinen Avatar</h2>
+    <div>
+        <img src="../../assets/img/profile_img/benutzer.png" alt="">
+    </div>
+    <div *ngIf = "newUser" class="newUser">{{this.newUser.username}}</div>
+    <div class="avatarSection">
+        <div>Wähle Dein Avatar</div>
+        <div class="allProfilePics">
+        <div *ngFor="let avatar of avatars">
+            <img src="../../assets/img/profile_img/{{avatar}}" alt="">
+        </div>
+        </div>
+        <div class="ownPic">
+            <div class="small">Oder Du kannst ein</div>
+            <button class="lightButton small">Foto hochladen</button>
+        </div>
+        <div class="button-section ">
+            <button  class="darkButton">Weiter</button>
+         
+        </div>
+        
+    </div>
+   
+</div>
+<div class="legals"><div routerLink="/impressum">Impressum</div><div>Datenschutz</div></div>
+</div>
+
+
+   <div></div>
+    
+
+</div>
+
+

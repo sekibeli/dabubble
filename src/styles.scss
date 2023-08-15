@@ -14,17 +14,17 @@ body {
     padding: 0;
 }
 
-.container {
-    position: relative;
-      display: flex;
-      justify-content: space-evenly;
-      padding-top: 50px;
+// .container {
+//     position: relative;
+//       display: flex;
+//       justify-content: space-evenly;
+//       padding-top: 50px;
      
-      width: 100vw;
-    //   height: 98vh;
-      background-color: var(--background-color);
+//       width: 100vw;
+//     //   height: 98vh;
+//       background-color: var(--background-color);
   
-  }
+//   }
   
 h2 {
     color: #444DF2;
@@ -214,7 +214,7 @@ h3 {
     }
 
     .login-container {
-        padding: 10px 25px;
+        padding: 10px 16px;
     }
 
     h2 {
