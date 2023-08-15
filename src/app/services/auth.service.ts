@@ -56,24 +56,7 @@ export class AuthService implements OnInit {
     });
   }
 
-  /**
-   * 
-   * @param id uid vom gerade eingeloggten User
-   * Ruft mit der uid die dazugehörigen User-Daten vom Firestore ab
-   */
-  // getCurrentUser(id: string) {
-  //   const collRef = collection(this.firestore, 'users');
-  //   const collData = doc(collRef, id);
-
-  //   docData(collData).subscribe(data => {
-  //     this.currentUser = data;
-    
-  //   }, error => {
-  //     console.log('Fehler', error);
-  //   });
-
-  //   return docData(collData);
-  // }
+  
 
   saveCurrentUserIDInLocalStorage(id: string) {
        localStorage.setItem('currentUserID', id);

@@ -1,43 +1,56 @@
-
 <div class="container">
-   
-    <div class="logo">
-        <img src="../../assets/img/logo.svg" alt="">
-        <div>DABubble</div>
-    </div>
-<div>
-<div class="avatar-container">
-    <h2>Wähle deinen Avatar</h2>
-    <div>
-        <img src="../../assets/img/profile_img/{{currentPic}}" alt="">
-    </div>
-    <div *ngIf = "newUser" class="newUser">{{this.newUser.username}}</div>
-    <div class="avatarSection">
+  <div class="logo">
+    <img src="../../assets/img/logo.svg" alt="" />
+    <div>DABubble</div>
+  </div>
+  <div>
+    <div class="avatar-container">
+      <h2>Wähle deinen Avatar</h2>
+      <!-- <div>
+        <img src="../../assets/img/profile_img/{{ currentPic }}" alt="" />
+      </div> -->
+      <div><img [src]="url" title="Profilbild" height="70px" width="70px" /> </div>
+      <div *ngIf="newUser" class="newUser">{{ this.newUser.username }}</div>
+      <div class="avatarSection">
         <div>Wähle Dein Avatar</div>
         <div class="allProfilePics">
-        <div *ngFor="let avatar of avatars" class="custom-icon-button" (click)="this.setNewPic(avatar)">
-            <img  src="../../assets/img/profile_img/{{avatar}}" alt="">
-        </div>
+          <div
+            *ngFor="let avatar of avatars"
+            class="custom-icon-button"
+            (click)="this.setNewPic(avatar)"
+          >
+            <img src="../../assets/img/profile_img/{{ avatar }}" alt="" />
+          </div>
         </div>
         <div class="ownPic">
-            <div class="small">Oder Du kannst ein</div>
-            <button class="lightButton small">Foto hochladen</button>
+          <div class="small">Oder Du kannst ein</div>
+
+          <div class="form-group">
+            <!-- <button for ="file" >Foto hochladen</button> -->
+
+            <label for="file">Foto hochladen</label>
+            <input
+              type="file"
+              id="file"
+              style="display: none"
+              (change)="onSelect($event)"
+            />
+          </div>
         </div>
-        <div class="button-section ">
-            <button (click)="this.saveNewPic(currentPic)" class="darkButton">Weiter</button>
+        <div class="button-section">
          
+            <button (click)="this.saveNewPic(currentPic)" class="darkButton">
+              Weiter
+            </button>
+          
         </div>
-        
+      </div>
     </div>
-   
+    <div class="legals">
+      <div routerLink="/impressum">Impressum</div>
+      <div>Datenschutz</div>
+    </div>
+  </div>
+
+  <div></div>
 </div>
-<div class="legals"><div routerLink="/impressum">Impressum</div><div>Datenschutz</div></div>
-</div>
-
-
-   <div></div>
-    
-
-</div>
-
-

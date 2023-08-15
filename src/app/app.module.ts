@@ -51,6 +51,7 @@ import { DialogLogoutComponent } from './dialog-logout/dialog-logout.component';
 import {MatButtonModule} from '@angular/material/button';
 import { DialogEditPlayerImgComponent } from './dialog-edit-player-img/dialog-edit-player-img.component';
 import { ChooseAvatarComponent } from './choose-avatar/choose-avatar.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -117,6 +118,7 @@ import { ChooseAvatarComponent } from './choose-avatar/choose-avatar.component';
     FormsModule,
     MatSidenavModule,
     MatButtonModule,
+    HttpClientModule,
     MatExpansionModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
