@@ -10,8 +10,9 @@ import { FileUploadService } from '../services/file-upload.service';
   styleUrls: ['./choose-avatar.component.scss']
 })
 export class ChooseAvatarComponent implements OnInit {
+  avatarpic: boolean = true;
   // fileToUpload: File | null = null;
-  url = 'https://img.icons8.com/?size=150&id=492ILERveW8G&format=png';
+  url = '../../assets/img/profile_img/benutzer.png';
   currentPic = 'benutzer.png';
   newUserID;
   newUser;
@@ -34,28 +35,36 @@ export class ChooseAvatarComponent implements OnInit {
   }
 
   saveNewPic(image: string) {
-    this.userService.saveUserPic(this.newUserID, image);
+    this.userService.saveUserPic(this.newUserID, image, this.avatarpic);
     this.route.navigateByUrl('login');
   }
 
 
   onSelect(event) {
+    this.avatarpic = false;
     const file: File = event.target.files[0]; // ausgewählte Datei wird gespeichert in Variable file
     let fileType = file.type;
    
     if (fileType.match(/image\/png/)) {
       let reader = new FileReader();
       reader.readAsDataURL(file);
+    
       reader.onload = (event: any) => {
         this.url = event.target.result;
+        console.log('nach dem Lesen:', this.url); // this.url ist ein Bild im Base64 Format
+        this.setNewPic(this.url);
+        // let image =  new Image();
+        // image.src = this.url;
        
       
-        this.fileUploadService.postFile(file).subscribe((response: any)=> {
-          // URL speichern
-          this.saveNewPic(response.imageUrl);
-        }, error => {
-          console.log(error);
-        })
+        // this.fileUploadService.postFile(file).subscribe((response: any)=> {
+        //   // URL speichern
+        //   // console.log('response:', response);
+        //   // console.log('url', response.imageUrl);
+        //   this.saveNewPic(response.imageUrl);
+        // }, error => {
+        //   console.log('Fehler: ', error);
+        // })
       };
     } else {
       window.alert('Bitte nur png senden');

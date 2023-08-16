@@ -10,11 +10,16 @@ export class FileUploadService {
   constructor(private httpClient: HttpClient) {}
 
 
-  postFile (file: File) {
-    const endpoint = 'https://my-dabubble.web.app/assets/img/profile_img/';
-    const formData: FormData = new FormData();
-    formData.append('image', file, file.name);
-    return this.httpClient.post(endpoint,formData)
+//   postFile (file: File) {
+//    console.log('imageurl:', file);
+ 
+//     const endpoint = 'gs://my-dabubble.appspot.com/img';
+//     const formData: FormData = new FormData();
+//     formData.append('img', file, file.name);
+//     console.log('file:', file, file.name);
+//     console.log('formData:',formData);
+//     console.log(this.httpClient.post(endpoint,formData))
+//     return this.httpClient.post(endpoint,formData);
      
-}
+// }
 }

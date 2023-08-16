@@ -6,10 +6,10 @@
   <div>
     <div class="avatar-container">
       <h2>Wähle deinen Avatar</h2>
-      <!-- <div>
+      <div *ngIf="avatarpic">
         <img src="../../assets/img/profile_img/{{ currentPic }}" alt="" />
-      </div> -->
-      <div><img [src]="url" title="Profilbild" height="70px" width="70px" /> </div>
+      </div>
+      <div *ngIf="!avatarpic"><img [src]="url" title="Profilbild" height="70px" width="70px" /> </div>
       <div *ngIf="newUser" class="newUser">{{ this.newUser.username }}</div>
       <div class="avatarSection">
         <div>Wähle Dein Avatar</div>
@@ -26,7 +26,7 @@
           <div class="small">Oder Du kannst ein</div>
 
           <div class="form-group">
-            <!-- <button for ="file" >Foto hochladen</button> -->
+           
 
             <label for="file">Foto hochladen</label>
             <input

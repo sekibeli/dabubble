@@ -64,15 +64,20 @@ endAt = new Subject();
     }
   }
 
-  async saveUserPic(id, image){
+  async saveUserPic(id, image, avatar){
     console.log('id:', id);
     try {
       const docRef = doc(this.firestore, 'users', id);
-
-      await updateDoc(docRef,
-        {
-          img: '../../assets/img/profile_img/'+ image,
-        });
+if(avatar){ await updateDoc(docRef,
+  { 
+    img: '../../assets/img/profile_img/'+ image,
+  });} else {
+    await updateDoc(docRef,
+      { 
+        img: image,
+      });
+  }
+     
     } catch (error) {
       console.error('Fehler: ', error);
     }
