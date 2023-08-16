@@ -46,9 +46,9 @@ public channelTitle;
     
   }
   addMemberToChannel() {
-  
+
     let channelID = this.channelService.currentChannelID;
-    this.channelService.addMemberToChannel(channelID, this.chosenUser.id);
+    this.channelService.addMemberToChannel(channelID, this.chosenUser['id']);
    this.dialogRef.close();
 
   }

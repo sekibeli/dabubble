@@ -10,6 +10,7 @@ import { DialogAddMemberComponent } from '../dialog-add-member/dialog-add-member
    providedIn: 'root'
 })
 export class ChannelService implements OnInit, OnDestroy {
+   check;
    currentChannelID = 'OnQ02XRJqwZRA0ts0qc5';
    private destroy$: Subject<void> = new Subject<void>();
    firestore: Firestore = inject(Firestore)
@@ -38,7 +39,7 @@ export class ChannelService implements OnInit, OnDestroy {
 
    constructor(private userService: UserService, public dialog: MatDialog) {
 
-      this.getInitials('9Gwz1Ce763caWx5FCBZL');
+      // this.getInitials('9Gwz1Ce763caWx5FCBZL');
    }
 
    getChannels() {
@@ -88,18 +89,19 @@ export class ChannelService implements OnInit, OnDestroy {
 
 
    getMembersOfChannel(channel) {
-      const collRef = collection(this.firestore, 'channels', channel, 'members');
-      const docRef = collectionData(collRef, { idField: 'id' });
+      const collRef = collection(this.firestore, 'channels', channel);
+      const docRef = collectionData(collRef);
       return docRef;
    }
 
    async getMembersOfChannelNEW(channel: string): Promise<any[]> {
+    
       const docRef = doc(this.firestore, 'channels', channel);
       const channelDoc = await getDoc(docRef);
 
       if (channelDoc.exists()) {
          const channelData = channelDoc.data();
-         const channelMember = channelData?.members || [];
+         const channelMember = channelData['members'];
          return channelMember;
       } else {
          console.error('dokument existiert nicht');
@@ -109,14 +111,14 @@ export class ChannelService implements OnInit, OnDestroy {
    }
 
 
-   getInitials(id) {
-      const data = this.getMembersOfChannel(id);
-      data.subscribe((user) => {
-         console.log('test', user);
-         this.channelUserIDArray = user;
-         console.log(this.channelUserIDArray);
-      })
-   }
+   // getInitials(id) {
+   //    const data = this.getMembersOfChannel(id);
+   //    data.subscribe((user) => {
+   //       console.log('test', user);
+   //       this.channelUserIDArray = user;
+   //       console.log(this.channelUserIDArray);
+   //    })
+   // }
 
    ngOnDestroy(): void {
       this.destroy$.next();
@@ -129,6 +131,7 @@ export class ChannelService implements OnInit, OnDestroy {
    }
 
    addMemberToChannel(channelID, user) {
+     
       if (this.checkIfUserIsAlreadyMemberOfChannel(channelID, user)) {
          const docRef = doc(this.firestore, 'channels', channelID);
          updateDoc(docRef, { members: arrayUnion(user) })
@@ -151,15 +154,21 @@ export class ChannelService implements OnInit, OnDestroy {
 
 
    checkIfUserIsAlreadyMemberOfChannel(channelID, user): boolean {
-      let check;
-      this.getMembersOfChannelNEW(channelID).then((value) => {
+    
+      
+      this.getMembersOfChannelNEW(channelID).then(value => {
+        
+         console.log('member:', value);
+         if(value){
          if (value.includes(user)) {
-            check = true;
+            this.check = true;
          } else {
-            check = false;
+            this.check = false;
          }
+      }
       })
-      return check;
+      console.log('check:', this.check);
+      return this.check;
    }
 
 }
