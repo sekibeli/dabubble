@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { UserService } from '../services/user.service';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
+import { DialogProfileComponent } from '../dialog-profile/dialog-profile.component';
+import { User } from '../models/user.class';
 
 @Component({
   selector: 'app-dialog-logout',
@@ -10,9 +12,16 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class DialogLogoutComponent {
   currentUser;
+user: any;
 
-  constructor(private afAuth: AngularFireAuth, private userService: UserService, public dialogRef: MatDialogRef<DialogLogoutComponent>){
+  constructor(private afAuth: AngularFireAuth, private userService: UserService, public dialogRef: MatDialogRef<DialogProfileComponent>, public dialog: MatDialog){
     this.currentUser = localStorage.getItem('currentUserID');
+
+    this.userService.getCurrentUser(this.currentUser).subscribe((value)=>{
+     this.user = value;
+   
+    });
+  
   }
   
   logUserOut(){
@@ -27,4 +36,16 @@ export class DialogLogoutComponent {
     });
     localStorage.setItem('currentUserID', '');
    }
+
+   openProfile(user){
+    const dialogConfig = new MatDialogConfig();
+    // this.dialog.open(DialogProfileComponent, user)
+  
+  
+    dialogConfig.data = { user: user};
+    const dialogRef =  this.dialog.open(DialogProfileComponent, dialogConfig);
+    dialogRef.componentInstance.user = this.user;
+  
+    this.dialogRef.close();
+  }
 }

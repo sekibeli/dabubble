@@ -65,3 +65,10 @@ mat-icon {
 .colorMail {
     color: #1381FF;
 }
+
+.space-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}

@@ -1,4 +1,4 @@
-<div class="chatheader" *ngIf="(user | async) as currentUser" >
+<div class="chatheader" *ngIf="(user | async) as currentUser" (click)="openProfile(user)">
     <div class="profile-overview">
         <div class="relativePic">
           <img class="profile-pic" src="{{currentUser['img']}}" alt="">

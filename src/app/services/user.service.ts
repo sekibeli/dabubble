@@ -2,6 +2,8 @@ import { EventEmitter, Injectable, OnInit, inject } from '@angular/core';
 import { Firestore, collection, collectionData, doc, docData, limit, orderBy, query, setDoc, updateDoc, where } from '@angular/fire/firestore';
 import { Observable, Subject } from 'rxjs';
 import { User } from '../models/user.class';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
+import { DialogProfileComponent } from '../dialog-profile/dialog-profile.component';
 
 // Service
 // • für den Abruf der Daten von allen Usern aus Firestore
@@ -89,5 +91,7 @@ if(avatar){ await updateDoc(docRef,
   //  return  query(collRef, limit(4), orderBy('username'), startAt(start), this.endAt(end));
 
   // }
+
+  
 
 }

@@ -10,7 +10,10 @@
   <div class="profilePic">
     <img class="profileImg" src="{{ user['img'] }}" alt="" />
   </div>
+  <div class="space-between">
   <div class="username"><h3>{{ user["username"] }}</h3></div>
+  <div *ngIf="me" class="colorMail">Bearbeiten</div>
+</div>
 
     <ng-container *ngIf="user['active']" >
   <div class="profileStatus">
