@@ -1,9 +1,10 @@
 import { DialogRef } from '@angular/cdk/dialog';
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MessageService } from '../services/message.service';
 import { DrawerService } from '../services/drawer.service';
 import { BehaviorSubject } from 'rxjs';
+import { DialogEditUserComponent } from '../dialog-edit-user/dialog-edit-user.component';
 
 @Component({
   selector: 'app-dialog-profile',
@@ -15,7 +16,7 @@ export class DialogProfileComponent {
   user;
 
 
-  constructor(public dialogRef: DialogRef, @Inject(MAT_DIALOG_DATA) public data: any, public messageService: MessageService, public drawerService:DrawerService){
+  constructor(public dialogRef: DialogRef, @Inject(MAT_DIALOG_DATA) public data: any, public messageService: MessageService, public drawerService:DrawerService, public dialog: MatDialog){
     console.log('Data:',data);
     localStorage.setItem('directMessage', 'true');
     localStorage.setItem('channelMessage', 'false');
@@ -32,10 +33,18 @@ export class DialogProfileComponent {
     console.log('BH:' , _user['id'],  'und', localStorage.getItem('currentUserID'));
   }
   else {
-    console.log('String', user['user'], 'und', localStorage.getItem('currentUserID'));
-    _user = user['user'];
+    console.log('String', user.user['id'], 'und', localStorage.getItem('currentUserID'));
+    _user = user.user['id'];
 
   }
   this.me = (_user === localStorage.getItem('currentUserID'));
+
+}
+
+openEditUser(user){
+  const dialogConfig = new MatDialogConfig();
+  dialogConfig.data = { user: user };
+  const dialogRef = this.dialog.open(DialogEditUserComponent, dialogConfig);
+  dialogRef.componentInstance.user = this.user.value;
 }
 }

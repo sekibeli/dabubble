@@ -1,0 +1,45 @@
+.dialogHeader {
+    display: flex;
+    justify-content: space-between;
+  }
+  .close{
+    cursor: pointer;
+}
+
+.showProfileContainer{
+display: flex;
+flex-direction: column;
+    margin: 25px;
+    width: 300px;
+    min-height: 500px;
+}
+.profilePic {
+    display: flex;
+    justify-content: center;
+   
+    .profileImg{
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+    }
+}
+
+.email-details {
+    margin-top: 15px;
+display: flex;
+
+mat-icon {
+    margin-right: 15px;
+}
+}
+.colorMail {
+    color: #1381FF;
+}
+
+input {
+    border: 1px solid var(--light-purple-lines);
+    padding: 10px 20px;
+    border-radius: 15px;
+    outline: none;
+    color: #686868;
+}

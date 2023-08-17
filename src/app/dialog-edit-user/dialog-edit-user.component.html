@@ -1,0 +1,43 @@
+<div class="showProfileContainer">
+  <div class="dialogHeader">
+    <div><h3>Dein Profil bearbeiten</h3></div>
+    <div class="close" (click)="dialogRef.close()">
+      <mat-icon>close</mat-icon>
+    </div>
+  </div>
+
+  <div class="profilePic">
+    <img class="profileImg" src="{{ data.user['img'] }}" alt="" />
+  </div>
+  <div>
+    <div class="email-details">
+          <div><mat-icon>account_circle</mat-icon></div>
+    <div>
+    
+        <div>Vollständiger Name</div>
+        <input
+          [(ngModel)]="data.user['username']"
+          matInput
+          placeholder="Name"
+        />
+      </div>
+      </div>
+
+      <div class="email-details">
+            <div><mat-icon>mail_outlined</mat-icon></div>
+       <div>
+
+          <div>E-Mail-Adresse</div>
+          <div class="colorMail">{{ data.user["email"] }}</div>
+        </div>
+      </div>
+
+      <div class="button-section">
+        <button (click)="cancel()" class="lightButton">Abbrechen</button>
+        <button  (click)="updateUsername()" [disabled]="" class="darkButton">Speichern</button>
+       
+    </div>
+
+    </div>
+  </div>
+

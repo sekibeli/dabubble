@@ -66,6 +66,20 @@ endAt = new Subject();
     }
   }
 
+  async setUserName(id, username) {
+    console.log('id:', id);
+    try {
+      const docRef = doc(this.firestore, 'users', id);
+
+      await updateDoc(docRef,
+        {
+          username: username,
+        });
+    } catch (error) {
+      console.error('Fehler: ', error);
+    }
+  }
+
   async saveUserPic(id, image, avatar){
     console.log('id:', id);
     try {
