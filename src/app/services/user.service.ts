@@ -34,6 +34,7 @@ endAt = new Subject();
 
 
   getCurrentUser(id: string) {
+   
     const docRef = doc(this.firestore, 'users', id);
     return docData(docRef);
 

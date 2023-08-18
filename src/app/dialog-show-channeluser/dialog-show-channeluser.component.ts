@@ -53,6 +53,7 @@ openProfile(user){
 
 
   dialogConfig.data = { user: user};
+  // dialogConfig.width = '95vw';
   const dialogRef =  this.dialog.open(DialogProfileComponent, dialogConfig);
   dialogRef.componentInstance.user = user;
 

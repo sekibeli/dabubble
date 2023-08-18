@@ -8,19 +8,22 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./dialog-show-channel.component.scss']
 })
 export class DialogShowChannelComponent {
-  channel;
+  // channel;
+  currentChannel;
   createdBy;
   isSmallScreen;
   members;
 
   constructor( @Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<DialogShowChannelComponent>, private userService: UserService){
     console.log(data);
-    console.log('small:',this.isSmallScreen);
-    // this.channel = data.currentChannelData;
-    // this.isSmallScreen = data.isSmallScreen;
-    // this.members = data.members;
-    // dialogRef.updateSize('100%');
-    this.userService.getCurrentUser(data['createdBy']).subscribe((value)=>{
+   
+   this.currentChannel = data.currentChannelData;
+   this.isSmallScreen = data.isSmallScreen;
+   console.log(this.currentChannel);
+   
+    this.members = data.members;
+    dialogRef.updateSize('100%');
+    this.userService.getCurrentUser(data.currentChannelData['createdBy']).subscribe((value)=>{
       console.log(value);
       this.createdBy = value['username'];
     });

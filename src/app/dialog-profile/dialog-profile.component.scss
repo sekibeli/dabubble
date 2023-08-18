@@ -72,3 +72,24 @@ mat-icon {
     align-items: center;
     cursor: pointer;
 }
+
+@media (max-width: 600px){
+    .showProfileContainer{
+        
+       
+            margin: 25px;
+            width: 90vw;
+            min-height: 500px;
+        }
+
+        .mat-dialog-container, .mat-mdc-dialog-container {
+            width: 100%;
+        max-width: 100%;
+        height: 100vh;
+        max-height: 100vh;
+        padding: 0 !important;
+        margin: 0 !important;
+        border-radius: 0;
+        overflow-y: scroll;
+        }
+}

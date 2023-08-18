@@ -18,7 +18,7 @@ export class DialogProfileComponent {
 
   constructor(public dialogRef: DialogRef, @Inject(MAT_DIALOG_DATA) public data: any, public messageService: MessageService, public drawerService:DrawerService, public dialog: MatDialog){
   
-    localStorage.setItem('directMessage', 'false');
+    localStorage.setItem('directMessage', 'true');
     localStorage.setItem('channelMessage', 'false');
     localStorage.setItem('threadMessage','false');
  this.user = data;

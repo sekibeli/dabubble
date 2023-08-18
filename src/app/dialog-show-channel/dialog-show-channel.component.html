@@ -1,7 +1,7 @@
 
 <div class="channelContainer">
-    <div class="dialogHeader">
-        <div><h3># {{data['title']}}</h3></div>
+    <div class="dialogHeader" *ngIf="data.currentChannelData">
+        <div><h3># {{currentChannel['title']}}</h3></div>
         <div class="close" (click)="dialogRef.close()">
           <mat-icon>close</mat-icon>
         </div>
@@ -9,11 +9,11 @@
       <div class="channelEdition">
       <div class="activeChannelContainer">
         <div class="headline">Channel-Name</div>
-        <div># {{data['title']}}</div>
+        <div *ngIf="data.currentChannelData['title']"># {{data.currentChannelData['title']}}</div>
       </div>
       <div class="activeChannelContainer">
         <div class="headline">Beschreibung</div>
-        <div>{{data['description']}}</div>
+        <div *ngIf="data.currentChannelData">{{data.currentChannelData['description']}}</div>
         <div class="hr"></div>
         <div class="headline ">Erstellt von</div>
         <div>{{createdBy}}</div>
