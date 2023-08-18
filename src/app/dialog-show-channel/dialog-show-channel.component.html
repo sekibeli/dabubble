@@ -18,13 +18,14 @@
         <div class="headline ">Erstellt von</div>
         <div>{{createdBy}}</div>
       </div>
+      <div *ngIf="isSmallScreen" class="activeChannelContainer">
+        <app-dialog-show-channeluser ></app-dialog-show-channeluser>
+    </div>
       <div class="button-section">
                <button  (click)="exitChannel()" [disabled]="" class="darkButton">Channel verlassen</button>
        
     </div>
     </div>
-    <div class="activeChannelContainer">
-        <app-dialog-show-channeluser ></app-dialog-show-channeluser>
-    </div>
+   
     
 </div>

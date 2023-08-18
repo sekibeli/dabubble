@@ -111,7 +111,7 @@ openShowChannelInformation(channel){
    
   }
   console.log(this.isSmallScreen);
-  dialogConfig.data = this.currentChannelData, this.isSmallScreen, this.members;
+  dialogConfig.data = this.currentChannelData;
 this.dialog.open(DialogShowChannelComponent, dialogConfig);
 }
 

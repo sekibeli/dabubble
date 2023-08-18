@@ -15,13 +15,17 @@ export class DialogShowChanneluserComponent implements OnInit, OnDestroy {
  activeTitle;
  unsub;
 constructor( public dialogRef: MatDialogRef<DialogShowChanneluserComponent> , public channelService: ChannelService, public dialog: MatDialog){
+
+  
   this.members = this.channelService.currentChannelUserArray;
 
   this.unsub = this.channelService.activeChannelTitle.subscribe((value)=>{
     console.log(value);
     this.activeTitle = value;
   
-  })
+  });
+
+
 }
 
 ngOnInit(){}
