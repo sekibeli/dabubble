@@ -12,10 +12,10 @@ export class ChannelComponent {
 
 constructor( private channelService: ChannelService, public drawerService: DrawerService){}
 
-currentChannel(title, id){
+currentChannel(title, id, channel){
   console.log('title:', title);
   console.log('id:', id);
-  this.channelService.pushActiveChannel(title, id);
+  this.channelService.pushActiveChannel(title, id, channel);
   
  }
 
@@ -26,7 +26,7 @@ currentChannel(title, id){
 
 onProfileClick(event: Event) {
   this.drawerService.close();
-  this.currentChannel(this.channel['title'], this.channel['id']);
+  this.currentChannel(this.channel['title'], this.channel['id'], this.channel);
   this.setMode(false);
 
   if (window.innerWidth < 600) {

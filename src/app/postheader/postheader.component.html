@@ -1,9 +1,9 @@
 <div class="postheader">
   <div class="postingheader">
-    <div class="leftSide">
+    <div class="leftSide" (click)="openShowChannelInformation(currentChannel)">
      
       <div class="topic" *ngIf="this.activeChannelTitle">
-        # {{ this.activeChannelTitle }}
+        # {{ this.currentChannelData['title'] }}
       </div>
       <div><mat-icon> keyboard_arrow_down </mat-icon></div>
     </div>

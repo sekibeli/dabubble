@@ -5,6 +5,8 @@ import { UserService } from '../services/user.service';
 import { MatDialogRef , MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import { DialogAddMemberComponent } from '../dialog-add-member/dialog-add-member.component';
 import { DialogShowChanneluserComponent } from '../dialog-show-channeluser/dialog-show-channeluser.component';
+import { Channel } from '../models/channel.class';
+import { DialogShowChannelComponent } from '../dialog-show-channel/dialog-show-channel.component';
 
 @Component({
   selector: 'app-postheader',
@@ -18,18 +20,37 @@ isSmallScreen;
   members;
   countsOfMembers;
   currentChannelUser;
-
+  currentChannel: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+ currentChannelID;
+currentChannelData = {
+  createdBy: "xeLjLZJ7SYVREnmskY07GgKMwnx1",
+  description: "Cooles Ding! Treibt einem nur etwas in den Wahnsinn ....",
+  id: "9Gwz1Ce763caWx5FCBZL",
+  members: ['20ftvvpCTuPl50KPTkwZgQ30KM52', 'bF3PiLI4bbZMKVs6ljqfofu6HoU2', 'DyGVMYTdzCXRsqa2VuBfavSbhvk2', '0NGEM9WCfKN1M2QfVQ1SvoCxpbm2'],
+  title: "Angular"
+};
   constructor(public channelService: ChannelService, public userService: UserService, public dialog: MatDialog) {
+   
     this.checkScreenSize();
     this.members = this.channelService.currentChannelUserArray;
 // this.countsOfMembers = this.members.length;
     this.channelService.activeChannelID.subscribe((value) => {
       this.activeChannelID.next(value);
     });
+
+    this.channelService.activeChannel.subscribe((channel)=>{  // Übergabe des ganzen channel Objekts
+      this.currentChannel.next(channel); // Behavior Subject
+      this.currentChannelData = this.currentChannel.getValue();
+      console.log('channel:', this.currentChannelData);
+
+    });
+
+   
+   
   }
 
   ngOnInit() {
-    this.channelService.pushActiveChannel('Angular', '9Gwz1Ce763caWx5FCBZL' );
+    // this.channelService.pushActiveChannel('Angular', '9Gwz1Ce763caWx5FCBZL' );
 
     this.channelService.activeChannelTitle.subscribe(
       (value) => {
@@ -81,4 +102,18 @@ dialogConfig.data = { channelTitle: activeChannelTitle};
       this.isSmallScreen = false;
     }
   }
+openShowChannelInformation(channel){
+  this.checkScreenSize();
+  const dialogConfig = new MatDialogConfig();
+  if(this.isSmallScreen){
+    
+    dialogConfig.width = '100%';
+   
+  }
+  console.log(this.isSmallScreen);
+  dialogConfig.data = this.currentChannelData, this.isSmallScreen, this.members;
+this.dialog.open(DialogShowChannelComponent, dialogConfig);
+}
+
+
 }

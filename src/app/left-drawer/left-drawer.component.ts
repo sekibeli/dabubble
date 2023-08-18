@@ -35,6 +35,7 @@ export class LeftDrawerComponent implements OnInit{
     this.channelService.getChannels().subscribe((value) => {
       
         this.channels = value;
+        console.log('channels:', value);
       });
    
 

@@ -36,7 +36,7 @@ export class ChannelService implements OnInit, OnDestroy {
       }];
    activeChannelTitle = new EventEmitter<string>();
    activeChannelID = new EventEmitter<string>();
-
+activeChannel = new EventEmitter<any>();
    constructor(private userService: UserService, public dialog: MatDialog) {
 
       // this.getInitials('9Gwz1Ce763caWx5FCBZL');
@@ -52,10 +52,11 @@ export class ChannelService implements OnInit, OnDestroy {
 
    }
 
-   pushActiveChannel(title, id) {
+   pushActiveChannel(title, id, channel) {
       this.activeChannelTitle.emit(title);
       this.currentChannelTitle = title;
       this.currentChannelID = id;
+      this.activeChannel.emit(channel);
       // console.log( 'Holmes1', this.currentChannelTitle);
       // console.log( 'Holmes2', this.currentChannelID);
       this.getMembersOfChannelNEW(id).then(members => {
@@ -109,7 +110,11 @@ export class ChannelService implements OnInit, OnDestroy {
       }
 
    }
-
+getCurrentChannel(channelID){
+   const docRef = (this.firestore, 'channels', channelID)
+   const channelDoc = collectionData(docRef);
+   return channelDoc;
+}
 
    // getInitials(id) {
    //    const data = this.getMembersOfChannel(id);
