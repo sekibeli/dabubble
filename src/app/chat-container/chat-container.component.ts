@@ -38,7 +38,7 @@ getThisChat(toID) {
   this.messageService.getThisChat(toID).subscribe((chats) => {
                 this.chats = chats;
                 localStorage.setItem('currentChatLength', this.chats.length);
-                console.log('aktueller Chat:', this.chats);
+                // console.log('aktueller Chat:', this.chats);
           });
     }
 

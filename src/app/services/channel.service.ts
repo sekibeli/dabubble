@@ -56,11 +56,11 @@ export class ChannelService implements OnInit, OnDestroy {
       this.activeChannelTitle.emit(title);
       this.currentChannelTitle = title;
       this.currentChannelID = id;
-      console.log( 'Holmes1', this.currentChannelTitle);
-      console.log( 'Holmes2', this.currentChannelID);
+      // console.log( 'Holmes1', this.currentChannelTitle);
+      // console.log( 'Holmes2', this.currentChannelID);
       this.getMembersOfChannelNEW(id).then(members => {
          this.membersUserIDArray = members;
-         console.log('Inhalt membersUserIDArray', this.membersUserIDArray);
+         // console.log('Inhalt membersUserIDArray', this.membersUserIDArray);
          this.getMembersData(this.membersUserIDArray);
       });
    }
@@ -80,7 +80,7 @@ export class ChannelService implements OnInit, OnDestroy {
             if (fetchCount === 0) {
                this.currentChannelUserArray = [];
                this.currentChannelUserArray = usersArray;
-               console.log('Array nach getMembersData:', this.currentChannelUserArray);
+               // console.log('Array nach getMembersData:', this.currentChannelUserArray);
                this.channelUserArrayEmitter.emit(this.currentChannelUserArray);
             }
          });

@@ -15,7 +15,7 @@ export class UserComponent implements OnInit {
 
 ngOnInit(): void {
   this.currentUserID = localStorage.getItem('currentUserID');
-  console.log(this.currentUserID);
+  // console.log(this.currentUserID);
 }
   pushChatUser(user){
     this.messageService.pushChatUser(user);

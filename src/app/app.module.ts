@@ -42,7 +42,7 @@ import { ChatNoMessageComponent } from './chat-no-message/chat-no-message.compon
 import { UserComponent } from './user/user.component';
 import { DialogNewChannelComponent } from './dialog-new-channel/dialog-new-channel.component';
 import { ChannelComponent } from './channel/channel.component';
-import { MatDialogModule , MatDialogRef} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { DialogAddMemberComponent } from './dialog-add-member/dialog-add-member.component';
 import { DialogShowChanneluserComponent } from './dialog-show-channeluser/dialog-show-channeluser.component';
 import { DialogProfileComponent } from './dialog-profile/dialog-profile.component';
@@ -53,6 +53,7 @@ import { DialogEditPlayerImgComponent } from './dialog-edit-player-img/dialog-ed
 import { ChooseAvatarComponent } from './choose-avatar/choose-avatar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DialogEditUserComponent } from './dialog-edit-user/dialog-edit-user.component';
+import { DialogShowChannelComponent } from './dialog-show-channel/dialog-show-channel.component';
 
 
 
@@ -101,6 +102,7 @@ import { DialogEditUserComponent } from './dialog-edit-user/dialog-edit-user.com
     DialogEditPlayerImgComponent,
        ChooseAvatarComponent,
        DialogEditUserComponent,
+       DialogShowChannelComponent,
    
     
 

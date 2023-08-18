@@ -39,9 +39,7 @@ user: any;
 
    openProfile(user){
     const dialogConfig = new MatDialogConfig();
-    // this.dialog.open(DialogProfileComponent, user)
-  
-  
+       
     dialogConfig.data = { user: user};
     const dialogRef =  this.dialog.open(DialogProfileComponent, dialogConfig);
     dialogRef.componentInstance.user = this.user;

@@ -108,7 +108,7 @@ export class MessageService {
   getChatLength(toID) {
     this.getThisChat(toID).subscribe((value) => {
       let length = value.length;
-      console.log(value.length);
+      // console.log(value.length);
       this.chatLengthEmitter.emit(length);
     });
   }

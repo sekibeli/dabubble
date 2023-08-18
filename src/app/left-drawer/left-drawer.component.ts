@@ -46,7 +46,7 @@ export class LeftDrawerComponent implements OnInit{
          })
    
     this.currentUserID = localStorage.getItem('currentUserID');
-    console.log(this.currentUserID);
+    // console.log(this.currentUserID);
   }
  
  triggerToggle(){this.callToggle.emit();

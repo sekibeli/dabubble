@@ -1,5 +1,5 @@
 import { DialogRef } from '@angular/cdk/dialog';
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { UserService } from '../services/user.service';
 
@@ -13,10 +13,8 @@ export class DialogEditUserComponent implements OnInit {
 user: any;
 originalUser: any;
 
-constructor(public dialogRef: DialogRef, @Inject(MAT_DIALOG_DATA) public data: any, public dialog: MatDialog, public userService: UserService){
+constructor(public dialogRef: DialogRef, @Inject(MAT_DIALOG_DATA) public data: any, public dialog: MatDialog, public userService: UserService, private cd: ChangeDetectorRef){
   this.originalUser = JSON.parse(JSON.stringify(this.data.user));
-  console.log(data);
-  console.log('orginal:', this.originalUser);
  
 }
 
@@ -24,14 +22,14 @@ ngOnInit(): void {
  
 }
 cancel(){
-  console.log('orginal:', this.originalUser);
-  this.data.user = JSON.parse(JSON.stringify(this.originalUser));
+  Object.assign(this.data.user, this.originalUser);
+    this.cd.detectChanges();
+
   this.dialogRef.close();
   
+ 
 }
 updateUsername(){
-  console.log('orginal:', this.originalUser);
-  console.log(this.data.user['id'], this.data.user['username']);
   this.userService.setUserName(this.data.user['id'], this.data.user['username']);
   this.dialogRef.close();
 }
