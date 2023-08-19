@@ -54,6 +54,7 @@ import { ChooseAvatarComponent } from './choose-avatar/choose-avatar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DialogEditUserComponent } from './dialog-edit-user/dialog-edit-user.component';
 import { DialogShowChannelComponent } from './dialog-show-channel/dialog-show-channel.component';
+import { InputPostComponent } from './input-post/input-post.component';
 
 
 
@@ -103,6 +104,7 @@ import { DialogShowChannelComponent } from './dialog-show-channel/dialog-show-ch
        ChooseAvatarComponent,
        DialogEditUserComponent,
        DialogShowChannelComponent,
+       InputPostComponent,
    
     
 

@@ -92,4 +92,9 @@ mat-icon {
         border-radius: 0;
         overflow-y: scroll;
         }
+
+        .mat-mdc-dialog-container .mdc-dialog__surface {
+            border-radius: 30px !important;
+           
+        }
 }

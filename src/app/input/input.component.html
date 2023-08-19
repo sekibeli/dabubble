@@ -2,12 +2,12 @@
     <app-chat-no-message *ngIf="(currentChatLength == 0) && directMessage "></app-chat-no-message>
 <form class="chatInput input-container" [formGroup]="chatMessage">
 <div class="relative">
-<textarea *ngIf="!singlePost && channelMessage && channelTitle | async" formControlName="description" id="message" name="meineTextarea"  rows="4" placeholder="Nachricht an #{{ channelTitle.getValue() }} schreiben ..."></textarea>
+<!-- <textarea *ngIf="!singlePost && channelMessage && channelTitle | async" formControlName="description" id="message" name="meineTextarea"  rows="4" placeholder="Nachricht an #{{ channelTitle.getValue() }} schreiben ..."></textarea> -->
 <textarea *ngIf="singlePost " formControlName="description" id="message" name="meineTextarea"  rows="4" placeholder="Antworten ..."></textarea>
 <textarea *ngIf="directMessage && (user | async) as currentUser " formControlName="description" id="message" name="meineTextarea"  rows="4" placeholder="Direktnachricht an {{currentUser['username']}}  "></textarea>
 
 <div class="stick">
-<div *ngIf="!singlePost && channelMessage" (click)="this.savePost(this.chatMessage)"><mat-icon>send</mat-icon></div>
+<!-- <div *ngIf="!singlePost && channelMessage" (click)="this.savePost(this.chatMessage)"><mat-icon>send</mat-icon></div> -->
 <div *ngIf="singlePost"  (click)="this.savePost(this.chatMessage, this.singlePost['id'])"><mat-icon>send</mat-icon></div>
 <div *ngIf="directMessage"  (click)="this.saveMessage(this.chatMessage)"><mat-icon>send</mat-icon></div>
 </div>

@@ -205,6 +205,14 @@ h3 {
     display: none;
 }
 
+.mat-mdc-dialog-container .mdc-dialog__surface {
+    border-radius: 30px !important;
+    border-top-right-radius: 0px !important;
+}
+// mat-dialog-container .mat-mdc-dialog-container .mdc-dialog__surface {
+//     border-radius: 20px;
+// }
+
 @media (max-width: 1050px){
     .container {
         flex-direction: column;
@@ -232,6 +240,11 @@ h3 {
 @media (max-width: 600px) {
     .sidenavLeft, .sidenavRight {
       width: 100%;
+    }
+
+    .mat-mdc-dialog-container .mdc-dialog__surface {
+        border-radius: 0px !important;
+       
     }
  
   }
