@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable, OnDestroy, OnInit, inject } from '@angular/core';
-import { Firestore, addDoc, arrayUnion, collection, collectionData, doc, docData, getDoc, query, updateDoc, where } from '@angular/fire/firestore';
+import { Firestore, addDoc, arrayUnion, collection, collectionData, doc, docData, getDoc, or, query, updateDoc, where } from '@angular/fire/firestore';
 import { UserService } from './user.service';
 import { BehaviorSubject, Subject, first, forkJoin, merge, mergeAll, takeUntil } from 'rxjs';
 import { User } from '../models/user.class';
@@ -52,6 +52,18 @@ activeChannel = new EventEmitter<any>();
 
    }
 
+   getChannelsWhereCurrentUserIsMember(userId){
+      // const userId = 'xeLjLZJ7SYVREnmskY07GgKMwnx1';
+      // const collRef = query(collection(this.firestore, 'channels'), where('members', 'array-contains', userId), where('createdBy', '==', userId));
+      // const docRef = collectionData(collRef, { idField: 'id' });
+      const collRef = collection(this.firestore, 'channels');
+      const collRefQuery = query (collRef, or( where('members', 'array-contains', userId), where('createdBy', '==', userId) ))
+      const docRef = collectionData(collRefQuery, { idField: 'id' });
+      return docRef;
+    }
+   
+
+
    pushActiveChannel(title, id, channel) {
       this.activeChannelTitle.emit(title);
       this.currentChannelTitle = title;
@@ -59,6 +71,7 @@ activeChannel = new EventEmitter<any>();
       this.activeChannel.emit(channel);
       // console.log( 'Holmes1', this.currentChannelTitle);
       // console.log( 'Holmes2', this.currentChannelID);
+    
       this.getMembersOfChannelNEW(id).then(members => {
          this.membersUserIDArray = members;
          // console.log('Inhalt membersUserIDArray', this.membersUserIDArray);
@@ -96,7 +109,7 @@ activeChannel = new EventEmitter<any>();
    }
 
    async getMembersOfChannelNEW(channel: string): Promise<any[]> {
-    
+   
       const docRef = doc(this.firestore, 'channels', channel);
       const channelDoc = await getDoc(docRef);
 
@@ -175,5 +188,9 @@ getCurrentChannel(channelID){
       console.log('check:', this.check);
       return this.check;
    }
+
+
+
+   
 
 }

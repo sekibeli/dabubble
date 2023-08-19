@@ -1,0 +1,49 @@
+<div class="mainSearch">
+   
+    <input 
+    class="search"
+    type="text"
+    [(ngModel)]="searchterm"
+    (keyup)="searchMember($event)" class="searchInput" matInput type="text" placeholder="Suche nach # (channel) or @ (user)">
+    <mat-icon matIconPrefix>search</mat-icon>
+</div>
+<div class="searchOverview">
+<div *ngIf="search && result" class="showResults">
+    <div class="searchHeader">Users</div>
+    <div class="noResult" *ngIf="result.users.length == 0">Keine <strong>User</strong> mit <br> Anfangsbuchstaben "{{searchterm}}" <br>gefunden</div>
+    <ul *ngFor="let user of result.users">
+        <li class="message" (click)="chooseNewMember(user)">
+          <div class="profile-overview">
+            <div class="relativePic">
+              <img class="profile-img" src="{{ user['img'] }}" alt="" />
+              <div
+                class="status"
+                [ngClass]="{ green: user['active'], grey: !user['active'] }"
+              ></div>
+            </div>
+            <div *ngIf="user['id'] != this.currentUserID" class="profile-name">
+              {{ user["username"] }}
+            </div>
+            <div *ngIf="user['id'] == this.currentUserID" class="profile-name">
+              {{ user["username"] }} (Du)
+            </div>
+          </div>
+        </li>
+      </ul>
+</div>
+<div *ngIf="search && result" class="showResults">
+    <div class="searchHeader">Channels</div>
+    <div class="noResult" *ngIf="result.channels.length == 0">Keine <strong>Channels</strong> mit <br> Anfangsbuchstaben "{{searchterm}}" <br>gefunden</div>
+    <ul *ngFor="let channel of result.channels">
+       
+        <li class="message" (click)="showChannel()">
+            <div class="profile-overview">
+                # {{ channel["title"] }}
+            </div>
+ 
+            
+       
+        </li>
+      </ul>
+</div>
+</div>

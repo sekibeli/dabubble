@@ -1,0 +1,118 @@
+.mainSearch{
+    display: flex;
+    align-items: center;
+    border-radius:  30px;
+    background-color: white;
+    width: 400px;
+    padding: 10px 20px;
+    margin-left: 100px;
+}
+
+.searchInput {
+    flex: 1;
+    border: none; /* Entfernt den Rand */
+    outline: none; /* Entfernt den Fokus-Stil */
+    box-shadow: none; /* Entfernt den Schatten */
+
+    &:focus {
+        border: none; /* Entfernt den Rand */
+    outline: none; /* Entfernt den Fokus-Stil */
+    box-shadow: none; /* Entfernt den Schatten */
+    }
+
+}
+mat-icon{
+    margin-left: auto;
+}
+
+.showResults{
+    min-width: 150px;
+    // z-index: 10;
+    // position: absolute;
+    // top: 70px;
+    // left: 45%;
+    // background-color: white;
+    // border-radius: 20px;
+    // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    
+}
+
+.profile-overview {
+    padding: 0px 15px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-right: 15px;
+    margin-bottom: 5px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--background-color);
+        color: #535AF1;
+    }
+}
+
+.profile-img {
+    
+    margin: 0 20px 0 0;
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+ul {
+    list-style: none; 
+    padding: 0;
+ }
+
+ .searchOverview {
+   display:flex;
+    z-index: 10;
+    position: absolute;
+    top: 70px;
+    left: 45%;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+ }
+
+ .searchHeader {
+    color: #535AF1;
+    font-size: 1.2em;
+    padding: 10px;
+
+ }
+
+ .noResult {
+    padding: 15px;
+    font-size: 0.7em;
+    color:  #ff1f1f;
+ }
+@media ( max-width: 1200px ) {
+
+    .mainSearch {
+        width: 350px;
+    }
+}
+
+@media ( max-width: 1000px ) {
+
+    .mainSearch {
+        width: 250px;
+    }
+}
+@media ( max-width: 900px ) {
+
+    .mainSearch {
+        width: 180px;
+    }
+}
+@media ( max-width: 800px ) {
+
+    .mainSearch {
+       display: none;
+    }
+}

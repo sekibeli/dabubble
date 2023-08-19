@@ -15,6 +15,7 @@ constructor( private channelService: ChannelService, public drawerService: Drawe
 currentChannel(title, id, channel){
   console.log('title:', title);
   console.log('id:', id);
+  console.log('channel:', channel);
   this.channelService.pushActiveChannel(title, id, channel);
   
  }

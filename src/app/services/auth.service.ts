@@ -4,6 +4,7 @@ import { Firestore, collection, collectionData, doc, docData, getDoc, onSnapshot
 import { GoogleAuthProvider, signOut } from 'firebase/auth';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '../models/user.class';
+import { ChannelService } from './channel.service';
 
 
 // Service 
@@ -20,7 +21,7 @@ export class AuthService implements OnInit {
 
   firestore: Firestore = inject(Firestore);
 
-  constructor(private afs: AngularFireAuth) { }
+  constructor(private afs: AngularFireAuth, private channelService: ChannelService) { }
 
   ngOnInit() { }
 
@@ -34,6 +35,7 @@ export class AuthService implements OnInit {
         this.currentUser = result.user;
         console.log('Eingeloggter User:', this.userUID);
         this.saveCurrentUserIDInLocalStorage(this.userUID);
+        this.pushNewUserInAllgemeinChannel(this.userUID);
       })
       .catch(error => {
         console.error(error);
@@ -50,6 +52,7 @@ export class AuthService implements OnInit {
       this.userUID = result.user.uid;
       console.log('Eingeloggter User:', this.userUID);
       this.saveCurrentUserIDInLocalStorage(this.userUID);
+      this.pushNewUserInAllgemeinChannel(this.userUID);
 
     }).catch(error => {
       console.error(error);
@@ -67,5 +70,7 @@ export class AuthService implements OnInit {
    
   }
 
-
+pushNewUserInAllgemeinChannel(newUser){
+  this.channelService.addMemberToChannel('BwYu94QGYDi8hQta31RP', newUser);
+}
 }

@@ -1,12 +1,14 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, inject } from '@angular/core';
 import { ChannelService } from '../services/channel.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject, combineLatest } from 'rxjs';
 import { UserService } from '../services/user.service';
-import { MatDialogRef, MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogAddMemberComponent } from '../dialog-add-member/dialog-add-member.component';
 import { DialogShowChanneluserComponent } from '../dialog-show-channeluser/dialog-show-channeluser.component';
-import { Channel } from '../models/channel.class';
+
 import { DialogShowChannelComponent } from '../dialog-show-channel/dialog-show-channel.component';
+
+import { Firestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-postheader',
@@ -14,6 +16,7 @@ import { DialogShowChannelComponent } from '../dialog-show-channel/dialog-show-c
   styleUrls: ['./postheader.component.scss']
 })
 export class PostheaderComponent implements OnInit {
+  firestore: Firestore = inject(Firestore);
   isSmallScreen;
   activeChannelTitle = 'Angular';
   activeChannelID: BehaviorSubject<string> = new BehaviorSubject<string>('9Gwz1Ce763caWx5FCBZL');
@@ -64,6 +67,7 @@ export class PostheaderComponent implements OnInit {
       this.countsOfMembers = this.members.length;
     });
 
+   
   }
 
   openAddMemberDialog(activeChannelTitle: string) {

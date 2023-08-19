@@ -55,6 +55,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { DialogEditUserComponent } from './dialog-edit-user/dialog-edit-user.component';
 import { DialogShowChannelComponent } from './dialog-show-channel/dialog-show-channel.component';
 import { InputPostComponent } from './input-post/input-post.component';
+import { SearchbarComponent } from './searchbar/searchbar.component';
+
 
 
 
@@ -105,6 +107,8 @@ import { InputPostComponent } from './input-post/input-post.component';
        DialogEditUserComponent,
        DialogShowChannelComponent,
        InputPostComponent,
+       SearchbarComponent,
+
    
     
 

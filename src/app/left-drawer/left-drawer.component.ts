@@ -32,12 +32,16 @@ export class LeftDrawerComponent implements OnInit{
   
   constructor(public postService: PostService, public drawerService: DrawerService, public channelService: ChannelService, public userService: UserService, public messageService: MessageService, public dialog: MatDialog) {
     this.checkScreenSize();
-    this.channelService.getChannels().subscribe((value) => {
+    // this.channelService.getChannels().subscribe((value) => {
       
-        this.channels = value;
-        console.log('channels:', value);
-      });
+    //     this.channels = value;
+    //     console.log('channels:', value);
+    //   });
    
+      this.channelService.getChannelsWhereCurrentUserIsMember(localStorage.getItem('currentUserID')).subscribe((value)=>{
+        console.log('channels from curentUser:', value);
+        this.channels = value;
+      });
 
   }
 
