@@ -46,7 +46,7 @@ export class LeftDrawerComponent implements OnInit{
       this.channelService.getChannelData('BwYu94QGYDi8hQta31RP').then(
         (value)=>{
           console.log(value);
-          this.channelService.pushActiveChannel(value['title'], value['id'], value);
+          this.channelService.pushActiveChannel(value);
         }
       );
       

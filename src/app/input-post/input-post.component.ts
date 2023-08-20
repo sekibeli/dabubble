@@ -47,8 +47,9 @@ export class InputPostComponent implements OnInit {
 //  this.currentChatLength = value;
 //    });
 
-   this.channelService.activeChannelTitle.subscribe((value)=>{
-    this.channelTitle.next(value);
+   this.channelService.activeChannel.subscribe((value)=>{
+    console.log(value['title']);
+    this.channelTitle.next(value['title']);
    });
     this.currentUser = localStorage.getItem('currentUserID');
     this.directMessage = JSON.parse(localStorage.getItem('directMessage'));

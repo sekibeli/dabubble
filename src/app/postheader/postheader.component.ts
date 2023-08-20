@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, OnInit, inject, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import { ChannelService } from '../services/channel.service';
 import { BehaviorSubject, Subject, combineLatest } from 'rxjs';
 import { UserService } from '../services/user.service';
@@ -15,68 +15,53 @@ import { Firestore } from '@angular/fire/firestore';
   templateUrl: './postheader.component.html',
   styleUrls: ['./postheader.component.scss']
 })
-export class PostheaderComponent implements OnInit {
+export class PostheaderComponent implements OnInit, OnDestroy {
+  unsub;
   firestore: Firestore = inject(Firestore);
   isSmallScreen;
-  activeChannelTitle  ;
-  activeChannelID: BehaviorSubject<string> = new BehaviorSubject<string>('null');
-  members;
-  countsOfMembers;
+  members: string[]; //Array mit UserIDs der Mitglieder eines Channels
+  countsOfMembers; // Anzahl der Mitglieder eines Channels
   currentChannelUser;
-  currentChannel: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  currentChannelID: string;
+  currentChannel: BehaviorSubject<any> = new BehaviorSubject<any>(null); //
+  // currentChannelID: string;
   currentChannelData: any; 
   
-  // = {
-  //   createdBy: "xeLjLZJ7SYVREnmskY07GgKMwnx1",
-  //   description: "Cooles Ding! Treibt einem nur etwas in den Wahnsinn ....",
-  //   id: "9Gwz1Ce763caWx5FCBZL",
-  //   members: ['20ftvvpCTuPl50KPTkwZgQ30KM52', 'bF3PiLI4bbZMKVs6ljqfofu6HoU2', 'DyGVMYTdzCXRsqa2VuBfavSbhvk2', '0NGEM9WCfKN1M2QfVQ1SvoCxpbm2'],
-  //   title: "Angular"
-  // };
-  constructor(public channelService: ChannelService, public userService: UserService, public dialog: MatDialog) {
-console.log('Hier:', this.currentChannelID);
-console.log('Da:', this.activeChannelID.value);
+  constructor(public channelService: ChannelService, public userService: UserService, public dialog: MatDialog, private changeDetect: ChangeDetectorRef) {
     this.checkScreenSize();
-    this.members = this.channelService.currentChannelUserArray;
-    // this.countsOfMembers = this.members.length;
-    this.channelService.activeChannelID.subscribe((value) => {
-      this.activeChannelID.next(value);
-    });
 
-    this.channelService.activeChannel.subscribe((channel) => {  // Übergabe des ganzen channel Objekts
-      this.currentChannel.next(channel); // Behavior Subject
-      this.currentChannelData = this.currentChannel.getValue();
-      console.log('channel:', this.currentChannelData);
-      
-
-    });
-
-
+  
 
   }
 
   ngOnInit() {
-    // this.channelService.pushActiveChannel('Angular', '9Gwz1Ce763caWx5FCBZL' );
-
-    this.channelService.activeChannelTitle.subscribe(
-      (value) => {
-        this.activeChannelTitle = value;
-        console.log('Holmes3', this.activeChannelTitle);
-      });
-
-    this.channelService.channelUserArrayEmitter.subscribe((users) => {
-
-      this.members = users;
-      this.countsOfMembers = this.members.length;
+    this.unsub =  this.channelService.currentChannelUserArray$.subscribe(members => {
+      this.members = members;
+      console.log('members:', members);
+      console.log('observableMembers:', this.channelService.currentChannelUserArray$);
+      this.countsOfMembers = members.length;
+      this.changeDetect.detectChanges();
     });
+ 
+    this.channelService.activeChannel.subscribe((channel) => {  // Übergabe des ganzen channel Objekts
+      
+      this.currentChannel.next(channel); // Behavior Subject
+      this.currentChannelData = this.currentChannel.getValue();
+      console.log('channel:', this.currentChannelData);
+      console.log('Ausgabe:', this.currentChannel);
 
-   
+
+    });
   }
 
-  openAddMemberDialog(activeChannelTitle: string) {
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   if (changes.members) {
+  //     this.members = changes.members.currentValue;
+  //     this.countsOfMembers = this.members.length;
+  //   }
+  // }
 
-    // this.channelService.openAddMemberDialog(activeChannelTitle);
+  openAddMemberDialog(activeChannelTitle: string) {
+ 
     const dialogConfig = new MatDialogConfig();
     dialogConfig.position = {
       top: '200px',  // Ändere diese Werte entsprechend deiner gewünschten Position
@@ -84,7 +69,7 @@ console.log('Da:', this.activeChannelID.value);
     };
     dialogConfig.data = { channelTitle: activeChannelTitle };
     const dialogRef = this.dialog.open(DialogAddMemberComponent, dialogConfig);
-    dialogRef.componentInstance.channelTitle = this.activeChannelTitle;
+    dialogRef.componentInstance.channelTitle = this.currentChannelData['title'];
   }
 
   openShowMembersDialog() {
@@ -93,7 +78,6 @@ console.log('Da:', this.activeChannelID.value);
       top: '200px',  // Ändere diese Werte entsprechend deiner gewünschten Position
       right: '10%'   // Ändere diese Werte entsprechend deiner gewünschten Position
     };
-
 
     this.dialog.open(DialogShowChanneluserComponent, dialogConfig);
   }
@@ -111,6 +95,7 @@ console.log('Da:', this.activeChannelID.value);
     }
   }
   openShowChannelInformation() {
+    this.changeDetect.detectChanges();
     this.checkScreenSize();
     const dialogConfig = new MatDialogConfig();
     if (this.isSmallScreen) {
@@ -129,11 +114,9 @@ console.log('Da:', this.activeChannelID.value);
     };
     this.dialog.open(DialogShowChannelComponent, dialogConfig);
 
-
-    // console.log('small:', this.isSmallScreen);
-    // dialogConfig.data = {currentChannelData: this.currentChannelData};
-    // this.dialog.open(DialogShowChannelComponent, dialogConfig);
   }
 
-
+ngOnDestroy(){
+  this.unsub.unsubscribe();
+}
 }

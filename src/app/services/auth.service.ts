@@ -5,6 +5,8 @@ import { GoogleAuthProvider, signOut } from 'firebase/auth';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '../models/user.class';
 import { ChannelService } from './channel.service';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { SnackComponent } from '../snackbar/snack/snack.component';
 
 
 // Service 
@@ -21,7 +23,7 @@ export class AuthService implements OnInit {
 
   firestore: Firestore = inject(Firestore);
 
-  constructor(private afs: AngularFireAuth, private channelService: ChannelService) { }
+  constructor(private afs: AngularFireAuth, private channelService: ChannelService, private snackbar: MatSnackBar) { }
 
   ngOnInit() { }
 
@@ -36,6 +38,7 @@ export class AuthService implements OnInit {
         console.log('Eingeloggter User:', this.userUID);
         this.saveCurrentUserIDInLocalStorage(this.userUID);
         this.pushNewUserInAllgemeinChannel(this.userUID);
+        // this.showMessage('Konto erfolgreich erstellt!');
       })
       .catch(error => {
         console.error(error);
@@ -43,6 +46,7 @@ export class AuthService implements OnInit {
   }
 
   registerWithEmailAndPassword(user: { email: string, password: string }) {
+
     return this.afs.createUserWithEmailAndPassword(user.email, user.password);
   }
 
@@ -73,4 +77,14 @@ export class AuthService implements OnInit {
 pushNewUserInAllgemeinChannel(newUser){
   this.channelService.addMemberToChannel('BwYu94QGYDi8hQta31RP', newUser);
 }
+
+showMessage(message){
+  const config = new MatSnackBarConfig();
+  config.data = message;
+  config.duration = 3000;
+  config.verticalPosition = 'bottom';
+  config.horizontalPosition = 'right';
+this.snackbar.openFromComponent(SnackComponent, config);
+}
+
 }

@@ -2,13 +2,13 @@
   <div class="postingheader">
     <div class="leftSide" (click)="openShowChannelInformation()">
      
-      <div class="topic" *ngIf="currentChannel | async as channelData">
-        # {{ channelData['title'] }}
+      <div class="topic" *ngIf="currentChannelData">
+        # {{ currentChannelData['title'] }}
       </div>
       <div><mat-icon> keyboard_arrow_down </mat-icon></div>
     </div>
    
-      <div class="miniProfilePicsRow" *ngIf="activeChannelID">
+      <div class="miniProfilePicsRow" *ngIf="currentChannelData">
         <div *ngIf="!isSmallScreen" class="user"  (click)="openShowMembersDialog()">
           
           <ng-container *ngFor="let member of members">
@@ -18,7 +18,7 @@
      
         <div class="amountOfMembers">{{ countsOfMembers }}</div>
         </div>
-        <div class="addMember" (click)="openAddMemberDialog(this.activeChannelTitle)"> <img src="../../assets/img/add_member.svg" alt=""> </div>
+        <div class="addMember" (click)="openAddMemberDialog(this.currentChannelData['title'])"> <img src="../../assets/img/add_member.svg" alt=""> </div>
       </div>
    
   </div>

@@ -54,7 +54,7 @@ export class LoginComponent {
 
   
 setTimeout(() => {
-   this.route.navigateByUrl('home/channel/9Gwz1Ce763caWx5FCBZL');
+   this.route.navigateByUrl('home/channel/BwYu94QGYDi8hQta31RP');
 }, 4000);
   }
 
@@ -67,7 +67,7 @@ setTimeout(() => {
 
       
 setTimeout(() => {
-  this.route.navigateByUrl('home/channel/9Gwz1Ce763caWx5FCBZL');
+  this.route.navigateByUrl('home/channel/BwYu94QGYDi8hQta31RP');
 }, 2000);
 
     }).catch((error: any) => {
@@ -92,7 +92,7 @@ setTimeout(() => {
 
       
 setTimeout(() => {
-  this.route.navigateByUrl('home/channel/9Gwz1Ce763caWx5FCBZL');
+  this.route.navigateByUrl('home/channel/BwYu94QGYDi8hQta31RP');
 }, 2000);
 
     }).catch((error: any) => {

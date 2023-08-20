@@ -45,7 +45,7 @@ export class SignUpComponent {
         img: '../../assets/img/profile_img/benutzer.png',
         active : true
       })
-
+      this.auth.showMessage('Konto erfolgreich erstellt!');
       setDoc( collRef, this.user.toJSON());
 
       localStorage.setItem('currentUserID', result.user.uid);

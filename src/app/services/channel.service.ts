@@ -20,25 +20,15 @@ export class ChannelService implements OnInit, OnDestroy {
    channelUserArrayEmitter = new EventEmitter<any>();
    currentChannelTitle;
    currentChannelUserArray = [];
-      // = [{
 
-      //    active: false,
-      //    email: "max@mustermann.de",
-      //    id: "0NGEM9WCfKN1M2QfVQ1SvoCxpbm2",
-      //    img: "../../assets/img/profile_img/avatar2.svg",
-      //    username: "Max Musterfrau"
-      // }, {
-      //    active: false,
-      //    email: "java2011@me.com",
-      //    id: "DyGVMYTdzCXRsqa2VuBfavSbhvk2",
-      //    img: "../../assets/img/profile_img/Avatar.svg",
-      //    username: "Julia Finsterwalder"
-      // }];
+  private currentChannelUserArraySubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+   currentChannelUserArray$ = this.currentChannelUserArraySubject.asObservable();
+    
    activeChannelTitle = new EventEmitter<string>();
    activeChannelID = new EventEmitter<string>();
 activeChannel = new EventEmitter<any>();
    constructor(private userService: UserService, public dialog: MatDialog) {
-
+console.log('obsi:', this.currentChannelUserArray$);
       // this.getInitials('9Gwz1Ce763caWx5FCBZL');
    }
 
@@ -64,15 +54,15 @@ activeChannel = new EventEmitter<any>();
    
 
 
-   pushActiveChannel(title, id, channel) {
-      this.activeChannelTitle.emit(title);
-      this.currentChannelTitle = title;
-      this.currentChannelID = id;
+   pushActiveChannel(channel) {
+      // this.activeChannelTitle.emit(title);
+      this.currentChannelTitle = channel['title'];
+      this.currentChannelID = channel['id'];
       this.activeChannel.emit(channel);
       // console.log( 'Holmes1', this.currentChannelTitle);
       // console.log( 'Holmes2', this.currentChannelID);
     
-      this.getMembersOfChannelNEW(id).then(members => {
+      this.getMembersOfChannelNEW(channel['id']).then(members => {
          this.membersUserIDArray = members;
          // console.log('Inhalt membersUserIDArray', this.membersUserIDArray);
          this.getMembersData(this.membersUserIDArray);
@@ -92,10 +82,12 @@ activeChannel = new EventEmitter<any>();
 
             fetchCount--;
             if (fetchCount === 0) {
-               this.currentChannelUserArray = [];
+               // this.currentChannelUserArray = [];
+               // this.currentChannelUserArray = usersArray;
                this.currentChannelUserArray = usersArray;
+               this.currentChannelUserArraySubject.next(usersArray);
                // console.log('Array nach getMembersData:', this.currentChannelUserArray);
-               this.channelUserArrayEmitter.emit(this.currentChannelUserArray);
+               // this.channelUserArrayEmitter.emit(this.currentChannelUserArray);
             }
          });
       });
@@ -116,6 +108,8 @@ activeChannel = new EventEmitter<any>();
       if (channelDoc.exists()) {
          const channelData = channelDoc.data();
          const channelMember = channelData['members'];
+         console.log('aktulle Mitglieder:', channelMember);
+         this.currentChannelUserArraySubject.next(channelMember);
          return channelMember;
       } else {
          console.error('dokument existiert nicht');
@@ -161,8 +155,11 @@ async getChannelData(channelID:string){
    }
 
    addMemberToChannel(channelID, user) {
-     
-      if (this.checkIfUserIsAlreadyMemberOfChannel(channelID, user)) {
+     this.checkIfUserIsAlreadyMemberOfChannel(channelID, user).then(result => {
+      console.log('Ergebnis:', result);
+      this.check = result;
+     })
+      if (!this.check) {
          const docRef = doc(this.firestore, 'channels', channelID);
          updateDoc(docRef, { members: arrayUnion(user) })
       } else {
@@ -183,22 +180,21 @@ async getChannelData(channelID:string){
    }
 
 
-   checkIfUserIsAlreadyMemberOfChannel(channelID, user): boolean {
-    
+   async checkIfUserIsAlreadyMemberOfChannel(channelID, user): Promise<boolean> {
+   let check: boolean;
       
-      this.getMembersOfChannelNEW(channelID).then(value => {
-        
+      const value = await this.getMembersOfChannelNEW(channelID);
+      
          console.log('member:', value);
-         if(value){
-         if (value.includes(user)) {
-            this.check = true;
+         
+         if (value) {
+            check = value.includes(user);
          } else {
-            this.check = false;
+            check = false;
          }
-      }
-      })
-      console.log('check:', this.check);
-      return this.check;
+      
+      console.log('check:', check);
+      return check;
    }
 
 

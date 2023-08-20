@@ -50,8 +50,8 @@ export class InputComponent implements OnInit {
  this.currentChatLength = value;
    });
 
-   this.channelService.activeChannelTitle.subscribe((value)=>{
-    this.channelTitle.next(value);
+   this.channelService.activeChannel.subscribe((value)=>{
+    this.channelTitle.next(value['title']);
    });
     this.currentUser = localStorage.getItem('currentUserID');
     this.directMessage = JSON.parse(localStorage.getItem('directMessage'));

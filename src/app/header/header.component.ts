@@ -8,17 +8,24 @@ import { BehaviorSubject } from 'rxjs';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit{
-channelTitle: BehaviorSubject<String> = new BehaviorSubject<String>('Angular');
+channelTitle: BehaviorSubject<String> = new BehaviorSubject<String>('');
   
 constructor(private channelService: ChannelService){
 
 }
 
 ngOnInit(): void {
-  this.channelService.activeChannelTitle.subscribe((value)=>{
+  // this.channelService.activeChannelTitle.subscribe((value)=>{
+  //   if(this.channelTitle)
+  //   this.channelTitle.next(value);
+  // console.log(this.channelTitle.getValue());
+  // });
+
+  this.channelService.activeChannel.subscribe((value)=>{
     if(this.channelTitle)
-    this.channelTitle.next(value);
+    this.channelTitle.next(value['title']);
   console.log(this.channelTitle.getValue());
   });
+  
 }
 }

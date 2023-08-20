@@ -14,11 +14,10 @@ constructor( private channelService: ChannelService, public drawerService: Drawe
  
 }
 
-currentChannel(title, id, channel){
-  console.log('title:', title);
-  console.log('id:', id);
-  console.log('channel:', channel);
-  this.channelService.pushActiveChannel(title, id, channel);
+currentChannel(channel){
+
+
+  this.channelService.pushActiveChannel(channel);
   
  }
 
@@ -29,8 +28,8 @@ currentChannel(title, id, channel){
 
 onProfileClick(event: Event) {
   this.drawerService.close();
-  debugger;
-  this.currentChannel(this.channel['title'], this.channel['id'], this.channel);
+
+  this.currentChannel(this.channel);
   this.setMode(false);
 
   if (window.innerWidth < 600) {

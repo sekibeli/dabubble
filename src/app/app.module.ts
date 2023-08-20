@@ -56,6 +56,8 @@ import { DialogEditUserComponent } from './dialog-edit-user/dialog-edit-user.com
 import { DialogShowChannelComponent } from './dialog-show-channel/dialog-show-channel.component';
 import { InputPostComponent } from './input-post/input-post.component';
 import { SearchbarComponent } from './searchbar/searchbar.component';
+import { SnackComponent } from './snackbar/snack/snack.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 
@@ -108,6 +110,7 @@ import { SearchbarComponent } from './searchbar/searchbar.component';
        DialogShowChannelComponent,
        InputPostComponent,
        SearchbarComponent,
+       SnackComponent,
 
    
     
@@ -130,6 +133,7 @@ import { SearchbarComponent } from './searchbar/searchbar.component';
     MatButtonModule,
     HttpClientModule,
     MatExpansionModule,
+    MatSnackBarModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),
