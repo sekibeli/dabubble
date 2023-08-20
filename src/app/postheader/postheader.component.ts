@@ -18,22 +18,25 @@ import { Firestore } from '@angular/fire/firestore';
 export class PostheaderComponent implements OnInit {
   firestore: Firestore = inject(Firestore);
   isSmallScreen;
-  activeChannelTitle = 'Angular';
-  activeChannelID: BehaviorSubject<string> = new BehaviorSubject<string>('9Gwz1Ce763caWx5FCBZL');
+  activeChannelTitle  ;
+  activeChannelID: BehaviorSubject<string> = new BehaviorSubject<string>('null');
   members;
   countsOfMembers;
   currentChannelUser;
   currentChannel: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  currentChannelID;
-  currentChannelData = {
-    createdBy: "xeLjLZJ7SYVREnmskY07GgKMwnx1",
-    description: "Cooles Ding! Treibt einem nur etwas in den Wahnsinn ....",
-    id: "9Gwz1Ce763caWx5FCBZL",
-    members: ['20ftvvpCTuPl50KPTkwZgQ30KM52', 'bF3PiLI4bbZMKVs6ljqfofu6HoU2', 'DyGVMYTdzCXRsqa2VuBfavSbhvk2', '0NGEM9WCfKN1M2QfVQ1SvoCxpbm2'],
-    title: "Angular"
-  };
+  currentChannelID: string;
+  currentChannelData: any; 
+  
+  // = {
+  //   createdBy: "xeLjLZJ7SYVREnmskY07GgKMwnx1",
+  //   description: "Cooles Ding! Treibt einem nur etwas in den Wahnsinn ....",
+  //   id: "9Gwz1Ce763caWx5FCBZL",
+  //   members: ['20ftvvpCTuPl50KPTkwZgQ30KM52', 'bF3PiLI4bbZMKVs6ljqfofu6HoU2', 'DyGVMYTdzCXRsqa2VuBfavSbhvk2', '0NGEM9WCfKN1M2QfVQ1SvoCxpbm2'],
+  //   title: "Angular"
+  // };
   constructor(public channelService: ChannelService, public userService: UserService, public dialog: MatDialog) {
-
+console.log('Hier:', this.currentChannelID);
+console.log('Da:', this.activeChannelID.value);
     this.checkScreenSize();
     this.members = this.channelService.currentChannelUserArray;
     // this.countsOfMembers = this.members.length;
@@ -45,6 +48,7 @@ export class PostheaderComponent implements OnInit {
       this.currentChannel.next(channel); // Behavior Subject
       this.currentChannelData = this.currentChannel.getValue();
       console.log('channel:', this.currentChannelData);
+      
 
     });
 

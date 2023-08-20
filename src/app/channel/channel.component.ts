@@ -10,7 +10,9 @@ import { DrawerService } from '../services/drawer.service';
 export class ChannelComponent {
 @Input() channel;
 
-constructor( private channelService: ChannelService, public drawerService: DrawerService){}
+constructor( private channelService: ChannelService, public drawerService: DrawerService){
+ 
+}
 
 currentChannel(title, id, channel){
   console.log('title:', title);
@@ -27,6 +29,7 @@ currentChannel(title, id, channel){
 
 onProfileClick(event: Event) {
   this.drawerService.close();
+  debugger;
   this.currentChannel(this.channel['title'], this.channel['id'], this.channel);
   this.setMode(false);
 

@@ -19,21 +19,21 @@ export class ChannelService implements OnInit, OnDestroy {
    membersUserIDArray: any[];
    channelUserArrayEmitter = new EventEmitter<any>();
    currentChannelTitle;
-   currentChannelUserArray
-      = [{
+   currentChannelUserArray = [];
+      // = [{
 
-         active: false,
-         email: "max@mustermann.de",
-         id: "0NGEM9WCfKN1M2QfVQ1SvoCxpbm2",
-         img: "../../assets/img/profile_img/avatar2.svg",
-         username: "Max Musterfrau"
-      }, {
-         active: false,
-         email: "java2011@me.com",
-         id: "DyGVMYTdzCXRsqa2VuBfavSbhvk2",
-         img: "../../assets/img/profile_img/Avatar.svg",
-         username: "Julia Finsterwalder"
-      }];
+      //    active: false,
+      //    email: "max@mustermann.de",
+      //    id: "0NGEM9WCfKN1M2QfVQ1SvoCxpbm2",
+      //    img: "../../assets/img/profile_img/avatar2.svg",
+      //    username: "Max Musterfrau"
+      // }, {
+      //    active: false,
+      //    email: "java2011@me.com",
+      //    id: "DyGVMYTdzCXRsqa2VuBfavSbhvk2",
+      //    img: "../../assets/img/profile_img/Avatar.svg",
+      //    username: "Julia Finsterwalder"
+      // }];
    activeChannelTitle = new EventEmitter<string>();
    activeChannelID = new EventEmitter<string>();
 activeChannel = new EventEmitter<any>();
@@ -102,7 +102,7 @@ activeChannel = new EventEmitter<any>();
    }
 
 
-   getMembersOfChannel(channel) {
+   getMembersOfChannel(channel:string) {
       const collRef = collection(this.firestore, 'channels', channel);
       const docRef = collectionData(collRef);
       return docRef;
@@ -124,11 +124,23 @@ activeChannel = new EventEmitter<any>();
 
    }
 getCurrentChannel(channelID){
-   const docRef = (this.firestore, 'channels', channelID)
-   const channelDoc = collectionData(docRef);
-   return channelDoc;
+   const docData = doc(this.firestore, 'channels', channelID)
+     return docData;
 }
 
+
+async getChannelData(channelID:string){
+
+   const docRef = doc(this.firestore, 'channels', channelID)
+   const docSnap = await getDoc(docRef);
+
+   if(!docSnap.exists()){
+      console.log('Der Channel existiert nicht!');
+      return null;
+   }
+   const data = docSnap.data();
+    return {id: docSnap.id, ...data};
+}
    // getInitials(id) {
    //    const data = this.getMembersOfChannel(id);
    //    data.subscribe((user) => {

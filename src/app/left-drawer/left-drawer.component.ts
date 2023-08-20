@@ -7,7 +7,7 @@ import { ChannelService } from '../services/channel.service';
 import { UserService } from '../services/user.service';
 import { User } from '../models/user.class';
 import { MessageService } from '../services/message.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, first } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogNewChannelComponent } from '../dialog-new-channel/dialog-new-channel.component';
 
@@ -42,6 +42,17 @@ export class LeftDrawerComponent implements OnInit{
         console.log('channels from curentUser:', value);
         this.channels = value;
       });
+
+      this.channelService.getChannelData('BwYu94QGYDi8hQta31RP').then(
+        (value)=>{
+          console.log(value);
+          this.channelService.pushActiveChannel(value['title'], value['id'], value);
+        }
+      );
+      
+ 
+   
+      // this.channelService.pushActiveChannel('Allgemein', id, channel);
 
   }
 

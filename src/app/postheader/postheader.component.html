@@ -2,8 +2,8 @@
   <div class="postingheader">
     <div class="leftSide" (click)="openShowChannelInformation()">
      
-      <div class="topic" *ngIf="this.activeChannelTitle">
-        # {{ this.currentChannelData['title'] }}
+      <div class="topic" *ngIf="currentChannel | async as channelData">
+        # {{ channelData['title'] }}
       </div>
       <div><mat-icon> keyboard_arrow_down </mat-icon></div>
     </div>
