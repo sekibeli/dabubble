@@ -58,6 +58,9 @@ import { InputPostComponent } from './input-post/input-post.component';
 import { SearchbarComponent } from './searchbar/searchbar.component';
 import { SnackComponent } from './snackbar/snack/snack.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { NewPasswordComponent } from './new-password/new-password.component';
+
 
 
 
@@ -111,6 +114,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
        InputPostComponent,
        SearchbarComponent,
        SnackComponent,
+       ForgotPasswordComponent,
+       NewPasswordComponent,
 
    
     

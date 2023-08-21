@@ -39,7 +39,7 @@
         </div>
         <div class="button-section">
          
-            <button (click)="this.saveNewPic(currentPic)" class="darkButton">
+            <button (click)="this.saveNewPic(currentPic); toggleFlyingMessage()" class="darkButton">
               Weiter
             </button>
           
@@ -53,4 +53,5 @@
   </div>
 
   <div></div>
+  <div [@flyInAndOut]="isFlyingMessageVisible ? 'in' : 'out'" class="flyingMessage">Konto erfolgreich erstellt !</div>
 </div>

@@ -3,13 +3,33 @@ import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 import { FileUploadService } from '../services/file-upload.service';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+} from '@angular/animations';
 
 @Component({
   selector: 'app-choose-avatar',
   templateUrl: './choose-avatar.component.html',
-  styleUrls: ['./choose-avatar.component.scss']
+  styleUrls: ['./choose-avatar.component.scss'],
+  animations: [trigger('flyInAndOut', [
+    state('in', style({ opacity: 1, transform: 'translateX(0)' })),
+    state('out', style({ opacity: 0, transform: 'translateX(100%)' })),
+    transition('out => in', [
+      animate('500ms ease-in', style({ opacity: 1, transform: 'translateX(0)' })),
+      animate('3s 1s'), // Bleibt 3 Sekunden in diesem Zustand
+      animate('1s ease-out', style({ opacity: 0, transform: 'translateX(100%)' }))
+    ]),
+    transition('in => out', animate('1s ease-in-out')),
+  ]),
+]
+   
 })
 export class ChooseAvatarComponent implements OnInit {
+  isFlyingMessageVisible = false;
   avatarpic: boolean = true;
   // fileToUpload: File | null = null;
   url = '../../assets/img/profile_img/benutzer.png';
@@ -36,7 +56,9 @@ export class ChooseAvatarComponent implements OnInit {
 
   saveNewPic(image: string) {
     this.userService.saveUserPic(this.newUserID, image, this.avatarpic);
+   setTimeout(() => {
     this.route.navigateByUrl('login');
+   }, 4000); 
   }
 
 
@@ -69,5 +91,9 @@ export class ChooseAvatarComponent implements OnInit {
     } else {
       window.alert('Bitte nur png senden');
     }
+  }
+
+  toggleFlyingMessage() {
+    this.isFlyingMessageVisible = !this.isFlyingMessageVisible;
   }
 }

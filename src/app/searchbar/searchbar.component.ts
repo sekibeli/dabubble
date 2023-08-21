@@ -2,6 +2,8 @@ import { Component, OnInit, inject } from '@angular/core';
 import { Firestore, collection, endAt, getDocs, limit, orderBy, query, startAt } from '@angular/fire/firestore';
 import { User } from '../models/user.class';
 import { Subject, combineLatest } from 'rxjs';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { DialogProfileComponent } from '../dialog-profile/dialog-profile.component';
 
 @Component({
   selector: 'app-searchbar',
@@ -21,6 +23,8 @@ search = false;
 users;
 result;
 
+
+constructor(public dialog: MatDialog,){}
 ngOnInit() {
   // combineLatest([this.startobs, this.endobs]).subscribe((value)=> {
   //   this.searchUserInFirestore(value[0], value[1]).then((user)=>{
@@ -105,4 +109,11 @@ separateUsersAndChannels(jsonArray) {
     return { users, channels };
   }
   
+
+  openProfile(user){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = { user: user };
+    const dialogRef = this.dialog.open(DialogProfileComponent, dialogConfig);
+    dialogRef.componentInstance.user = user;
+  }
  }

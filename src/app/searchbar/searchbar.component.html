@@ -7,12 +7,13 @@
     (keyup)="searchMember($event)" class="searchInput" matInput type="text" placeholder="Suche nach channel oder user">
     <mat-icon matIconPrefix>search</mat-icon>
 </div>
-<div class="searchOverview">
+<div *ngIf="search" class="searchOverview">
+  <div (click)="search = false; searchterm = ''" class="close"><mat-icon>close</mat-icon></div>
 <div *ngIf="search && result" class="showResults">
     <div class="searchHeader">Users</div>
     <div class="noResult" *ngIf="result.users.length == 0">Keine <strong>User</strong> mit <br> Anfangsbuchstaben "{{searchterm}}" <br>gefunden</div>
     <ul *ngFor="let user of result.users">
-        <li class="message" (click)="chooseNewMember(user)">
+        <li class="message" (click)="openProfile(user)">
           <div class="profile-overview">
             <div class="relativePic">
               <img class="profile-img" src="{{ user['img'] }}" alt="" />
