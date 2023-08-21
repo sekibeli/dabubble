@@ -138,6 +138,7 @@
     color: grey;
 }
 .postAnswer {
+    display: flex;
     font-size: 0.9em;
     color: var(--light-purple-lines);
     cursor: pointer;

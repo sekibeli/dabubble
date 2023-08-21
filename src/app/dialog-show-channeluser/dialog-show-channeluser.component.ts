@@ -3,6 +3,7 @@ import { MatDialogRef , MatDialog, MatDialogConfig} from '@angular/material/dial
 import { ChannelService } from '../services/channel.service';
 import { DialogAddMemberComponent } from '../dialog-add-member/dialog-add-member.component';
 import { DialogProfileComponent } from '../dialog-profile/dialog-profile.component';
+import { DrawerService } from '../services/drawer.service';
 
 
 @Component({
@@ -14,7 +15,7 @@ export class DialogShowChanneluserComponent implements OnInit, OnDestroy {
  members;
  activeTitle;
  unsub;
-constructor( public dialogRef: MatDialogRef<DialogShowChanneluserComponent> , public channelService: ChannelService, public dialog: MatDialog){
+constructor( public dialogRef: MatDialogRef<DialogShowChanneluserComponent> , public channelService: ChannelService, public dialog: MatDialog, private drawerService: DrawerService){
 
   
   this.members = this.channelService.currentChannelUserArray;
@@ -51,6 +52,14 @@ openProfile(user){
   const dialogConfig = new MatDialogConfig();
   // this.dialog.open(DialogProfileComponent, user)
 
+  if (this.drawerService.isSmallScreen) {
+
+    // dialogConfig.width = '95vw';
+    dialogConfig.maxWidth = '100vw';
+    dialogConfig.maxHeight = '90vh';
+    
+
+  }
 
   dialogConfig.data = { user: user};
   // dialogConfig.width = '95vw';

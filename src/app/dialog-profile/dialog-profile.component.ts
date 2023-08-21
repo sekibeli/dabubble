@@ -47,6 +47,15 @@ export class DialogProfileComponent {
 
 openEditUser(user){
   const dialogConfig = new MatDialogConfig();
+
+  if (this.drawerService.isSmallScreen) {
+
+    // dialogConfig.width = '95vw';
+    dialogConfig.maxWidth = '100vw';
+    dialogConfig.maxHeight = '90vh';
+    
+
+  }
   dialogConfig.data = { user: user };
   const dialogRef = this.dialog.open(DialogEditUserComponent, dialogConfig);
   dialogRef.componentInstance.user = this.user.value;

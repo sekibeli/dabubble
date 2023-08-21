@@ -4,6 +4,7 @@ import { User } from '../models/user.class';
 import { Subject, combineLatest } from 'rxjs';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogProfileComponent } from '../dialog-profile/dialog-profile.component';
+import { DrawerService } from '../services/drawer.service';
 
 @Component({
   selector: 'app-searchbar',
@@ -24,7 +25,7 @@ users;
 result;
 
 
-constructor(public dialog: MatDialog,){}
+constructor(public dialog: MatDialog, private drawerService: DrawerService){}
 ngOnInit() {
   // combineLatest([this.startobs, this.endobs]).subscribe((value)=> {
   //   this.searchUserInFirestore(value[0], value[1]).then((user)=>{
@@ -112,6 +113,15 @@ separateUsersAndChannels(jsonArray) {
 
   openProfile(user){
     const dialogConfig = new MatDialogConfig();
+    if (this.drawerService.isSmallScreen) {
+
+      // dialogConfig.width = '95vw';
+      dialogConfig.maxWidth = '100vw';
+      dialogConfig.maxHeight = '90vh';
+      
+
+    }
+
     dialogConfig.data = { user: user };
     const dialogRef = this.dialog.open(DialogProfileComponent, dialogConfig);
     dialogRef.componentInstance.user = user;

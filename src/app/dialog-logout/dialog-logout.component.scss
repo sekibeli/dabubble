@@ -4,10 +4,30 @@
     font-size: 1.2em;
     margin: 15px 40px;
     outline: none;
+   
 
     .item {
         cursor: pointer;
         margin: 10px 0;
         outline: none;
+    }
+}
+
+.handle {
+        
+    width: 20px;
+    height: 5px;
+    background-color: lightgrey;
+    border-radius: 5px;
+    display: none;
+}
+
+@media (max-width: 600px){
+    .handle {
+        display: block;
+        margin-bottom: 20px;
+    }
+    .logout{
+        align-items: center;
     }
 }

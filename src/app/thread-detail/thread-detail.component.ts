@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { DialogProfileComponent } from '../dialog-profile/dialog-profile.component';
+import { DrawerService } from '../services/drawer.service';
 
 @Component({
   selector: 'app-thread-detail',
@@ -15,7 +18,7 @@ time;
 // formatedDate;
 
 
-constructor(private userService: UserService){
+constructor(private userService: UserService, private dialog: MatDialog, private drawerService: DrawerService){
   
 }
 
@@ -33,10 +36,30 @@ getAuthorDetails(post){
    
    
       this.author = value;
+      
         
     });
   }
 
+  openProfile(user){
+    const dialogConfig = new MatDialogConfig();
+    // this.dialog.open(DialogProfileComponent, user)
+  
+    if (this.drawerService.isSmallScreen) {
+
+      // dialogConfig.width = '95vw';
+      dialogConfig.maxWidth = '100vw';
+      dialogConfig.maxHeight = '90vh';
+      
+
+    }
+    dialogConfig.data = { user: user};
+    // dialogConfig.width = '95vw';
+    const dialogRef =  this.dialog.open(DialogProfileComponent, dialogConfig);
+    dialogRef.componentInstance.user = user;
+  
+    // this.dialogRef.close();
+  }
 // getFormatedDateFromTimestamp(timestamp) {
 
 //   let date = new Date(timestamp);

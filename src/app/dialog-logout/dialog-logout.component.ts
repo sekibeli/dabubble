@@ -5,6 +5,7 @@ import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dial
 import { DialogProfileComponent } from '../dialog-profile/dialog-profile.component';
 import { User } from '../models/user.class';
 import { Router } from '@angular/router';
+import { DrawerService } from '../services/drawer.service';
 
 @Component({
   selector: 'app-dialog-logout',
@@ -15,7 +16,7 @@ export class DialogLogoutComponent {
   currentUser;
 user: any;
 
-  constructor(private afAuth: AngularFireAuth, private userService: UserService, public dialogRef: MatDialogRef<DialogProfileComponent>, public dialog: MatDialog, private route: Router){
+  constructor(private afAuth: AngularFireAuth, private userService: UserService, public dialogRef: MatDialogRef<DialogProfileComponent>, public dialog: MatDialog, private route: Router, private drawerService: DrawerService){
     this.currentUser = localStorage.getItem('currentUserID');
 
     this.userService.getCurrentUser(this.currentUser).subscribe((value)=>{
@@ -44,6 +45,15 @@ user: any;
 
    openProfile(user){
     const dialogConfig = new MatDialogConfig();
+
+    if (this.drawerService.isSmallScreen) {
+
+      // dialogConfig.width = '95vw';
+      dialogConfig.maxWidth = '100vw';
+      dialogConfig.maxHeight = '90vh';
+      
+
+    }
        
     dialogConfig.data = { user: user};
     const dialogRef =  this.dialog.open(DialogProfileComponent, dialogConfig);

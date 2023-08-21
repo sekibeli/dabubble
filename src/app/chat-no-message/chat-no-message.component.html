@@ -1,5 +1,5 @@
 <div class="no-message-display" *ngIf="(user | async)  as currentUser" >
-    <div class="profile-overview">
+    <div class="profile-overview" (click)="openProfile(currentUser)">
         <div class="relativePic">
           <img class="profile-pic" src="{{currentUser['img']}}" alt="">
          
@@ -7,7 +7,7 @@
           <div *ngIf="currentUser['id'] != this.currentUserID" class="profile-name">{{ currentUser['username']}}</div>
           <div *ngIf="currentUser['id'] == this.currentUserID" class="profile-name">{{ currentUser['username']}} (Du)</div>
      </div>
-     <div *ngIf="currentUser['id'] != this.currentUserID" class="profile-name" class="soft">Diese Unterhaltung findet nur zwischen Dir und <span class="blue">@ {{currentUser['username']}}</span>  statt.</div>
+     <div *ngIf="currentUser['id'] != this.currentUserID" class="profile-name" class="soft">Diese Unterhaltung findet nur zwischen Dir und <span (click)="openProfile(currentUser)" class="blue">@ {{currentUser['username']}}</span>  statt.</div>
      <div *ngIf="currentUser['id'] == this.currentUserID" class="profile-name" class="soft"><strong>Dieser Raum ist nur für Dich da.</strong> Mache Dir Notizen, liste Deine Todos auf oder bewahre Links und Dateien griffbereit auf. Du kannst hier auch gerne Dinge mit Dir selbst besprechen.</div>
 
 </div>

@@ -210,19 +210,7 @@ h3 {
     border-top-right-radius: 0px !important;
 }
 
-.mat-snack-bar-container {
-    background-color: #444DF2;
-    border-radius: 30px 30px 0px 30px;
-
-/* overlay */
-box-shadow: 0px 6px 10px 0px rgba(0, 0, 0, 0.20);
- }
-
- .mat-snack-bar {
-    width: YourWidth;
-    height: YourHeight;
- }
-
+ 
  .close {
     cursor: pointer;
  }
@@ -231,8 +219,10 @@ box-shadow: 0px 6px 10px 0px rgba(0, 0, 0, 0.20);
 
     cursor: pointer;
     color: #797EF3;
-     &:hover {
-        color: #565cf5;
+    
+    &:hover {
+        color: #4147fa;
+        
       }
     }
  
@@ -266,7 +256,8 @@ box-shadow: 0px 6px 10px 0px rgba(0, 0, 0, 0.20);
     }
 
     .mat-mdc-dialog-container .mdc-dialog__surface {
-        border-radius: 0px !important;
+        border-radius: 20px !important;
+        width: 100%;
        
     }
  

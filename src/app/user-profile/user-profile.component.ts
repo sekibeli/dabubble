@@ -48,10 +48,22 @@ export class UserProfileComponent implements OnInit, OnDestroy{
 
   openLogoutMenu(){
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.position = {
-      top: '100px',  // Ändere diese Werte entsprechend deiner gewünschten Position
-      right: '5%'   // Ändere diese Werte entsprechend deiner gewünschten Position
-    };
+if(this.isSmallScreen){
+dialogConfig.position = {
+  bottom: '0px',
+  right: '0px',
+  left: '0px'
+};
+dialogConfig.width = '100%';
+
+}else {
+  dialogConfig.position = {
+    top: '100px',  // Ändere diese Werte entsprechend deiner gewünschten Position
+    right: '5%'   // Ändere diese Werte entsprechend deiner gewünschten Position
+  };
+}
+
+   
 this.dialog.open(DialogLogoutComponent, dialogConfig);
   }
 

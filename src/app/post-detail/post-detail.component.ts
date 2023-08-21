@@ -5,6 +5,8 @@ import { DrawerService } from '../services/drawer.service';
 import { MatDrawer } from '@angular/material/sidenav';
 import { ThreadService } from '../services/thread.service';
 import { PostService } from '../services/post.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { DialogProfileComponent } from '../dialog-profile/dialog-profile.component';
 
 @Component({
   selector: 'app-post-detail',
@@ -25,7 +27,7 @@ export class PostDetailComponent implements OnInit {
   newDay = true;
   countsOfThreads;
   flip: boolean;
-  constructor(private userService: UserService, private drawerService: DrawerService, private threadService: ThreadService, private postService: PostService) {
+  constructor(private userService: UserService, private drawerService: DrawerService, private threadService: ThreadService, private postService: PostService, private dialog: MatDialog) {
 
   }
 
@@ -83,6 +85,24 @@ if(this.post['author'] === localStorage.getItem('currentUserID')) {
      
   }
 
+  openProfile(user){
+    const dialogConfig = new MatDialogConfig();
+    // this.dialog.open(DialogProfileComponent, user)
+    if (this.drawerService.isSmallScreen) {
+
+      // dialogConfig.width = '95vw';
+      dialogConfig.maxWidth = '100vw';
+      dialogConfig.maxHeight = '90vh';
+      
+
+    }
   
+    dialogConfig.data = { user: user};
+    // dialogConfig.width = '95vw';
+    const dialogRef =  this.dialog.open(DialogProfileComponent, dialogConfig);
+    dialogRef.componentInstance.user = user;
+  
+    // this.dialogRef.close();
+  }
 
 }
