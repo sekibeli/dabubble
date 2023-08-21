@@ -9,6 +9,8 @@ import { MainComponent } from './main/main.component';
 import { ChatComponent } from './chat/chat.component';
 import { ImpressumComponent } from './impressum/impressum.component';
 import { ChooseAvatarComponent } from './choose-avatar/choose-avatar.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { NewPasswordComponent } from './new-password/new-password.component';
 
 
 const routes: Routes = [
@@ -18,6 +20,8 @@ const routes: Routes = [
   {path: 'signup', component: SignUpComponent},
   {path: 'impressum', component: ImpressumComponent},
   {path: 'avatar', component: ChooseAvatarComponent},
+  {path: 'forgotPassword', component: ForgotPasswordComponent},
+  {path: 'newpassword', component: NewPasswordComponent},
   {path: 'home', component: HomeComponent,
 
 children: [

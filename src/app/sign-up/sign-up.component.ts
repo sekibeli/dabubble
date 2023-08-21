@@ -22,7 +22,7 @@ export class SignUpComponent {
   signUpForm: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', Validators.required),
+    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     confirmPassword: new FormControl('', Validators.required)
   })
 
@@ -45,7 +45,7 @@ export class SignUpComponent {
         img: '../../assets/img/profile_img/benutzer.png',
         active : true
       })
-      this.auth.showMessage('Konto erfolgreich erstellt!');
+      // this.auth.showMessage('Konto erfolgreich erstellt!');
       setDoc( collRef, this.user.toJSON());
 
       localStorage.setItem('currentUserID', result.user.uid);
