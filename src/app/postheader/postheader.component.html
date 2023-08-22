@@ -18,7 +18,11 @@
      
         <div class="amountOfMembers">{{ countsOfMembers }}</div>
         </div>
-        <div class="addMember" (click)="openAddMemberDialog(this.currentChannelData['title'])"> <img src="../../assets/img/add_member.svg" alt=""> </div>
+        <div class="addMember" (click)="openAddMemberDialog(this.currentChannelData['title'])"> 
+          <div class="hover">
+         <mat-icon>person_add</mat-icon> 
+          </div>
+        </div> 
       </div>
    
   </div>

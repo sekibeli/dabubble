@@ -2,18 +2,40 @@
 <div class="channelContainer">
     <div class="dialogHeader" *ngIf="data.currentChannelData">
         <div><h3># {{currentChannel['title']}}</h3></div>
-        <div class="close" (click)="dialogRef.close()">
+        <div class="close" (click)="closeShowChannel()">
           <mat-icon>close</mat-icon>
         </div>
+        <div class="border"></div>
       </div>
       <div class="channelEdition">
       <div class="activeChannelContainer">
-        <div class="headline">Channel-Name</div>
+        <div class="channelTop">
+          <div class="headline">Channel-Name</div>
+          <div *ngIf="!editTitle" (click)="editChannelTitle()" class="colorMail">Bearbeiten</div>
+          <div *ngIf="editTitle" (click)="updateChannel('this.editTitle')" class="colorMail">Speichern</div>
+        </div>
         <div *ngIf="data.currentChannelData['title']"># {{data.currentChannelData['title']}}</div>
+        <div class="edit" *ngIf="editTitle"><input
+          [(ngModel)]="data.currentChannelData['title']"
+          matInput
+          placeholder="Name"
+        /></div>
       </div>
       <div class="activeChannelContainer">
-        <div class="headline">Beschreibung</div>
-        <div *ngIf="data.currentChannelData">{{data.currentChannelData['description']}}</div>
+        <div class="channelTop">
+           <div class="headline">Beschreibung</div>
+           <div *ngIf="!editDescription" (click)="editChannelDescription()" class="colorMail">Bearbeiten</div>
+           <div *ngIf="editDescription" (click)="updateChannel()" class="colorMail">Speichern</div>
+           </div>
+           <div *ngIf="data.currentChannelData">{{data.currentChannelData['description']}}</div>
+           <div class="edit" *ngIf="editDescription">
+            <textarea
+           [(ngModel)]="data.currentChannelData['description']"
+           (keyup)="adjustHeight($event)"
+           matInput
+           placeholder="Name"></textarea>
+        </div>
+           
         <div class="hr"></div>
         <div class="headline ">Erstellt von</div>
         <div>{{createdBy}}</div>

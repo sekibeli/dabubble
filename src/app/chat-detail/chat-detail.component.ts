@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
+import { DrawerService } from '../services/drawer.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { DialogProfileComponent } from '../dialog-profile/dialog-profile.component';
 
 @Component({
   selector: 'app-chat-detail',
@@ -12,7 +15,7 @@ messageAuthor;
 messageRecipient;
 flip: boolean;
 
-constructor(private userService: UserService){
+constructor(private userService: UserService, private drawerService: DrawerService, private dialog: MatDialog){
 
 
 }
@@ -38,6 +41,22 @@ getDetailsFromID(fromID){
       this.messageAuthor = user;
       // console.log(this.messageAuthor);
     });
+  }
+
+  openProfile(user){
+    const dialogConfig = new MatDialogConfig();
+    
+    if (this.drawerService.isSmallScreen) {
+
+      dialogConfig.maxWidth = '100vw';
+      dialogConfig.maxHeight = '90vh';
+    }
+  
+    dialogConfig.data = { user: user};
+   
+    const dialogRef =  this.dialog.open(DialogProfileComponent, dialogConfig);
+    dialogRef.componentInstance.user = user;
+      
   }
 }
 

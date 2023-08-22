@@ -43,29 +43,19 @@ getAuthorDetails(post){
 
   openProfile(user){
     const dialogConfig = new MatDialogConfig();
-    // this.dialog.open(DialogProfileComponent, user)
-  
+     
     if (this.drawerService.isSmallScreen) {
 
-      // dialogConfig.width = '95vw';
       dialogConfig.maxWidth = '100vw';
       dialogConfig.maxHeight = '90vh';
-      
-
-    }
+      }
     dialogConfig.data = { user: user};
-    // dialogConfig.width = '95vw';
+   
     const dialogRef =  this.dialog.open(DialogProfileComponent, dialogConfig);
     dialogRef.componentInstance.user = user;
-  
-    // this.dialogRef.close();
+    
   }
-// getFormatedDateFromTimestamp(timestamp) {
 
-//   let date = new Date(timestamp);
-//    this.formatedDate = new Date(timestamp).toLocaleString('de-DE', { weekday: 'long', day: '2-digit', month: 'long' });
-   
-// }
 
 
 }

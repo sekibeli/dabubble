@@ -37,6 +37,9 @@ export class InputComponent implements OnInit {
     const currentChatPartner = JSON.parse(localStorage.getItem('currentChatUser'))
     this.user.next(currentChatPartner);
     this.currentChatLength = (Number(localStorage.getItem('currentChatLength')));
+    this.currentUser = localStorage.getItem('currentUserID');
+    this.directMessage = JSON.parse(localStorage.getItem('directMessage'));
+    this.channelMessage = JSON.parse(localStorage.getItem('channelMessage'));
      
 
   }

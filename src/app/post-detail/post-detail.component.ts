@@ -74,6 +74,7 @@ if(this.post['author'] === localStorage.getItem('currentUserID')) {
   getThread(channelID, postID) {
     this.threadService.getThread(channelID, postID).then((threads: any) => {
       this.numberOfThreads = threads.length;
+      localStorage.setItem('directMessage', 'false');
     });
 
   }
@@ -87,22 +88,18 @@ if(this.post['author'] === localStorage.getItem('currentUserID')) {
 
   openProfile(user){
     const dialogConfig = new MatDialogConfig();
-    // this.dialog.open(DialogProfileComponent, user)
+    
     if (this.drawerService.isSmallScreen) {
 
-      // dialogConfig.width = '95vw';
       dialogConfig.maxWidth = '100vw';
       dialogConfig.maxHeight = '90vh';
-      
-
     }
   
     dialogConfig.data = { user: user};
-    // dialogConfig.width = '95vw';
+   
     const dialogRef =  this.dialog.open(DialogProfileComponent, dialogConfig);
     dialogRef.componentInstance.user = user;
-  
-    // this.dialogRef.close();
+      
   }
 
 }

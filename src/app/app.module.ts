@@ -72,6 +72,7 @@ import { NewPasswordComponent } from './new-password/new-password.component';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -115,7 +116,8 @@ import { NewPasswordComponent } from './new-password/new-password.component';
        SearchbarComponent,
        SnackComponent,
        ForgotPasswordComponent,
-       NewPasswordComponent,
+       NewPasswordComponent
+   
 
    
     

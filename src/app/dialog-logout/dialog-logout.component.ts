@@ -32,6 +32,7 @@ user: any;
   console.log( this.currentUser['id'])
      console.log('User ist ausgeloggt')
      this.userService.setUserStatus(this.currentUser['id'], false);
+     localStorage.setItem('directMessage', 'false');
  
     }).catch((err)=>{
      console.log(err.message);

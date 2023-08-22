@@ -38,7 +38,7 @@ export class DialogProfileComponent {
   else {
     // console.log('String', user.user['id'], 'und', localStorage.getItem('currentUserID'));
     _user = user.user['id'];
-    this.me = (_user == localStorage.getItem('currentUserID'));
+    this.me = (_user == localStorage.getItem('currentUserID') && _user != 'bF3PiLI4bbZMKVs6ljqfofu6HoU2');
 
   }
  

@@ -5,6 +5,7 @@ import { UserService } from '../services/user.service';
 import { BehaviorSubject } from 'rxjs';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogProfileComponent } from '../dialog-profile/dialog-profile.component';
+import { DrawerService } from '../services/drawer.service';
 
 @Component({
   selector: 'app-chat-no-message',
@@ -15,7 +16,7 @@ export class ChatNoMessageComponent implements OnInit{
 user: BehaviorSubject<User> = new BehaviorSubject<User>(null);
 currentUserID;
 
-constructor(public messageService: MessageService, public userService: UserService, private dialog: MatDialog){
+constructor(public messageService: MessageService, public userService: UserService, private dialog: MatDialog, private drawerService: DrawerService){
   this.currentUserID = localStorage.getItem('currentUserID');
   const currentUser = JSON.parse(localStorage.getItem('currentChatUser'));
   this.user.next(currentUser);
@@ -36,6 +37,15 @@ ngOnInit(): void {
 
 openProfile(user){
   const dialogConfig = new MatDialogConfig();
+
+  if (this.drawerService.isSmallScreen) {
+
+    // dialogConfig.width = '95vw';
+    dialogConfig.maxWidth = '100vw';
+    dialogConfig.maxHeight = '90vh';
+    
+
+  }
 
   dialogConfig.data = { user: user};
   

@@ -1,6 +1,9 @@
-import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef,} from '@angular/material/dialog';
+import { ChangeDetectorRef, Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogConfig, MatDialogRef,} from '@angular/material/dialog';
 import { UserService } from '../services/user.service';
+import { DrawerService } from '../services/drawer.service';
+
+import { ChannelService } from '../services/channel.service';
 
 @Component({
   selector: 'app-dialog-show-channel',
@@ -9,14 +12,17 @@ import { UserService } from '../services/user.service';
 })
 export class DialogShowChannelComponent {
   // channel;
+  editDescription = false;
+  editTitle = false;
+  originalChannel;
   currentChannel;
   createdBy;
   isSmallScreen;
   members;
 
-  constructor( @Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<DialogShowChannelComponent>, private userService: UserService){
+  constructor( @Inject(MAT_DIALOG_DATA) public data: any, private channelService: ChannelService, public dialogRef: MatDialogRef<DialogShowChannelComponent>, private userService: UserService, private dialog: MatDialog, private drawerService: DrawerService, private cd: ChangeDetectorRef){
     console.log(data);
-   
+    this.originalChannel = JSON.parse(JSON.stringify(this.data.currentChannelData));
    this.currentChannel = data.currentChannelData;
    this.isSmallScreen = data.isSmallScreen;
    console.log(this.currentChannel);
@@ -26,9 +32,69 @@ export class DialogShowChannelComponent {
     this.userService.getCurrentUser(data.currentChannelData['createdBy']).subscribe((value)=>{
       console.log(value);
       this.createdBy = value['username'];
+      console.log(this.createdBy);
     });
 
   }
 
   exitChannel(){}
+editChannelTitle(){
+  this.editTitle = true;
+}
+
+editChannelDescription(){
+  this.editDescription = true;
+}
+
+adjustHeight(event: any): void {
+  const textarea = event.target;
+  textarea.style.height = 'auto'; // Reset height to auto first
+  textarea.style.height = textarea.scrollHeight + 'px';
+}
+
+  // openEditChannelInformation() {
+  //   // this.changeDetect.detectChanges();
+
+  //   const dialogConfig = new MatDialogConfig();
+  //   if (this.drawerService.isSmallScreen) {
+
+  //     dialogConfig.width = '100vw';
+  //     dialogConfig.maxWidth = '100vw';
+  //     dialogConfig.height = '100vh';
+      
+
+  //   }
+  //   console.log('small:', this.isSmallScreen);
+  //   dialogConfig.data = {
+  //     currentChannel: this.currentChannel, 
+  //     isSmallScreen: this.isSmallScreen,
+  //     members: this.members,
+  //     createdBy: this.createdBy
+  //   };
+  //   this.dialog.open(DialogEditChannelComponent, dialogConfig);
+
+  // }
+
+  closeShowChannel(){
+    if(this.editDescription || this.editTitle){
+      this.cancel();
+    }
+    this.dialogRef.close();
+  }
+
+  cancel(){
+    Object.assign(this.data.currentChannelData, this.originalChannel);
+      this.cd.detectChanges();
+  
+    this.dialogRef.close();
+    
+   
+  }
+  updateChannel(){
+    this.channelService.updateChannel(this.data.currentChannelData['id'], this.data.currentChannelData['title'], this.data.currentChannelData['description']);
+    // this.dialogRef.close();
+   this.editDescription = false;
+   this.editTitle = false;
+   
+  }
 }

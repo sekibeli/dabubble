@@ -55,6 +55,8 @@ dialogConfig.position = {
   left: '0px'
 };
 dialogConfig.width = '100%';
+dialogConfig.maxWidth = '100vw';
+dialogConfig.maxHeight = '90vh';
 
 }else {
   dialogConfig.position = {

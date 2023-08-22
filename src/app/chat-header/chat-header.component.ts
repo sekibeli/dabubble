@@ -5,6 +5,7 @@ import { MessageService } from '../services/message.service';
 import { UserService } from '../services/user.service';
 import { MatDialog, MatDialogRef, MatDialogModule, MatDialogConfig } from '@angular/material/dialog';
 import { DialogProfileComponent } from '../dialog-profile/dialog-profile.component';
+import { DrawerService } from '../services/drawer.service';
 
 @Component({
   selector: 'app-chat-header',
@@ -18,7 +19,7 @@ export class ChatHeaderComponent implements OnInit{
   
 
 
-  constructor(public messageService:MessageService, public userService:UserService, public dialog: MatDialog){
+  constructor(public messageService:MessageService, public userService:UserService, public dialog: MatDialog, private drawerService: DrawerService){
       this.currentUserID = localStorage.getItem('currentUserID');
     const currentUser = JSON.parse(localStorage.getItem('currentChatUser'));
    this.user.next(currentUser); // Damit beim ersten Aufruf ein Wert da ist.
@@ -38,6 +39,12 @@ export class ChatHeaderComponent implements OnInit{
 
   openProfile(user){
     const dialogConfig = new MatDialogConfig();
+    if (this.drawerService.isSmallScreen) {
+
+      dialogConfig.maxWidth = '100vw';
+      dialogConfig.maxHeight = '90vh';
+    }
+
     dialogConfig.data = { user: user };
     const dialogRef = this.dialog.open(DialogProfileComponent, dialogConfig);
     dialogRef.componentInstance.user = this.user.value;

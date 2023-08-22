@@ -198,7 +198,20 @@ async getChannelData(channelID:string){
    }
 
 
-
+   async updateChannel(id, title, description) {
+      console.log('id:', id);
+      try {
+        const docRef = doc(this.firestore, 'channels', id);
+  
+        await updateDoc(docRef,
+          {
+            title: title,
+            description: description
+          });
+      } catch (error) {
+        console.error('Fehler: ', error);
+      }
+    }
    
 
 }

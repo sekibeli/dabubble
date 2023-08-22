@@ -6,6 +6,7 @@ import { AuthService } from '../services/auth.service';
 import { Firestore, collection, collectionData, doc, setDoc } from '@angular/fire/firestore';
 import { User } from '../models/user.class';
 import { getAuth } from '@angular/fire/auth';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,8 @@ import { getAuth } from '@angular/fire/auth';
 })
 export class LoginComponent {
 // aut = getAuth();
+error = true;
+// errormessage: BehaviorSubject<string> = new BehaviorSubject<string>('');
   hide = true;
   user: User;
   firestore: Firestore = inject(Firestore);
@@ -43,9 +46,11 @@ export class LoginComponent {
         })
 
         setDoc(collRef, this.user.toJSON());
+        localStorage.setItem('directMessage', 'false');
       }
     } else {
       console.log('keine Neuanlage');
+      localStorage.setItem('directMessage', 'false');
     }
 
     }).catch((error)=> {
@@ -63,16 +68,17 @@ setTimeout(() => {
     console.log(this.loginForm.value);
     const userData = Object.assign( { email: this.loginForm.value.username }, this.loginForm.value);
     console.log('USERDATA:', userData);
-    this.auth.loginWithEmailAndPassword(userData).then((result: any) => {
+    this.auth.loginWithEmailAndPassword(userData)
+    
+    // .then((result: any) => {
+    //   localStorage.setItem('directMessage', 'false');
+    //   console.log('login erfolgreich', result)
 
-      
-setTimeout(() => {
-  this.route.navigateByUrl('home/channel/BwYu94QGYDi8hQta31RP');
-}, 2000);
 
-    }).catch((error: any) => {
-      console.error(error);
-    });
+    // }).catch((error: any) => {
+    //   console.error(error);
+     
+    // });
 
   }
 
@@ -89,6 +95,7 @@ setTimeout(() => {
     const userData = Object.assign( { email: this.loginForm.value.username }, this.loginForm.value);
     console.log('USERDATA:', userData);
     this.auth.loginWithEmailAndPassword(userData).then((result: any) => {
+      localStorage.setItem('directMessage', 'false');
 
       
 setTimeout(() => {
