@@ -26,7 +26,7 @@ export class PostheaderComponent implements OnInit, OnDestroy {
   // currentChannelID: string;
   currentChannelData: any; 
   
-  constructor(public channelService: ChannelService, public userService: UserService, public dialog: MatDialog, private changeDetect: ChangeDetectorRef) {
+  constructor(public channelService: ChannelService, public userService: UserService, public dialog: MatDialog) {
     this.checkScreenSize();
 
   
@@ -36,12 +36,20 @@ export class PostheaderComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.unsub =  this.channelService.currentChannelUserArray$.subscribe(members => {
       this.members = members;
-      console.log('members:', members);
+      console.log('members:', this.members);
       console.log('observableMembers:', this.channelService.currentChannelUserArray$);
       this.countsOfMembers = members.length;
-      this.changeDetect.detectChanges();
+      // this.changeDetect.detectChanges();
     });
  
+    // this.channelService.channelUserArrayEmitter.subscribe(members => {
+    //   members.subscribe(value => {
+    //     console.log('Versuch:', value);
+    //     this.members = value;
+    //     this.countsOfMembers = value.length;
+    //   })
+     
+    // })
     this.channelService.activeChannel.subscribe((channel) => {  // Übergabe des ganzen channel Objekts
       
       this.currentChannel.next(channel); // Behavior Subject
@@ -95,7 +103,7 @@ export class PostheaderComponent implements OnInit, OnDestroy {
     }
   }
   openShowChannelInformation() {
-    this.changeDetect.detectChanges();
+    // this.changeDetect.detectChanges();
     this.checkScreenSize();
     const dialogConfig = new MatDialogConfig();
     if (this.isSmallScreen) {

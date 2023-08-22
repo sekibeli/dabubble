@@ -87,7 +87,7 @@ console.log('obsi:', this.currentChannelUserArray$);
                this.currentChannelUserArray = usersArray;
                this.currentChannelUserArraySubject.next(usersArray);
                // console.log('Array nach getMembersData:', this.currentChannelUserArray);
-               // this.channelUserArrayEmitter.emit(this.currentChannelUserArray);
+               // this.channelUserArrayEmitter.emit(this.currentChannelUserArray$);
             }
          });
       });
@@ -161,7 +161,8 @@ async getChannelData(channelID:string){
      })
       if (!this.check) {
          const docRef = doc(this.firestore, 'channels', channelID);
-         updateDoc(docRef, { members: arrayUnion(user) })
+         updateDoc(docRef, {
+             members: arrayUnion(user) })
       } else {
          console.log('User ist schon Mitglied!');
       }

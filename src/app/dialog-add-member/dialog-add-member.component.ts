@@ -77,4 +77,9 @@ public channelTitle;
    
 
   }
+
+  removeChosenUser(){
+    this.notChosen = true;
+    this.chosenUser = null;
+  }
 }

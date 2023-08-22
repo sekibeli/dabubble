@@ -15,7 +15,7 @@
       <div class="littleUserOverview">
         <img src="{{ chosenUser['img'] }}" alt="" />
         <div>{{ chosenUser["username"] }}</div>
-        <div><mat-icon>close</mat-icon></div>
+        <div (click)="removeChosenUser()"><mat-icon>close</mat-icon></div>
       </div>
     </div>
     <input
