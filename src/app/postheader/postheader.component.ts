@@ -119,6 +119,7 @@ export class PostheaderComponent implements OnInit, OnDestroy {
       currentChannelData: this.currentChannelData, 
       isSmallScreen: this.isSmallScreen,
       members: this.members
+    
     };
     this.dialog.open(DialogShowChannelComponent, dialogConfig);
 

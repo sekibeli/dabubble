@@ -5,6 +5,8 @@ import { Subject, combineLatest } from 'rxjs';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogProfileComponent } from '../dialog-profile/dialog-profile.component';
 import { DrawerService } from '../services/drawer.service';
+import { DialogShowChannelComponent } from '../dialog-show-channel/dialog-show-channel.component';
+import { ChannelService } from '../services/channel.service';
 
 @Component({
   selector: 'app-searchbar',
@@ -23,9 +25,10 @@ chosenUser;
 search = false;
 users;
 result;
+isSmallScreen;
 
 
-constructor(public dialog: MatDialog, private drawerService: DrawerService){}
+constructor(public dialog: MatDialog, private drawerService: DrawerService, private channelService: ChannelService){}
 ngOnInit() {
   // combineLatest([this.startobs, this.endobs]).subscribe((value)=> {
   //   this.searchUserInFirestore(value[0], value[1]).then((user)=>{
@@ -126,4 +129,35 @@ separateUsersAndChannels(jsonArray) {
     const dialogRef = this.dialog.open(DialogProfileComponent, dialogConfig);
     dialogRef.componentInstance.user = user;
   }
+
+  showChannel(channel){
+   
+    this.openShowChannelInformation(channel)
+  }
+
+
+  openShowChannelInformation(channel) {
+    // this.changeDetect.detectChanges();
+    // this.checkScreenSize();
+    const dialogConfig = new MatDialogConfig();
+    if (this.drawerService.isSmallScreen) {
+
+      dialogConfig.width = '100vw';
+      dialogConfig.maxWidth = '100vw';
+      dialogConfig.height = '100vh';
+      
+
+    }
+    // console.log('small:', this.isSmallScreen);
+    dialogConfig.data = {
+      currentChannelData: channel, 
+      isSmallScreen: this.isSmallScreen,
+
+      // members: this.members
+    };
+    this.dialog.open(DialogShowChannelComponent, dialogConfig);
+
+  }
+
+  
  }

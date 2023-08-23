@@ -19,6 +19,7 @@ export class DialogShowChannelComponent {
   createdBy;
   isSmallScreen;
   members;
+  userIsMember;
 
   constructor( @Inject(MAT_DIALOG_DATA) public data: any, private channelService: ChannelService, public dialogRef: MatDialogRef<DialogShowChannelComponent>, private userService: UserService, private dialog: MatDialog, private drawerService: DrawerService, private cd: ChangeDetectorRef){
     console.log(data);
@@ -34,7 +35,7 @@ export class DialogShowChannelComponent {
       this.createdBy = value['username'];
       console.log(this.createdBy);
     });
-
+    this.exitOrJoin(data.currentChannelData);
   }
 
   exitChannel(){}
@@ -97,4 +98,16 @@ adjustHeight(event: any): void {
    this.editTitle = false;
    
   }
+  exitOrJoin(channel){
+    this.channelService.checkIfUserIsAlreadyMemberOfChannel(channel['id'], localStorage.getItem('currentUserID')).then(check => {
+      console.log('checkk:', check);
+      this.userIsMember = check;
+    })
+    
+  }
+
+  joinChannel(){}
+
+
+  
 }

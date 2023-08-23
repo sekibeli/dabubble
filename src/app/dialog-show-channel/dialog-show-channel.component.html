@@ -44,7 +44,8 @@
         <app-dialog-show-channeluser ></app-dialog-show-channeluser>
     </div>
       <div class="button-section">
-               <button  (click)="exitChannel()" [disabled]="" class="darkButton">Channel verlassen</button>
+               <button *ngIf="userIsMember" (click)="exitChannel()" [disabled]="" class="darkButton">Channel verlassen</button>
+               <button  *ngIf="!userIsMember" (click)="joinChannel()" [disabled]="" class="darkButton">Channel beitreten</button>
        
     </div>
     </div>
