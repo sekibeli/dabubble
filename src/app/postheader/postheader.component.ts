@@ -9,6 +9,7 @@ import { DialogShowChanneluserComponent } from '../dialog-show-channeluser/dialo
 import { DialogShowChannelComponent } from '../dialog-show-channel/dialog-show-channel.component';
 
 import { Firestore } from '@angular/fire/firestore';
+import { User } from '../models/user.class';
 
 @Component({
   selector: 'app-postheader',
@@ -19,12 +20,12 @@ export class PostheaderComponent implements OnInit, OnDestroy {
   unsub;
   firestore: Firestore = inject(Firestore);
   isSmallScreen;
-  members: string[]; //Array mit UserIDs der Mitglieder eines Channels
+  members: User[]; //Array mit UserIDs der Mitglieder eines Channels
   countsOfMembers; // Anzahl der Mitglieder eines Channels
   currentChannelUser;
   currentChannel: BehaviorSubject<any> = new BehaviorSubject<any>(null); //
   // currentChannelID: string;
-  currentChannelData: any; 
+  currentChannelData: any; // Inhalt von currentChannel
   
   constructor(public channelService: ChannelService, public userService: UserService, public dialog: MatDialog) {
     this.checkScreenSize();
@@ -37,7 +38,7 @@ export class PostheaderComponent implements OnInit, OnDestroy {
     this.unsub =  this.channelService.currentChannelUserArray$.subscribe(members => {
       this.members = members;
       console.log('members:', this.members);
-      console.log('observableMembers:', this.channelService.currentChannelUserArray$);
+      // console.log('observableMembers:', this.channelService.currentChannelUserArray$);
       this.countsOfMembers = members.length;
       // this.changeDetect.detectChanges();
     });
@@ -54,8 +55,8 @@ export class PostheaderComponent implements OnInit, OnDestroy {
       
       this.currentChannel.next(channel); // Behavior Subject
       this.currentChannelData = this.currentChannel.getValue();
-      console.log('channel:', this.currentChannelData);
-      console.log('Ausgabe:', this.currentChannel);
+      // console.log('channel:', this.currentChannelData);
+      // console.log('Ausgabe:', this.currentChannel);
 
 
     });
@@ -75,7 +76,9 @@ export class PostheaderComponent implements OnInit, OnDestroy {
       top: '200px',  // Ändere diese Werte entsprechend deiner gewünschten Position
       right: '10%'   // Ändere diese Werte entsprechend deiner gewünschten Position
     };
-    dialogConfig.data = { channelTitle: activeChannelTitle };
+    dialogConfig.data = { 
+      channelTitle: activeChannelTitle,
+    channel: this.currentChannelData };
     const dialogRef = this.dialog.open(DialogAddMemberComponent, dialogConfig);
     dialogRef.componentInstance.channelTitle = this.currentChannelData['title'];
   }
@@ -118,7 +121,7 @@ export class PostheaderComponent implements OnInit, OnDestroy {
     dialogConfig.data = {
       currentChannelData: this.currentChannelData, 
       isSmallScreen: this.isSmallScreen,
-      members: this.members
+      // members: this.members
     
     };
     this.dialog.open(DialogShowChannelComponent, dialogConfig);

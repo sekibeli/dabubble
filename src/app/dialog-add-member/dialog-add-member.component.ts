@@ -25,9 +25,12 @@ users;
   endobs = this.endAt.asObservable();
   notChosen = true;
   chosenUser;
+  channel;
+
+
 public channelTitle;
   constructor(public dialogRef: MatDialogRef<DialogAddMemberComponent>, private channelService: ChannelService, private userService: UserService, @Inject(MAT_DIALOG_DATA) public data: any) { 
-    
+   this.channel = data.channel;
     // this.channelService.activeChannelTitle.subscribe((value)=>{
     // console.log(value);
     // })
@@ -49,6 +52,7 @@ public channelTitle;
 
     let channelID = this.channelService.currentChannelID;
     this.channelService.addMemberToChannel(channelID, this.chosenUser['id']);
+
    this.dialogRef.close();
 
   }
