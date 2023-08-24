@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable, OnDestroy, OnInit, inject } from '@angular/core';
-import { DocumentSnapshot, Firestore, addDoc, arrayUnion, collection, collectionData, doc, docData, getDoc, onSnapshot, or, query, updateDoc, where } from '@angular/fire/firestore';
+import { DocumentSnapshot, Firestore, addDoc, arrayUnion, collection, collectionData, doc, docData, getDoc, onSnapshot, or, query, setDoc, updateDoc, where } from '@angular/fire/firestore';
 import { UserService } from './user.service';
 import { BehaviorSubject, Subject, first, forkJoin, merge, mergeAll, takeUntil } from 'rxjs';
 import { User } from '../models/user.class';
@@ -23,7 +23,7 @@ export class ChannelService implements OnInit, OnDestroy {
    currentChannelUserArray = [];
 
 
-   private currentChannelUserArraySubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+ currentChannelUserArraySubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
    currentChannelUserArray$ = this.currentChannelUserArraySubject.asObservable();
 
 
@@ -66,7 +66,7 @@ export class ChannelService implements OnInit, OnDestroy {
       this.activeChannel.emit(channel);
       // console.log( 'Holmes1', this.currentChannelTitle);
       // console.log( 'Holmes2', this.currentChannelID);
-
+console.log('Daten von folgendem Channel:', channel['title']);
       this.getMembersOfChannelNEW(channel['id']).then(members => {
          this.membersUserIDArray = members;
          // console.log('Inhalt membersUserIDArray', this.membersUserIDArray);
@@ -158,10 +158,26 @@ export class ChannelService implements OnInit, OnDestroy {
 
    saveChannel(channel) {
       const collRef = collection(this.firestore, 'channels');
-      addDoc(collRef, channel.toJSON());
+      // addDoc(collRef, channel.toJSON());
+      addDoc(collRef, channel.toJSON()).then(docRef => {
+         // docRef enthält die Referenz auf das neu erstellte Firestore-Dokument
+         const channelID = docRef.id;
+     
+         // Aktualisieren Sie das Channel-Objekt mit der Firestore-zugewiesenen ID
+         channel.id = channelID;
+         const docRefWithID = doc(this.firestore, 'channels', channelID);
+         setDoc(docRefWithID, channel.toJSON());
+         // Sie können hier weitere Aktionen ausführen oder das aktualisierte Objekt zurückgeben
+         console.log('Neuer Kanal wurde erstellt:', channel);
+       });
+
+
+
    }
 
    addMemberToChannel(channelID, user) {
+      console.log(channelID);
+      console.log(user);
       this.checkIfUserIsAlreadyMemberOfChannel(channelID, user).then(result => {
          console.log('Ergebnis:', result);
          this.check = result;
@@ -248,7 +264,7 @@ export class ChannelService implements OnInit, OnDestroy {
          console.error('Error deleting member:', error);
        }
 
-       
+
      }
 
    }

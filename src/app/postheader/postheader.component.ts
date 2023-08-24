@@ -35,7 +35,7 @@ export class PostheaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.unsub =  this.channelService.currentChannelUserArray$.subscribe(members => {
+    this.unsub =  this.channelService.currentChannelUserArraySubject.subscribe(members => {
       this.members = members;
       console.log('members:', this.members);
       // console.log('observableMembers:', this.channelService.currentChannelUserArray$);

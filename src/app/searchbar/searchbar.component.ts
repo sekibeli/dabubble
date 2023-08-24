@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { Firestore, collection, endAt, getDocs, limit, orderBy, query, startAt } from '@angular/fire/firestore';
+import { DocumentData, Firestore, collection, endAt, getDocs, limit, orderBy, query, startAt } from '@angular/fire/firestore';
 import { User } from '../models/user.class';
 import { Subject, combineLatest } from 'rxjs';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -88,6 +88,7 @@ ngOnInit() {
     const channelsCollRef = collection(this.firestore, 'channels');
     const channelsQueryRef = query(channelsCollRef, orderBy('title'), limit(10), startAt(start), endAt(end));
     const channelsDocRef = await getDocs(channelsQueryRef);
+    
   
     // Kombiniere die Ergebnisse der beiden Queries
     const combinedResults = [];
@@ -96,13 +97,17 @@ ngOnInit() {
     });
     
     channelsDocRef.forEach(doc => {
-      combinedResults.push(doc.data());
+      // combinedResults.push(doc.data());
+      const channelData = doc.data() as DocumentData;
+      const channelWithId = { id: doc.id, ...channelData }; // Hier fügen Sie die ID zum Dokument hinzu
+      combinedResults.push(channelWithId);
     });
   
     return combinedResults;
   }
 
 separateUsersAndChannels(jsonArray) {
+  console.log(jsonArray);
     // Filtert die JSON-Objekte, die ein 'username'-Feld haben, und schiebt sie in das 'users'-Array
     const users = jsonArray.filter((jsonObject) => 'username' in jsonObject);
   
@@ -139,6 +144,8 @@ separateUsersAndChannels(jsonArray) {
   openShowChannelInformation(channel) {
     // this.changeDetect.detectChanges();
     // this.checkScreenSize();
+    console.log(channel);
+    console.log(this.drawerService.isSmallScreen);
     const dialogConfig = new MatDialogConfig();
     if (this.drawerService.isSmallScreen) {
 
@@ -151,7 +158,7 @@ separateUsersAndChannels(jsonArray) {
     // console.log('small:', this.isSmallScreen);
     dialogConfig.data = {
       currentChannelData: channel, 
-      isSmallScreen: this.isSmallScreen,
+      isSmallScreen: this.drawerService.isSmallScreen,
 
       // members: this.members
     };

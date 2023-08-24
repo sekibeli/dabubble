@@ -30,6 +30,7 @@ export class DialogNewChannelComponent  {
 
     const test = this.newChannelForm.value.title;
       let channel = new Channel({
+       id: '',
       title: this.newChannelForm.value.title,
       description: this.newChannelForm.value.description,
       createdBy: localStorage.getItem('currentUserID'),

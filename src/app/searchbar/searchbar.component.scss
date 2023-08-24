@@ -52,6 +52,27 @@ mat-icon{
         color: #535AF1;
     }
 }
+.channel-overview {
+    padding: 0px 15px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-right: 15px;
+    margin-bottom: 5px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--background-color);
+        color: #535AF1;
+    }
+}
+
+.centered {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
 .profile-img {
     
@@ -101,6 +122,8 @@ ul {
    align-items:flex-end;
    margin: 10px 10px 0 10px;
  }
+
+ 
 @media ( max-width: 1200px ) {
 
     .mainSearch {
