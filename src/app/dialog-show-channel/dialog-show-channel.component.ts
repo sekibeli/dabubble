@@ -38,7 +38,13 @@ export class DialogShowChannelComponent {
     this.exitOrJoin(data.currentChannelData);
   }
 
-  exitChannel(){}
+  exitChannel(){
+    this.channelService.deleteMemberFromChannel(this.currentChannel['id'], localStorage.getItem('currentUserID'));
+    this.dialogRef.close();
+    
+  }
+
+
 editChannelTitle(){
   this.editTitle = true;
 }
@@ -53,29 +59,7 @@ adjustHeight(event: any): void {
   textarea.style.height = textarea.scrollHeight + 'px';
 }
 
-  // openEditChannelInformation() {
-  //   // this.changeDetect.detectChanges();
-
-  //   const dialogConfig = new MatDialogConfig();
-  //   if (this.drawerService.isSmallScreen) {
-
-  //     dialogConfig.width = '100vw';
-  //     dialogConfig.maxWidth = '100vw';
-  //     dialogConfig.height = '100vh';
-      
-
-  //   }
-  //   console.log('small:', this.isSmallScreen);
-  //   dialogConfig.data = {
-  //     currentChannel: this.currentChannel, 
-  //     isSmallScreen: this.isSmallScreen,
-  //     members: this.members,
-  //     createdBy: this.createdBy
-  //   };
-  //   this.dialog.open(DialogEditChannelComponent, dialogConfig);
-
-  // }
-
+  
   closeShowChannel(){
     if(this.editDescription || this.editTitle){
       this.cancel();
@@ -106,8 +90,12 @@ adjustHeight(event: any): void {
     
   }
 
-  joinChannel(){}
+  joinChannel(){
+    this.channelService.addMemberToChannel(this.currentChannel['id'], localStorage.getItem('currentUserID'));
+    this.dialogRef.close();
+  }
 
+  
 
   
 }

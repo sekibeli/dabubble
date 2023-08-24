@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable, OnDestroy, OnInit, inject } from '@angular/core';
-import { Firestore, addDoc, arrayUnion, collection, collectionData, doc, docData, getDoc, onSnapshot, or, query, updateDoc, where } from '@angular/fire/firestore';
+import { DocumentSnapshot, Firestore, addDoc, arrayUnion, collection, collectionData, doc, docData, getDoc, onSnapshot, or, query, updateDoc, where } from '@angular/fire/firestore';
 import { UserService } from './user.service';
 import { BehaviorSubject, Subject, first, forkJoin, merge, mergeAll, takeUntil } from 'rxjs';
 import { User } from '../models/user.class';
@@ -223,5 +223,33 @@ export class ChannelService implements OnInit, OnDestroy {
       }
    }
 
+   async deleteMemberFromChannel(channelID, userId){
+      console.log(channelID);
+      console.log(userId);
 
-}
+   
+      const  docRef = doc(this.firestore, 'channels', channelID);
+     
+      try {
+         const docSnap: DocumentSnapshot = await getDoc(docRef);
+         if (docSnap.exists()) {
+            
+           const membersArray: string[] = docSnap.data()?.members || [];
+   
+           // Remove the user from the members array
+           const updatedMembersArray: string[] = membersArray.filter(member => member !== userId);
+   
+           // Update the document with the modified members array
+           await updateDoc(docRef, { members: updatedMembersArray });
+         } else {
+           console.log('Document not found');
+         }
+       } catch (error) {
+         console.error('Error deleting member:', error);
+       }
+
+       
+     }
+
+   }
+
