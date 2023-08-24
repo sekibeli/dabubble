@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialogRef , MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { MatDialogRef , MatDialog, MatDialogConfig, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { ChannelService } from '../services/channel.service';
 import { DialogAddMemberComponent } from '../dialog-add-member/dialog-add-member.component';
 import { DialogProfileComponent } from '../dialog-profile/dialog-profile.component';
@@ -15,7 +15,8 @@ export class DialogShowChanneluserComponent implements OnInit, OnDestroy {
  members;
  activeTitle;
  unsub;
-constructor( public dialogRef: MatDialogRef<DialogShowChanneluserComponent> , public channelService: ChannelService, public dialog: MatDialog, private drawerService: DrawerService){
+ channel;
+constructor( public dialogRef: MatDialogRef<DialogShowChanneluserComponent> , public channelService: ChannelService, public dialog: MatDialog, private drawerService: DrawerService, @Inject(MAT_DIALOG_DATA) public data: any){
 
   
   this.members = this.channelService.currentChannelUserArray;
@@ -29,7 +30,9 @@ constructor( public dialogRef: MatDialogRef<DialogShowChanneluserComponent> , pu
 
 }
 
-ngOnInit(){}
+ngOnInit(){
+  console.log('wichtig davor:', this.data);
+}
 
 openAddMember(){
   
@@ -38,9 +41,12 @@ openAddMember(){
     top: '200px',  // Ändere diese Werte entsprechend deiner gewünschten Position
     right: '10%'   // Ändere diese Werte entsprechend deiner gewünschten Position
   };
-dialogConfig.data = { channelTitle: this.channelService.currentChannelTitle }
+dialogConfig.data = { 
+  channelTitle: this.channelService.currentChannelTitle,
+channel: this.data.channel }
  const dialogRef =  this.dialog.open(DialogAddMemberComponent, dialogConfig);
  dialogRef.componentInstance.channelTitle = this.channelService.currentChannelTitle;
+ dialogRef.componentInstance.channel = this.data.channel; 
 
   this.dialogRef.close();
 

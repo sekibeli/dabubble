@@ -1,0 +1,100 @@
+.selectItem {
+    display: flex;
+    flex-direction: column;
+}
+
+.addMemberContainer {
+    margin: 15px;
+    cursor:pointer;
+}
+
+.dialogHeader {
+    display: flex;
+    justify-content: space-between;
+  }
+  .close{
+    cursor: pointer;
+}
+
+.profile-overview {
+    padding: 0px 15px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-right: 15px;
+    margin-bottom: 5px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--background-color);
+        color: #535AF1;
+    }
+}
+
+.profile-img {
+    
+    margin: 0 20px 0 0;
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+ul {
+    list-style: none; 
+    padding: 0;
+ }
+ .search {
+    border: 1px solid var(--light-purple-lines);
+    border-radius: 20px;
+    padding: 10px 20px;
+    width: 200px;
+
+    &:focus {
+        outline: none;
+    }
+ }
+ .channelTitle {
+    font-size: 0.8em;
+    color: #535AF1;
+  }
+
+  .end {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .littleUserOverview {
+    display: flex;
+    align-items: center;
+    background-color: var(--background-color);
+    border-radius: 20px;
+    padding: 1px 10px;
+
+    img{
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+    mat-icon {
+        margin-left: 15px;
+        font-size: 1em;
+       vertical-align: middle;
+    padding-top: 7px;
+    }
+  }
+
+  .choose {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .blue {
+    color: #535AF1;
+  }
+
+  input{
+    margin: 10px 10px;
+  }

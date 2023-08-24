@@ -1,21 +1,23 @@
-import { Component, Inject, OnInit, inject } from '@angular/core';
-import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, inject } from '@angular/core';
+import { Firestore, collection, endAt, getDocs, limit, orderBy, query, startAt } from '@angular/fire/firestore';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Subject, combineLatest } from 'rxjs';
+import { DialogAddMemberComponent } from '../dialog-add-member/dialog-add-member.component';
 import { ChannelService } from '../services/channel.service';
-import { FormGroup } from '@angular/forms';
 import { UserService } from '../services/user.service';
-import { Observable, Subject, combineLatest } from 'rxjs';
-import { Firestore, QuerySnapshot, collection, docData, endAt, getDocs, limit, orderBy, query, startAt } from '@angular/fire/firestore';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { User } from '../models/user.class';
+import {MatRadioModule} from '@angular/material/radio';
 
 
 @Component({
-  selector: 'app-dialog-add-member',
-  templateUrl: './dialog-add-member.component.html',
-  styleUrls: ['./dialog-add-member.component.scss']
+  selector: 'app-dialog-add-member-to-new-channel',
+  templateUrl: './dialog-add-member-to-new-channel.component.html',
+  styleUrls: ['./dialog-add-member-to-new-channel.component.scss']
 })
-export class DialogAddMemberComponent implements OnInit {
-  firestore: Firestore = inject(Firestore)
+export class DialogAddMemberToNewChannelComponent {
+  firestore: Firestore = inject(Firestore);
+  selectedOption: string;
+
   searchterm: string;
   startAt = new Subject();
   endAt = new Subject();
@@ -29,8 +31,10 @@ users;
 
 
 public channelTitle;
-  constructor(public dialogRef: MatDialogRef<DialogAddMemberComponent>, private channelService: ChannelService, private userService: UserService, @Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog) { 
+  constructor(public dialogRef: MatDialogRef<DialogAddMemberComponent>, private channelService: ChannelService, private userService: UserService, @Inject(MAT_DIALOG_DATA) public data: any) { 
+   
    this.channel = data.channel;
+   console.log(data.channel);
     // this.channelService.activeChannelTitle.subscribe((value)=>{
     // console.log(value);
     // })
@@ -51,8 +55,12 @@ public channelTitle;
   addMemberToChannel() {
 
     // let channelID = this.channelService.currentChannelID;
-    console.log('Wichtig:', this.data);
-    this.channelService.addMemberToChannel(this.data.channel['id'], this.chosenUser['id']);
+    if(this.selectedOption == 'option1'){
+      this.channelService.getMembersOfChannelAndPushInNewChannel(this.data.channel['id'])
+    } else {
+      this.channelService.addMemberToChannel(this.data.channel['id'], this.chosenUser['id']);
+    }
+   
 
    this.dialogRef.close();
 
@@ -87,7 +95,4 @@ public channelTitle;
     this.notChosen = true;
     this.chosenUser = null;
   }
-
-
-  
 }

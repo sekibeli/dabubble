@@ -1,9 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Firestore } from '@angular/fire/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef} from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material/dialog';
 import { Channel } from '../models/channel.class';
 import { ChannelService } from '../services/channel.service';
+import { DialogAddMemberToNewChannelComponent } from '../dialog-add-member-to-new-channel/dialog-add-member-to-new-channel.component';
 
 @Component({
   selector: 'app-dialog-new-channel',
@@ -19,14 +20,14 @@ export class DialogNewChannelComponent  {
     description: new FormControl('', Validators.required)
   })
 
-  constructor(public dialogRef: MatDialogRef<DialogNewChannelComponent>, private channelService: ChannelService){
+  constructor(public dialogRef: MatDialogRef<DialogNewChannelComponent>, private channelService: ChannelService, private dialog: MatDialog){
    
   }
 
 
   addNewChannel(){
     let membersArray = [];
-    membersArray.push(localStorage.getItem('currentUserID'));
+    // membersArray.push(localStorage.getItem('currentUserID'));
 
     const test = this.newChannelForm.value.title;
       let channel = new Channel({
@@ -38,7 +39,24 @@ export class DialogNewChannelComponent  {
     });
 
     this.channelService.saveChannel(channel);
+    this.openDialogAddMemberToNewChannel(channel)
     this.dialogRef.close();
+
+    
+  }
+
+  openDialogAddMemberToNewChannel(channel) {
+ 
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.position = {
+      top: '200px',  // Ändere diese Werte entsprechend deiner gewünschten Position
+      // right: '10%'   // Ändere diese Werte entsprechend deiner gewünschten Position
+    };
+    dialogConfig.data = { 
+      // channelTitle: activeChannelTitle,
+    channel: channel };
+    const dialogRef = this.dialog.open(DialogAddMemberToNewChannelComponent, dialogConfig);
+    dialogRef.componentInstance.channel = channel;
   }
 
 }

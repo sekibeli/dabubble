@@ -60,7 +60,8 @@ import { SnackComponent } from './snackbar/snack/snack.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { NewPasswordComponent } from './new-password/new-password.component';
-
+import { DialogAddMemberToNewChannelComponent } from './dialog-add-member-to-new-channel/dialog-add-member-to-new-channel.component';
+import {MAT_RADIO_DEFAULT_OPTIONS, MatRadioModule} from '@angular/material/radio';
 
 
 
@@ -116,7 +117,8 @@ import { NewPasswordComponent } from './new-password/new-password.component';
        SearchbarComponent,
        SnackComponent,
        ForgotPasswordComponent,
-       NewPasswordComponent
+       NewPasswordComponent,
+       DialogAddMemberToNewChannelComponent
    
 
    
@@ -141,6 +143,7 @@ import { NewPasswordComponent } from './new-password/new-password.component';
     HttpClientModule,
     MatExpansionModule,
     MatSnackBarModule,
+    MatRadioModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),
@@ -149,7 +152,11 @@ import { NewPasswordComponent } from './new-password/new-password.component';
     BrowserAnimationsModule
   ],
   providers: [
-    { provide: FIREBASE_OPTIONS, useValue: environment.firebase }
+    { provide: FIREBASE_OPTIONS, useValue: environment.firebase },
+    {
+      provide: MAT_RADIO_DEFAULT_OPTIONS,
+      useValue: { color: 'primary' },
+  }
   ],
   bootstrap: [AppComponent]
 })

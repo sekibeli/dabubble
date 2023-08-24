@@ -1,0 +1,73 @@
+<div class="addMemberContainer">
+    <div class="dialogHeader">
+      <div><h3>Leute hinzufügen</h3></div>
+      <div class="close" (click)="dialogRef.close()">
+        <mat-icon>close</mat-icon>
+      </div>
+    </div>
+
+
+<div class="choose">
+    <form class="choose">
+        <!-- Radio Buttons -->
+        <label>
+          <input type="radio" value="option1" name="option" [(ngModel)]="selectedOption">Alle Mitglieder von Channel<span class="blue"> Allgemein </span>hinzufügen
+        </label>
+      
+        <label>
+          <input type="radio" value="Bestimmte Leute hinzufügen" name="option" [(ngModel)]="selectedOption">Bestimmte Leute hinzufügen</label>
+      
+        <!-- Verstecktes Div -->
+        <div *ngIf="selectedOption === 'Bestimmte Leute hinzufügen'">
+          <!-- Inhalt des versteckten Divs -->
+          <div>
+    
+            <div *ngIf="!notChosen" class="search">
+              <div class="littleUserOverview">
+                <img src="{{ chosenUser['img'] }}" alt="" />
+                <div>{{ chosenUser["username"] }}</div>
+                <div (click)="removeChosenUser()"><mat-icon>close</mat-icon></div>
+              </div>
+            </div>
+            <input
+              *ngIf="notChosen"
+              class="search"
+              type="text"
+              [(ngModel)]="searchterm"
+              (keyup)="searchMember($event)"
+            />
+            <div class="possibleMembers" *ngIf="notChosen">
+              <ul *ngFor="let user of users">
+                <li class="message" (click)="chooseNewMember(user)">
+                  <div class="profile-overview">
+                    <div class="relativePic">
+                      <img class="profile-img" src="{{ user['img'] }}" alt="" />
+                      <div
+                        class="status"
+                        [ngClass]="{ green: user['active'], grey: !user['active'] }"
+                      ></div>
+                    </div>
+                    <div *ngIf="user['id'] != this.currentUserID" class="profile-name">
+                      {{ user["username"] }}
+                    </div>
+                    <div *ngIf="user['id'] == this.currentUserID" class="profile-name">
+                      {{ user["username"] }} (Du)
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </form>
+    </div>
+
+    <!-- <div class="channelTitle"># {{ channelTitle }}</div> -->
+    <div class="channel"></div>
+   
+    <div class="end">
+      <button (click)="addMemberToChannel(); " [disabled]="notChosen && selectedOption != 'option1'" class="darkButton">Erstellen</button>
+    </div>
+  </div>
+  

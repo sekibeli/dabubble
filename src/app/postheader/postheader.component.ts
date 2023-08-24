@@ -81,16 +81,21 @@ export class PostheaderComponent implements OnInit, OnDestroy {
     channel: this.currentChannelData };
     const dialogRef = this.dialog.open(DialogAddMemberComponent, dialogConfig);
     dialogRef.componentInstance.channelTitle = this.currentChannelData['title'];
+    dialogRef.componentInstance.channel = this.currentChannelData;
   }
 
-  openShowMembersDialog() {
+  openShowMembersDialog(activeChannelTitle: string) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.position = {
       top: '200px',  // Ändere diese Werte entsprechend deiner gewünschten Position
       right: '10%'   // Ändere diese Werte entsprechend deiner gewünschten Position
     };
-
-    this.dialog.open(DialogShowChanneluserComponent, dialogConfig);
+    dialogConfig.data = { 
+      channelTitle: activeChannelTitle,
+    channel: this.currentChannelData };
+    const dialogRef =  this.dialog.open(DialogShowChanneluserComponent, dialogConfig);
+    // dialogRef.componentInstance.channelTitle = this.currentChannelData['title'];
+    dialogRef.componentInstance.channel = this.currentChannelData;
   }
 
   @HostListener('window:resize', ['$event'])

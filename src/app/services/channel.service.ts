@@ -51,7 +51,8 @@ export class ChannelService implements OnInit, OnDestroy {
       // const collRef = query(collection(this.firestore, 'channels'), where('members', 'array-contains', userId), where('createdBy', '==', userId));
       // const docRef = collectionData(collRef, { idField: 'id' });
       const collRef = collection(this.firestore, 'channels');
-      const collRefQuery = query(collRef, or(where('members', 'array-contains', userId), where('createdBy', '==', userId)))
+      // const collRefQuery = query(collRef, or(where('members', 'array-contains', userId), where('createdBy', '==', userId)))
+      const collRefQuery = query(collRef, where('members', 'array-contains', userId));
       const docRef = collectionData(collRefQuery, { idField: 'id' });
       return docRef;
    }
@@ -100,11 +101,11 @@ console.log('Daten von folgendem Channel:', channel['title']);
    }
 
 
-   getMembersOfChannel(channel: string) {
-      const collRef = collection(this.firestore, 'channels', channel);
-      const docRef = collectionData(collRef);
-      return docRef;
-   }
+   // getMembersOfChannel(channel: string) {
+   //    const collRef = collection(this.firestore, 'channels', channel);
+   //    const docRef = collectionData(collRef);
+   //    return docRef;
+   // }
 
    async getMembersOfChannelNEW(channel: string): Promise<any[]> {
 
@@ -267,5 +268,29 @@ console.log('Daten von folgendem Channel:', channel['title']);
 
      }
 
+     async getMembersOfChannelAndPushInNewChannel(newChannelID: string){
+      const docRef = doc(this.firestore, 'channels', 'BwYu94QGYDi8hQta31RP');
+      try {
+         const docSnap: DocumentSnapshot = await getDoc(docRef);
+         if (docSnap.exists()) {
+             const membersArray: string[] = docSnap.data()?.members || [];
+this.pushMembersArrayInChannel(membersArray, newChannelID );
+
+        } else {}
+      } catch (error) {
+         console.error(error);
+      }
+   
+
    }
 
+   async pushMembersArrayInChannel(array: string[], channelID: string){
+    try{
+      const docRef = doc(this.firestore, 'channels', channelID);
+      await updateDoc(docRef, {members: array})
+    } catch ( error){
+      console.error('array konnte nicht hinzugefügt werden', error);
+    }
+   } 
+
+}
