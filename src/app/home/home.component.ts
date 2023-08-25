@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, Input, OnDestroy, OnInit, ViewChild, HostListener } from '@angular/core';
+import { AfterViewInit, Component, Input, OnDestroy, OnInit, ViewChild, HostListener } from '@angular/core';
 import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 import { UserService } from '../services/user.service';
 import { AuthService } from '../services/auth.service';
@@ -31,10 +31,7 @@ public currentUser;
 
   constructor(public userService: UserService, public authService: AuthService, public drawerService: DrawerService) { 
     this.checkScreenSize();
-    // this.mobileQuery = media.matchMedia('(max-width: 600px)');
-    // this._mobileQueryListener = () => changeDetectorRef.detectChanges();
-    // this.mobileQuery.addListener(this._mobileQueryListener);
-
+   
 
    
     this.userLoggedIn_UID = this.authService.getCurrentUserIDFromLocalStorage();

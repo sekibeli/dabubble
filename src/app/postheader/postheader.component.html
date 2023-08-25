@@ -11,7 +11,7 @@
       <div class="miniProfilePicsRow" *ngIf="currentChannelData">
         <div *ngIf="!isSmallScreen" class="user"  (click)="openShowMembersDialog(currentChannelData['title'])">
           
-          <ng-container *ngFor="let member of members">
+          <ng-container *ngFor="let member of members | slice: 0:3">
           <img [src]="member['img']" />
       
           </ng-container>

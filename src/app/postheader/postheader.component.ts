@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, HostListener, OnInit, inject, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, OnInit, inject, OnChanges, SimpleChanges, OnDestroy, Input } from '@angular/core';
 import { ChannelService } from '../services/channel.service';
 import { BehaviorSubject, Subject, combineLatest } from 'rxjs';
 import { UserService } from '../services/user.service';
@@ -17,6 +17,7 @@ import { User } from '../models/user.class';
   styleUrls: ['./postheader.component.scss']
 })
 export class PostheaderComponent implements OnInit, OnDestroy {
+  // @Input() channel;
   unsub;
   firestore: Firestore = inject(Firestore);
   isSmallScreen;
@@ -28,8 +29,10 @@ export class PostheaderComponent implements OnInit, OnDestroy {
   currentChannelData: any; // Inhalt von currentChannel
   
   constructor(public channelService: ChannelService, public userService: UserService, public dialog: MatDialog) {
+ console.log(this.currentChannel);
     this.checkScreenSize();
-
+// this.currentChannelData = this.channel;
+// console.log(this.channel);
   
 
   }
@@ -38,36 +41,19 @@ export class PostheaderComponent implements OnInit, OnDestroy {
     this.unsub =  this.channelService.currentChannelUserArraySubject.subscribe(members => {
       this.members = members;
       console.log('members:', this.members);
-      // console.log('observableMembers:', this.channelService.currentChannelUserArray$);
-      this.countsOfMembers = members.length;
-      // this.changeDetect.detectChanges();
+       this.countsOfMembers = members.length;
+      
     });
  
-    // this.channelService.channelUserArrayEmitter.subscribe(members => {
-    //   members.subscribe(value => {
-    //     console.log('Versuch:', value);
-    //     this.members = value;
-    //     this.countsOfMembers = value.length;
-    //   })
-     
-    // })
     this.channelService.activeChannel.subscribe((channel) => {  // Übergabe des ganzen channel Objekts
       
       this.currentChannel.next(channel); // Behavior Subject
       this.currentChannelData = this.currentChannel.getValue();
-      // console.log('channel:', this.currentChannelData);
-      // console.log('Ausgabe:', this.currentChannel);
-
+    
 
     });
-  }
 
-  // ngOnChanges(changes: SimpleChanges): void {
-  //   if (changes.members) {
-  //     this.members = changes.members.currentValue;
-  //     this.countsOfMembers = this.members.length;
-  //   }
-  // }
+  }
 
   openAddMemberDialog(activeChannelTitle: string) {
  

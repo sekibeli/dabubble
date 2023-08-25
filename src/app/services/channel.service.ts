@@ -61,12 +61,9 @@ export class ChannelService implements OnInit, OnDestroy {
 
    pushActiveChannel(channel) {
       this.channel = channel;
-      // this.activeChannelTitle.emit(title);
-      this.currentChannelTitle = channel['title'];
-      // this.currentChannelID = channel['id'];
-      this.activeChannel.emit(channel);
-      // console.log( 'Holmes1', this.currentChannelTitle);
-      // console.log( 'Holmes2', this.currentChannelID);
+           this.currentChannelTitle = channel['title'];
+         this.activeChannel.emit(channel);
+    
 console.log('Daten von folgendem Channel:', channel['title']);
       this.getMembersOfChannelNEW(channel['id']).then(members => {
          this.membersUserIDArray = members;

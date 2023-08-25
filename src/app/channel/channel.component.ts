@@ -15,8 +15,6 @@ constructor( private channelService: ChannelService, public drawerService: Drawe
 }
 
 currentChannel(channel){
-
-
   this.channelService.pushActiveChannel(channel);
   
  }
@@ -28,7 +26,7 @@ currentChannel(channel){
 
 onProfileClick(event: Event) {
   this.drawerService.close();
-
+console.log(this.channel);
   this.currentChannel(this.channel);
   this.setMode(false);
 

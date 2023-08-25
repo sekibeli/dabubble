@@ -5,7 +5,8 @@
     background-color: white;
     width: 400px;
     padding: 10px 20px;
-    margin-left: 100px;
+    // margin-left: 100px;
+    border: 1px solid var(--background-color);
 }
 
 .searchInput {
@@ -94,8 +95,8 @@ ul {
    min-width: 280px;
     z-index: 10;
     position: absolute;
-    top: 25%;
-    left: 45%;
+    top: 10%;
+    left: 10%;
     background-color: rgb(255, 255, 255);
     border-radius: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -140,12 +141,12 @@ ul {
 @media ( max-width: 900px ) {
 
     .mainSearch {
-        width: 180px;
+        width: 250px;
     }
 }
 @media ( max-width: 800px ) {
 
-    .mainSearch {
-       display: none;
-    }
+    // .mainSearch {
+    //    display: none;
+    // }
 }

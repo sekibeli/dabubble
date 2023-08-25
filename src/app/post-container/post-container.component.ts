@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PostService } from '../services/post.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { ChannelService } from '../services/channel.service';
 
 
 @Component({
@@ -15,20 +16,26 @@ export class PostContainerComponent implements OnInit, OnDestroy {
   id;
   subscription: Subscription;
   trueFalseArray = [];
-
-  constructor(public postService: PostService, public route: Router, public activatedRoute: ActivatedRoute) {
- 
+channelPromise;
+channel;
+  constructor(public postService: PostService, public route: Router, public activatedRoute: ActivatedRoute, private channelService: ChannelService) {
+  
   }
   /**
    * Funktion zur Beobachtung der URL, so dass die Inhalte gemäß der URL immer neu geladen werden.
    */
-  ngOnInit() {
+  async ngOnInit() {
     this.subscription = this.activatedRoute.params.subscribe(
-      (params) => {
+      async (params) => {
         this.id = params['id'];
         this.getPosts(this.id);
+       const channelData = await this.channelService.getChannelData(this.id);
+       console.log(channelData);
+       this.channel = channelData;
       });
-     
+    
+      
+    
   }
 
   /**
@@ -46,25 +53,15 @@ export class PostContainerComponent implements OnInit, OnDestroy {
    */
 getPosts(id) {
     this.postService.getAllPosts(id).subscribe((posts) => {
-    
+   
         this.posts = posts;
-     this.createTimestampArray(posts);
+        console.log(this.posts);
+     this.createTimestampArray(this.posts);
       });
     
     }
 
   
-
-  /**
-   * 
-   * @param channelID ID from the channel
-   * @param docID ID from the post
-   * 
-   * gets a certain post from firestore
-   */
-  // async getPost(channelID, docID) {
-  //   this.postService.getPost(channelID, docID);
-  // }
 
 /**
  * 

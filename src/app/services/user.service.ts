@@ -54,9 +54,11 @@ endAt = new Subject();
 
 
   async setUserStatus(id, status) {
-    console.log('id:', id);
+   
     try {
       const docRef = doc(this.firestore, 'users', id);
+      console.log('id', id);
+      console.log('status für logout', status);
 
       await updateDoc(docRef,
         {

@@ -37,7 +37,7 @@
     <div class="noResult" *ngIf="result.channels.length == 0">Keine <strong>Channels</strong> mit <br> Anfangsbuchstaben "{{searchterm}}" <br>gefunden</div>
     <ul *ngFor="let channel of result.channels">
        <ng-container>
-        <li class="message " (click)="showChannel(channel)">
+        <li class="message " (click)="openShowChannelInformation(channel)">
           <div class="channel-overview">
            <div class="centered"><mat-icon>topic</mat-icon> {{ channel["title"] }}</div> 
           </div>

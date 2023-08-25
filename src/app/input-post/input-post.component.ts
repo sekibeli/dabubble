@@ -19,7 +19,7 @@ export class InputPostComponent implements OnInit {
   user: BehaviorSubject<User> = new BehaviorSubject<User>(null);
   currentUser;
   currentChannel; // die ID
-  channelTitle: BehaviorSubject<String> = new BehaviorSubject<String>('Angular');
+  channelTitle: BehaviorSubject<String> = new BehaviorSubject<String>('');
   post: Post;
   directMessage; // sets if input is directMessage or not
   channelMessage;
