@@ -63,9 +63,10 @@ endAt = new Subject();
       await updateDoc(docRef,
         {
           active: status,
-        });
+        }); return true;
     } catch (error) {
       console.error('Fehler: ', error);
+      return false;
     }
   }
 
@@ -78,6 +79,7 @@ endAt = new Subject();
         {
           username: username,
         });
+        
     } catch (error) {
       console.error('Fehler: ', error);
     }

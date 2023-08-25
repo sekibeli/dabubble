@@ -226,7 +226,27 @@ h3 {
       }
     }
 
-
+/* Für den gesamten Bereich */
+::-webkit-scrollbar {
+    width: 0px; /* Breite der vertikalen Scrollbar */
+  }
+  
+  /* Knopf der Scrollbar */
+  ::-webkit-scrollbar-thumb {
+    background:var(--background-color); /* Graue Farbe */
+    border-radius: 4px; /* Abrundung */
+  }
+  
+  /* Wenn der Nutzer mit der Maus über den Knopf fährt */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #7e8af1; /* Dunklere Grauton */
+  }
+  
+  /* Hintergrund der Scrollbar */
+  ::-webkit-scrollbar-track {
+    background: #ffffff; /* Hellgraue Farbe */
+    border-radius: 20px; /* Abrundung */
+  }
     
       
      
