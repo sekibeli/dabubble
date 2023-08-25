@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ChannelService } from '../services/channel.service';
 import { DrawerService } from '../services/drawer.service';
 
@@ -7,12 +7,13 @@ import { DrawerService } from '../services/drawer.service';
   templateUrl: './channel.component.html',
   styleUrls: ['./channel.component.scss']
 })
-export class ChannelComponent {
+export class ChannelComponent  {
 @Input() channel;
 
 constructor( private channelService: ChannelService, public drawerService: DrawerService){
  
 }
+
 
 currentChannel(channel){
   this.channelService.pushActiveChannel(channel);

@@ -29,8 +29,7 @@ export class PostheaderComponent implements OnInit, OnDestroy {
   currentChannelData: any; // Inhalt von currentChannel
   
   constructor(public channelService: ChannelService, public userService: UserService, public dialog: MatDialog) {
- console.log(this.currentChannel);
-    this.checkScreenSize();
+   this.checkScreenSize();
 // this.currentChannelData = this.channel;
 // console.log(this.channel);
   
@@ -38,13 +37,7 @@ export class PostheaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.unsub =  this.channelService.currentChannelUserArraySubject.subscribe(members => {
-      this.members = members;
-      console.log('members:', this.members);
-       this.countsOfMembers = members.length;
-      
-    });
- 
+
     this.channelService.activeChannel.subscribe((channel) => {  // Übergabe des ganzen channel Objekts
       
       this.currentChannel.next(channel); // Behavior Subject
@@ -52,6 +45,15 @@ export class PostheaderComponent implements OnInit, OnDestroy {
     
 
     });
+
+    this.unsub =  this.channelService.currentChannelUserArraySubject.subscribe(members => {
+      this.members = members;
+      console.log('members:', this.members);
+       this.countsOfMembers = members.length;
+      
+    });
+ 
+    console.log(this.currentChannel);
 
   }
 

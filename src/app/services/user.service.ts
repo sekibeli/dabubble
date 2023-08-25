@@ -54,24 +54,31 @@ endAt = new Subject();
 
 
   async setUserStatus(id, status) {
-   
+
     try {
       const docRef = doc(this.firestore, 'users', id);
-      console.log('id', id);
-      console.log('status für logout', status);
-
       await updateDoc(docRef,
         {
           active: status,
-        }); return true;
+        });
+         return true;
     } catch (error) {
       console.error('Fehler: ', error);
+      console.log('blö');
+      console.log('blö');
+      console.log('blö');
+      console.log('blö');
+      console.log('blö');
+      console.log('blö');
+      console.log('blö');
+      console.log('blö');
+
       return false;
     }
   }
 
   async setUserName(id, username) {
-    console.log('id:', id);
+   
     try {
       const docRef = doc(this.firestore, 'users', id);
 

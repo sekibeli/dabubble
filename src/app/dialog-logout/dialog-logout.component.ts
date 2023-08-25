@@ -27,22 +27,27 @@ user: any;
   }
   
   logUserOut(){
+
+
     this.afAuth.signOut().then(()=>{
-     this.currentUser['active'] = false;
-     return this.userService.setUserStatus(this.currentUser['id'], false);
+      console.log('willraus', this.currentUser);
+   
+     return this.userService.setUserStatus(this.currentUser, false);
     
  
     }).then(()=> {
       localStorage.setItem('directMessage', 'false');
-      console.log( this.currentUser['id'])
+      console.log( this.currentUser)
       console.log('User ist ausgeloggt')
       localStorage.setItem('currentUserID', '');
       setTimeout(() => {
         location.reload();
       }, 2000);
+     
     })
     .catch((err)=>{
      console.log(err.message);
+     
     });
    
   
