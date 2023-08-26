@@ -8,6 +8,7 @@ import { PostService } from '../services/post.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogProfileComponent } from '../dialog-profile/dialog-profile.component';
 import { Post } from '../models/post.class';
+import { ChannelService } from '../services/channel.service';
 
 @Component({
   selector: 'app-post-detail',
@@ -33,13 +34,17 @@ export class PostDetailComponent implements OnInit {
   countsOfThreads;
   flip: boolean;
   originalPost: Post;
-  constructor(private userService: UserService, private drawerService: DrawerService, private threadService: ThreadService, private postService: PostService, private dialog: MatDialog) {
+  constructor(private userService: UserService, private drawerService: DrawerService, private threadService: ThreadService, private postService: PostService, private dialog: MatDialog, private channelService: ChannelService) {
+
+
 
   }
 
   ngOnInit() {
+   this.currentChannel = this.channelService.currentChannelID.getValue();
+   console.log('test', this.currentChannel);
     if (this.post){
-     
+      
 if(this.post['author'] === localStorage.getItem('currentUserID')) {
   this.flip = true;
 } else {
@@ -115,10 +120,26 @@ if(this.post['author'] === localStorage.getItem('currentUserID')) {
 }
 
 editThisPost(post){
+  console.log('channelid', this.currentChannel);
+  this.originalPost = JSON.parse(JSON.stringify(post));
   this.showEditForm = true;
   this.showPost = false;
-this.originalPost = post;
+
 }
 
+updatePost(){
+  this.postService.updatePost(this.currentChannel, this.post['id'], this.post['description']);
+this.showEditForm = false;
+  this.showPost = true;
+}
+
+cancel(){
+  Object.assign(this.post, this.originalPost);
+  this.showEditForm = false;
+  this.showPost = true;
+ 
+  
+ 
+}
 }
 

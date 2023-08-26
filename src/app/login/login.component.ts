@@ -49,7 +49,7 @@ error = true;
         localStorage.setItem('directMessage', 'false');
       }
     } else {
-      console.log('keine Neuanlage');
+      // console.log('keine Neuanlage');
       localStorage.setItem('directMessage', 'false');
     }
 
@@ -65,9 +65,9 @@ setTimeout(() => {
 
   loginWithEmailAndPassword() {
 
-    console.log(this.loginForm.value);
+    // console.log(this.loginForm.value);
     const userData = Object.assign( { email: this.loginForm.value.username }, this.loginForm.value);
-    console.log('USERDATA:', userData);
+    // console.log('USERDATA:', userData);
     this.auth.loginWithEmailAndPassword(userData)
     
     // .then((result: any) => {
@@ -91,9 +91,9 @@ setTimeout(() => {
 
     this.loginForm.controls['email'].setValue('gast@gast.de');
     this.loginForm.controls['password'].setValue('jWq7cE6E9ir8bV@');
-    console.log(this.loginForm.value);
+    // console.log(this.loginForm.value);
     const userData = Object.assign( { email: this.loginForm.value.username }, this.loginForm.value);
-    console.log('USERDATA:', userData);
+    // console.log('USERDATA:', userData);
     this.auth.loginWithEmailAndPassword(userData).then((result: any) => {
       localStorage.setItem('directMessage', 'false');
 

@@ -12,7 +12,7 @@ import { DialogAddMemberComponent } from '../dialog-add-member/dialog-add-member
 export class ChannelService implements OnInit, OnDestroy {
    check;
    channel;
-   currentChannelID = 'OnQ02XRJqwZRA0ts0qc5';
+   currentChannelID: BehaviorSubject<string> = new BehaviorSubject<string>('OnQ02XRJqwZRA0ts0qc5');
    private destroy$: Subject<void> = new Subject<void>();
    firestore: Firestore = inject(Firestore)
    channelUser: BehaviorSubject<any[]> = new BehaviorSubject<any[]>(null);
@@ -60,6 +60,7 @@ export class ChannelService implements OnInit, OnDestroy {
 
 
    pushActiveChannel(channel) {
+      this.currentChannelID.next(channel.id);
       this.channel = channel;
            this.currentChannelTitle = channel['title'];
          this.activeChannel.emit(channel);

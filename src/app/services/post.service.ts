@@ -106,11 +106,15 @@ export class PostService {
  }
 
  async updatePost(channelID, postID, description){
+  console.log('channel',channelID,'post', postID, 'Inhalt',description);
   const docRef = doc(this.firestore, 'channels', channelID, 'posts', postID);
 
   await updateDoc(docRef, {
     description: description
-  })
+  });
+
+
+
  }
 }
 

@@ -24,7 +24,7 @@ ngOnInit(): void {
   this.channelService.activeChannel.subscribe((value)=>{
     if(this.channelTitle)
     this.channelTitle.next(value['title']);
-  console.log(this.channelTitle.getValue());
+  // console.log(this.channelTitle.getValue());
   });
   
 }

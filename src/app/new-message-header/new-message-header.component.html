@@ -1,0 +1,55 @@
+<div class="headerbox">
+<div class="top">Neue Nachricht</div>
+<div class="mainSearch">
+   
+    <input 
+    class="search"
+    type="text"
+    [(ngModel)]="searchterm"
+    (keyup)="searchMember($event)" class="searchInput" matInput type="text" placeholder="Suche nach channel oder user">
+    <mat-icon matIconPrefix>search</mat-icon>
+</div>
+<div *ngIf="search" class="searchOverview">
+  <div (click)="search = false; searchterm = ''" class="close"><mat-icon>close</mat-icon></div>
+<div *ngIf="search && result" class="showResults">
+    <div class="searchHeader">Users</div>
+    <div class="noResult" *ngIf="result.users.length == 0">Keine <strong>User</strong> mit <br> Anfangsbuchstaben "{{searchterm}}" <br>gefunden</div>
+    <ul *ngFor="let user of result.users">
+        <li class="message" (click)="openProfile(user)">
+          <div class="profile-overview">
+            <div class="relativePic">
+              <img class="profile-img" src="{{ user['img'] }}" alt="" />
+              <div
+                class="status"
+                [ngClass]="{ green: user['active'], grey: !user['active'] }"
+              ></div>
+            </div>
+            <div *ngIf="user['id'] != this.currentUserID" class="profile-name">
+              {{ user["username"] }}
+            </div>
+            <div *ngIf="user['id'] == this.currentUserID" class="profile-name">
+              {{ user["username"] }} (Du)
+            </div>
+          </div>
+        </li>
+      </ul>
+</div>
+<div *ngIf="search && result" class="showResults">
+    <div class="searchHeader">Channels</div>
+    <div class="noResult" *ngIf="result.channels.length == 0">Keine <strong>Channels</strong> mit <br> Anfangsbuchstaben "{{searchterm}}" <br>gefunden</div>
+    <ul *ngFor="let channel of result.channels">
+       <ng-container>
+        <li class="message " (click)="openShowChannelInformation(channel)">
+          <div class="channel-overview">
+           <div class="centered"><mat-icon>topic</mat-icon> {{ channel["title"] }}</div> 
+          </div>
+
+          
+     
+      </li>
+       </ng-container>
+        
+      </ul>
+</div>
+</div> 
+</div>

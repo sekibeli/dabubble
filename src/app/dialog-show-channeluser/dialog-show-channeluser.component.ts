@@ -22,7 +22,7 @@ constructor( public dialogRef: MatDialogRef<DialogShowChanneluserComponent> , pu
   this.members = this.channelService.currentChannelUserArray;
 
   this.unsub = this.channelService.activeChannelTitle.subscribe((value)=>{
-    console.log(value);
+    // console.log(value);
     this.activeTitle = value;
   
   });
@@ -31,7 +31,7 @@ constructor( public dialogRef: MatDialogRef<DialogShowChanneluserComponent> , pu
 }
 
 ngOnInit(){
-  console.log('wichtig davor:', this.data);
+
 }
 
 openAddMember(){

@@ -63,7 +63,7 @@ export class InputComponent implements OnInit {
     }
 
   savePost(description, postId) {
-    console.log('postDescription:', description);
+    // console.log('postDescription:', description);
     this.currentChannel = this.activatedRoute.snapshot.params['id'];
     let channelID = this.currentChannel;
     description = this.chatMessage.value.description;
@@ -74,7 +74,7 @@ export class InputComponent implements OnInit {
 
   saveMessage(description){
     description = this.chatMessage.value.description;
-    console.log('Message description:', description);
+    // console.log('Message description:', description);
     this.messageService.saveMessage(description);
     this.chatMessage.reset();
   }

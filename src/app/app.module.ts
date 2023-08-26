@@ -62,6 +62,9 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { NewPasswordComponent } from './new-password/new-password.component';
 import { DialogAddMemberToNewChannelComponent } from './dialog-add-member-to-new-channel/dialog-add-member-to-new-channel.component';
 import {MAT_RADIO_DEFAULT_OPTIONS, MatRadioModule} from '@angular/material/radio';
+import { NewMessageInputComponent } from './new-message-input/new-message-input.component';
+import { NewMessageHeaderComponent } from './new-message-header/new-message-header.component';
+import { NewMessageContainerComponent } from './new-message-container/new-message-container.component';
 
 
 
@@ -118,7 +121,11 @@ import {MAT_RADIO_DEFAULT_OPTIONS, MatRadioModule} from '@angular/material/radio
        SnackComponent,
        ForgotPasswordComponent,
        NewPasswordComponent,
-       DialogAddMemberToNewChannelComponent
+       DialogAddMemberToNewChannelComponent,
+   
+       NewMessageInputComponent,
+       NewMessageHeaderComponent,
+       NewMessageContainerComponent
    
 
    

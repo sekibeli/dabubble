@@ -11,6 +11,7 @@ import { ImpressumComponent } from './impressum/impressum.component';
 import { ChooseAvatarComponent } from './choose-avatar/choose-avatar.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { NewPasswordComponent } from './new-password/new-password.component';
+import { NewMessageContainerComponent } from './new-message-container/new-message-container.component';
 
 
 const routes: Routes = [
@@ -26,6 +27,7 @@ const routes: Routes = [
 
 children: [
   {path:'', component: MainComponent},
+  {path:'message', component: NewMessageContainerComponent},
   {path:'channel/:id', component: PostContainerComponent},
   {path:'chat/:id', component: ChatComponent}
 ]},

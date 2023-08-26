@@ -48,7 +48,7 @@ export class InputPostComponent implements OnInit {
 //    });
 
    this.channelService.activeChannel.subscribe((value)=>{
-    console.log(value['title']);
+    // console.log(value['title']);
     this.channelTitle.next(value['title']);
    });
     this.currentUser = localStorage.getItem('currentUserID');
@@ -58,7 +58,7 @@ export class InputPostComponent implements OnInit {
     }
 
   savePost(description, postId) {
-    console.log('postDescription:', description);
+    // console.log('postDescription:', description);
     this.currentChannel = this.activatedRoute.snapshot.params['id'];
     let channelID = this.currentChannel;
     description = this.chatMessage.value.description;

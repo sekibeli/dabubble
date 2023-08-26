@@ -30,15 +30,14 @@ user: any;
 
 
     this.afAuth.signOut().then(()=>{
-      console.log('willraus', this.currentUser);
+    
    
      return this.userService.setUserStatus(this.currentUser, false);
     
  
     }).then(()=> {
       localStorage.setItem('directMessage', 'false');
-      console.log( this.currentUser)
-      console.log('User ist ausgeloggt')
+    
       localStorage.setItem('currentUserID', '');
       setTimeout(() => {
         location.reload();

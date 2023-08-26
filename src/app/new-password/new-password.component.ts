@@ -32,7 +32,7 @@ export class NewPasswordComponent implements OnInit {
     const newPassword = this.passwordForm.get('password').value;
     this.auth.confirmPasswordReset(this.oobCode, newPassword)
     .then(() => {
-      console.log('Passwort erfolgreich zurückgesetzt.');
+      // console.log('Passwort erfolgreich zurückgesetzt.');
     })
     .catch(error => {
       console.error('Fehler beim Zurücksetzen des Passworts:', error);

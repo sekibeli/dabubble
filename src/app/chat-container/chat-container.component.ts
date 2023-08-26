@@ -27,8 +27,8 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
     this.subscription = this.activatedRoute.params.subscribe(
       (params) => {
         this.id = params['id'];
-        console.log('params:',params['id']);
-        console.log('localStorage:', localStorage.getItem('currentUserID'));
+        // console.log('params:',params['id']);
+        // console.log('localStorage:', localStorage.getItem('currentUserID'));
         this.getThisChat(this.id);
       });
   }

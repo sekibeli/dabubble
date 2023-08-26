@@ -43,7 +43,7 @@ public channelTitle;
       this.searchUserInFirestore(value[0], value[1]).then((user)=>{
         this.users = user.docs.map(doc => doc.data());
       })
-      console.log(this.users);
+      // console.log(this.users);
     })
   
     
@@ -51,7 +51,7 @@ public channelTitle;
   addMemberToChannel() {
 
     // let channelID = this.channelService.currentChannelID;
-    console.log('Wichtig:', this.data);
+    // console.log('Wichtig:', this.data);
     this.channelService.addMemberToChannel(this.data.channel['id'], this.chosenUser['id']);
 
    this.dialogRef.close();
@@ -69,7 +69,7 @@ public channelTitle;
 
   chooseNewMember(user:User){
     this.chosenUser = user;
-    console.log(user);
+    // console.log(user);
     this.notChosen = false;
     this.chosenUser = user;
   }

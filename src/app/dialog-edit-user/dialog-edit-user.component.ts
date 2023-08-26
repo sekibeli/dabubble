@@ -23,8 +23,7 @@ ngOnInit(): void {
 }
 cancel(){
   Object.assign(this.data.user, this.originalUser);
-    this.cd.detectChanges();
-
+ 
   this.dialogRef.close();
   
  

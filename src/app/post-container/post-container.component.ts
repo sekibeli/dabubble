@@ -30,7 +30,7 @@ channel;
         this.id = params['id'];
         this.getPosts(this.id);
        const channelData = await this.channelService.getChannelData(this.id);
-       console.log(channelData);
+      //  console.log(channelData);
        this.channel = channelData;
       });
     
@@ -55,7 +55,7 @@ getPosts(id) {
     this.postService.getAllPosts(id).subscribe((posts) => {
    
         this.posts = posts;
-        console.log(this.posts);
+        // console.log(this.posts);
      this.createTimestampArray(this.posts);
       });
     

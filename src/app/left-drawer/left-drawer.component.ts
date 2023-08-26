@@ -39,13 +39,13 @@ export class LeftDrawerComponent implements OnInit{
     //   });
    
       this.channelService.getChannelsWhereCurrentUserIsMember(localStorage.getItem('currentUserID')).subscribe((value)=>{
-        console.log('channels from curentUser:', value);
+        // console.log('channels from curentUser:', value);
         this.channels = value;
       });
 
       this.channelService.getChannelData('BwYu94QGYDi8hQta31RP').then(
         (value)=>{
-          console.log(value);
+          // console.log(value);
           this.channelService.pushActiveChannel(value);
         }
       );

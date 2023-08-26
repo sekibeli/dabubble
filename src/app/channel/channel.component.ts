@@ -27,17 +27,17 @@ currentChannel(channel){
 
 onProfileClick(event: Event) {
   this.drawerService.close();
-console.log(this.channel);
+// console.log(this.channel);
   this.currentChannel(this.channel);
   this.setMode(false);
 
   if (window.innerWidth < 600) {
     this.drawerService.toggle();
     event.preventDefault();
-   console.log('-1', this.drawerService.codeLearning$); 
+  //  console.log('-1', this.drawerService.codeLearning$); 
     this.drawerService.setMyVariable(true)
-    console.log('-2', this.drawerService.codeLearning$); 
-    console.log('-3', this.drawerService.showCodeLearningLogo.value);
+    // console.log('-2', this.drawerService.codeLearning$); 
+    // console.log('-3', this.drawerService.showCodeLearningLogo.value);
   }
 }
 

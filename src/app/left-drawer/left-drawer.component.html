@@ -1,7 +1,7 @@
 <div class="leftDrawerTop" *ngIf="!isSmallScreen">
   <img src="../../assets/img/WorkspaceLogo.svg" alt="" />
   <div class="leftDrawerTopic">Code learning</div>
-  <mat-icon>editOutlined</mat-icon>
+  <mat-icon routerLink="/home/message">editOutlined</mat-icon>
 </div>
 <div *ngIf="isSmallScreen" class="mobileSearch"><app-searchbar></app-searchbar></div>
 

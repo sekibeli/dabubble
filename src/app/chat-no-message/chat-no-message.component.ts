@@ -20,7 +20,7 @@ constructor(public messageService: MessageService, public userService: UserServi
   this.currentUserID = localStorage.getItem('currentUserID');
   const currentUser = JSON.parse(localStorage.getItem('currentChatUser'));
   this.user.next(currentUser);
-  console.log(this.user);
+  // console.log(this.user);
 }
 
 ngOnInit(): void {
