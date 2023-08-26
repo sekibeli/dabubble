@@ -7,6 +7,7 @@ import { DialogProfileComponent } from '../dialog-profile/dialog-profile.compone
 import { DrawerService } from '../services/drawer.service';
 import { DialogShowChannelComponent } from '../dialog-show-channel/dialog-show-channel.component';
 import { ChannelService } from '../services/channel.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-new-message-header',
@@ -27,6 +28,13 @@ search = false;
 users;
 result;
 isSmallScreen;
+
+channelID;
+authorID;
+
+message: FormGroup = new FormGroup({
+  description: new FormControl('', [Validators.required, Validators.minLength(2)]),
+})
 
 
 constructor(public dialog: MatDialog, private drawerService: DrawerService, private channelService: ChannelService){}
@@ -83,12 +91,12 @@ ngOnInit() {
   async searchInFirestore(start, end) {
     // Suche in der 'users' Collection
     const usersCollRef = collection(this.firestore, 'users');
-    const usersQueryRef = query(usersCollRef, limit(10), startAt(start), endAt(end));  //  orderBy('username'),
+    const usersQueryRef = query(usersCollRef, orderBy('username'),limit(10), startAt(start), endAt(end));  //  orderBy('username'),
      const usersDocRef = await getDocs(usersQueryRef);
     
     // Suche in der 'channels' Collection
     const channelsCollRef = collection(this.firestore, 'channels');
-    const channelsQueryRef = query(channelsCollRef,  limit(10), startAt(start), endAt(end)); //  orderBy('title'),
+    const channelsQueryRef = query(channelsCollRef, orderBy('title'), limit(10), startAt(start), endAt(end)); //  orderBy('title'),
     const channelsDocRef = await getDocs(channelsQueryRef);
     
   
@@ -168,7 +176,31 @@ separateUsersAndChannels(jsonArray) {
 
   }
 
+  chooseUser(user){
+    this.searchterm = user['username'];
+  this.search = false;
+  }
+
+  chooseChannel(channel){
+    console.log(channel);
+    if(channel['members'].includes(localStorage.getItem('currentUserID'))){
+      this.searchterm = channel['title'];
+      this.search = false;
+    } else {
+      console.log('ERst Channel beitreten');
+      this.openShowChannelInformation(channel);
+    }
+   
+   }
+
+   sendMessage(channelID, authorID, message){}
+
   
+ 
+  
+ 
  }
+
+
 
 

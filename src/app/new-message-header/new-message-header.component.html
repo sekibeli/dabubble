@@ -1,3 +1,4 @@
+<div class="newMessageContainer">
 <div class="headerbox">
 <div class="top">Neue Nachricht</div>
 <div class="mainSearch">
@@ -15,7 +16,7 @@
     <div class="searchHeader">Users</div>
     <div class="noResult" *ngIf="result.users.length == 0">Keine <strong>User</strong> mit <br> Anfangsbuchstaben "{{searchterm}}" <br>gefunden</div>
     <ul *ngFor="let user of result.users">
-        <li class="message" (click)="openProfile(user)">
+        <li class="message" (click)="chooseUser(user)">
           <div class="profile-overview">
             <div class="relativePic">
               <img class="profile-img" src="{{ user['img'] }}" alt="" />
@@ -39,7 +40,7 @@
     <div class="noResult" *ngIf="result.channels.length == 0">Keine <strong>Channels</strong> mit <br> Anfangsbuchstaben "{{searchterm}}" <br>gefunden</div>
     <ul *ngFor="let channel of result.channels">
        <ng-container>
-        <li class="message " (click)="openShowChannelInformation(channel)">
+        <li class="message " (click)="chooseChannel(channel)">
           <div class="channel-overview">
            <div class="centered"><mat-icon>topic</mat-icon> {{ channel["title"] }}</div> 
           </div>
@@ -52,4 +53,24 @@
       </ul>
 </div>
 </div> 
+</div>
+
+<div class="input-container">
+  
+    <form class="chatInput input-container" [formGroup]="message">
+    <div class="relative">
+    <!-- <textarea *ngIf="!singlePost && channelMessage && channelTitle | async" formControlName="description" id="message" name="meineTextarea"  rows="4" placeholder="Nachricht an #{{ channelTitle.getValue() }} schreiben ..."></textarea> -->
+    <textarea  formControlName="description" id="message" name="meineTextarea"  rows="4" placeholder="Eine neue Message schreiben ..."></textarea>
+    
+    <div class="stick">
+    <!-- <div *ngIf="!singlePost && channelMessage" (click)="this.savePost(this.chatMessage)"><mat-icon>send</mat-icon></div> -->
+    <div (click)="this.sendMessage(this.channelID, this.authorID, message)"><mat-icon>send</mat-icon></div>
+    
+    </div>
+    </div>
+    
+    </form>
+    <!-- </div> -->
+    
+    </div>
 </div>
