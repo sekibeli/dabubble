@@ -210,6 +210,10 @@ border: none;
 .background-blue {
     background-color: var(--background-color);
 }
+
+.d-none{
+    display: none !important;
+}
 @media (max-width: 700px) {
     .profile-pic {
         margin-right: 20px;

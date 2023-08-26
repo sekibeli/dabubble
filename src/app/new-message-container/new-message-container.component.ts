@@ -8,6 +8,8 @@ import { DrawerService } from '../services/drawer.service';
 import { DialogShowChannelComponent } from '../dialog-show-channel/dialog-show-channel.component';
 import { ChannelService } from '../services/channel.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { PostService } from '../services/post.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-message-container',
@@ -28,6 +30,7 @@ search = false;
 users;
 result;
 isSmallScreen;
+currentUser;
 isChannel: boolean; //is the chosen item a channel?
 channelID;
 authorID;
@@ -37,9 +40,10 @@ message: FormGroup = new FormGroup({
 })
 
 
-constructor(public dialog: MatDialog, private drawerService: DrawerService, private channelService: ChannelService){}
+constructor(public dialog: MatDialog, private drawerService: DrawerService, private channelService: ChannelService, private postService: PostService, private route: Router){}
 ngOnInit() {
   console.log('für mobil:', this.isSmallScreen);
+  this.currentUser = localStorage.getItem("currentuserID");
   // combineLatest([this.startobs, this.endobs]).subscribe((value)=> {
   //   this.searchUserInFirestore(value[0], value[1]).then((user)=>{
   //     this.users = user.docs.map(doc => doc.data());
@@ -197,7 +201,16 @@ separateUsersAndChannels(jsonArray) {
    
    }
 
-   sendMessage(channelID, authorID, message){}
+   sendMessage(message){
+    if(this.isChannel){
+      
+      // let channelID = this.currentChannel;
+      let description = this.message.value.description;
+      this.postService.savePost(this.currentUser, this.chosenItem['id'], description);
+      this.route.navigateByUrl("/home/channel/this.chosenItem['id]")
+      // this.message.reset();
+    }
+   }
 
   
  

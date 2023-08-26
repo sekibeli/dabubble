@@ -130,7 +130,7 @@ console.log('Daten von folgendem Channel:', channel['title']);
 
 
    async getChannelData(channelID: string) {
-
+console.log('existiert der Channel?:', channelID);
       const docRef = doc(this.firestore, 'channels', channelID)
       const docSnap = await getDoc(docRef);
 

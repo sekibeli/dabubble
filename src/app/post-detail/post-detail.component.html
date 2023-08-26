@@ -4,7 +4,7 @@
 <div *ngIf="trueFalse" class="dateDevider"></div>
 
 <div *ngIf="author"   class="singlePost" [ngClass]="{'background-blue': showEditForm}">
-<div class="reaction">
+<div class="reaction" [ngClass]="{'d-none': !showPost}">
    
     <button class=" custom-icon-button"  >
         <!-- <mat-icon>check_circle</mat-icon> -->

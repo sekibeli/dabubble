@@ -128,9 +128,11 @@ editThisPost(post){
 }
 
 updatePost(){
+  if(this.post['description'].length > 2){
   this.postService.updatePost(this.currentChannel, this.post['id'], this.post['description']);
 this.showEditForm = false;
   this.showPost = true;
+  }
 }
 
 cancel(){
