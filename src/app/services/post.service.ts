@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, addDoc, collection, collectionData, doc, onSnapshot, orderBy, query } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, collectionData, doc, onSnapshot, orderBy, query, setDoc, updateDoc } from '@angular/fire/firestore';
 import { Post } from '../models/post.class';
 
 @Injectable({
@@ -62,23 +62,33 @@ export class PostService {
      if(!postId){ 
       const collDocRef = collection(this.firestore, 'channels', channelID, 'posts');
      addDoc(collDocRef, this.post.toJSON()).then((result)=>{
-     
-      console.log('Anlage erfolgreich')
+     const postid = result.id;
+     this.post.id = postid;
+     const docRefWithID = doc(this.firestore,'channels', channelID, 'posts', postid);
+     setDoc(docRefWithID, this.post.toJSON());
+      console.log('Anlage erfolgreich', this.post)
     }).catch((error)=>{
       console.log(error);
     });} else {
       channelID = this.activeChannel;
       const collDocRef = collection(this.firestore, 'channels', channelID, 'posts', postId, 'threads');
      addDoc(collDocRef, this.post.toJSON()).then((result)=>{
-      console.log('Anlage erfolgreich')
+      const postid = result.id;
+      this.post.id = postid;
+      const docRefWithID = doc(this.firestore,'channels', channelID, 'posts', postId, 'threads', postid);
+      setDoc(docRefWithID, this.post.toJSON())
+      console.log('Anlage erfolgreich', this.post)
     }).catch((error)=>{
       console.log(error);
     });
     }
-   
+       }
 
-  
-    }
+      
+
+
+
+
 
  getPost(channelID, docID){
   const docRef = collection(this.firestore, 'channels', channelID, 'posts' );
@@ -93,6 +103,14 @@ export class PostService {
   //     console.log('User nicht vorhanden!');
   //   }
   // });
+ }
+
+ async updatePost(channelID, postID, description){
+  const docRef = doc(this.firestore, 'channels', channelID, 'posts', postID);
+
+  await updateDoc(docRef, {
+    description: description
+  })
  }
 }
 

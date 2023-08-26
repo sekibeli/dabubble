@@ -181,6 +181,35 @@
         color: #444DF2;
     }
 }
+.editbox {
+    background-color: var(--background-color);
+   width: 95%;
+
+}
+.showEditForm {
+    background-color: white;
+    border-radius: 20px;
+
+}
+
+textarea {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1em;
+    color: grey;
+    background-color: white;
+   outline: none;
+//    border: 1px solid #444DF2;
+border: none;
+   border-radius: 20px;
+   padding: 15px 10px;
+   width: 95%;
+   height: 80px;
+   
+}
+
+.background-blue {
+    background-color: var(--background-color);
+}
 @media (max-width: 700px) {
     .profile-pic {
         margin-right: 20px;

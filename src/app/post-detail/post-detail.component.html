@@ -3,7 +3,7 @@
 </div>
 <div *ngIf="trueFalse" class="dateDevider"></div>
 
-<div *ngIf="author"   class="singlePost">
+<div *ngIf="author"   class="singlePost" [ngClass]="{'background-blue': showEditForm}">
 <div class="reaction">
    
     <button class=" custom-icon-button"  >
@@ -26,12 +26,12 @@
         <img src="../../assets/img/morevert.png" alt="">
       </button>
       <div *ngIf="showEditPost">
-        <div class="editPost" (click)="editPost(post)">Nachricht bearbeiten</div>
+        <div class="editPost" (click)="editThisPost(post)">Nachricht bearbeiten</div>
       </div>
 </div>
 
     <div class="profile-pic"><img src="{{author['img']}}"></div>
-    <div class="post-content">
+    <div *ngIf="showPost" class="post-content">
        <div class="firstRow"> <div (click)="openProfile(author)" class="post-author">{{author['username']}}</div> <div class="postTime">{{time}} Uhr</div></div>
         <div [ngClass]="{'post-description': !flip, 'post-description-flip': flip}">{{post['description']}}</div>
        <div class="postAnswer" (click)="getThread(this.postService.activeChannel, this.post.id); this.drawerService.open(); this.threadService.getPostForThread(this.post, this.author)">
@@ -39,6 +39,21 @@
           <div class="postTime">letzte Antwort ....</div>
         </div>
     </div>
+    <div *ngIf="showEditForm" class="editbox">
+      <div  class="showEditForm">
+        <textarea
+        [(ngModel)]="this.post['description']"
+        matInput
+        placeholder="Deine Nachricht"
+      ></textarea>
+      <div class="button-section">
+        <button  (click)="exitChannel()" [disabled]="" class="lightButton">Abbrechen</button>
+        <button   (click)="joinChannel()" [disabled]="" class="darkButton">Speichern</button>
+
+</div>
+      </div>
+    </div>
+   
 </div>
 
 

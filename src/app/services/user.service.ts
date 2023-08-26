@@ -64,14 +64,7 @@ endAt = new Subject();
          return true;
     } catch (error) {
       console.error('Fehler: ', error);
-      console.log('blö');
-      console.log('blö');
-      console.log('blö');
-      console.log('blö');
-      console.log('blö');
-      console.log('blö');
-      console.log('blö');
-      console.log('blö');
+     
 
       return false;
     }

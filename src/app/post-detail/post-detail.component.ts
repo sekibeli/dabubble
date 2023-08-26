@@ -7,6 +7,7 @@ import { ThreadService } from '../services/thread.service';
 import { PostService } from '../services/post.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogProfileComponent } from '../dialog-profile/dialog-profile.component';
+import { Post } from '../models/post.class';
 
 @Component({
   selector: 'app-post-detail',
@@ -16,6 +17,9 @@ import { DialogProfileComponent } from '../dialog-profile/dialog-profile.compone
 export class PostDetailComponent implements OnInit {
   @Input() post;
   showEditPost: boolean = false; // show the div "edit Post"
+  showEditForm: boolean = false; // show the edit input field or not
+  showPost: boolean = true; //shows the standard post-detail content
+  editPost: boolean = false; // shows the input field to edit the post
   // @Input() timestamps;
   @Input() trueFalse:boolean;
   author;
@@ -28,6 +32,7 @@ export class PostDetailComponent implements OnInit {
   newDay = true;
   countsOfThreads;
   flip: boolean;
+  originalPost: Post;
   constructor(private userService: UserService, private drawerService: DrawerService, private threadService: ThreadService, private postService: PostService, private dialog: MatDialog) {
 
   }
@@ -107,6 +112,12 @@ if(this.post['author'] === localStorage.getItem('currentUserID')) {
   checkIfItIsCurrentUserPost(){
     return this.post['author'] === localStorage.getItem('currentUserID'); 
   
+}
+
+editThisPost(post){
+  this.showEditForm = true;
+  this.showPost = false;
+this.originalPost = post;
 }
 
 }

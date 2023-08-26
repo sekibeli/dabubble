@@ -96,6 +96,15 @@ export class MessageService {
   }
 
 
+
+
+
+  
+
+
+
+
+
   pushChatUser(newUser) {
     this.userService.getCurrentUser(newUser['id']).subscribe((user) => {
       this.activeChatUser.emit(user);
