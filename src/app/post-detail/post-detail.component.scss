@@ -170,6 +170,17 @@
     border-radius: 15px;
 }
 
+.editPost {
+    background-color: white;
+    border: 1px solid var(--light-purple-lines);
+    border-radius: 10px;
+    padding: 3px 5px;
+
+    &:hover {
+        background-color: var(--background-color);
+        color: #444DF2;
+    }
+}
 @media (max-width: 700px) {
     .profile-pic {
         margin-right: 20px;

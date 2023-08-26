@@ -21,10 +21,13 @@
       <!-- <button class=" custom-icon-button"  >
         <mat-icon>home</mat-icon>
       </button> -->
-      <button class=" custom-icon-button"  >
+      <button *ngIf="checkIfItIsCurrentUserPost()" class=" custom-icon-button" (click)="showEditPost = true" >
         <!-- <mat-icon>more_vert</mat-icon> -->
         <img src="../../assets/img/morevert.png" alt="">
       </button>
+      <div *ngIf="showEditPost">
+        <div class="editPost" (click)="editPost(post)">Nachricht bearbeiten</div>
+      </div>
 </div>
 
     <div class="profile-pic"><img src="{{author['img']}}"></div>

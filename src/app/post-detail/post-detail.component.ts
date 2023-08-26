@@ -15,6 +15,7 @@ import { DialogProfileComponent } from '../dialog-profile/dialog-profile.compone
 })
 export class PostDetailComponent implements OnInit {
   @Input() post;
+  showEditPost: boolean = false; // show the div "edit Post"
   // @Input() timestamps;
   @Input() trueFalse:boolean;
   author;
@@ -102,4 +103,11 @@ if(this.post['author'] === localStorage.getItem('currentUserID')) {
       
   }
 
+
+  checkIfItIsCurrentUserPost(){
+    return this.post['author'] === localStorage.getItem('currentUserID'); 
+  
 }
+
+}
+
