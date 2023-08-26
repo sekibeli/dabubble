@@ -207,7 +207,9 @@ separateUsersAndChannels(jsonArray) {
       // let channelID = this.currentChannel;
       let description = this.message.value.description;
       this.postService.savePost(this.currentUser, this.chosenItem['id'], description);
-      this.route.navigateByUrl("/home/channel/this.chosenItem['id]")
+      // this.channelService.pushActiveChannel(this.chosenItem);
+      const url = "/home/channel/" + this.chosenItem['id'];
+      this.route.navigateByUrl(url);
       // this.message.reset();
     }
    }

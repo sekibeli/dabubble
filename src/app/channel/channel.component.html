@@ -1,9 +1,9 @@
 <div
   class="profile-overview"
- 
+  (click)="onProfileClick($event)"
   [routerLink]="['/home', 'channel', this.channel['id']]"
   routerLinkActive="active"
-  (click)="onProfileClick($event)"
+ 
 >
   # {{ this.channel["title"] }}
 </div>
