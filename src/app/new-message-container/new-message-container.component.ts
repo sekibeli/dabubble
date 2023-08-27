@@ -67,12 +67,21 @@ ngOnInit() {
   // console.log(this.result.channels);
 }
 
-  searchMember($event) {
-    this.search = true;
-    let q = $event.target.value;
-    this.startAt.next(q);
-    this.endAt.next(q + "\uf8ff")
-  }
+searchMember($event) {
+  this.search = true;
+  let q = $event.target.value;
+
+  if (q.startsWith('#')) {
+    q = q.substring(1);
+    console.log('beginnt mit #', q);
+    this.searchInUserCollection(q);
+  } else if (q.startsWith('@')){
+    q = q.substring(1);
+    this.searchInChannelsCollection(q)
+  } else
+  this.startAt.next(q);
+  this.endAt.next(q + "\uf8ff");
+}
 
   // addNewMember() { }
 
@@ -91,6 +100,33 @@ ngOnInit() {
    
 
   // }
+
+  async searchInUserCollection(q) {
+    // Suche in der 'users' Collection
+    const usersCollRef = collection(this.firestore, 'users');
+    const usersQueryRef = query(usersCollRef, orderBy('username'), limit(10), startAt(q), endAt(q + "\uf8ff"));  //  orderBy('username'),
+    const usersDocRef = await getDocs(usersQueryRef);
+
+    const users = usersDocRef.docs.map(doc => doc.data());
+  // Setzen Sie 'this.users' und 'this.result' entsprechend
+  this.users = users;
+  this.result = { users, channels: [] };
+
+  }
+
+  async searchInChannelsCollection(q){
+    const channelsCollRef = collection(this.firestore, 'channels');
+    const channelsQueryRef = query(channelsCollRef, orderBy('title'), limit(10), startAt(q), endAt(q + "\uf8ff")); //  orderBy('title'),
+    const channelsDocRef = await getDocs(channelsQueryRef);
+
+    const channels = channelsDocRef.docs.map(doc => {
+      const channelData = doc.data() as DocumentData;
+      return { id: doc.id, ...channelData };
+    });
+  
+    this.users = channels;
+  this.result = { users: [], channels };
+  }
 
   async searchInFirestore(start, end) {
     // Suche in der 'users' Collection
@@ -210,6 +246,7 @@ separateUsersAndChannels(jsonArray) {
       // this.channelService.pushActiveChannel(this.chosenItem);
       const url = "/home/channel/" + this.chosenItem['id'];
       this.route.navigateByUrl(url);
+      this.channelService.pushActiveChannel(this.chosenItem);
       // this.message.reset();
     }
    }

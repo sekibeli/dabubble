@@ -5,6 +5,7 @@ import { BehaviorSubject, Subject, first, forkJoin, merge, mergeAll, takeUntil }
 import { User } from '../models/user.class';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogAddMemberComponent } from '../dialog-add-member/dialog-add-member.component';
+import { Channel } from '../models/channel.class';
 
 @Injectable({
    providedIn: 'root'
@@ -16,6 +17,7 @@ export class ChannelService implements OnInit, OnDestroy {
    private destroy$: Subject<void> = new Subject<void>();
    firestore: Firestore = inject(Firestore)
    channelUser: BehaviorSubject<any[]> = new BehaviorSubject<any[]>(null);
+   serviceChannel: BehaviorSubject<any> = new BehaviorSubject<any>(null); //BehaviorSubject mit dem aktuellen Channel
    channelUserIDArray;
    membersUserIDArray: any[];
    // channelUserArrayEmitter = new EventEmitter<any>();
@@ -30,6 +32,7 @@ export class ChannelService implements OnInit, OnDestroy {
    activeChannelTitle = new EventEmitter<string>();
    activeChannelID = new EventEmitter<string>();
    activeChannel = new EventEmitter<any>();
+   serviceChannelEmitter = new EventEmitter<any>();
    constructor(private userService: UserService, public dialog: MatDialog) {
     
       // console.log('obsi:', this.currentChannelUserArray$);
@@ -64,7 +67,8 @@ export class ChannelService implements OnInit, OnDestroy {
       this.channel = channel;
            this.currentChannelTitle = channel['title'];
          this.activeChannel.emit(channel);
-    
+         // this.serviceChannelEmitter.emit(this.serviceChannel)
+    this.serviceChannel.next(channel);
 console.log('Daten von folgendem Channel:', channel['title']);
       this.getMembersOfChannelNEW(channel['id']).then(members => {
          this.membersUserIDArray = members;
@@ -291,4 +295,5 @@ this.pushMembersArrayInChannel(membersArray, newChannelID );
     }
    } 
 
+   
 }

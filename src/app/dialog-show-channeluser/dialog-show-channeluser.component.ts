@@ -16,6 +16,7 @@ export class DialogShowChanneluserComponent implements OnInit, OnDestroy {
  activeTitle;
  unsub;
  channel;
+ serviceChannel;
 constructor( public dialogRef: MatDialogRef<DialogShowChanneluserComponent> , public channelService: ChannelService, public dialog: MatDialog, private drawerService: DrawerService, @Inject(MAT_DIALOG_DATA) public data: any){
 
   
@@ -31,7 +32,8 @@ constructor( public dialogRef: MatDialogRef<DialogShowChanneluserComponent> , pu
 }
 
 ngOnInit(){
-
+console.log('test1', this.data.serviceChannel);
+console.log('test2', this.serviceChannel);
 }
 
 openAddMember(){

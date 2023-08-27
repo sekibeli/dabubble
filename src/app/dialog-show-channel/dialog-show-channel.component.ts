@@ -1,17 +1,19 @@
-import { ChangeDetectorRef, Component, Inject } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnDestroy } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogConfig, MatDialogRef,} from '@angular/material/dialog';
 import { UserService } from '../services/user.service';
 import { DrawerService } from '../services/drawer.service';
 
 import { ChannelService } from '../services/channel.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dialog-show-channel',
   templateUrl: './dialog-show-channel.component.html',
   styleUrls: ['./dialog-show-channel.component.scss']
 })
-export class DialogShowChannelComponent {
+export class DialogShowChannelComponent implements OnDestroy{
   // channel;
+  unsubscribe;
   editDescription = false;
   editTitle = false;
   originalChannel;
@@ -21,7 +23,7 @@ export class DialogShowChannelComponent {
   members;
   userIsMember;
 
-  constructor( @Inject(MAT_DIALOG_DATA) public data: any, private channelService: ChannelService, public dialogRef: MatDialogRef<DialogShowChannelComponent>, private userService: UserService, private dialog: MatDialog, private drawerService: DrawerService, private cd: ChangeDetectorRef){
+  constructor( @Inject(MAT_DIALOG_DATA) public data: any, private channelService: ChannelService, public dialogRef: MatDialogRef<DialogShowChannelComponent>, private userService: UserService, private dialog: MatDialog, private drawerService: DrawerService, private cd: ChangeDetectorRef, private route:Router){
     // console.log(data);
     this.originalChannel = JSON.parse(JSON.stringify(this.data.currentChannelData));
    this.currentChannel = data.currentChannelData;
@@ -30,7 +32,7 @@ export class DialogShowChannelComponent {
    
     this.members = data.members;
     dialogRef.updateSize('100%');
-    this.userService.getCurrentUser(data.currentChannelData['createdBy']).subscribe((value)=>{
+this.unsubscribe = this.userService.getCurrentUser(data.currentChannelData['createdBy']).subscribe((value)=>{
       // console.log(value);
       this.createdBy = value['username'];
       // console.log(this.createdBy);
@@ -38,8 +40,20 @@ export class DialogShowChannelComponent {
     this.exitOrJoin(data.currentChannelData);
   }
 
+  ngOnDestroy(): void {
+    this.unsubscribe.unsubscribe();
+  }
   exitChannel(){
     this.channelService.deleteMemberFromChannel(this.currentChannel['id'], localStorage.getItem('currentUserID'));
+    const unsub = this.channelService.getChannelsWhereCurrentUserIsMember(localStorage.getItem('currentUserID')).subscribe((value)=>{
+      console.log(value);
+      setTimeout(() => {
+        console.log('auf zu:', value[0]);
+        this.channelService.pushActiveChannel(value[0]);
+        this.route.navigateByUrl('/home/channel/'+ value[0]['id'])
+      }, 100);
+      
+    });
     this.dialogRef.close();
     
   }

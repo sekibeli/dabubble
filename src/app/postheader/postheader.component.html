@@ -1,14 +1,14 @@
-<div class="postheader">
+<div class="postheader" *ngIf="(this.channelService.serviceChannel| async) as currentChannelData">
   <div class="postingheader">
-    <div class="leftSide" (click)="openShowChannelInformation()">
+    <div class="leftSide" (click)="openShowChannelInformation(currentChannelData)">
      
-      <div class="topic" *ngIf="currentChannelData">
+      <div class="topic" *ngIf="(this.channelService.serviceChannel| async) as currentChannelData">
         # {{ currentChannelData['title'] }}
       </div>
       <div><mat-icon> keyboard_arrow_down </mat-icon></div>
     </div>
    
-      <div class="miniProfilePicsRow" *ngIf="currentChannelData">
+      <div class="miniProfilePicsRow" *ngIf="(this.channelService.serviceChannel| async) as currentChannelData">
         <div *ngIf="!isSmallScreen" class="user"  (click)="openShowMembersDialog(currentChannelData['title'])">
           
           <ng-container *ngFor="let member of members | slice: 0:3">

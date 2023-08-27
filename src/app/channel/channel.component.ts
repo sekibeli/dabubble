@@ -26,9 +26,11 @@ currentChannel(channel){
 }
 
 onProfileClick(event: Event) {
+  console.log('event:', event);
   this.drawerService.close();
 // console.log(this.channel);
-  this.currentChannel(this.channel);
+  // this.currentChannel(this.channel);
+  this.channelService.pushActiveChannel(this.channel);
   this.setMode(false);
 
   if (window.innerWidth < 600) {

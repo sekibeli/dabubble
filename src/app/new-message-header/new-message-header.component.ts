@@ -17,62 +17,72 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class NewMessageHeaderComponent implements OnInit {
 
   firestore: Firestore = inject(Firestore);
-searchterm: string;
-startAt = new Subject();
-endAt = new Subject();
-startobs = this.startAt.asObservable();
-endobs = this.endAt.asObservable();
-notChosen = true;
-chosenUser;
-search = false;
-users;
-result;
-isSmallScreen;
+  searchterm: string;
+  startAt = new Subject();
+  endAt = new Subject();
+  startobs = this.startAt.asObservable();
+  endobs = this.endAt.asObservable();
+  notChosen = true;
+  chosenUser;
+  search = false;
+  users;
+  result;
+  isSmallScreen;
 
-channelID;
-authorID;
+  channelID;
+  authorID;
 
-message: FormGroup = new FormGroup({
-  description: new FormControl('', [Validators.required, Validators.minLength(2)]),
-})
-
-
-constructor(public dialog: MatDialog, private drawerService: DrawerService, private channelService: ChannelService){}
-ngOnInit() {
-  console.log('für mobil:', this.isSmallScreen);
-  // combineLatest([this.startobs, this.endobs]).subscribe((value)=> {
-  //   this.searchUserInFirestore(value[0], value[1]).then((user)=>{
-  //     this.users = user.docs.map(doc => doc.data());
-  //   })
-  //   console.log(this.users);
-  // })
-  combineLatest([this.startobs, this.endobs]).subscribe((value)=> {
-    this.searchInFirestore(value[0], value[1]).then((items)=>{
-      this.users = items;
-      console.log(items);
-      this.result = this.separateUsersAndChannels(items);
-      console.log('USER',this.result.users);
-      console.log('CHANNEL',this.result.channels, this.result.channels.length);
-    })
-    .catch(error => {
-      console.error("Error fetching data: ", error);
-    });
+  message: FormGroup = new FormGroup({
+    description: new FormControl('', [Validators.required, Validators.minLength(2)]),
   })
-  
-  // console.log(this.result.users);   
-  // console.log(this.result.channels);
-}
+
+
+  constructor(public dialog: MatDialog, private drawerService: DrawerService, private channelService: ChannelService) { }
+  ngOnInit() {
+    console.log('für mobil:', this.isSmallScreen);
+    // combineLatest([this.startobs, this.endobs]).subscribe((value)=> {
+    //   this.searchUserInFirestore(value[0], value[1]).then((user)=>{
+    //     this.users = user.docs.map(doc => doc.data());
+    //   })
+    //   console.log(this.users);
+    // })
+    combineLatest([this.startobs, this.endobs]).subscribe((value) => {
+      this.searchInFirestore(value[0], value[1]).then((items) => {
+        this.users = items;
+        console.log(items);
+        this.result = this.separateUsersAndChannels(items);
+        console.log('USER', this.result.users);
+        console.log('CHANNEL', this.result.channels, this.result.channels.length);
+      })
+        .catch(error => {
+          console.error("Error fetching data: ", error);
+        });
+    })
+
+    // console.log(this.result.users);   
+    // console.log(this.result.channels);
+  }
 
   searchMember($event) {
     this.search = true;
     let q = $event.target.value;
+
+    if (q.startsWith('#')) {
+      console.log('beginnt mit #', q);
+      q = q.substring(1);
+      console.log('beginnt mit #', q);
+      this.searchInUserCollection(q);
+    } else if (q.startsWith('@')){
+      q = q.substring(1);
+      this.searchInChannelsCollection(q)
+    } else
     this.startAt.next(q);
-    this.endAt.next(q + "\uf8ff")
+    this.endAt.next(q + "\uf8ff");
   }
 
   // addNewMember() { }
 
-  chooseNewMember(user:User){
+  chooseNewMember(user: User) {
     this.chosenUser = user;
     console.log(user);
     this.notChosen = false;
@@ -84,59 +94,73 @@ ngOnInit() {
   //   const queryRef = query(collRef, orderBy('username'), limit(10), startAt(start), endAt(end));
   //   const docRef = getDocs(queryRef);
   //   return docRef;
-   
+
 
   // }
+  async searchInUserCollection(q) {
+    // Suche in der 'users' Collection
+    const usersCollRef = collection(this.firestore, 'users');
+    const usersQueryRef = query(usersCollRef, orderBy('username'), limit(10), startAt(q), endAt(q + "\uf8ff"));  //  orderBy('username'),
+    const usersDocRef = await getDocs(usersQueryRef);
+
+  }
+
+  async searchInChannelsCollection(q){
+    const channelsCollRef = collection(this.firestore, 'channels');
+    const channelsQueryRef = query(channelsCollRef, orderBy('title'), limit(10), startAt(q), endAt(q + "\uf8ff")); //  orderBy('title'),
+    const channelsDocRef = await getDocs(channelsQueryRef);
+  
+  }
 
   async searchInFirestore(start, end) {
     // Suche in der 'users' Collection
     const usersCollRef = collection(this.firestore, 'users');
-    const usersQueryRef = query(usersCollRef, orderBy('username'),limit(10), startAt(start), endAt(end));  //  orderBy('username'),
-     const usersDocRef = await getDocs(usersQueryRef);
-    
+    const usersQueryRef = query(usersCollRef, orderBy('username'), limit(10), startAt(start), endAt(end));  //  orderBy('username'),
+    const usersDocRef = await getDocs(usersQueryRef);
+
     // Suche in der 'channels' Collection
     const channelsCollRef = collection(this.firestore, 'channels');
     const channelsQueryRef = query(channelsCollRef, orderBy('title'), limit(10), startAt(start), endAt(end)); //  orderBy('title'),
     const channelsDocRef = await getDocs(channelsQueryRef);
-    
-  
+
+
     // Kombiniere die Ergebnisse der beiden Queries
     const combinedResults = [];
     usersDocRef.forEach(doc => {
       combinedResults.push(doc.data());
     });
-    
+
     channelsDocRef.forEach(doc => {
       // combinedResults.push(doc.data());
       const channelData = doc.data() as DocumentData;
       const channelWithId = { id: doc.id, ...channelData }; // Hier fügen Sie die ID zum Dokument hinzu
       combinedResults.push(channelWithId);
     });
-  
+
     return combinedResults;
   }
 
-separateUsersAndChannels(jsonArray) {
-  console.log(jsonArray);
+  separateUsersAndChannels(jsonArray) {
+    console.log(jsonArray);
     // Filtert die JSON-Objekte, die ein 'username'-Feld haben, und schiebt sie in das 'users'-Array
     const users = jsonArray.filter((jsonObject) => 'username' in jsonObject);
-  
+
     // Filtert die JSON-Objekte, die ein 'title'-Feld haben, und schiebt sie in das 'channels'-Array
     const channels = jsonArray.filter((jsonObject) => 'title' in jsonObject);
-  
+
     // Gibt ein Objekt zurück, das die beiden separaten Arrays enthält
     return { users, channels };
   }
-  
 
-  openProfile(user){
+
+  openProfile(user) {
     const dialogConfig = new MatDialogConfig();
     if (this.drawerService.isSmallScreen) {
 
       // dialogConfig.width = '95vw';
       dialogConfig.maxWidth = '100vw';
       dialogConfig.maxHeight = '90vh';
-      
+
 
     }
 
@@ -145,8 +169,8 @@ separateUsersAndChannels(jsonArray) {
     dialogRef.componentInstance.user = user;
   }
 
-  showChannel(channel){
-   
+  showChannel(channel) {
+
     this.openShowChannelInformation(channel)
   }
 
@@ -162,12 +186,12 @@ separateUsersAndChannels(jsonArray) {
       dialogConfig.width = '100vw';
       dialogConfig.maxWidth = '100vw';
       dialogConfig.height = '100vh';
-      
+
 
     }
     // console.log('small:', this.isSmallScreen);
     dialogConfig.data = {
-      currentChannelData: channel, 
+      currentChannelData: channel,
       isSmallScreen: this.drawerService.isSmallScreen,
 
       // members: this.members
@@ -176,30 +200,30 @@ separateUsersAndChannels(jsonArray) {
 
   }
 
-  chooseUser(user){
+  chooseUser(user) {
     this.searchterm = user['username'];
-  this.search = false;
+    this.search = false;
   }
 
-  chooseChannel(channel){
+  chooseChannel(channel) {
     console.log(channel);
-    if(channel['members'].includes(localStorage.getItem('currentUserID'))){
+    if (channel['members'].includes(localStorage.getItem('currentUserID'))) {
       this.searchterm = channel['title'];
       this.search = false;
     } else {
       console.log('ERst Channel beitreten');
       this.openShowChannelInformation(channel);
     }
-   
-   }
 
-   sendMessage(channelID, authorID, message){}
+  }
 
-  
- 
-  
- 
- }
+  sendMessage(channelID, authorID, message) { }
+
+
+
+
+
+}
 
 
 

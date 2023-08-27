@@ -3,7 +3,7 @@
     <app-chat-no-message *ngIf="(currentChatLength == 0) && directMessage "></app-chat-no-message>
 <form class="chatInput input-container" [formGroup]="chatMessage">
 <div class="relative">
-<textarea *ngIf="!singlePost && channelMessage && channelTitle | async" formControlName="description" id="message" name="meineTextarea"  rows="4" placeholder="Nachricht an #{{ channelTitle.getValue() }} schreiben ..."></textarea>
+<textarea *ngIf="!singlePost && channelMessage && (this.channelService.serviceChannel | async) as currentChannel" formControlName="description" id="message" name="meineTextarea"  rows="4" placeholder="Nachricht an #{{ currentChannel['title'] }} schreiben ..."></textarea>
 <textarea *ngIf="singlePost " formControlName="description" id="message" name="meineTextarea"  rows="4" placeholder="Antworten ..."></textarea>
 <!-- <textarea *ngIf="directMessage && (user | async) as currentUser " formControlName="description" id="message" name="meineTextarea"  rows="4" placeholder="Direktnachricht an {{currentUser['username']}}  "></textarea> -->
 

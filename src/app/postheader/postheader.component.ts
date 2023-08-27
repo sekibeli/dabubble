@@ -17,7 +17,7 @@ import { User } from '../models/user.class';
   styleUrls: ['./postheader.component.scss']
 })
 export class PostheaderComponent implements OnInit, OnDestroy {
-  // @Input() channel;
+ 
   unsub;
   firestore: Firestore = inject(Firestore);
   isSmallScreen;
@@ -27,11 +27,11 @@ export class PostheaderComponent implements OnInit, OnDestroy {
   currentChannel: BehaviorSubject<any> = new BehaviorSubject<any>(null); //
   // currentChannelID: string;
   currentChannelData: any; // Inhalt von currentChannel
-  
-  constructor(public channelService: ChannelService, public userService: UserService, public dialog: MatDialog) {
+  // activeCurrentChannel
+  constructor(public channelService: ChannelService, public userService: UserService, public dialog: MatDialog, private cdr: ChangeDetectorRef) {
    this.checkScreenSize();
 // this.currentChannelData = this.channel;
-// console.log(this.channel);
+// console.log('Von aussen hereingegeben:',this.channel);
   
 
   }
@@ -46,15 +46,17 @@ export class PostheaderComponent implements OnInit, OnDestroy {
 
     });
 
-    this.unsub =  this.channelService.currentChannelUserArraySubject.subscribe(members => {
+  
+   
+    this.unsub = this.channelService.currentChannelUserArraySubject.subscribe(members => {
       this.members = members;
       console.log('members:', this.members);
        this.countsOfMembers = members.length;
       
     });
  
-    console.log(this.currentChannel);
-
+    console.log('Postheader ngOnInit currentChannel:', this.currentChannel);
+    this.cdr.detectChanges();
   }
 
   openAddMemberDialog(activeChannelTitle: string) {
@@ -80,10 +82,12 @@ export class PostheaderComponent implements OnInit, OnDestroy {
     };
     dialogConfig.data = { 
       channelTitle: activeChannelTitle,
-    channel: this.currentChannelData };
+    channel: this.currentChannelData,
+  serviceChannel: this.channelService.serviceChannel };
     const dialogRef =  this.dialog.open(DialogShowChanneluserComponent, dialogConfig);
     // dialogRef.componentInstance.channelTitle = this.currentChannelData['title'];
     dialogRef.componentInstance.channel = this.currentChannelData;
+    dialogRef.componentInstance.serviceChannel = this.channelService.serviceChannel;
   }
 
   @HostListener('window:resize', ['$event'])
@@ -98,8 +102,8 @@ export class PostheaderComponent implements OnInit, OnDestroy {
       this.isSmallScreen = false;
     }
   }
-  openShowChannelInformation() {
-    // this.changeDetect.detectChanges();
+  openShowChannelInformation(channel) {
+   
     this.checkScreenSize();
     const dialogConfig = new MatDialogConfig();
     if (this.isSmallScreen) {
@@ -111,8 +115,9 @@ export class PostheaderComponent implements OnInit, OnDestroy {
 
     }
     console.log('small:', this.isSmallScreen);
+    
     dialogConfig.data = {
-      currentChannelData: this.currentChannelData, 
+      currentChannelData: channel, 
       isSmallScreen: this.isSmallScreen,
       // members: this.members
     

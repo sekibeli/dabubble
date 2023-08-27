@@ -55,6 +55,7 @@ ngOnInit() {
 }
 
   searchMember($event) {
+    console.log($event);
     this.search = true;
     let q = $event.target.value;
     this.startAt.next(q);
@@ -71,6 +72,7 @@ ngOnInit() {
   }
 
   searchUserInFirestore(start, end) {
+   
     const collRef = collection(this.firestore, 'users');
     const queryRef = query(collRef, orderBy('username'), limit(10), startAt(start), endAt(end));
     const docRef = getDocs(queryRef);

@@ -53,7 +53,7 @@ public channelTitle;
     // let channelID = this.channelService.currentChannelID;
     // console.log('Wichtig:', this.data);
     this.channelService.addMemberToChannel(this.data.channel['id'], this.chosenUser['id']);
-
+console.log(this.data.channel['id'], this.chosenUser['id']);
    this.dialogRef.close();
 
   }

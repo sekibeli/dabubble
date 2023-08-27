@@ -30,7 +30,7 @@ export class InputPostComponent implements OnInit {
     description: new FormControl('', [Validators.required, Validators.minLength(2)]),
   })
 
-  constructor(public postService: PostService, public activatedRoute: ActivatedRoute, private channelService: ChannelService) {
+  constructor(public postService: PostService, public activatedRoute: ActivatedRoute, public channelService: ChannelService) {
     const currentChatPartner = JSON.parse(localStorage.getItem('currentChatUser'))
     this.user.next(currentChatPartner);
     this.currentChatLength = (Number(localStorage.getItem('currentChatLength')));
