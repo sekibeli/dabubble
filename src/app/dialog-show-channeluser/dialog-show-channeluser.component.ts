@@ -4,6 +4,8 @@ import { ChannelService } from '../services/channel.service';
 import { DialogAddMemberComponent } from '../dialog-add-member/dialog-add-member.component';
 import { DialogProfileComponent } from '../dialog-profile/dialog-profile.component';
 import { DrawerService } from '../services/drawer.service';
+import { User } from '../models/user.class';
+import { Channel } from '../models/channel.class';
 
 
 @Component({
@@ -13,10 +15,10 @@ import { DrawerService } from '../services/drawer.service';
 })
 export class DialogShowChanneluserComponent implements OnInit, OnDestroy {
  members;
- activeTitle;
+ activeTitle!: string;
  unsub;
- channel;
- serviceChannel;
+ channel!:Channel;
+ serviceChannel!:Channel;
 constructor( public dialogRef: MatDialogRef<DialogShowChanneluserComponent> , public channelService: ChannelService, public dialog: MatDialog, private drawerService: DrawerService, @Inject(MAT_DIALOG_DATA) public data: any){
 
   
@@ -33,7 +35,7 @@ constructor( public dialogRef: MatDialogRef<DialogShowChanneluserComponent> , pu
 
 ngOnInit(){
 console.log('test1', this.data.serviceChannel);
-console.log('test2', this.serviceChannel);
+// console.log('test2', this.serviceChannel);
 }
 
 openAddMember(){
@@ -56,7 +58,7 @@ channel: this.data.channel }
  
 }
 
-openProfile(user){
+openProfile(user:User){
   const dialogConfig = new MatDialogConfig();
   // this.dialog.open(DialogProfileComponent, user)
 

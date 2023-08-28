@@ -39,6 +39,7 @@ export class ChooseAvatarComponent implements OnInit {
   avatars = ['1.svg', '2.svg', '3.svg', '4.svg', '5.svg', '6.svg'];
 
 
+
   constructor(private userService: UserService, private route: Router, private fileUploadService: FileUploadService) {
     this.newUserID = localStorage.getItem('currentUserID');
 
@@ -66,8 +67,12 @@ export class ChooseAvatarComponent implements OnInit {
     this.avatarpic = false;
     const file: File = event.target.files[0]; // ausgewählte Datei wird gespeichert in Variable file
     let fileType = file.type;
-   
-    if (fileType.match(/image\/png/)) {
+    let fileSize = file.size;
+    if (fileSize > 500 * 1024) {
+      window.alert('Die Datei ist zu groß. Bitte senden Sie eine Datei, die kleiner als 500KB ist.');
+      return; // Frühes Beenden der Funktion, wenn die Datei zu groß ist
+    }
+    if (fileType.match(/image\/(png|jpeg|jpg)/)) {
       let reader = new FileReader();
       reader.readAsDataURL(file);
     
@@ -75,21 +80,10 @@ export class ChooseAvatarComponent implements OnInit {
         this.url = event.target.result;
         console.log('nach dem Lesen:', this.url); // this.url ist ein Bild im Base64 Format
         this.setNewPic(this.url);
-        // let image =  new Image();
-        // image.src = this.url;
        
-      
-        // this.fileUploadService.postFile(file).subscribe((response: any)=> {
-        //   // URL speichern
-        //   // console.log('response:', response);
-        //   // console.log('url', response.imageUrl);
-        //   this.saveNewPic(response.imageUrl);
-        // }, error => {
-        //   console.log('Fehler: ', error);
-        // })
       };
     } else {
-      window.alert('Bitte nur png senden');
+      window.alert('Bitte nur png, jpg oder jpeg senden');
     }
   }
 

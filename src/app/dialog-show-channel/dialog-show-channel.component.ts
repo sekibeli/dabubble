@@ -5,6 +5,7 @@ import { DrawerService } from '../services/drawer.service';
 
 import { ChannelService } from '../services/channel.service';
 import { Router } from '@angular/router';
+import { Channel } from '../models/channel.class';
 
 @Component({
   selector: 'app-dialog-show-channel',
@@ -18,10 +19,10 @@ export class DialogShowChannelComponent implements OnDestroy{
   editTitle = false;
   originalChannel;
   currentChannel;
-  createdBy;
+  createdBy!: string;
   isSmallScreen;
   members;
-  userIsMember;
+  userIsMember!: boolean;
 
   constructor( @Inject(MAT_DIALOG_DATA) public data: any, private channelService: ChannelService, public dialogRef: MatDialogRef<DialogShowChannelComponent>, private userService: UserService, private dialog: MatDialog, private drawerService: DrawerService, private cd: ChangeDetectorRef, private route:Router){
     // console.log(data);
@@ -96,7 +97,7 @@ adjustHeight(event: any): void {
    this.editTitle = false;
    
   }
-  exitOrJoin(channel){
+  exitOrJoin(channel: Channel){
     this.channelService.checkIfUserIsAlreadyMemberOfChannel(channel['id'], localStorage.getItem('currentUserID')).then(check => {
       // console.log('checkk:', check);
       this.userIsMember = check;

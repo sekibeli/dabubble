@@ -7,7 +7,7 @@
     </div>
   </div>
 
-  <div class="profilePic">
+  <div class="profilePic"(click)="isCurrentUser ? openChooseAvatar(user): null">
     <img class="profileImg" src="{{ user['img'] }}" alt="" />
   </div>
   <div class="space-between">

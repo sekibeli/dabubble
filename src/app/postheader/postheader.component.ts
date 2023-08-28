@@ -87,7 +87,7 @@ export class PostheaderComponent implements OnInit, OnDestroy {
     const dialogRef =  this.dialog.open(DialogShowChanneluserComponent, dialogConfig);
     // dialogRef.componentInstance.channelTitle = this.currentChannelData['title'];
     dialogRef.componentInstance.channel = this.currentChannelData;
-    dialogRef.componentInstance.serviceChannel = this.channelService.serviceChannel;
+    // dialogRef.componentInstance.serviceChannel = this.channelService.serviceChannel; //----> musste ich auskommentieren im nicht strict code.
   }
 
   @HostListener('window:resize', ['$event'])

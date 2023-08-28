@@ -64,6 +64,7 @@ import { DialogAddMemberToNewChannelComponent } from './dialog-add-member-to-new
 import {MAT_RADIO_DEFAULT_OPTIONS, MatRadioModule} from '@angular/material/radio';
 import { NewMessageHeaderComponent } from './new-message-header/new-message-header.component';
 import { NewMessageContainerComponent } from './new-message-container/new-message-container.component';
+import { DialogEditImageComponent } from './dialog-edit-image/dialog-edit-image.component';
 
 
 
@@ -123,7 +124,8 @@ import { NewMessageContainerComponent } from './new-message-container/new-messag
    
     
        NewMessageHeaderComponent,
-       NewMessageContainerComponent
+       NewMessageContainerComponent,
+       DialogEditImageComponent
    
 
    

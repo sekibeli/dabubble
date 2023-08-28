@@ -1,0 +1,146 @@
+.avatar-container {
+    display: flex;
+    flex-direction: column;
+
+    text-align: center;
+    padding: 16px;
+    max-width: 400px;
+    background-color: white;
+    border-radius: 20px;
+    margin: 10px;
+    animation: fadeIn ease 1s;
+
+}
+
+// .legals {
+//     margin: 30px 10px;
+//     cursor: pointer;
+//     color: #797EF3;
+//     display: flex;
+//     justify-content: space-around;
+
+//     &:hover {
+//         color: #565cf5;
+//     }
+// }
+.dialogHeader {
+    display: flex;
+    justify-content: space-between;
+
+}
+.allProfilePics {
+    margin: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    
+
+    img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+    }
+
+}
+
+.newUser {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+.ownPic {
+    display: flex;
+    align-items: center;
+}
+
+.avatarSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: first baseline;
+}
+
+.small {
+    font-size: 0.8em;
+}
+
+.custom-icon-button {
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    padding: 5px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.custom-icon-button:hover {
+    background-color: rgba(164, 171, 249, 0.1);
+    /* This gives a light gray background when hovered */
+}
+
+.button-section {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.darkButton {
+    border: none;
+    color: white;
+    background-color: #444DF2;
+
+    &:hover {
+        filter: brightness(1.5)
+    }
+}
+
+label {
+    margin-left: 15px;
+    color: #444DF2;
+    background-color: white;
+    border: 1px solid #444DF2;
+    padding: 5px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #444DF2;
+        color: white;
+
+    }
+}
+
+.flyingMessage {
+    z-index: 50;
+  position: absolute;
+  bottom: 100px;
+
+  right: 10%;
+   
+    
+    border-radius: 30px 30px 0px 30px;
+background:  #444DF2;
+padding: 50px;
+color: white;
+
+box-shadow: 0px 6px 10px 0px rgba(0, 0, 0, 0.20);
+
+
+}
+
+
+@media (max-width: 1050px) {
+    .container {
+        padding-top: 10px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .login-container {
+        p {
+            margin: 8px;
+            line-height: 1em;
+        }
+    }
+}

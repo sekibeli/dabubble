@@ -34,6 +34,7 @@
             <mat-icon matIconPrefix>lock</mat-icon>
             <mat-icon (click)="hide = !hide" matSuffix>{{hide ? 'visibility_off' : 'visibility' }}</mat-icon>
             <mat-error *ngIf="signUpForm.controls['password'].hasError('required')">Bitte Passwort eingeben</mat-error>
+            <mat-error *ngIf="signUpForm.controls['password'].hasError('minlength')">Mindestlänge 6 Zeichen</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="fullWidth">
