@@ -182,6 +182,7 @@
     }
 }
 .editbox {
+    position: relative;
     background-color: var(--background-color);
    width: 95%;
 
@@ -213,6 +214,22 @@ border: none;
 
 .d-none{
     display: none !important;
+}
+
+.button-section {
+    justify-content: flex-end;
+    display: flex;
+}
+
+.inputOptions {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+}
+.emojiPickerPostDetail {
+    position: absolute;
+    top: -460px;
+    left: 10px;
 }
 @media (max-width: 700px) {
     .profile-pic {

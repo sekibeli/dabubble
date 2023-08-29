@@ -6,14 +6,14 @@
 <div *ngIf="author"   class="singlePost" [ngClass]="{'background-blue': showEditForm}">
 <div class="reaction" [ngClass]="{'d-none': !showPost}">
    
-    <button class=" custom-icon-button"  >
-        <!-- <mat-icon>check_circle</mat-icon> -->
+    <!-- <button class=" custom-icon-button"  >
+       
         <img src="../../assets/img/checkok.svg" alt="">
     </button>
     <button class=" custom-icon-button"  >
-        <!-- <mat-icon>home</mat-icon> -->
+      
         <img src="../../assets/img/clap.svg" alt="">
-      </button>
+      </button> -->
       <button class=" custom-icon-button"  >
         <!-- <mat-icon>home</mat-icon> -->
         <img src="../../assets/img/add_reaction.svg" alt="">
@@ -51,6 +51,17 @@
         <button   (click)="updatePost()" [disabled]="" class="darkButton">Speichern</button>
 
 </div>
+      </div>
+      <div class="inputOptions">  <div class="emoji"  (click)="showEmojiPicker = !showEmojiPicker">
+        😀
+      </div></div>
+      <div class="emojiPickerPostDetail">
+        <emoji-mart
+          class="emoji-mart"
+          *ngIf="showEmojiPicker"
+          (emojiSelect)="addEmoji($event)"
+          title="Choose your emoji"
+        ></emoji-mart>
       </div>
     </div>
    

@@ -151,9 +151,14 @@ toggleEmojiPicker() {
 
 addEmoji(event) {
   const text = `${event.emoji.native}`;
+  const currentText = this.post['description'];
+  console.log(currentText);
+  const newText = currentText + text;
 
-this.showEmojiPicker = false;
-  
+  this.post['description'] = newText;
+  this.showEmojiPicker = false;
+    
+ 
 }
 }
 
