@@ -7,12 +7,15 @@ import { PostService } from '../services/post.service';
 import { ActivatedRoute } from '@angular/router';
 import { ChannelService } from '../services/channel.service';
 
+
 @Component({
   selector: 'app-input-post',
   templateUrl: './input-post.component.html',
   styleUrls: ['./input-post.component.scss']
 })
 export class InputPostComponent implements OnInit {
+  showEmojiPicker = true;
+  messageContent;
   @Input() singlePost;
   chatLength: BehaviorSubject<number>;
   // @Input() user; // aus message der User an den die Message ist
@@ -67,6 +70,15 @@ export class InputPostComponent implements OnInit {
     
   }
 
+  toggleEmojiPicker() {
+    this.showEmojiPicker = !this.showEmojiPicker;
+  }
+
+  addEmoji(event) {
+    const text = `${event.emoji.native}`;
+    this.messageContent += text;
+    this.showEmojiPicker = false;
+  }
   // saveMessage(description){
   //   description = this.chatMessage.value.description;
   //   console.log('Message description:', description);

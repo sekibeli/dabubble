@@ -151,6 +151,7 @@ import { DialogEditImageComponent } from './dialog-edit-image/dialog-edit-image.
     MatExpansionModule,
     MatSnackBarModule,
     MatRadioModule,
+  
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),
