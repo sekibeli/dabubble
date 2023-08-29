@@ -1,22 +1,60 @@
 <div class="input-container">
+  <app-chat-no-message
+    *ngIf="currentChatLength == 0 && directMessage"
+  ></app-chat-no-message>
+  <form class="chatInput input-container" [formGroup]="chatMessage">
+    <div class="relative">
+        <div>
+      <emoji-mart
+        class="emoji-mart"
+        *ngIf="showEmojiPicker"
+        (emojiSelect)="addEmoji($event)"
+        title="Choose your emoji"
+      ></emoji-mart>
+    </div>
+      <textarea
+        *ngIf="
+          !singlePost &&
+          channelMessage &&
+          (this.channelService.serviceChannel | async) as currentChannel
+        "
+        formControlName="description"
+        id="message"
+        name="meineTextarea"
+        rows="4"
+        placeholder="Nachricht an #{{ currentChannel['title'] }} schreiben ..."
+      >
+      </textarea>
+
+      <textarea
+        *ngIf="singlePost"
+        formControlName="description"
+        id="message"
+        name="meineTextarea"
+        rows="4"
+        placeholder="Antworten ..."
+      ></textarea>
+      <!-- <textarea *ngIf="directMessage && (user | async) as currentUser " formControlName="description" id="message" name="meineTextarea"  rows="4" placeholder="Direktnachricht an {{currentUser['username']}}  "></textarea> -->
     
-    <app-chat-no-message *ngIf="(currentChatLength == 0) && directMessage "></app-chat-no-message>
-<form class="chatInput input-container" [formGroup]="chatMessage">
-<div class="relative">
-
-      
-<textarea *ngIf="!singlePost && channelMessage && (this.channelService.serviceChannel | async) as currentChannel" formControlName="description"  id="message" name="meineTextarea"  rows="4" placeholder="Nachricht an #{{ currentChannel['title'] }} schreiben ..."></textarea>
-<textarea *ngIf="singlePost " formControlName="description" id="message" name="meineTextarea"  rows="4" placeholder="Antworten ..."></textarea>
-<!-- <textarea *ngIf="directMessage && (user | async) as currentUser " formControlName="description" id="message" name="meineTextarea"  rows="4" placeholder="Direktnachricht an {{currentUser['username']}}  "></textarea> -->
-
-<div class="stick">
-<div *ngIf="!singlePost && channelMessage" (click)="this.savePost(this.chatMessage)"><mat-icon>send</mat-icon></div>
-<div *ngIf="singlePost"  (click)="this.savePost(this.chatMessage, this.singlePost['id'])"><mat-icon>send it</mat-icon></div>
-<!-- <div *ngIf="directMessage"  (click)="this.saveMessage(this.chatMessage)"><mat-icon>send</mat-icon></div> -->
-</div>
-</div>
-
-</form>
-<!-- </div> -->
-
+      <div class="stick">
+        <div
+          *ngIf="!singlePost && channelMessage"
+          (click)="this.savePost(this.chatMessage)"
+        >
+          <mat-icon>send</mat-icon>
+        </div>
+        <div
+          *ngIf="singlePost"
+          (click)="this.savePost(this.chatMessage, this.singlePost['id'])"
+        >
+          <mat-icon>send it</mat-icon>
+        </div>
+        <!-- <div *ngIf="directMessage"  (click)="this.saveMessage(this.chatMessage)"><mat-icon>send</mat-icon></div> -->
+      </div>
+      <div class="inputOptions"> <div class="addDevide"><mat-icon>add</mat-icon></div> <div class="emoji"  (click)="showEmojiPicker = !showEmojiPicker">
+        😀
+      </div></div>
+    </div>
+  </form>
+  <!-- </div> -->
 </div>

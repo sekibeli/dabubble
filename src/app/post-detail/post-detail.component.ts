@@ -17,6 +17,7 @@ import { ChannelService } from '../services/channel.service';
 })
 export class PostDetailComponent implements OnInit {
   @Input() post;
+  showEmojiPicker: boolean = false;
   showEditPost: boolean = false; // show the div "edit Post"
   showEditForm: boolean = false; // show the edit input field or not
   showPost: boolean = true; //shows the standard post-detail content
@@ -142,6 +143,17 @@ cancel(){
  
   
  
+}
+
+toggleEmojiPicker() {
+  this.showEmojiPicker = !this.showEmojiPicker;
+}
+
+addEmoji(event) {
+  const text = `${event.emoji.native}`;
+
+this.showEmojiPicker = false;
+  
 }
 }
 

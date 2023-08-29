@@ -40,4 +40,24 @@
     color: darkblue;
     cursor: pointer;
   }
+
+  .inputOptions {
+    display: flex;
+    position: absolute;
+    bottom: 20px;
+    left: 30px;
+    mat-icon {
+      color: grey;
+      
+    }
+    
+    cursor: pointer;
+  }
   
+  .addDevide {
+    height: 30px;
+    border-right: 1px solid rgb(168, 168, 168);
+    margin: 0px 10px;
+    padding-right: 6px;
+    cursor: pointer;
+  }

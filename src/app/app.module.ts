@@ -65,7 +65,7 @@ import {MAT_RADIO_DEFAULT_OPTIONS, MatRadioModule} from '@angular/material/radio
 import { NewMessageHeaderComponent } from './new-message-header/new-message-header.component';
 import { NewMessageContainerComponent } from './new-message-container/new-message-container.component';
 import { DialogEditImageComponent } from './dialog-edit-image/dialog-edit-image.component';
-
+import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 
 
 
@@ -151,7 +151,7 @@ import { DialogEditImageComponent } from './dialog-edit-image/dialog-edit-image.
     MatExpansionModule,
     MatSnackBarModule,
     MatRadioModule,
-  
+    PickerComponent,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),

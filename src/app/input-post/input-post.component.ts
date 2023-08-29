@@ -14,7 +14,7 @@ import { ChannelService } from '../services/channel.service';
   styleUrls: ['./input-post.component.scss']
 })
 export class InputPostComponent implements OnInit {
-  showEmojiPicker = true;
+  showEmojiPicker = false;
   messageContent;
   @Input() singlePost;
   chatLength: BehaviorSubject<number>;
@@ -76,8 +76,12 @@ export class InputPostComponent implements OnInit {
 
   addEmoji(event) {
     const text = `${event.emoji.native}`;
-    this.messageContent += text;
-    this.showEmojiPicker = false;
+  const currentText = this.chatMessage.get('description').value;
+  const newText = currentText + text;
+
+  this.chatMessage.get('description').setValue(newText);
+  this.showEmojiPicker = false;
+    
   }
   // saveMessage(description){
   //   description = this.chatMessage.value.description;
