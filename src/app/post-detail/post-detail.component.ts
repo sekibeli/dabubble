@@ -9,6 +9,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogProfileComponent } from '../dialog-profile/dialog-profile.component';
 import { Post } from '../models/post.class';
 import { ChannelService } from '../services/channel.service';
+import { SmilyService } from '../services/smily.service';
 
 @Component({
   selector: 'app-post-detail',
@@ -18,6 +19,7 @@ import { ChannelService } from '../services/channel.service';
 export class PostDetailComponent implements OnInit {
   @Input() post;
   showEmojiPicker: boolean = false;
+  showPicker: boolean = false;
   showEditPost: boolean = false; // show the div "edit Post"
   showEditForm: boolean = false; // show the edit input field or not
   showPost: boolean = true; //shows the standard post-detail content
@@ -35,7 +37,14 @@ export class PostDetailComponent implements OnInit {
   countsOfThreads;
   flip: boolean;
   originalPost: Post;
-  constructor(private userService: UserService, private drawerService: DrawerService, private threadService: ThreadService, private postService: PostService, private dialog: MatDialog, private channelService: ChannelService) {
+  reactions;
+  constructor(private userService: UserService, 
+    private drawerService: DrawerService, 
+    private threadService: ThreadService, 
+    private postService: PostService, 
+    private dialog: MatDialog, 
+    public channelService: ChannelService,
+    private smilyService: SmilyService) {
 
 
 
@@ -61,6 +70,12 @@ if(this.post['author'] === localStorage.getItem('currentUserID')) {
   //   this.countsOfThreads = value;
   //  })
 
+  this.smilyService.getAllReactions(this.currentChannel, this.post['id']).then((value)=>{
+    value.subscribe((reactions)=>{
+      console.log("reactions", reactions);
+    });
+    
+  });
   }
 
   /**
@@ -149,6 +164,10 @@ toggleEmojiPicker() {
   this.showEmojiPicker = !this.showEmojiPicker;
 }
 
+toggleReactionsPicker(){
+  this.showPicker = !this.showPicker;
+}
+
 addEmoji(event) {
   const text = `${event.emoji.native}`;
   const currentText = this.post['description'];
@@ -160,5 +179,18 @@ addEmoji(event) {
     
  
 }
+
+addReaction(event, channel){
+  // const smily = `${event.emoji.native}`;
+  console.log(event);
+  console.log(channel['id']);
+  console.log(this.post['id']);
+  console.log(localStorage.getItem("currentUserID"));
+  this.smilyService.saveReaction(event, channel['id'], this.post['id'], localStorage.getItem('currentUserID'));
+  this.showPicker = false;
+
+}
+
+
 }
 
