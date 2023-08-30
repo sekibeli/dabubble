@@ -47,7 +47,10 @@
         <div [ngClass]="{'post-description': !flip, 'post-description-flip': flip}">
           {{post['description']}}
         </div>
-        <div class="showAttachement"> <img *ngIf="post['file']" [src]="post['file']" alt="Bild"></div>
+       
+        <div class="showAttachement"> 
+          <a *ngIf="post['file']" [href]="downloadUrl" download="file.png" (click)="convertBase64ToFile()">
+          <img *ngIf="post['file']" [src]="post['file']" alt="Bild"></a></div>
        
 
         <div class="reactionsRow">

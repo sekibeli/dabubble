@@ -19,6 +19,7 @@ import { SmilyService } from '../services/smily.service';
 export class PostDetailComponent implements OnInit {
   @ViewChild('textarea') textarea;
   @Input() post;
+  downloadUrl;
   showEmojiPicker: boolean = false;
   showPicker: boolean = false;
   showEditPost: boolean = false; // show the div "edit Post"
@@ -198,6 +199,33 @@ addReaction(event, channel){
   this.smilyService.saveReaction(event, channel['id'], this.post['id'], localStorage.getItem('currentUserID'));
   this.showPicker = false;
 
+}
+
+convertBase64ToFile() {
+  let base64Data = this.post['file'];
+
+  // Entfernen eines möglichen Daten-URI-Schemas
+  const base64Header = 'base64,';
+  const headerIndex = base64Data.indexOf(base64Header);
+  if (headerIndex > -1) {
+    base64Data = base64Data.substr(headerIndex + base64Header.length);
+  }
+
+  // Entfernen von Leerzeichen und Zeilenumbrüchen
+  base64Data = base64Data.replace(/\s/g, '');
+
+  try {
+    const byteCharacters = atob(base64Data);
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+    const blob = new Blob([byteArray], { type: 'image/png' });
+    this.downloadUrl = window.URL.createObjectURL(blob);
+  } catch (e) {
+    console.error('Fehler bei der Umwandlung von Base64 zu Blob:', e);
+  }
 }
 
 
