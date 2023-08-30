@@ -17,6 +17,7 @@ import { SmilyService } from '../services/smily.service';
   styleUrls: ['./post-detail.component.scss']
 })
 export class PostDetailComponent implements OnInit {
+  @ViewChild('textarea') textarea;
   @Input() post;
   showEmojiPicker: boolean = false;
   showPicker: boolean = false;
@@ -73,6 +74,8 @@ if(this.post['author'] === localStorage.getItem('currentUserID')) {
   this.smilyService.getAllReactions(this.currentChannel, this.post['id']).then((value)=>{
     value.subscribe((reactions)=>{
       console.log("reactions", reactions);
+      this.reactions = reactions;
+      
     });
     
   });
@@ -170,11 +173,17 @@ toggleReactionsPicker(){
 
 addEmoji(event) {
   const text = `${event.emoji.native}`;
-  const currentText = this.post['description'];
-  console.log(currentText);
-  const newText = currentText + text;
+  const textareaElem = this.textarea.nativeElement; 
+  const start = textareaElem.selectionStart;
+  const end = textareaElem.selectionEnd;
+  const before = textareaElem.value.substring(0, start);
+  const after = textareaElem.value.substring(end);
 
-  this.post['description'] = newText;
+  textareaElem.value = before + text + after;
+  this.post['description'] = textareaElem.value;
+  textareaElem.selectionStart = textareaElem.selectionEnd = start + text.length;
+
+
   this.showEmojiPicker = false;
     
  

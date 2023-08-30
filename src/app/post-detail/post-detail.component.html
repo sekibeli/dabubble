@@ -9,6 +9,9 @@
       class="emoji-mart"
       *ngIf="showPicker"
       (emojiSelect)="addReaction($event, channel)"
+      [set] = "apple"
+      [enableSearch] = "false"
+      [showPreview] = "false"
       title="Choose your emoji"
     ></emoji-mart>
   </div>
@@ -43,11 +46,11 @@
        <div class="firstRow"> <div (click)="openProfile(author)" class="post-author">{{author['username']}}</div> <div class="postTime">{{time}} Uhr</div></div>
         <div [ngClass]="{'post-description': !flip, 'post-description-flip': flip}">{{post['description']}}</div>
         <div class="reactionsRow">
-         
-          <!-- <mat-icon>home</mat-icon> -->
           <img src="../../assets/img/add_reaction.svg" alt="" (click)="showPicker = !showPicker">
-        
-      </div>
+          <div *ngFor="let reaction of reactions">
+            <div class="reactionBubble">{{reaction['emoji']}} {{reaction['user'].length}}</div>
+          </div>
+         </div>
        <div class="postAnswer" (click)="getThread(this.postService.activeChannel, this.post.id); this.drawerService.open(); this.threadService.getPostForThread(this.post, this.author)">
           <div class="blue">{{numberOfThreads}} Antworten </div>
           <div class="postTime">letzte Antwort ....</div>
@@ -57,6 +60,7 @@
     <div *ngIf="showEditForm" class="editbox">
       <div  class="showEditForm">
         <textarea
+        #textarea
         [(ngModel)]="this.post['description']"
         matInput
         placeholder="Deine Nachricht"
@@ -75,7 +79,10 @@
           class="emoji-mart"
           *ngIf="showEmojiPicker"
           (emojiSelect)="addEmoji($event)"
-          title="Choose your emoji"
+          [set] = "apple"
+          [enableSearch] = "false"
+          [showPreview] = "false"
+          title="Wähle Dein Emoji"
         ></emoji-mart>
       </div>
     </div>
