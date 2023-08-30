@@ -1,29 +1,30 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { User } from '../models/user.class';
 import { Post } from '../models/post.class';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PostService } from '../services/post.service';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+import { PostContainerComponent } from '../post-container/post-container.component';
+import { MessageService } from '../services/message.service';
+import { BehaviorSubject } from 'rxjs';
+import { User } from '../models/user.class';
 import { ChannelService } from '../services/channel.service';
 
-
 @Component({
-  selector: 'app-input-post',
-  templateUrl: './input-post.component.html',
-  styleUrls: ['./input-post.component.scss']
+  selector: 'app-input-thread',
+  templateUrl: './input-thread.component.html',
+  styleUrls: ['./input-thread.component.scss']
 })
-export class InputPostComponent implements OnInit {
-  showEmojiPicker = false;
-  messageContent;
-  url;
+export class InputThreadComponent implements OnInit {
   @Input() singlePost;
+  url;
+  showEmojiPicker: boolean = false;
   chatLength: BehaviorSubject<number>;
   // @Input() user; // aus message der User an den die Message ist
   user: BehaviorSubject<User> = new BehaviorSubject<User>(null);
   currentUser;
   currentChannel; // die ID
-  channelTitle: BehaviorSubject<String> = new BehaviorSubject<String>('');
+  channelTitle: BehaviorSubject<String> = new BehaviorSubject<String>('Angular');
   post: Post;
   directMessage; // sets if input is directMessage or not
   channelMessage;
@@ -34,25 +35,27 @@ export class InputPostComponent implements OnInit {
     description: new FormControl('', [Validators.required, Validators.minLength(2)]),
   })
 
-  constructor(public postService: PostService, public activatedRoute: ActivatedRoute, public channelService: ChannelService) {
+  constructor(public postService: PostService, public activatedRoute: ActivatedRoute, public messageService: MessageService, private channelService: ChannelService) {
     const currentChatPartner = JSON.parse(localStorage.getItem('currentChatUser'))
     this.user.next(currentChatPartner);
     this.currentChatLength = (Number(localStorage.getItem('currentChatLength')));
+    this.currentUser = localStorage.getItem('currentUserID');
+    this.directMessage = JSON.parse(localStorage.getItem('directMessage'));
+    this.channelMessage = JSON.parse(localStorage.getItem('channelMessage'));
      
 
   }
 
   ngOnInit() {
-  //   this.messageService.activeChatUser.subscribe((value)=>{
-  //     this.user.next(value) ;
-  //  })
+    this.messageService.activeChatUser.subscribe((value)=>{
+      this.user.next(value) ;
+   })
 
-//    this.messageService.chatLengthEmitter.subscribe((value)=>{
-//  this.currentChatLength = value;
-//    });
+   this.messageService.chatLengthEmitter.subscribe((value)=>{
+ this.currentChatLength = value;
+   });
 
    this.channelService.activeChannel.subscribe((value)=>{
-    // console.log(value['title']);
     this.channelTitle.next(value['title']);
    });
     this.currentUser = localStorage.getItem('currentUserID');
@@ -62,8 +65,6 @@ export class InputPostComponent implements OnInit {
     }
 
   savePost(description, postId) {
-    
-    console.log(this.url);
     // console.log('postDescription:', description);
     this.currentChannel = this.activatedRoute.snapshot.params['id'];
     let channelID = this.currentChannel;
@@ -73,25 +74,13 @@ export class InputPostComponent implements OnInit {
     
   }
 
-  toggleEmojiPicker() {
-    this.showEmojiPicker = !this.showEmojiPicker;
+  saveMessage(description){
+    description = this.chatMessage.value.description;
+    // console.log('Message description:', description);
+    this.messageService.saveMessage(description);
+    this.chatMessage.reset();
   }
 
-  addEmoji(event) {
-    const text = `${event.emoji.native}`;
-  const currentText = this.chatMessage.get('description').value;
-  const newText = currentText + text;
-
-  this.chatMessage.get('description').setValue(newText);
-  this.showEmojiPicker = false;
-    
-  }
-  // saveMessage(description){
-  //   description = this.chatMessage.value.description;
-  //   console.log('Message description:', description);
-  //   this.messageService.saveMessage(description);
-  //   this.chatMessage.reset();
-  // }
 
   onSelectDocument(event) {
     // this.avatarpic = false;
@@ -108,7 +97,7 @@ export class InputPostComponent implements OnInit {
     
       reader.onload = (event: any) => {
         this.url = event.target.result;
-        console.log('nach dem Lesen:', this.url); // this.url ist ein Bild im Base64 Format
+        console.log('thread nach dem Lesen:', this.url); // this.url ist ein Bild im Base64 Format
         // this.setNewPic(this.url);
        
       };
@@ -120,4 +109,16 @@ export class InputPostComponent implements OnInit {
   isImage(url: string): boolean {
     return url.startsWith('data:image');
   }
+
+  addEmoji(event) {
+    const text = `${event.emoji.native}`;
+  const currentText = this.chatMessage.get('description').value;
+  const newText = currentText + text;
+
+  this.chatMessage.get('description').setValue(newText);
+  this.showEmojiPicker = false;
+    
+  }
 }
+
+

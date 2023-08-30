@@ -8,6 +8,7 @@
     <div class="post-content">
        <div (click)="openProfile(author)" class="firstRow"> <div class="post-author">{{this.author['username']}}</div> <div class="postTime">{{time}} Uhr</div></div>
         <div class="post-description">{{this.thread.description}}</div>
+        <div class="showAttachement"> <img *ngIf="thread['file']" [src]="thread['file']" alt="Bild"></div>
        <!-- <div class="postAnswer" (click)="getThreads('d','d')">2 Antworten <span class="postTime">letzte Antwort 14:35</span></div> -->
     </div>
 </div>

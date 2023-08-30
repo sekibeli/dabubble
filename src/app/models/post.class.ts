@@ -3,6 +3,7 @@ export class Post {
     author: string;
     description: string;
     timestamp: number;
+    file: string;
     
 
     constructor(obj?:any){
@@ -10,6 +11,7 @@ export class Post {
         this.author = obj ? obj.author : '';
         this.description = obj ? obj.description : '';
         this.timestamp = obj? obj.timestamp : '';
+        this.file = obj? obj.file : '';
       
       
 
@@ -21,7 +23,9 @@ export class Post {
             author : this.author,
           
             description: this.description,
-            timestamp : this.timestamp
+            timestamp : this.timestamp,
+            file: this.file
+
            
         }
         

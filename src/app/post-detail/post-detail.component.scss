@@ -257,6 +257,14 @@ border: none;
     cursor: pointer !important;
 }
 
+.showAttachement {
+    width: 90%;
+  
+
+    img {
+        width: 80%;
+    }
+}
 @media (max-width: 700px) {
     .profile-pic {
         margin-right: 20px;

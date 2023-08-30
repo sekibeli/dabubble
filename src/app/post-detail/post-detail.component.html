@@ -44,7 +44,12 @@
     <div class="profile-pic"><img src="{{author['img']}}"></div>
     <div *ngIf="showPost" class="post-content">
        <div class="firstRow"> <div (click)="openProfile(author)" class="post-author">{{author['username']}}</div> <div class="postTime">{{time}} Uhr</div></div>
-        <div [ngClass]="{'post-description': !flip, 'post-description-flip': flip}">{{post['description']}}</div>
+        <div [ngClass]="{'post-description': !flip, 'post-description-flip': flip}">
+          {{post['description']}}
+        </div>
+        <div class="showAttachement"> <img *ngIf="post['file']" [src]="post['file']" alt="Bild"></div>
+       
+
         <div class="reactionsRow">
           <img src="../../assets/img/add_reaction.svg" alt="" (click)="showPicker = !showPicker">
           <div *ngFor="let reaction of reactions">

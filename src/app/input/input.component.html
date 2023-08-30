@@ -1,6 +1,17 @@
 <div class="input-container">
     <app-chat-no-message *ngIf="(currentChatLength == 0) && directMessage "></app-chat-no-message>
 <form class="chatInput input-container" [formGroup]="chatMessage">
+    <div>
+        <emoji-mart
+          class="emoji-mart"
+          *ngIf="showEmojiPicker"
+          (emojiSelect)="addEmoji($event)"
+          [set] = "apple"
+          [enableSearch] = "false"
+          [showPreview] = "false"
+          title="Choose your emoji"
+        ></emoji-mart>
+      </div>
 <div class="relative">
 <!-- <textarea *ngIf="!singlePost && channelMessage && channelTitle | async" formControlName="description" id="message" name="meineTextarea"  rows="4" placeholder="Nachricht an #{{ channelTitle.getValue() }} schreiben ..."></textarea> -->
 <textarea *ngIf="singlePost " formControlName="description" id="message" name="meineTextarea"  rows="4" placeholder="Antworten ..."></textarea>
@@ -10,6 +21,14 @@
 <!-- <div *ngIf="!singlePost && channelMessage" (click)="this.savePost(this.chatMessage)"><mat-icon>send</mat-icon></div> -->
 <div *ngIf="singlePost"  (click)="this.savePost(this.chatMessage, this.singlePost['id'])"><mat-icon>send</mat-icon></div>
 <div *ngIf="directMessage"  (click)="this.saveMessage(this.chatMessage)"><mat-icon>send</mat-icon></div>
+</div>
+<div class="inputOptions"> <div class="addDevide"><label for="fileInput"><mat-icon>add</mat-icon></label><input type="file" id="fileInput" style="display:none;" (change)="onSelectDocument($event)"> </div> <div class="emoji"  (click)="showEmojiPicker = !showEmojiPicker">
+    😀
+  </div>
+  <div *ngIf="url" class="file-preview">
+    <img class="attachement" *ngIf="isImage(url)" [src]="url" width="70px"/>
+    <div *ngIf="!isImage(url)">PDF Vorschau hier</div>
+  </div>
 </div>
 </div>
 

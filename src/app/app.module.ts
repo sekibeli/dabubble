@@ -66,6 +66,7 @@ import { NewMessageHeaderComponent } from './new-message-header/new-message-head
 import { NewMessageContainerComponent } from './new-message-container/new-message-container.component';
 import { DialogEditImageComponent } from './dialog-edit-image/dialog-edit-image.component';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
+import { InputThreadComponent } from './input-thread/input-thread.component';
 
 
 
@@ -125,7 +126,8 @@ import { PickerComponent } from '@ctrl/ngx-emoji-mart';
     
        NewMessageHeaderComponent,
        NewMessageContainerComponent,
-       DialogEditImageComponent
+       DialogEditImageComponent,
+       InputThreadComponent
    
 
    

@@ -8,7 +8,7 @@ export class SmilyService {
 firestore: Firestore = inject(Firestore);
   constructor() { }
 
-  async saveReaction(event, channelID, postID, userID){
+  async saveReaction(event, channelID:string, postID:string, userID:string){
 
     const reaction = event.emoji.native;
     const reactionRef = doc(this.firestore, 'channels', channelID, 'posts', postID, 'reactions', reaction);
@@ -29,7 +29,7 @@ if(reactionDoc.exists()){
 
 }
 
-async getAllReactions(channelID, postID){
+async getAllReactions(channelID:string, postID:string){
   const collRef = collection(this.firestore,'channels', channelID, 'posts', postID, 'reactions');
    const docRef = await collectionData(collRef);
    return docRef;
