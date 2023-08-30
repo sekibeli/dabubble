@@ -15,6 +15,7 @@
         title="Choose your emoji"
       ></emoji-mart>
     </div>
+    
       <textarea
         *ngIf="
           !singlePost &&
@@ -26,7 +27,7 @@
         name="meineTextarea"
         rows="4"
         placeholder="Nachricht an #{{ currentChannel['title'] }} schreiben ..."
-      >
+      >  
       </textarea>
 
       <textarea
@@ -54,9 +55,15 @@
         </div>
         <!-- <div *ngIf="directMessage"  (click)="this.saveMessage(this.chatMessage)"><mat-icon>send</mat-icon></div> -->
       </div>
-      <div class="inputOptions"> <div class="addDevide"><mat-icon>add</mat-icon></div> <div class="emoji"  (click)="showEmojiPicker = !showEmojiPicker">
+      <div class="inputOptions"> <div class="addDevide"><label for="fileInput"><mat-icon>add</mat-icon></label><input type="file" id="fileInput" style="display:none;" (change)="onSelectDocument($event)"> </div> <div class="emoji"  (click)="showEmojiPicker = !showEmojiPicker">
         😀
-      </div></div>
+      </div>
+      <div *ngIf="url" class="file-preview">
+        <img class="attachement" *ngIf="isImage(url)" [src]="url" width="70px"/>
+        <div *ngIf="!isImage(url)">PDF Vorschau hier</div>
+      </div>
+    </div>
+   
     </div>
   </form>
   <!-- </div> -->

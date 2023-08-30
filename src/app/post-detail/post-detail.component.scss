@@ -1,5 +1,7 @@
 .singlePost {
     position: relative;
+    cursor: default !important;
+
     // display: flex;
     // align-items:flex-start;
     // margin-top: 30px;
@@ -237,6 +239,7 @@ border: none;
     z-index: 10;
     position: absolute;
     top: 150px;
+   
     // left: 10px;
 }
 .reactionsRow {
@@ -251,6 +254,7 @@ border: none;
     margin: 0 5px;
     display: flex;
     align-items: center;
+    cursor: pointer !important;
 }
 
 @media (max-width: 700px) {
