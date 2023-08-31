@@ -21,12 +21,13 @@ export class UserProfileComponent implements OnInit, OnDestroy{
 
   constructor(private afAuth: AngularFireAuth, private userService: UserService, private dialog: MatDialog, public drawerService: DrawerService) {
     this.checkScreenSize();
+   
   }
 
   ngOnInit(): void {
     console.log('currentUser:', this.currentUser['id']);
     this.userService.setUserStatus(this.currentUser['id'], true);
-   
+localStorage.setItem("currentUserName", this.currentUser['username']);
   }
 
  ngOnDestroy(): void {

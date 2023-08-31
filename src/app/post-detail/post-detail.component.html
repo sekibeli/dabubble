@@ -53,12 +53,51 @@
           <img *ngIf="post['file']" [src]="post['file']" alt="Bild"></a></div>
        
 
-        <div class="reactionsRow">
-          <img src="../../assets/img/add_reaction.svg" alt="" (click)="showPicker = !showPicker">
-          <div *ngFor="let reaction of reactions">
-            <div class="reactionBubble">{{reaction['emoji']}} {{reaction['user'].length}}</div>
-          </div>
-         </div>
+          <div class="reactionsRow">
+            <img src="../../assets/img/add_reaction.svg" alt="" (click)="showPicker = !showPicker">
+            <div *ngFor="let reaction of reactions">
+                <div class="reactionBubble" 
+                    (mouseover)="hoveredReaction = reaction"
+                    (mouseout)="hoveredReaction = null"
+                    (click)="this.smilyService.addOrDeleteReaction(reaction['emoji'], this.currentChannel, post['id'], this.currentUserID)">
+                    {{reaction['emoji']}} {{reaction['user'].length}}
+                    
+                    <div class="additionalInfo" [ngClass]="{'visible': hoveredReaction === reaction}">
+                        {{reaction['emoji']}}  <br> 
+                        
+                        <!-- Lassen Sie 'currentUser' immer an erster oder zweiter Stelle erscheinen -->
+                        <ng-container *ngIf="reaction['names'].includes(currentUserName)">
+                            Du,
+                        </ng-container>
+                        <ng-container *ngFor="let name of reaction['names'] | slice:0:2">
+                            <!-- Filtere 'currentUser' heraus, da es bereits hinzugefügt wurde -->
+                            <ng-container *ngIf="name !== currentUserName">
+                                {{ name }}
+                            </ng-container>
+                        </ng-container>
+                        
+                        <!-- Zeige den Zusatz nur an, wenn die Länge des Namens-Arrays größer als 1 ist -->
+                        <ng-container *ngIf="reaction['names'].length > 2">
+                            und {{reaction['names'].length - 1}} weitere
+                        </ng-container>
+        
+                        <br>
+        
+                        <!-- Verwende 'haben reagiert', 'hast reagiert' oder 'hat reagiert' basierend auf der Anzahl der Reaktionen und ob 'currentUser' involviert ist -->
+                        <ng-container *ngIf="reaction['names'].length >= 2">haben reagiert</ng-container>
+                        <ng-container *ngIf="reaction['names'].length === 1 && reaction['names'][0] === currentUserName">hast reagiert</ng-container>
+                        <ng-container *ngIf="reaction['names'].length < 2 && !(reaction['names'].length === 1 && reaction['names'][0] === currentUserName)">hat reagiert</ng-container>
+        
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+
+   
+      
+
        <div class="postAnswer" (click)="getThread(this.postService.activeChannel, this.post.id); this.drawerService.open(); this.threadService.getPostForThread(this.post, this.author)">
           <div class="blue">{{numberOfThreads}} Antworten </div>
           <div class="postTime">letzte Antwort ....</div>
