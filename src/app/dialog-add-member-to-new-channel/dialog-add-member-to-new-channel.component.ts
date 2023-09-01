@@ -57,8 +57,10 @@ public channelTitle;
     // let channelID = this.channelService.currentChannelID;
     if(this.selectedOption == 'option1'){
       this.channelService.getMembersOfChannelAndPushInNewChannel(this.data.channel['id'])
+
     } else {
       this.channelService.addMemberToChannel(this.data.channel['id'], this.chosenUser['id']);
+      this.channelService.addMemberToChannel(this.data.channel['id'], localStorage.getItem('currentUserID'));
     }
    
 

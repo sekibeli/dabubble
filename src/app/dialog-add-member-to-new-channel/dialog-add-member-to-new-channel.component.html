@@ -11,11 +11,11 @@
     <form class="choose">
         <!-- Radio Buttons -->
         <label>
-          <input type="radio" value="option1" name="option" [(ngModel)]="selectedOption">Alle Mitglieder von Channel<span class="blue"> Allgemein </span>hinzufügen
+          <input type="radio" value="option1" name="selection" [(ngModel)]="selectedOption">Alle Mitglieder von Channel<span class="blue"> Allgemein </span>hinzufügen
         </label>
       
         <label>
-          <input type="radio" value="Bestimmte Leute hinzufügen" name="option" [(ngModel)]="selectedOption">Bestimmte Leute hinzufügen</label>
+          <input type="radio" value="Bestimmte Leute hinzufügen" name="selection" [(ngModel)]="selectedOption">Bestimmte Leute hinzufügen</label>
       
         <!-- Verstecktes Div -->
         <div *ngIf="selectedOption === 'Bestimmte Leute hinzufügen'">
@@ -33,6 +33,7 @@
               *ngIf="notChosen"
               class="search"
               type="text"
+              name="searchTerm"
               [(ngModel)]="searchterm"
               (keyup)="searchMember($event)"
             />

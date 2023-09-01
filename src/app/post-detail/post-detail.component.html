@@ -17,25 +17,30 @@
   </div>
 <div class="reaction" [ngClass]="{'d-none': !showPost}">
    
-    <!-- <button class=" custom-icon-button"  >
+
+     <button class=" custom-icon-button" *ngIf="reactions && reactions.length > 0" >
        
-        <img src="../../assets/img/checkok.svg" alt="">
+      {{reactions[reactions.length-1]['emoji']}}
     </button>
-    <button class=" custom-icon-button"  >
+    <button class=" custom-icon-button" *ngIf="reactions && reactions.length > 1" >
       
-        <img src="../../assets/img/clap.svg" alt="">
-      </button> -->
-      <button class="custom-icon-button"  >
-        <!-- <mat-icon>home</mat-icon> -->
-        <img src="../../assets/img/add_reaction.svg" alt="">
+      {{reactions[reactions.length-2]['emoji']}}
       </button>
+     
+ 
+  <button class="custom-icon-button"  >
+    <!-- <mat-icon>home</mat-icon> -->
+    <img src="../../assets/img/add_reaction.svg" alt="" (click)="showPicker = !showPicker">
+  </button>
+  <button *ngIf="checkIfItIsCurrentUserPost()" class=" custom-icon-button" (click)="showEditPost = true" >
+    <!-- <mat-icon>more_vert</mat-icon> -->
+    <img src="../../assets/img/morevert.png" alt="" >
+  </button>
+     
       <!-- <button class=" custom-icon-button"  >
         <mat-icon>home</mat-icon>
       </button> -->
-      <button *ngIf="checkIfItIsCurrentUserPost()" class=" custom-icon-button" (click)="showEditPost = true" >
-        <!-- <mat-icon>more_vert</mat-icon> -->
-        <img src="../../assets/img/morevert.png" alt="" (click)="showPicker = !showPicker">
-      </button>
+   
       <div *ngIf="showEditPost">
         <div class="editPost" (click)="editThisPost(post)">Nachricht bearbeiten</div>
       </div>
@@ -63,7 +68,7 @@
                     {{reaction['emoji']}} {{reaction['user'].length}}
                     
                     <div class="additionalInfo" [ngClass]="{'visible': hoveredReaction === reaction}">
-                        {{reaction['emoji']}}  <br> 
+                       <div class="emojiIcon">{{reaction['emoji']}}</div>    
                         
                         <!-- Lassen Sie 'currentUser' immer an erster oder zweiter Stelle erscheinen -->
                         <ng-container *ngIf="reaction['names'].includes(currentUserName)">
