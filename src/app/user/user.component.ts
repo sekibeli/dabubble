@@ -10,6 +10,7 @@ import { DrawerService } from '../services/drawer.service';
 export class UserComponent implements OnInit {
   @Input() user;
   currentUserID;
+  isActive: boolean = false;
 
   constructor(public messageService: MessageService, public drawerService: DrawerService){}
 
@@ -29,6 +30,7 @@ ngOnInit(): void {
   }
 
   onProfileClick($event){
+    this.isActive = !this.isActive;
     this.messageService.getThisChat(this.user['id']);
     this.setMode(true); 
     this.drawerService.close(); 
@@ -39,10 +41,9 @@ ngOnInit(): void {
     if (window.innerWidth < 600) {
       this.drawerService.toggle();
       event.preventDefault();
-     console.log('-1', this.drawerService.codeLearning$); 
+    
       this.drawerService.setMyVariable(true)
-      console.log('-2', this.drawerService.codeLearning$); 
-      console.log('-3', this.drawerService.showCodeLearningLogo.value);
+ 
     }
   }
 }

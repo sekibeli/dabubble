@@ -12,6 +12,7 @@
         background-color: var(--background-color);
         color: #535AF1;
     }
+
 }
 ul {
     list-style: none; 
@@ -21,3 +22,8 @@ ul {
  li {
     margin: 0;
  }
+
+ .profile-overview.active{
+    background-color: #dcdffd;
+    color: #444cf0;
+  }

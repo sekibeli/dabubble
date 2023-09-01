@@ -9,6 +9,7 @@ import { DrawerService } from '../services/drawer.service';
 })
 export class ChannelComponent  {
 @Input() channel;
+isActive: boolean = false;
 
 constructor( private channelService: ChannelService, public drawerService: DrawerService){
  
@@ -27,6 +28,7 @@ constructor( private channelService: ChannelService, public drawerService: Drawe
 }
 
 onProfileClick(event: Event) {
+  this.isActive = !this.isActive;
   console.log('event:', event);
   this.drawerService.close();
 // console.log(this.channel);

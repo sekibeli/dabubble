@@ -1,9 +1,9 @@
 <div
   class="profile-overview"
+  [ngClass]="{'active': isActive}"
   (click)="onProfileClick($event)"
   [routerLink]="['/home', 'channel', this.channel['id']]"
   routerLinkActive="active"
- 
->
+ >
   # {{ this.channel["title"] }}
 </div>

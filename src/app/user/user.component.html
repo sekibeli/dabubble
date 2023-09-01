@@ -1,22 +1,30 @@
 <ul>
-    <li 
+  <li
     class="message"
-
-    (click)="onProfileClick($event)"
-
-   
-    [routerLink]="['/home','chat', user['id']]"
-    routerLinkActive="active">
-   
-      <div class="profile-overview">
-        <div class="relativePic">
-          <img class="profile-img" src="{{user['img']}}" alt="">
-          <div class="status"  [ngClass]="{'green': user['active'], 'grey': !user['active']}" ></div>
-          </div>
-          <div *ngIf="user['id'] != this.currentUserID" class="profile-name">{{ user['username']}}</div>
-          <div *ngIf="user['id'] == this.currentUserID" class="profile-name">{{ user['username']}} (Du)</div>
-     </div>
     
-     
-    </li>
-   </ul>
+   
+  >
+    <div 
+    class="profile-overview" 
+    [ngClass]="{'active': isActive}"
+    (click)="onProfileClick($event)"
+    [routerLink]="['/home', 'chat', user['id']]"
+    routerLinkActive="active"
+    
+    >
+      <div class="relativePic">
+        <img class="profile-img" src="{{ user['img'] }}" alt="" />
+        <div
+          class="status"
+          [ngClass]="{ green: user['active'], grey: !user['active'] }"
+        ></div>
+      </div>
+      <div *ngIf="user['id'] != this.currentUserID" class="profile-name">
+        {{ user["username"] }}
+      </div>
+      <div *ngIf="user['id'] == this.currentUserID" class="profile-name">
+        {{ user["username"] }} (Du)
+      </div>
+    </div>
+  </li>
+</ul>
