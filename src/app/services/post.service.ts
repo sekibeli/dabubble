@@ -50,13 +50,15 @@ export class PostService {
    * @param postId 
    */
   savePost(author, channelID, description, postId?, file?) {
+    if(file == null) file = '';
     console.log('author:', author);
        this.post = new Post({
       id: '', 
       author: localStorage.getItem('currentUserID'),
       description: description,
      timestamp: new Date().getTime(),
-     file: file})
+     file: file
+    })
      
 
    

@@ -36,6 +36,7 @@ public currentUser;
    
     this.userLoggedIn_UID = this.authService.getCurrentUserIDFromLocalStorage();
     localStorage.setItem('channelMessage', 'true');
+    
 
    
     console.log('ID currentUser: ',this.userLoggedIn_UID);

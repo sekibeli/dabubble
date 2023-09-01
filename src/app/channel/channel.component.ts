@@ -15,10 +15,11 @@ constructor( private channelService: ChannelService, public drawerService: Drawe
 }
 
 
-currentChannel(channel){
-  this.channelService.pushActiveChannel(channel);
+// currentChannel(channel){
+//   this.channelService.pushActiveChannel(channel);
+ 
   
- }
+//  }
 
  setMode(mode:boolean){
   localStorage.setItem('directMessage', JSON.stringify(mode));
@@ -31,6 +32,8 @@ onProfileClick(event: Event) {
 // console.log(this.channel);
   // this.currentChannel(this.channel);
   this.channelService.pushActiveChannel(this.channel);
+  localStorage.setItem('currentChannelID', this.channel['id']);
+
   this.setMode(false);
 
   if (window.innerWidth < 600) {

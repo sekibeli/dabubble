@@ -34,7 +34,7 @@
       </button> -->
       <button *ngIf="checkIfItIsCurrentUserPost()" class=" custom-icon-button" (click)="showEditPost = true" >
         <!-- <mat-icon>more_vert</mat-icon> -->
-        <img src="../../assets/img/morevert.png" alt="">
+        <img src="../../assets/img/morevert.png" alt="" (click)="showPicker = !showPicker">
       </button>
       <div *ngIf="showEditPost">
         <div class="editPost" (click)="editThisPost(post)">Nachricht bearbeiten</div>
@@ -67,18 +67,21 @@
                         
                         <!-- Lassen Sie 'currentUser' immer an erster oder zweiter Stelle erscheinen -->
                         <ng-container *ngIf="reaction['names'].includes(currentUserName)">
-                            Du,
+                            Du
                         </ng-container>
-                        <ng-container *ngFor="let name of reaction['names'] | slice:0:2">
+                        <ng-container *ngIf="reaction['names'].length == 2 && reaction['names'].includes(currentUserName)">und</ng-container>
+                        <ng-container *ngFor="let name of reaction['names']| slice:0:2 ; let i = index ">
                             <!-- Filtere 'currentUser' heraus, da es bereits hinzugefügt wurde -->
                             <ng-container *ngIf="name !== currentUserName">
                                 {{ name }}
                             </ng-container>
+                            <ng-container *ngIf="!reaction['names'].includes(currentUserName) && reaction['names'].length == 2 && i === 0" >und</ng-container>
                         </ng-container>
+                        
                         
                         <!-- Zeige den Zusatz nur an, wenn die Länge des Namens-Arrays größer als 1 ist -->
                         <ng-container *ngIf="reaction['names'].length > 2">
-                            und {{reaction['names'].length - 1}} weitere
+                            und {{reaction['names'].length - 2}} weitere
                         </ng-container>
         
                         <br>

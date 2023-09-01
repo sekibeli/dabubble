@@ -16,8 +16,8 @@ import { DialogNewChannelComponent } from '../dialog-new-channel/dialog-new-chan
   templateUrl: './left-drawer.component.html',
   styleUrls: ['./left-drawer.component.scss']
 })
-export class LeftDrawerComponent implements OnInit{
- isSmallScreen;
+export class LeftDrawerComponent implements OnInit {
+  isSmallScreen;
   @Output() callToggle = new EventEmitter();
   users;
   channels;
@@ -28,76 +28,89 @@ export class LeftDrawerComponent implements OnInit{
   userArrowIcon = 'arrow_drop_down';
   chOpen = true;
   userOpen = true;
-  
-  
+
+
   constructor(public postService: PostService, public drawerService: DrawerService, public channelService: ChannelService, public userService: UserService, public messageService: MessageService, public dialog: MatDialog) {
     this.checkScreenSize();
     // this.channelService.getChannels().subscribe((value) => {
-      
+
     //     this.channels = value;
     //     console.log('channels:', value);
     //   });
-   
-      this.channelService.getChannelsWhereCurrentUserIsMember(localStorage.getItem('currentUserID')).subscribe((value)=>{
-        // console.log('channels from curentUser:', value);
-        this.channels = value;
-      });
 
+    this.channelService.getChannelsWhereCurrentUserIsMember(localStorage.getItem('currentUserID')).subscribe((value) => {
+      // console.log('channels from curentUser:', value);
+      this.channels = value;
+    });
+    if (localStorage.getItem('currentChannelID') == null) { 
+      localStorage.setItem('currentChannelID', 'BwYu94QGYDi8hQta31RP');
+    }
+    if (localStorage.getItem('currentChannelID') === '') {
       this.channelService.getChannelData('BwYu94QGYDi8hQta31RP').then(
-        (value)=>{
+        (value) => {
           // console.log(value);
           this.channelService.pushActiveChannel(value);
         }
       );
-      
- 
-   
-      // this.channelService.pushActiveChannel('Allgemein', id, channel);
+    } else {
+      const activeChannel = localStorage.getItem('currentChannelID');
+      this.channelService.getChannelData(activeChannel).then(
+        (value) => {
+          // console.log(value);
+          this.channelService.pushActiveChannel(value);
+        }
+      );
+    }
+
+
+
+    // this.channelService.pushActiveChannel('Allgemein', id, channel);
 
   }
 
   ngOnInit(): void {
-    this.userService.getUserData().subscribe((users)=> {
-            this.users = users;
-         })
-   
+    this.userService.getUserData().subscribe((users) => {
+      this.users = users;
+    })
+
     this.currentUserID = localStorage.getItem('currentUserID');
     // console.log(this.currentUserID);
   }
- 
- triggerToggle(){this.callToggle.emit();
-}
- 
 
- pushChatUser(user){
-  this.messageService.pushChatUser(user);
- 
- }
- 
- openDialogAddChannel(){
-this.dialog.open(DialogNewChannelComponent)
- }
-
-toggleChannelOpenClose() {
-  this.chOpen = !this.chOpen;
-  this.chArrowIcon = this.chArrowIcon === 'arrow_drop_down' ? 'arrow_right' : 'arrow_drop_down'
-}
-
-toggleUserOpenClose() {
-  this.userOpen = !this.userOpen;
-  this.userArrowIcon = this.userArrowIcon === 'arrow_drop_down' ? 'arrow_right' : 'arrow_drop_down'
-}
-@HostListener('window:resize', ['$event'])
-onResize(event) {
-  this.checkScreenSize();
-}
-
-checkScreenSize() {
-  if(window.innerWidth < 600) {
-    this.isSmallScreen = true;
-  } else {
-    this.isSmallScreen = false;
+  triggerToggle() {
+    this.callToggle.emit();
   }
-}
+
+
+  pushChatUser(user) {
+    this.messageService.pushChatUser(user);
+
+  }
+
+  openDialogAddChannel() {
+    this.dialog.open(DialogNewChannelComponent)
+  }
+
+  toggleChannelOpenClose() {
+    this.chOpen = !this.chOpen;
+    this.chArrowIcon = this.chArrowIcon === 'arrow_drop_down' ? 'arrow_right' : 'arrow_drop_down'
+  }
+
+  toggleUserOpenClose() {
+    this.userOpen = !this.userOpen;
+    this.userArrowIcon = this.userArrowIcon === 'arrow_drop_down' ? 'arrow_right' : 'arrow_drop_down'
+  }
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.checkScreenSize();
+  }
+
+  checkScreenSize() {
+    if (window.innerWidth < 600) {
+      this.isSmallScreen = true;
+    } else {
+      this.isSmallScreen = false;
+    }
+  }
 
 }

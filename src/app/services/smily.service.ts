@@ -20,13 +20,17 @@ export class SmilyService {
     const reactionDoc = await getDoc(reactionRef);
 
     if (reactionDoc.exists()) {
+      const user = await this.userService.getCurrentUser(userID).pipe(first()).toPromise();
       await setDoc(reactionRef, {
-        user: arrayUnion(userID)
+        user: arrayUnion(userID),
+        names: arrayUnion(user['username'])
       }, { merge: true });
     } else {
+      const user = await this.userService.getCurrentUser(userID).pipe(first()).toPromise();
       await setDoc(reactionRef, {
         emoji: reaction,
-        user: arrayUnion(userID)
+        user: arrayUnion(userID),
+        names: arrayUnion(user['username'])
       });
     }
 

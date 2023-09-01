@@ -31,7 +31,15 @@ user: any;
 
     this.afAuth.signOut().then(()=>{
     
-   
+   localStorage.removeItem('currentChannelID');
+   localStorage.removeItem("currentChatID");
+   localStorage.removeItem("currentUserID");
+   localStorage.removeItem("directMessage");
+   localStorage.removeItem("currentChatLength");
+   localStorage.removeItem("threadMessage");
+   localStorage.removeItem("currentChatUser");
+   localStorage.removeItem("channelMessage");
+   localStorage.removeItem("currentUserName");
      return this.userService.setUserStatus(this.currentUser, false);
     
  
