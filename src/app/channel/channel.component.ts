@@ -38,7 +38,7 @@ onProfileClick(event: Event) {
 
   this.setMode(false);
 
-  if (window.innerWidth < 600) {
+  if (window.innerWidth < 650) {
     this.drawerService.toggle();
     event.preventDefault();
   //  console.log('-1', this.drawerService.codeLearning$); 

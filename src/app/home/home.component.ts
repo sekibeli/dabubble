@@ -69,7 +69,7 @@ this.drawerService.setDrawer(this.rightDrawer);
   }
 
   checkScreenSize() {
-    if(window.innerWidth < 600) {
+    if(window.innerWidth < 650) {
       this.isSmallScreen = true;
       this.rightDrawerMode = 'over'
     } else {

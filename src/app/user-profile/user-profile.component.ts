@@ -76,7 +76,7 @@ this.dialog.open(DialogLogoutComponent, dialogConfig);
   }
 
   checkScreenSize() {
-    if(window.innerWidth < 600) {
+    if(window.innerWidth < 650) {
       this.isSmallScreen = true;
     } else {
       this.isSmallScreen = false;

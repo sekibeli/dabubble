@@ -38,7 +38,7 @@ ngOnInit(): void {
     this.pushChatUser(this.user); 
     this.messageService.getChatLength(this.user['id'])
 
-    if (window.innerWidth < 600) {
+    if (window.innerWidth < 650) {
       this.drawerService.toggle();
       event.preventDefault();
     

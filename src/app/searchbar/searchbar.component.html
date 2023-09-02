@@ -4,7 +4,7 @@
     class="search"
     type="text"
     [(ngModel)]="searchterm"
-    (keyup)="searchMember($event)" class="searchInput" matInput type="text" placeholder="Suche nach channel oder user">
+    (keyup)="searchMember($event)" class="searchInput" matInput type="text" placeholder="Suche #channel od. #user">
     <mat-icon matIconPrefix>search</mat-icon>
 </div>
 <div *ngIf="search" class="searchOverview">

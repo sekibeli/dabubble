@@ -280,7 +280,7 @@ separateUsersAndChannels(jsonArray) {
     this.messageService.pushChatUser(this.chosenItem); 
     this.messageService.getChatLength(this.chosenItem['id'])
 
-    if (window.innerWidth < 600) {
+    if (window.innerWidth < 650) {
       // this.drawerService.toggle();
       event.preventDefault();
     
