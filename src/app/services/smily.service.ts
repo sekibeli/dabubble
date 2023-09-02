@@ -11,6 +11,7 @@ export class SmilyService {
   firestore: Firestore = inject(Firestore);
   // userArraySubject: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
   userNames: string[] = [];
+  showPicker:boolean = false;
   constructor(private userService:UserService) { }
 
   async saveReaction(event, channelID: string, postID: string, userID: string) {
@@ -38,6 +39,30 @@ export class SmilyService {
 
   }
 
+  async saveReactionThread(event, channelID: string, postID: string, threadID:string, userID: string) {
+
+    const reaction = event.emoji.native;
+    const reactionRef = doc(this.firestore, 'channels', channelID, 'posts', postID, 'threads', threadID, 'reactions', reaction);
+    const reactionDoc = await getDoc(reactionRef);
+
+    if (reactionDoc.exists()) {
+      const user = await this.userService.getCurrentUser(userID).pipe(first()).toPromise();
+      await setDoc(reactionRef, {
+        user: arrayUnion(userID),
+        names: arrayUnion(user['username'])
+      }, { merge: true });
+    } else {
+      const user = await this.userService.getCurrentUser(userID).pipe(first()).toPromise();
+      await setDoc(reactionRef, {
+        emoji: reaction,
+        user: arrayUnion(userID),
+        names: arrayUnion(user['username'])
+      });
+    }
+
+
+
+  }
 
 //   async addOrDeleteReaction(emoji, channelID: string, postID: string, userID: string) {
 // console.log(emoji, channelID, postID, userID);
@@ -158,5 +183,29 @@ async addOrDeleteReaction(emoji, channelID: string, postID: string, userID: stri
     const collRef = collection(this.firestore, 'channels', channelID, 'posts', postID, 'reactions');
     const docRef = await collectionData(collRef);
     return docRef;
+  }
+
+  async getAllReactionsThread(channelID: string, postID: string, threadID: string) {
+    try {
+    const collRef = collection(this.firestore, 'channels', channelID, 'posts', postID, 'threads', threadID, 'reactions' );
+    
+      const docRef = await collectionData(collRef);
+    return docRef;
+    } catch(error){
+      console.error("An error occurred: ", error);
+      return null;
+    }
+    
+  }
+
+  addReaction(event, channel, post, thread) {
+    // const smily = `${event.emoji.native}`;
+    console.log(event);
+    console.log(channel['id']);
+    console.log(post['id']);
+    console.log(localStorage.getItem("currentUserID"));
+    this.saveReaction(event, channel['id'], post['id'], localStorage.getItem('currentUserID'));
+    this.showPicker = false;
+
   }
 }

@@ -19,8 +19,15 @@
 <div class="stick">
 <div *ngIf="singlePost"  (click)="this.savePost(this.chatMessage, this.singlePost['id'])"><mat-icon>send</mat-icon></div>
 </div>
-<div class="inputOptions"> <div class="addDevide"><label for="fileInputThread"><mat-icon>add</mat-icon></label><input type="file" id="fileInputThread" style="display:none;" (change)="onSelectDocument($event)"> </div> <div class="emoji"  (click)="showEmojiPicker = !showEmojiPicker">
-    😀
+<div class="inputOptions"> <div class="addDevide">
+  <label for="fileInputThread">
+    <img src="../../assets/img/plus.svg" alt="">
+</label>
+<input type="file" id="fileInputThread" style="display:none;" (change)="onSelectDocument($event)"> 
+</div> 
+<div class="emoji"  (click)="showEmojiPicker = !showEmojiPicker">
+  <img src="../../assets/img/addEmoji.svg" alt="">
+  <img src="../../assets/img/addat.svg" alt="">
   </div>
   <div *ngIf="url" class="file-preview">
     <img class="attachement" *ngIf="isImage(url)" [src]="url" width="70px"/>

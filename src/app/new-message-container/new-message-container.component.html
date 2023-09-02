@@ -7,7 +7,7 @@
         class="search"
         type="text"
         [(ngModel)]="searchterm"
-        (keyup)="searchMember($event)" class="searchInput" matInput type="text" placeholder="Suche nach channel oder user">
+        (keyup)="searchMember($event)" class="searchInput" matInput type="text" placeholder="Suche mit # oder @">
         <mat-icon matIconPrefix>search</mat-icon>
     </div>
     <div *ngIf="search" class="searchOverview">
@@ -80,10 +80,11 @@
         
         <div class="inputOptions"> 
           <div class="addDevide"><label for="fileInputMessage">
-            <mat-icon>add</mat-icon></label>
+            <img src="../../assets/img/plus.svg" alt=""></label>
             <input type="file" id="fileInputMessage" style="display:none;" (change)="onSelectDocument($event)"> </div> 
             <div class="emoji"  (click)="showEmojiPicker = !showEmojiPicker">
-          😀
+              <img src="../../assets/img/addEmoji.svg" alt="">
+              <img src="../../assets/img/addat.svg" alt="">
         </div>
        
       </div>

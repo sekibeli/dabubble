@@ -42,12 +42,48 @@ cursor: pointer;
   cursor: pointer;
 }
 
+// .inputOptions {
+//   display: flex;
+//   position: absolute;
+//   bottom: 2px;
+//   left: 30px;
+//   align-items: flex-end;
+//   mat-icon {
+//     color: grey;
+    
+//   }
+  
+//   cursor: pointer;
+// }
+
+// .addDevide {
+//   height: 30px;
+//   border-right: 1px solid rgb(168, 168, 168);
+//   margin: 0px 10px;
+//   padding-right: 6px;
+//   cursor: pointer;
+// }
+
+// .attachement {
+//   margin-left: 20px;
+//   border-radius: 10px;
+// }
+
+// .relative {
+//   position: relative;
+//   margin: 10px 20px;
+//   width: calc(100% - 50px);
+//   border: 1px solid var(--light-purple-lines);
+//   border-radius: 20px;
+// }
+
 .inputOptions {
   display: flex;
   position: absolute;
   bottom: 2px;
-  left: 30px;
-  align-items: flex-end;
+  left: 0;
+  align-items: flex-start;
+  justify-content: flex-end;
   mat-icon {
     color: grey;
     
@@ -65,14 +101,21 @@ cursor: pointer;
 }
 
 .attachement {
-  margin-left: 20px;
+  margin-left: -110px;
   border-radius: 10px;
+  margin-bottom: -50px;
+  
+
 }
 
 .relative {
   position: relative;
   margin: 10px 20px;
-  width: calc(100% - 50px);
+  width: calc(100% - 40px);
   border: 1px solid var(--light-purple-lines);
   border-radius: 20px;
+}
+
+.file-preview {
+  margin: -30px 0 5px 130px;
 }

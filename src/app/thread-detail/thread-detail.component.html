@@ -4,14 +4,73 @@
 <div *ngIf="trueFalse" class="dateDevider"></div> -->
 
 <div *ngIf="author"  class="singlePost">
+
+
+    <div class="reactionEmojiThread">
+        <emoji-mart
+          class="emoji-mart"
+          *ngIf="showPicker"
+          (emojiSelect)="addReaction($event, singlePost['id'], thread['id'])"
+          [set] = "apple"
+          [enableSearch] = "false"
+          [showPreview] = "false"
+          title="Choose your emoji"
+        ></emoji-mart>
+      </div>
+
+
     <div class="profile-pic"><img src="{{this.author['img']}}"></div>
     <div class="post-content">
        <div (click)="openProfile(author)" class="firstRow"> <div class="post-author">{{this.author['username']}}</div> <div class="postTime">{{time}} Uhr</div></div>
         <div class="post-description">{{this.thread.description}}</div>
+    
         <div class="showAttachement"> 
             <a *ngIf="thread['file']" [href]="downloadUrl" download="file.png" (click)="convertBase64ToFile()">
-
             <img *ngIf="thread['file']" [src]="thread['file']" alt="Bild"></a></div>
+
+
+            <div class="reactionsRow">
+                <img src="../../assets/img/add_reaction.svg" alt="" (click)="showPicker = !showPicker">
+                <div *ngFor="let reaction of reactions">
+                    <div class="reactionBubble" 
+                        (mouseover)="hoveredReaction = reaction"
+                        (mouseout)="hoveredReaction = null"
+                        (click)="this.smilyService.addOrDeleteReaction(reaction['emoji'], this.currentChannel, post['id'], this.currentUserID)">
+                        {{reaction['emoji']}} {{reaction['user'].length}}
+                        
+                        <div class="additionalInfo" [ngClass]="{'visible': hoveredReaction === reaction}">
+                           <div class="emojiIcon">{{reaction['emoji']}}</div>    
+                            
+                            <!-- Lassen Sie 'currentUser' immer an erster oder zweiter Stelle erscheinen -->
+                            <ng-container *ngIf="reaction['names'].includes(currentUserName)">
+                                Du
+                            </ng-container>
+                            <ng-container *ngIf="reaction['names'].length == 2 && reaction['names'].includes(currentUserName)">und</ng-container>
+                            <ng-container *ngFor="let name of reaction['names']| slice:0:2 ; let i = index ">
+                                <!-- Filtere 'currentUser' heraus, da es bereits hinzugefügt wurde -->
+                                <ng-container *ngIf="name !== currentUserName">
+                                    {{ name }}
+                                </ng-container>
+                                <ng-container *ngIf="!reaction['names'].includes(currentUserName) && reaction['names'].length == 2 && i === 0" >und</ng-container>
+                            </ng-container>
+                            
+                            
+                            <!-- Zeige den Zusatz nur an, wenn die Länge des Namens-Arrays größer als 1 ist -->
+                            <ng-container *ngIf="reaction['names'].length > 2">
+                                und {{reaction['names'].length - 2}} weitere
+                            </ng-container>
+            
+                            <br>
+            
+                            <!-- Verwende 'haben reagiert', 'hast reagiert' oder 'hat reagiert' basierend auf der Anzahl der Reaktionen und ob 'currentUser' involviert ist -->
+                            <ng-container *ngIf="reaction['names'].length >= 2">haben reagiert</ng-container>
+                            <ng-container *ngIf="reaction['names'].length === 1 && reaction['names'][0] === currentUserName">hast reagiert</ng-container>
+                            <ng-container *ngIf="reaction['names'].length < 2 && !(reaction['names'].length === 1 && reaction['names'][0] === currentUserName)">hat reagiert</ng-container>
+            
+                        </div>
+                    </div>
+                </div>
+            </div>
        
     </div>
 </div>

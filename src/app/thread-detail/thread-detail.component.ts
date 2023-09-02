@@ -3,6 +3,7 @@ import { UserService } from '../services/user.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogProfileComponent } from '../dialog-profile/dialog-profile.component';
 import { DrawerService } from '../services/drawer.service';
+import { SmilyService } from '../services/smily.service';
 
 @Component({
   selector: 'app-thread-detail',
@@ -12,14 +13,16 @@ import { DrawerService } from '../services/drawer.service';
 export class ThreadDetailComponent implements OnInit {
 author;
 @Input() thread;
-
+@Input() singlePost;
+showPicker : boolean = false;
 // @Input() trueFalse: boolean;
 time;
 downloadUrl;
+reactions;
 // formatedDate;
 
 
-constructor(private userService: UserService, private dialog: MatDialog, private drawerService: DrawerService){
+constructor(private userService: UserService, private dialog: MatDialog, private drawerService: DrawerService, private smilyService: SmilyService){
   
 }
 
@@ -30,6 +33,20 @@ ngOnInit(){
     this.time =  new Date(this.thread['timestamp']).toLocaleTimeString('de-DE', {hour: '2-digit', minute:'2-digit'});
     // console.log(this.trueFalse);
     // this.getFormatedDateFromTimestamp(this.thread['timestamp']);
+if(this.thread != null){
+  this.smilyService.getAllReactionsThread(localStorage.getItem('currentChannelID'), this.singlePost['id'], this.thread['id']).then((value) => {
+    value.subscribe((reactions) => {
+      console.log("reactions", reactions);
+     
+      this.reactions = reactions;
+     
+    });
+
+  });
+}
+   
+
+
 }
 
 getAuthorDetails(post){
@@ -82,6 +99,19 @@ getAuthorDetails(post){
     } catch (e) {
       console.error('Fehler bei der Umwandlung von Base64 zu Blob:', e);
     }
+  }
+
+  addReaction(event, post, thread) {
+    // const smily = `${event.emoji.native}`;
+    const channel = localStorage.getItem('currentChannelID')
+    console.log(event);
+    console.log(channel);
+    console.log(post);
+    console.log(thread);
+    console.log(localStorage.getItem("currentUserID"));
+    this.smilyService.saveReactionThread(event, channel, post, thread, localStorage.getItem('currentUserID'));
+    this.showPicker = false;
+
   }
 
 }

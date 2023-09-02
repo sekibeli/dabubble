@@ -47,8 +47,9 @@ outline: none;
     display: flex;
     position: absolute;
     bottom: 2px;
-    left: 30px;
-    align-items: flex-end;
+    left: 0px;
+    align-items: flex-start;
+    justify-content: flex-end;
     mat-icon {
       color: grey;
       
@@ -72,7 +73,7 @@ outline: none;
 
   .relative {
     position: relative;
-    margin: 10px 20px;
+    margin: 14px 20px;
     width: calc(100% - 50px);
     border: 1px solid var(--light-purple-lines);
     border-radius: 20px;
@@ -84,4 +85,9 @@ outline: none;
     img {
         width: 80%;
     }
+
+    .file-preview {
+      margin: -30px 0 5px 130px;
+    }
+  
 }
