@@ -106,6 +106,15 @@
     cursor: pointer;
 }
 
+.userList {
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+.channelList {
+    max-height: 190px;
+    overflow-y: auto;
+}
 @media (max-width: 600px){
     .channelContainer {
         margin: 0;

@@ -35,8 +35,10 @@ currentUser;
 isChannel: boolean; //is the chosen item a channel?
 channelID;
 authorID;
+url;
 isActive: boolean; // Link left sideMenu is activated
 chosenItem: any; // the object of the chosen item, user or channel
+showEmojiPicker: boolean = false;
 message: FormGroup = new FormGroup({
   description: new FormControl('', [Validators.required, Validators.minLength(2)]),
 })
@@ -286,10 +288,43 @@ separateUsersAndChannels(jsonArray) {
  
     }
   }
+  addEmoji(event) {
+    const text = `${event.emoji.native}`;
+  const currentText = this.message.get('description').value;
+  const newText = currentText + text;
 
-  
+  this.message.get('description').setValue(newText);
+  this.showEmojiPicker = false;
+    
+  }
+
+  onSelectDocument(event) {
+    // this.avatarpic = false;
+    const file: File = event.target.files[0]; // ausgewählte Datei wird gespeichert in Variable file
+    let fileType = file.type;
+    let fileSize = file.size;
+    if (fileSize > 500 * 1024) {
+      window.alert('Die Datei ist zu groß. Bitte senden Sie eine Datei, die kleiner als 500KB ist.');
+      return; // Frühes Beenden der Funktion, wenn die Datei zu groß ist
+    }
+    if (fileType.match(/image\/(png|jpeg|jpg)|application\/pdf/)) {
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+    
+      reader.onload = (event: any) => {
+        this.url = event.target.result;
+        console.log('nach dem Lesen:', this.url); // this.url ist ein Bild im Base64 Format
+        // this.setNewPic(this.url);
+       
+      };
+    } else {
+      window.alert('Bitte nur png, jpg, jpeg oder PDF senden');
+    }
+  }
  
-  
+  isImage(url: string): boolean {
+    return url.startsWith('data:image');
+  }
  
  }
 

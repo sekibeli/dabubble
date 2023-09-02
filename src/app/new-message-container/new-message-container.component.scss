@@ -157,32 +157,61 @@ ul {
    margin: 10px 10px 0 10px;
  }
 
- .input-container {
-    display: flex;
-    flex-direction:column;
-    width: 100%;
-    justify-content: center;
-      z-index: 0;
-      position: sticky;
-      bottom: -5px;
-      left: 30px;
-    right: 30px;
-      background-color: white;
-      // margin-bottom: 20px;
+//  .input-container {
+//     display: flex;
+//     flex-direction:column;
+//     width: 100%;
+//     justify-content: center;
+//       z-index: 0;
+//       position: sticky;
+//       bottom: -5px;
+//       left: 30px;
+//     right: 30px;
+//       background-color: white;
+//       // margin-bottom: 20px;
      
   
-      textarea {
-        font-family: 'Nunito';
-        padding: 10px;
-        // margin-left: 20px;
-        // margin-right: 20px;
-        margin: 10px 20px;
-        width: calc(100% - 80px);
-        border: 1px solid var(--light-purple-lines);
-        border-radius: 20px;
-      }
+//       textarea {
+//         font-family: 'Nunito';
+//         padding: 10px;
+//         // margin-left: 20px;
+//         // margin-right: 20px;
+//         margin: 10px 20px;
+//         width: calc(100% - 80px);
+//         border: 1px solid var(--light-purple-lines);
+//         border-radius: 20px;
+//       }
   
-  }
+//   }
+
+.input-container {
+  display: flex;
+  flex-direction:column;
+  width: 100%;
+  justify-content: center;
+    z-index: 0;
+    position: sticky;
+    bottom: -5px;
+    left: 30px;
+  right: 30px;
+    background-color: white;
+    // margin-bottom: 20px;
+   
+
+    textarea {
+      // position: absolute;
+      font-family: 'Nunito';
+      padding: 10px;
+      // margin-left: 20px;
+      // margin-right: 20px;
+      margin: 0px 0px 30px 0px;
+      width: calc(100% - 30px);
+      border: 0px solid var(--light-purple-lines);
+      border-radius: 20px;
+outline: none;
+    }
+
+}
   .buttonSend {
     position: sticky;
   margin-top: 90px;
@@ -199,6 +228,45 @@ ul {
     color: darkblue;
     cursor: pointer;
   }
+
+  .inputOptions {
+    display: flex;
+    position: absolute;
+    bottom: 12px;
+    left: 30px;
+    align-items: flex-start;
+    justify-content: flex-end;
+    mat-icon {
+      color: grey;
+      
+    }
+    
+    cursor: pointer;
+  }
   
+  .addDevide {
+    height: 30px;
+    border-right: 1px solid rgb(168, 168, 168);
+    margin: 0px 10px;
+    padding-right: 6px;
+    cursor: pointer;
+  }
+
+  .attachement {
+    margin-left: 20px;
+    border-radius: 10px;
+  
+  }
+
+  .relative {
+    position: relative;
+    margin: 10px 20px;
+    width: calc(100% - 80px);
+    border: 1px solid var(--light-purple-lines);
+    border-radius: 20px;
+  }
+  .file-preview {
+    margin: -30px 0 5px 100px;
+  }
 
  

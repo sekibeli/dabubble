@@ -31,15 +31,6 @@
       >  
       </textarea>
 
-      <!-- <textarea
-        *ngIf="singlePost"
-        formControlName="description"
-        id="message"
-        name="meineTextarea"
-        rows="4"
-        placeholder="Antworten ..."
-      ></textarea> -->
-      <!-- <textarea *ngIf="directMessage && (user | async) as currentUser " formControlName="description" id="message" name="meineTextarea"  rows="4" placeholder="Direktnachricht an {{currentUser['username']}}  "></textarea> -->
     
       <div class="stick">
         <div
@@ -48,13 +39,7 @@
         >
           <mat-icon>send</mat-icon>
         </div>
-        <!-- <div
-          *ngIf="singlePost"
-          (click)="this.savePost(this.chatMessage, this.singlePost['id'])"
-        >
-          <mat-icon>send it</mat-icon>
-        </div> -->
-        <!-- <div *ngIf="directMessage"  (click)="this.saveMessage(this.chatMessage)"><mat-icon>send</mat-icon></div> -->
+       
       </div>
       <div class="inputOptions"> 
         <div class="addDevide"><label for="fileInput">
@@ -63,14 +48,16 @@
           <div class="emoji"  (click)="showEmojiPicker = !showEmojiPicker">
         😀
       </div>
-      <div *ngIf="url" class="file-preview">
-        <img class="attachement" *ngIf="isImage(url)" [src]="url" width="70px"/>
-      
-
-        <div class="attachement" *ngIf="!isImage(url)"><img src="../../assets/img/pdf50.png" alt=""></div>
-      </div>
+    
     </div>
-   
+    <div>
+    <div *ngIf="url" class="file-preview">
+      <img class="attachement" *ngIf="isImage(url)" [src]="url" width="70px"/>
+    
+
+      <div class="attachement" *ngIf="!isImage(url)"><img src="../../assets/img/pdf50.png" alt=""></div>
+    </div>
+    </div>
     </div>
   </form>
   <!-- </div> <a target="_blank" href="https://icons8.com/icon/emjQ5sYXZdXI/pdf">PDF</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>

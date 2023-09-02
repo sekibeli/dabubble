@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { PostService } from '../services/post.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -10,7 +10,7 @@ import { ChannelService } from '../services/channel.service';
   templateUrl: './post-container.component.html',
   styleUrls: ['./post-container.component.scss']
 })
-export class PostContainerComponent implements OnInit, OnDestroy {
+export class PostContainerComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('scrollContainer') private scrollContainer: ElementRef;
   timestamps = [];
   posts;
@@ -39,6 +39,10 @@ channel;
     
   }
 
+  ngAfterViewInit() {
+    this.scrollToBottom();
+  }
+
   /**
    * subscription muss manuell beseitigt werden, da sie nicht automatisch erlöscht. Ansonsten läuft der Speicher voll.
    */
@@ -46,7 +50,11 @@ channel;
     this.subscription.unsubscribe();
   }
 
-
+  scrollToBottom(): void {
+    try {
+      this.scrollContainer.nativeElement.scrollTop = this.scrollContainer.nativeElement.scrollHeight;
+    } catch(err) { }
+  }
   /**
    * 
    * @param id document ID 
