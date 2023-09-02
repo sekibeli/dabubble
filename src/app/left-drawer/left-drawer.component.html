@@ -36,3 +36,9 @@
     </div>
 
 </div>
+<div *ngIf="isSmallScreen" class="newMessageButton"
+(click)="onNewMessageClick($event)"
+[routerLink]="['/home', 'message']"
+routerLinkActive="active">
+  <img src="../../assets/img/newMessMobile.svg" alt="">
+</div>

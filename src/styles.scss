@@ -274,9 +274,18 @@ h3 {
     .topic {
         font-size: 1em;
     }
+  
 }
 
 @media (max-width: 600px) {
+
+  .newMessageButton {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    cursor: pointer;
+  }
     .sidenavLeft, .sidenavRight {
       width: 100%;
     }
@@ -288,6 +297,7 @@ h3 {
     }
  
   }
+
 
 
 

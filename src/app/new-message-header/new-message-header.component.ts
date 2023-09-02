@@ -40,12 +40,7 @@ export class NewMessageHeaderComponent implements OnInit {
   constructor(public dialog: MatDialog, private drawerService: DrawerService, private channelService: ChannelService) { }
   ngOnInit() {
     console.log('für mobil:', this.isSmallScreen);
-    // combineLatest([this.startobs, this.endobs]).subscribe((value)=> {
-    //   this.searchUserInFirestore(value[0], value[1]).then((user)=>{
-    //     this.users = user.docs.map(doc => doc.data());
-    //   })
-    //   console.log(this.users);
-    // })
+
     combineLatest([this.startobs, this.endobs]).subscribe((value) => {
       this.searchInFirestore(value[0], value[1]).then((items) => {
         this.users = items;
@@ -59,8 +54,6 @@ export class NewMessageHeaderComponent implements OnInit {
         });
     })
 
-    // console.log(this.result.users);   
-    // console.log(this.result.channels);
   }
 
   searchMember($event) {
@@ -80,7 +73,6 @@ export class NewMessageHeaderComponent implements OnInit {
     this.endAt.next(q + "\uf8ff");
   }
 
-  // addNewMember() { }
 
   chooseNewMember(user: User) {
     this.chosenUser = user;
@@ -89,16 +81,9 @@ export class NewMessageHeaderComponent implements OnInit {
     this.chosenUser = user;
   }
 
-  // searchUserInFirestore(start, end) {
-  //   const collRef = collection(this.firestore, 'users');
-  //   const queryRef = query(collRef, orderBy('username'), limit(10), startAt(start), endAt(end));
-  //   const docRef = getDocs(queryRef);
-  //   return docRef;
-
-
-  // }
+ 
   async searchInUserCollection(q) {
-    // Suche in der 'users' Collection
+ 
     const usersCollRef = collection(this.firestore, 'users');
     const usersQueryRef = query(usersCollRef, orderBy('username'), limit(10), startAt(q), endAt(q + "\uf8ff"));  //  orderBy('username'),
     const usersDocRef = await getDocs(usersQueryRef);
@@ -113,27 +98,27 @@ export class NewMessageHeaderComponent implements OnInit {
   }
 
   async searchInFirestore(start, end) {
-    // Suche in der 'users' Collection
+
     const usersCollRef = collection(this.firestore, 'users');
     const usersQueryRef = query(usersCollRef, orderBy('username'), limit(10), startAt(start), endAt(end));  //  orderBy('username'),
     const usersDocRef = await getDocs(usersQueryRef);
 
-    // Suche in der 'channels' Collection
+   
     const channelsCollRef = collection(this.firestore, 'channels');
     const channelsQueryRef = query(channelsCollRef, orderBy('title'), limit(10), startAt(start), endAt(end)); //  orderBy('title'),
     const channelsDocRef = await getDocs(channelsQueryRef);
 
 
-    // Kombiniere die Ergebnisse der beiden Queries
+ 
     const combinedResults = [];
     usersDocRef.forEach(doc => {
       combinedResults.push(doc.data());
     });
 
     channelsDocRef.forEach(doc => {
-      // combinedResults.push(doc.data());
+     
       const channelData = doc.data() as DocumentData;
-      const channelWithId = { id: doc.id, ...channelData }; // Hier fügen Sie die ID zum Dokument hinzu
+      const channelWithId = { id: doc.id, ...channelData }; 
       combinedResults.push(channelWithId);
     });
 
@@ -142,13 +127,13 @@ export class NewMessageHeaderComponent implements OnInit {
 
   separateUsersAndChannels(jsonArray) {
     console.log(jsonArray);
-    // Filtert die JSON-Objekte, die ein 'username'-Feld haben, und schiebt sie in das 'users'-Array
+  
     const users = jsonArray.filter((jsonObject) => 'username' in jsonObject);
 
-    // Filtert die JSON-Objekte, die ein 'title'-Feld haben, und schiebt sie in das 'channels'-Array
+
     const channels = jsonArray.filter((jsonObject) => 'title' in jsonObject);
 
-    // Gibt ein Objekt zurück, das die beiden separaten Arrays enthält
+  
     return { users, channels };
   }
 
@@ -157,7 +142,7 @@ export class NewMessageHeaderComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     if (this.drawerService.isSmallScreen) {
 
-      // dialogConfig.width = '95vw';
+   
       dialogConfig.maxWidth = '100vw';
       dialogConfig.maxHeight = '90vh';
 
@@ -176,8 +161,7 @@ export class NewMessageHeaderComponent implements OnInit {
 
 
   openShowChannelInformation(channel) {
-    // this.changeDetect.detectChanges();
-    // this.checkScreenSize();
+  
     console.log(channel);
     console.log(this.drawerService.isSmallScreen);
     const dialogConfig = new MatDialogConfig();
@@ -189,12 +173,12 @@ export class NewMessageHeaderComponent implements OnInit {
 
 
     }
-    // console.log('small:', this.isSmallScreen);
+   
     dialogConfig.data = {
       currentChannelData: channel,
       isSmallScreen: this.drawerService.isSmallScreen,
 
-      // members: this.members
+     
     };
     this.dialog.open(DialogShowChannelComponent, dialogConfig);
 

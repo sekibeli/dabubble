@@ -112,5 +112,11 @@ export class LeftDrawerComponent implements OnInit {
       this.isSmallScreen = false;
     }
   }
+onNewMessageClick(event){
+  this.drawerService.close();
+  this.drawerService.toggle();
+  event.preventDefault();
 
+  this.drawerService.setMyVariable(true)
+}
 }

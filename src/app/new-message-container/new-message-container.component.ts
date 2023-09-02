@@ -10,6 +10,7 @@ import { ChannelService } from '../services/channel.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PostService } from '../services/post.service';
 import { Router } from '@angular/router';
+import { MessageService } from '../services/message.service';
 
 @Component({
   selector: 'app-new-message-container',
@@ -34,13 +35,14 @@ currentUser;
 isChannel: boolean; //is the chosen item a channel?
 channelID;
 authorID;
+isActive: boolean; // Link left sideMenu is activated
 chosenItem: any; // the object of the chosen item, user or channel
 message: FormGroup = new FormGroup({
   description: new FormControl('', [Validators.required, Validators.minLength(2)]),
 })
 
 
-constructor(public dialog: MatDialog, private drawerService: DrawerService, private channelService: ChannelService, private postService: PostService, private route: Router){}
+constructor(public dialog: MatDialog, private drawerService: DrawerService, private channelService: ChannelService, private postService: PostService, private route: Router, private messageService: MessageService){}
 ngOnInit() {
   console.log('für mobil:', this.isSmallScreen);
   this.currentUser = localStorage.getItem("currentuserID");
@@ -68,14 +70,15 @@ ngOnInit() {
 }
 
 searchMember($event) {
+  this.resetSearchState($event);
   this.search = true;
   let q = $event.target.value;
 
-  if (q.startsWith('#')) {
+  if (q.startsWith('@')) {
     q = q.substring(1);
-    console.log('beginnt mit #', q);
+    console.log('beginnt mit @', q);
     this.searchInUserCollection(q);
-  } else if (q.startsWith('@')){
+  } else if (q.startsWith('#')){
     q = q.substring(1);
     this.searchInChannelsCollection(q)
   } else
@@ -83,7 +86,14 @@ searchMember($event) {
   this.endAt.next(q + "\uf8ff");
 }
 
-  // addNewMember() { }
+
+resetSearchState($event){
+  this.search = false;
+  this.users = []; 
+  this.result = { users: [], channels: [] }; 
+  let q = $event.target.value;
+}
+
 
   chooseNewMember(user:User){
     this.chosenUser = user;
@@ -242,14 +252,40 @@ separateUsersAndChannels(jsonArray) {
       
       // let channelID = this.currentChannel;
       let description = this.message.value.description;
+      console.log(description);
       this.postService.savePost(this.currentUser, this.chosenItem['id'], description);
       // this.channelService.pushActiveChannel(this.chosenItem);
       const url = "/home/channel/" + this.chosenItem['id'];
       this.route.navigateByUrl(url);
       this.channelService.pushActiveChannel(this.chosenItem);
       // this.message.reset();
+    } else {
+      this.onProfileClick();
+      let description = this.message.value.description;
+      this.messageService.saveMessage(description);
+      const url = "/home/chat/" + this.chosenItem['id'];
+      this.route.navigateByUrl(url);
+     
     }
    }
+
+   onProfileClick(){
+    this.isActive = true;
+    this.messageService.getThisChat(this.chosenItem['id']);
+    // this.setMode(true); 
+    this.drawerService.close(); 
+    this.messageService.setChatUser(this.chosenItem['id']); 
+    this.messageService.pushChatUser(this.chosenItem); 
+    this.messageService.getChatLength(this.chosenItem['id'])
+
+    if (window.innerWidth < 600) {
+      // this.drawerService.toggle();
+      event.preventDefault();
+    
+      // this.drawerService.setMyVariable(true)
+ 
+    }
+  }
 
   
  

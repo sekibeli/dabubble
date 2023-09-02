@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { PostService } from '../services/post.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -11,6 +11,7 @@ import { ChannelService } from '../services/channel.service';
   styleUrls: ['./post-container.component.scss']
 })
 export class PostContainerComponent implements OnInit, OnDestroy {
+  @ViewChild('scrollContainer') private scrollContainer: ElementRef;
   timestamps = [];
   posts;
   id;

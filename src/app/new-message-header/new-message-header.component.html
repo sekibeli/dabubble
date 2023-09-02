@@ -1,4 +1,4 @@
-<div class="newMessageContainer">
+<!-- <div class="newMessageContainer">
 <div class="headerbox">
 <div class="top">Neue Nachricht</div>
 <div class="mainSearch">
@@ -59,18 +59,17 @@
   
     <form class="chatInput input-container" [formGroup]="message">
     <div class="relative">
-    <!-- <textarea *ngIf="!singlePost && channelMessage && channelTitle | async" formControlName="description" id="message" name="meineTextarea"  rows="4" placeholder="Nachricht an #{{ channelTitle.getValue() }} schreiben ..."></textarea> -->
     <textarea  formControlName="description" id="message" name="meineTextarea"  rows="4" placeholder="Eine neue Message schreiben ..."></textarea>
     
     <div class="stick">
-    <!-- <div *ngIf="!singlePost && channelMessage" (click)="this.savePost(this.chatMessage)"><mat-icon>send</mat-icon></div> -->
+ 
     <div (click)="this.sendMessage(this.channelID, this.authorID, message)"><mat-icon>send</mat-icon></div>
     
     </div>
     </div>
     
     </form>
-    <!-- </div> -->
+  
     
     </div>
-</div>
+</div> -->
