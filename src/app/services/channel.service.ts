@@ -300,5 +300,23 @@ this.pushMembersArrayInChannel(membersArray, newChannelID );
       const docRef = await collectionData(collRef);
       return docRef;
    }
+
+
+   checkChannelTitles(title: string): Promise<boolean> {
+      return new Promise<boolean>((resolve, reject) => {
+        const allChannels = this.getAllChannels();
+        allChannels.then((value)=> {
+          value.subscribe(channels => {
+            let titleArray = [];
+            channels.forEach(channel => {
+              titleArray.push(channel['title']);
+            });
+            // Überprüfen, ob der Titel bereits existiert
+            const isUsed = titleArray.includes(title);
+            resolve(isUsed);
+          });
+        });
+      });
+    }
    
 }

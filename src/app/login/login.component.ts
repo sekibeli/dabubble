@@ -61,6 +61,8 @@ error = true;
 setTimeout(() => {
    this.route.navigateByUrl('home/channel/BwYu94QGYDi8hQta31RP');
 }, 4000);
+
+
   }
 
   loginWithEmailAndPassword() {
@@ -106,6 +108,9 @@ setTimeout(() => {
       console.error(error);
     });
   }
+
+
+  
 }
 
 

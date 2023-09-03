@@ -108,7 +108,7 @@
 
        <div class="postAnswer" (click)="getThread(this.postService.activeChannel, this.post.id); this.drawerService.open(); this.threadService.getPostForThread(this.post, this.author)">
           <div class="blue">{{numberOfThreads}} Antworten </div>
-          <div class="postTime">letzte Antwort ....</div>
+          <div *ngIf="lastAnswer" class="postTime">letzte Antwort {{lastAnswer}} Uhr</div>
         </div>
        
     </div>

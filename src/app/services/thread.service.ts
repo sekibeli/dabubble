@@ -48,6 +48,12 @@ localStorage.setItem('threadMessage', 'true');
   //   this.countsOfThreadsNew.emit(counts);
   // }
 
-  getTimeFrom
+  getTimeFromLastAnswer(postID:string){
+    let channelID = localStorage.getItem('currentChannelID');
+    const colRef = collection(this.firestore, 'channels', channelID, 'posts', postID, 'threads');
+    const answer = query(colRef, orderBy('timestamp'))
+    const postData = collectionData(answer);
+return postData;
+  }
 }
 

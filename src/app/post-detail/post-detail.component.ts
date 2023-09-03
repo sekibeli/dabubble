@@ -44,6 +44,7 @@ export class PostDetailComponent implements OnInit {
   public hoveredReaction = null;
   usersArray;
   currentUserName;
+  lastAnswer; // Uhrzeit der letzten Nachricht im Thread
   constructor(private userService: UserService,
     private drawerService: DrawerService,
     private threadService: ThreadService,
@@ -68,7 +69,7 @@ export class PostDetailComponent implements OnInit {
       }
     }
     this.getAuthorDetails(this.post);
-    this.getTimeFromTimestamp(this.post['timestamp']);
+    this.time = this.formatTime(this.post['timestamp']);
     this.getThread(this.postService.activeChannel, this.post.id);
     this.getFormatedDateFromTimestamp(this.post['timestamp']);
 
@@ -85,9 +86,26 @@ export class PostDetailComponent implements OnInit {
 
 this.currentUserName = localStorage.getItem("currentUserName");
 
-
+this.threadService.getTimeFromLastAnswer(this.post['id']).subscribe((time) => {
+  console.log('timearray:',time);
+  let lastElementArray = time.slice(-1); // Array mit dem letzten Element
+  let lastElement = lastElementArray[0];
+  if (lastElementArray.length != 0){
+  this.lastAnswer = this.formatTime(lastElement['timestamp']);
+  }
+})
   }
 
+ formatTime(timestamp) {
+    const date = new Date(timestamp);
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+  
+    // Führende Nullen hinzufügen, falls nötig
+   let  strHours = (hours < 10 ? '0' : '') + hours.toString();
+   let  strMinutes = (minutes < 10 ? '0' : '') + minutes.toString();
+    return strHours + ':' + strMinutes;
+  }
 
   /**
    * Abruf von author-Daten anhand des Posts
@@ -101,13 +119,13 @@ this.currentUserName = localStorage.getItem("currentUserName");
   }
 
 
-  getTimeFromTimestamp(timestamp) {
-    let date = new Date(timestamp);
-    let hours = date.getHours();
-    let minutes = date.getMinutes();
-    this.time = hours + ':' + minutes;
+  // getTimeFromTimestamp(timestamp) {
+  //   let date = new Date(timestamp);
+  //   let hours = date.getHours();
+  //   let minutes = date.getMinutes();
+  //   this.time = hours + ':' + minutes;
 
-  }
+  // }
 
   getThread(channelID, postID) {
     this.threadService.getThread(channelID, postID).then((threads: any) => {

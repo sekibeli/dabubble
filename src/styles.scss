@@ -278,7 +278,9 @@ h3 {
 }
 
 @media (max-width: 600px) {
-
+.soft {
+  padding: 5px 5px;
+}
   .newMessageButton {
     display: block;
     position: fixed;
