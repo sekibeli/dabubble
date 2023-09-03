@@ -20,34 +20,61 @@ time;
 downloadUrl;
 reactions;
 // formatedDate;
-
-
+currentChannelID;
+currentUserID;
 constructor(private userService: UserService, private dialog: MatDialog, private drawerService: DrawerService, private smilyService: SmilyService){
-  
+  this.currentChannelID = localStorage.getItem('currentChannelID');
+this.currentUserID = localStorage.getItem("currentUserID");
 }
 
 ngOnInit(){
+  
   if(this.thread && this.thread.author){
     this.getAuthorDetails(this.thread);
   }
     this.time =  new Date(this.thread['timestamp']).toLocaleTimeString('de-DE', {hour: '2-digit', minute:'2-digit'});
     // console.log(this.trueFalse);
     // this.getFormatedDateFromTimestamp(this.thread['timestamp']);
-if(this.thread != null){
-  this.smilyService.getAllReactionsThread(localStorage.getItem('currentChannelID'), this.singlePost['id'], this.thread['id']).then((value) => {
-    value.subscribe((reactions) => {
-      console.log("reactions", reactions);
-     
-      this.reactions = reactions;
-     
-    });
 
-  });
+if(!this.singlePost){
+  console.log('bin raus');
+  return;
+ 
 }
+
+console.log('singlePost:', this.singlePost['id']);
+
+  // this.smilyService.getAllReactionsThread(localStorage.getItem('currentChannelID'), this.singlePost['id'], this.thread['id']).then((value) => {
+  //   value.subscribe((reactions) => {
+  //     console.log("reactions", reactions);
+     
+  //     this.reactions = reactions;
+      
+  //   });
+
+  // });
+
+  this.smilyService.getAllReactionsThread(localStorage.getItem('currentChannelID'), this.singlePost['id'], this.thread['id'])
+.then((value) => {
+  value.subscribe(
+    (reactions) => { // Erfolgreiche Ausführung
+      console.log("reactions", reactions);
+      this.reactions = reactions;
+    },
+    (error) => { // Fehlerfall
+      console.error('Problem beim Abonnieren');
+    }
+  );
+})
+.catch((error) => {
+  console.log('Problem bei der Promised-basierten Operation');
+});
+
+  }
    
 
 
-}
+
 
 getAuthorDetails(post){
   const userDataRef = this.userService.getCurrentUser(post['author']).subscribe((value)=>{

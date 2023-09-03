@@ -31,7 +31,7 @@ trueFalseArray;
   this.threadService.postForThread$.subscribe((post)=> {
     this.singlePost = post;})
  
-
+console.log('singlePost Container:', this.singlePost['id']);
 
   }
 

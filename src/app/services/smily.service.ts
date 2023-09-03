@@ -138,6 +138,50 @@ async addOrDeleteReaction(emoji, channelID: string, postID: string, userID: stri
 }
 
 
+async addOrDeleteReactionThread(emoji, channelID: string, postID: string, threadID: string, userID: string) {
+  console.log(channelID);
+  console.log(postID);
+  console.log(threadID);
+  console.log(emoji);
+  console.log(userID);
+  channelID = localStorage.getItem('currentChannelID');
+  const reaction = emoji;
+  const reactionRef = doc(this.firestore, 'channels', channelID, 'posts', postID, 'threads', threadID, 'reactions', reaction);
+  const reactionDoc = await getDoc(reactionRef);
+
+  if (reactionDoc.exists()) {
+      const existingUsers = reactionDoc.data().user || [];
+      const existingNames = reactionDoc.data().names || [];
+      console.log(existingNames);
+      // Finde den Index der userID im existingUsers Array
+      const index = existingUsers.indexOf(userID);
+
+      if (index !== -1) {
+          // Entferne die userID und den zugehörigen Benutzernamen aus den Arrays
+          existingUsers.splice(index, 1);
+          existingNames.splice(index, 1);
+      } else {
+          // Füge die userID und den zugehörigen Benutzernamen zu den Arrays hinzu
+          const user = await this.userService.getCurrentUser(userID).pipe(first()).toPromise();
+          existingUsers.push(userID);
+          existingNames.push(user['username']);
+      }
+
+      // Aktualisiere die Firestore-Dokumente
+      await updateDoc(reactionRef, {
+          user: existingUsers,
+          names: existingNames
+      });
+  } else {
+      const user = await this.userService.getCurrentUser(userID).pipe(first()).toPromise();
+      await setDoc(reactionRef, {
+          emoji: reaction,
+          user: [userID],
+          names: [user['username']]
+      });
+  }
+}
+
   async getUserIDsAndSaveNames(emoji, channelID: string, postID: string, userID: string) {
     console.log(emoji, channelID, postID, userID);
         const reaction = emoji;
@@ -186,13 +230,17 @@ async addOrDeleteReaction(emoji, channelID: string, postID: string, userID: stri
   }
 
   async getAllReactionsThread(channelID: string, postID: string, threadID: string) {
+    console.log(channelID);
+    console.log(postID);
+    console.log(threadID);
     try {
+
     const collRef = collection(this.firestore, 'channels', channelID, 'posts', postID, 'threads', threadID, 'reactions' );
     
       const docRef = await collectionData(collRef);
     return docRef;
     } catch(error){
-      console.error("An error occurred: ", error);
+      console.log("Ist noch nicht da: ");
       return null;
     }
     

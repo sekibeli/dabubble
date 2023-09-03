@@ -28,6 +28,7 @@ constructor( private channelService: ChannelService, public drawerService: Drawe
 }
 
 onProfileClick(event: Event) {
+ 
   this.isActive = !this.isActive;
   console.log('event:', event);
   this.drawerService.close();

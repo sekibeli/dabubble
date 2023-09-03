@@ -69,7 +69,10 @@ export class InputPostComponent implements OnInit {
     let channelID = this.currentChannel;
     description = this.chatMessage.value.description;
     this.postService.savePost(this.currentUser, channelID, description, postId, this.url);
+   
+   
     this.chatMessage.reset();
+    this.url = null;
     
   }
 

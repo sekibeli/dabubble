@@ -295,5 +295,10 @@ this.pushMembersArrayInChannel(membersArray, newChannelID );
     }
    } 
 
+  async getAllChannels(){
+      const collRef = collection(this.firestore, 'channels');
+      const docRef = await collectionData(collRef);
+      return docRef;
+   }
    
 }

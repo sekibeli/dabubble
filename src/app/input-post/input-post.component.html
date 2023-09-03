@@ -55,8 +55,12 @@
     </div>
     <div>
     <div *ngIf="url" class="file-preview">
-      <img class="attachement" *ngIf="isImage(url)" [src]="url" width="70px"/>
-    
+     <div class="attachement" >
+      <img *ngIf="isImage(url)" [src]="url" width="70px"/>
+      <div class="deleteIMG" (click)="url = null">
+        <mat-icon>close</mat-icon>
+      </div>
+      </div>
 
       <div class="attachement" *ngIf="!isImage(url)"><img src="../../assets/img/pdf50.png" alt=""></div>
     </div>

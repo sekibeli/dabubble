@@ -71,6 +71,7 @@ export class InputThreadComponent implements OnInit {
     description = this.chatMessage.value.description;
     this.postService.savePost(this.currentUser, channelID, description, postId, this.url);
     this.chatMessage.reset();
+    this.url = null;
     
   }
 
@@ -79,6 +80,7 @@ export class InputThreadComponent implements OnInit {
     // console.log('Message description:', description);
     this.messageService.saveMessage(description);
     this.chatMessage.reset();
+    this.url = null;
   }
 
 

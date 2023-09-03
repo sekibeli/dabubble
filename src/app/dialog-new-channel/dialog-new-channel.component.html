@@ -11,6 +11,7 @@
         <input formControlName="title" required matInput type="text">
         <mat-icon matIconPrefix>#</mat-icon>
           <mat-error *ngIf="newChannelForm.controls['title'].hasError('required')">Bitte Titel eingeben</mat-error>
+          <mat-error *ngIf="newChannelForm.controls['title'].hasError('titleTaken')">Titel schon vorhanden</mat-error>
       
     </mat-form-field>
 <div class="spacer"></div>

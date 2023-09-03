@@ -27,7 +27,6 @@ export class PostDetailComponent implements OnInit {
   showEditForm: boolean = false; // show the edit input field or not
   showPost: boolean = true; //shows the standard post-detail content
   editPost: boolean = false; // shows the input field to edit the post
-  // @Input() timestamps;
   @Input() trueFalse: boolean;
   author;
   time;

@@ -79,6 +79,7 @@ export class InputComponent implements OnInit {
     // console.log('Message description:', description);
     this.messageService.saveMessage(description);
     this.chatMessage.reset();
+    this.url = null;
   }
 
 
