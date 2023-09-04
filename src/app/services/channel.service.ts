@@ -49,20 +49,20 @@ export class ChannelService implements OnInit, OnDestroy {
 
    }
 
-   getChannelsWhereCurrentUserIsMember(userId) {
+   getChannelsWhereCurrentUserIsMember(userId: string) {
       // const userId = 'xeLjLZJ7SYVREnmskY07GgKMwnx1';
       // const collRef = query(collection(this.firestore, 'channels'), where('members', 'array-contains', userId), where('createdBy', '==', userId));
       // const docRef = collectionData(collRef, { idField: 'id' });
       const collRef = collection(this.firestore, 'channels');
       // const collRefQuery = query(collRef, or(where('members', 'array-contains', userId), where('createdBy', '==', userId)))
       const collRefQuery = query(collRef, where('members', 'array-contains', userId));
-      const docRef = collectionData(collRefQuery, { idField: 'id' });
+      const docRef = collectionData(collRefQuery); // hinter collRefQuery war , { idField: 'id' }
       return docRef;
    }
 
 
 
-   pushActiveChannel(channel) {
+   pushActiveChannel(channel:any) {
       this.currentChannelID.next(channel.id);
       this.channel = channel;
            this.currentChannelTitle = channel['title'];
