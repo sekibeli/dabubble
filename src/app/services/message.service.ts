@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable, inject } from '@angular/core';
-import { Firestore, addDoc, and, collection, collectionData, or, orderBy, query, where } from '@angular/fire/firestore';
+import { Firestore, addDoc, and, collection, collectionData, doc, or, orderBy, query, setDoc, where } from '@angular/fire/firestore';
 import { Message } from '../models/message.class';
 import { BehaviorSubject, from } from 'rxjs';
 import { User } from '../models/user.class';
@@ -65,6 +65,7 @@ export class MessageService {
 
     this.message = new Message(
       {
+        id: '',
         fromID: localStorage.getItem('currentUserID'),
         toID: localStorage.getItem('currentChatID'),
         description: description,
@@ -77,7 +78,10 @@ export class MessageService {
     if (from === to) { 
       const collDocRef = collection(this.firestore, 'messages', from, 'mess');
       addDoc(collDocRef, this.message.toJSON()).then((result) => {
-  
+        const messageId = result.id;
+        this.message.id = messageId;
+        const docRefWithID = doc(this.firestore,'messages', messageId);
+        setDoc(docRefWithID, this.message.toJSON());
         console.log('Anlage erfolgreich')
       }).catch((error) => {
         console.log(error);
@@ -85,7 +89,10 @@ export class MessageService {
     } else {
       const collDocRef = collection(this.firestore, 'messages');
       addDoc(collDocRef, this.message.toJSON()).then((result) => {
-
+        const messageId = result.id;
+        this.message.id = messageId;
+        const docRefWithID = doc(this.firestore,'messages', messageId);
+        setDoc(docRefWithID, this.message.toJSON());
         console.log('Anlage erfolgreich')
       }).catch((error) => {
         console.log(error);
@@ -121,6 +128,8 @@ export class MessageService {
       this.chatLengthEmitter.emit(length);
     });
   }
+
+ 
 
 }
 
