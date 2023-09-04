@@ -36,28 +36,27 @@
     <!-- <mat-icon>more_vert</mat-icon> -->
     <img src="../../assets/img/morevert.png" alt="" >
   </button>
-     
-      <!-- <button class=" custom-icon-button"  >
-        <mat-icon>home</mat-icon>
-      </button> -->
-   
+       
       <div *ngIf="showEditPost">
         <div class="editPost" (click)="editThisPost(post)">Nachricht bearbeiten</div>
       </div>
 </div>
 
+<!--Main show post-->
     <div class="profile-pic"><img src="{{author['img']}}"></div>
     <div *ngIf="showPost" class="post-content">
        <div class="firstRow"> <div (click)="openProfile(author)" class="post-author">{{author['username']}}</div> <div class="postTime">{{time}} Uhr</div></div>
         <div [ngClass]="{'post-description': !flip, 'post-description-flip': flip}">
           {{post['description']}}
         </div>
-       
+       <!-- show attachement-->
         <div class="showAttachement"> 
-          <a *ngIf="post['file']" [href]="downloadUrl" download="file.png" (click)="convertBase64ToFile()">
-          <img *ngIf="post['file']" [src]="post['file']" alt="Bild"></a></div>
+          <a *ngIf="post['file'] && !isPDF" [href]="downloadUrl" download="file.png" (click)="convertBase64ToFile()">
+          <img *ngIf="post['file'] && !isPDF" [src]="post['file']" alt="Bild"></a>
+          <canvas #pdfCanvas *ngIf="isPDF" (click)="downloadPDF()"></canvas> 
+        </div>
        
-
+<!-- show reactions-->
           <div class="reactionsRow">
             <img src="../../assets/img/add_reaction.svg" alt="" (click)="showPicker = !showPicker">
             <div *ngFor="let reaction of reactions">
@@ -101,11 +100,6 @@
             </div>
         </div>
         
-        
-
-   
-      
-
        <div class="postAnswer" (click)="getThread(this.postService.activeChannel, this.post.id); this.drawerService.open(); this.threadService.getPostForThread(this.post, this.author)">
           <div class="blue">{{numberOfThreads}} Antworten </div>
           <div *ngIf="lastAnswer" class="postTime">letzte Antwort {{lastAnswer}} Uhr</div>

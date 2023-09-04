@@ -24,10 +24,17 @@
        <div (click)="openProfile(author)" class="firstRow"> <div class="post-author">{{this.author['username']}}</div> <div class="postTime">{{time}} Uhr</div></div>
         <div class="post-description">{{this.thread.description}}</div>
     
-        <div class="showAttachement"> 
+        <!-- <div class="showAttachement"> 
             <a *ngIf="thread['file']" [href]="downloadUrl" download="file.png" (click)="convertBase64ToFile()">
-            <img *ngIf="thread['file']" [src]="thread['file']" alt="Bild"></a></div>
+            <img *ngIf="thread['file']" [src]="thread['file']" alt="Bild"></a></div> -->
 
+
+              <!-- show attachement-->
+        <div class="showAttachement"> 
+            <a *ngIf="thread['file'] && !isPDF" [href]="downloadUrl" download="file.png" (click)="convertBase64ToFile()">
+            <img *ngIf="thread['file'] && !isPDF" [src]="thread['file']" alt="Bild"></a>
+            <canvas #pdfCanvasThread *ngIf="isPDF" (click)="downloadPDF()"></canvas> 
+          </div>
 
             <div class="reactionsRow">
                 <img src="../../assets/img/add_reaction.svg" alt="" (click)="showPicker = !showPicker">

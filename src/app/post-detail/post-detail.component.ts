@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { User } from '../models/user.class';
 import { DrawerService } from '../services/drawer.service';
@@ -11,6 +11,8 @@ import { Post } from '../models/post.class';
 import { ChannelService } from '../services/channel.service';
 import { SmilyService } from '../services/smily.service';
 import { first } from 'rxjs';
+import * as pdfjsLib from 'pdfjs-dist';
+
 
 @Component({
   selector: 'app-post-detail',
@@ -20,7 +22,10 @@ import { first } from 'rxjs';
 export class PostDetailComponent implements OnInit {
   @ViewChild('textarea') textarea;
   @Input() post;
+  @ViewChild('pdfCanvas') pdfCanvas: ElementRef;
   downloadUrl;
+  public pdfDataUrl: string;  // Der Base64-kodierte PDF-String
+  public isPDF: boolean = false;
   showEmojiPicker: boolean = false;
   showPicker: boolean = false;
   showEditPost: boolean = false; // show the div "edit Post"
@@ -45,6 +50,7 @@ export class PostDetailComponent implements OnInit {
   usersArray;
   currentUserName;
   lastAnswer; // Uhrzeit der letzten Nachricht im Thread
+
   constructor(private userService: UserService,
     private drawerService: DrawerService,
     private threadService: ThreadService,
@@ -58,6 +64,7 @@ export class PostDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+ 
     this.currentChannel = this.channelService.currentChannelID.getValue();
     console.log('test', this.currentChannel);
     if (this.post) {
@@ -93,7 +100,8 @@ this.threadService.getTimeFromLastAnswer(this.post['id']).subscribe((time) => {
   if (lastElementArray.length != 0){
   this.lastAnswer = this.formatTime(lastElement['timestamp']);
   }
-})
+});
+this.loadPDF();
   }
 
  formatTime(timestamp) {
@@ -252,6 +260,50 @@ this.threadService.getTimeFromLastAnswer(this.post['id']).subscribe((time) => {
       console.error('Fehler bei der Umwandlung von Base64 zu Blob:', e);
     }
   }
+
+  loadPDF() {
+    this.pdfDataUrl = this.post ? this.post['file'] : '';  // Setze einen leeren String, wenn this.post oder this.post['file'] undefined ist
+    // this.pdfDataUrl = this.post['file'];
+  
+    if (this.pdfDataUrl && this.pdfDataUrl.startsWith('data:application/pdf')) {
+      this.isPDF = true;
+      console.log('isPDF', this.isPDF);
+    }
+
+    if (this.isPDF) {
+      pdfjsLib.GlobalWorkerOptions.workerSrc = "/assets/pdf.worker.min.js"
+     
+      // Laden und rendern des pdf
+      const loadingTask = pdfjsLib.getDocument({ data: atob(this.pdfDataUrl.split('base64,')[1]) });
+
+      loadingTask.promise.then(pdf => {
+       
+        return pdf.getPage(1);  // oder welche Seite Sie anzeigen möchten
+      }).then(page => {
+        const viewport = page.getViewport({ scale: 1.0 });
+        const canvas = this.pdfCanvas.nativeElement;
+        const context = canvas.getContext('2d');
+        canvas.height = 200;  // oder eine andere Höhe
+        const scale = 200 / viewport.height;
+        const scaledViewport = page.getViewport({ scale });
+
+        const renderContext = {
+          canvasContext: context,
+          viewport: scaledViewport
+        };
+        page.render(renderContext);
+      });
+    }
+  }
+    
+    downloadPDF() {
+    // PDF herunterladen
+    const link = document.createElement('a');
+    link.href = this.pdfDataUrl;
+    link.download = 'document.pdf';
+    link.click();
+  }
+
 
 }
 

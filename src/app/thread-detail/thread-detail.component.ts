@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogProfileComponent } from '../dialog-profile/dialog-profile.component';
 import { DrawerService } from '../services/drawer.service';
 import { SmilyService } from '../services/smily.service';
+import * as pdfjsLib from 'pdfjs-dist';
 
 @Component({
   selector: 'app-thread-detail',
@@ -16,12 +17,16 @@ author;
 @Input() singlePost;
 showPicker : boolean = false;
 // @Input() trueFalse: boolean;
-time;
+@ViewChild('pdfCanvasThread') pdfCanvasThread: ElementRef;
 downloadUrl;
+public pdfDataUrl: string;  // Der Base64-kodierte PDF-String
+public isPDF: boolean = false;
+time;
 reactions;
 // formatedDate;
 currentChannelID;
 currentUserID;
+
 constructor(private userService: UserService, private dialog: MatDialog, private drawerService: DrawerService, private smilyService: SmilyService){
   this.currentChannelID = localStorage.getItem('currentChannelID');
 this.currentUserID = localStorage.getItem("currentUserID");
@@ -35,6 +40,7 @@ ngOnInit(){
     this.time =  new Date(this.thread['timestamp']).toLocaleTimeString('de-DE', {hour: '2-digit', minute:'2-digit'});
     // console.log(this.trueFalse);
     // this.getFormatedDateFromTimestamp(this.thread['timestamp']);
+    this.loadPDF();
 
 if(!this.singlePost){
   console.log('bin raus');
@@ -139,6 +145,61 @@ getAuthorDetails(post){
     this.smilyService.saveReactionThread(event, channel, post, thread, localStorage.getItem('currentUserID'));
     this.showPicker = false;
 
+  }
+
+
+  loadPDF() {
+    this.pdfDataUrl = this.thread ? this.thread['file'] : '';  // Setze einen leeren String, wenn this.post oder this.post['file'] undefined ist
+    // this.pdfDataUrl = this.post['file'];
+  
+    if (this.pdfDataUrl && this.pdfDataUrl.startsWith('data:application/pdf')) {
+      this.isPDF = true;
+      console.log('isPDF', this.isPDF);
+    }
+
+    if (this.isPDF) {
+      pdfjsLib.GlobalWorkerOptions.workerSrc = "/assets/pdf.worker.min.js"
+     
+      // Laden und rendern des pdf
+      const loadingTask = pdfjsLib.getDocument({ data: atob(this.pdfDataUrl.split('base64,')[1]) });
+
+      loadingTask.promise.then(pdf => {
+       
+        return pdf.getPage(1);  // nur die erste Seite anzegen
+      }).then(page => {
+
+        if(this.pdfCanvasThread){
+        const viewport = page.getViewport({ scale: 1.0 });
+        // const canvas = this.pdfCanvasThread.nativeElement;
+        const canvas = this.pdfCanvasThread ? this.pdfCanvasThread.nativeElement : null;
+
+        const context = canvas.getContext('2d');
+
+        const widthCanvas = 120;  //festgelegte Breite
+        const scaleWidth = widthCanvas / viewport.width;
+
+        canvas.height = 160;  // festgelegte Höhe
+        canvas.width = widthCanvas;
+
+       
+        const scaledViewport = page.getViewport({ scale: scaleWidth });
+
+        const renderContext = {
+          canvasContext: context,
+          viewport: scaledViewport
+        };
+        page.render(renderContext);
+      };
+      });
+    }
+  }
+    
+    downloadPDF() {
+    // PDF herunterladen
+    const link = document.createElement('a');
+    link.href = this.pdfDataUrl;
+    link.download = 'document.pdf';
+    link.click();
   }
 
 }

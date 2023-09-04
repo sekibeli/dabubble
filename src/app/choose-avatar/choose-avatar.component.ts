@@ -78,7 +78,7 @@ export class ChooseAvatarComponent implements OnInit {
     
       reader.onload = (event: any) => {
         this.url = event.target.result;
-        console.log('nach dem Lesen:', this.url); // this.url ist ein Bild im Base64 Format
+        // console.log('nach dem Lesen:', this.url); // this.url ist ein Bild im Base64 Format
         this.setNewPic(this.url);
        
       };
