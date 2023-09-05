@@ -27,8 +27,23 @@ export class PostService {
   //   return postData;
   // }
 
+  formatDay(timestamp) {
+    const date = new Date(timestamp);
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+  
+    // Führende Nullen hinzufügen, falls nötig
+   let  strDays = (day < 10 ? '0' : '') + day.toString();
+   let  strMonths = (month < 10 ? '0' : '') + month.toString();
+    return strDays + '.' + strMonths;
+  }
 
+  getFormatedDateFromTimestamp(timestamp) {
 
+    let date = new Date(timestamp);
+    return new Date(timestamp).toLocaleString('de-DE', { weekday: 'long', day: '2-digit', month: 'long' });
+
+  }
   getAllPosts(channelID) {
     const collRef = collection(this.firestore, 'channels', channelID, 'posts');
     const answer = query(collRef, orderBy('timestamp'))

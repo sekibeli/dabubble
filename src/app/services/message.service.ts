@@ -13,6 +13,7 @@ export class MessageService {
   firestore: Firestore = inject(Firestore);
   currentUserID;
   message: Message;
+  private lastDate: string;
   activeChatUser = new EventEmitter();
   chatLengthEmitter = new EventEmitter();
 
@@ -129,6 +130,13 @@ export class MessageService {
     });
   }
 
+  setLastDate(date: string) {
+    this.lastDate = date;
+  }
+
+  getLastDate(): string {
+    return this.lastDate;
+  }
  
 
 }

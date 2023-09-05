@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { doc, onSnapshot } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { PostService } from '../services/post.service';
 
 
 @Component({
@@ -18,8 +19,9 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
   chats;
   data1;
  
+ 
 
-  constructor(private messageService: MessageService, public activatedRoute: ActivatedRoute, public userService: UserService) {
+  constructor(private messageService: MessageService, public activatedRoute: ActivatedRoute, public userService: UserService, private postService: PostService) {
 
   }
 
@@ -31,6 +33,7 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
         // console.log('localStorage:', localStorage.getItem('currentUserID'));
         this.getThisChat(this.id);
       });
+    
   }
 
 
@@ -38,6 +41,9 @@ getThisChat(toID) {
   this.messageService.getThisChat(toID).subscribe((chats) => {
                 this.chats = chats;
                 localStorage.setItem('currentChatLength', this.chats.length);
+             
+                // console.log('ersteMessage', this.firstMessageDate);
+                // this.firstMessage = this.chats[0]['description'];
                 // console.log('aktueller Chat:', this.chats);
           });
     }

@@ -6,6 +6,7 @@ import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { User } from '../models/user.class';
 import { DrawerService } from '../services/drawer.service';
 import {MediaMatcher} from '@angular/cdk/layout';
+import { AutologoutService } from '../services/autologout.service';
 
 @Component({
   selector: 'app-home',
@@ -29,7 +30,7 @@ public currentUser;
   users: Observable<any>;
   user: User;
 
-  constructor(public userService: UserService, public authService: AuthService, public drawerService: DrawerService) { 
+  constructor(public userService: UserService, public authService: AuthService, public drawerService: DrawerService, public autoLogoutService:AutologoutService) { 
     this.checkScreenSize();
    
 

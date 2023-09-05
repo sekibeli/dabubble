@@ -1,11 +1,12 @@
 
 
-<!-- <div *ngIf="trueFalse" class="deviderBox">
-    <div class="formatedDate">{{formatedDate}}</div>
+<div *ngIf="newDate" class="deviderBox">
+    <div class="formatedDate">{{this.postService.getFormatedDateFromTimestamp(chat['timestamp'])}}</div>
 </div>
-<div *ngIf="trueFalse" class="dateDevider"></div> -->
+<div *ngIf="newDate" class="dateDevider"></div>
 
 <!-- <div *ngIf="author"  (click)="getThread(this.postService.activeChannel, this.post.id); this.drawerService.open(); this.threadService.getPostForThread(this.post, this.author)" class="singlePost"> -->
+
 <div  [ngClass]="{'chatContentContainerFliped': flip, 'chatContentContainer': !flip}" *ngIf="messageAuthor" >
     <div class="reactionEmoji">
         <emoji-mart

@@ -71,9 +71,20 @@ export class LeftDrawerComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getUserData().subscribe((users) => {
       this.users = users;
+        
+    const currentUserID = localStorage.getItem('currentUserID');
+     // Finden des Benutzers mit der ID currentUserId
+    const currentUser = this.users.find(user => user.id === currentUserID);
+    if (currentUser) {
+      // Entfernen des gefundenen Benutzers aus dem Array
+      this.users = this.users.filter(user => user.id !== currentUserID);
+
+      // Fügen des gefundenen Benutzers an den Anfang des Arrays
+      this.users.unshift(currentUser);
+    }
     })
 
-    this.currentUserID = localStorage.getItem('currentUserID');
+    // this.currentUserID = localStorage.getItem('currentUserID');
     // console.log(this.currentUserID);
   }
 

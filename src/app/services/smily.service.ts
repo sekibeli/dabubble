@@ -12,6 +12,7 @@ export class SmilyService {
   // userArraySubject: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
   userNames: string[] = [];
   showPicker:boolean = false;
+ 
   constructor(private userService:UserService) { }
 
   async saveReaction(event, channelID: string, postID: string, userID: string) {
@@ -90,40 +91,7 @@ export class SmilyService {
 
   }
 
-//   async addOrDeleteReaction(emoji, channelID: string, postID: string, userID: string) {
-// console.log(emoji, channelID, postID, userID);
-//     const reaction = emoji;
-//     const reactionRef = doc(this.firestore, 'channels', channelID, 'posts', postID, 'reactions', reaction);
-//     const reactionDoc = await getDoc(reactionRef);
 
-//     if (reactionDoc.exists()) {
-//       // Hole das bestehende 'user'-Array aus dem Dokument
-//       const existingUsers = reactionDoc.data().user || [];
-//       const existingNames = reactionDoc.data().names || [];
-    
-//       // Überprüfe, ob die userID bereits im Array existiert
-//       if (existingUsers.includes(userID)) {
-//         // Entferne die userID aus dem Array
-//         await updateDoc(reactionRef, {
-//           user: arrayRemove(userID)
-//         });
-//       } else {
-//         // Füge die userID zum Array hinzu
-//         await updateDoc(reactionRef, {
-//           user: arrayUnion(userID)
-//         });
-//         this.getUserIDsAndSaveNames(emoji, channelID,postID,userID);
-//       }
-//     } else {
-//       await setDoc(reactionRef, {
-//         emoji: reaction,
-//         user: arrayUnion(userID)
-//       });
-//     }
-  
-    
-
-//   }
 
 async addOrDeleteReaction(emoji, channelID: string, postID: string, userID: string) {
   const reaction = emoji;
@@ -141,6 +109,7 @@ async addOrDeleteReaction(emoji, channelID: string, postID: string, userID: stri
           // Entferne die userID und den zugehörigen Benutzernamen aus den Arrays
           existingUsers.splice(index, 1);
           existingNames.splice(index, 1);
+         
       } else {
           // Füge die userID und den zugehörigen Benutzernamen zu den Arrays hinzu
           const user = await this.userService.getCurrentUser(userID).pipe(first()).toPromise();
@@ -182,6 +151,7 @@ async addOrDeleteReactionMessage(emoji, messageID: string, userID: string) {
           // Entferne die userID und den zugehörigen Benutzernamen aus den Arrays
           existingUsers.splice(index, 1);
           existingNames.splice(index, 1);
+         
       } else {
           // Füge die userID und den zugehörigen Benutzernamen zu den Arrays hinzu
           const user = await this.userService.getCurrentUser(userID).pipe(first()).toPromise();
@@ -226,6 +196,7 @@ async addOrDeleteReactionThread(emoji, channelID: string, postID: string, thread
           // Entferne die userID und den zugehörigen Benutzernamen aus den Arrays
           existingUsers.splice(index, 1);
           existingNames.splice(index, 1);
+       
       } else {
           // Füge die userID und den zugehörigen Benutzernamen zu den Arrays hinzu
           const user = await this.userService.getCurrentUser(userID).pipe(first()).toPromise();

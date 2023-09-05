@@ -60,7 +60,8 @@
           <div class="reactionsRow">
             <img src="../../assets/img/add_reaction.svg" alt="" (click)="showPicker = !showPicker">
             <div *ngFor="let reaction of reactions">
-                <div class="reactionBubble" 
+              <ng-container *ngIf="reaction['user'].length > 0">
+                <div  class="reactionBubble" 
                     (mouseover)="hoveredReaction = reaction"
                     (mouseout)="hoveredReaction = null"
                     (click)="this.smilyService.addOrDeleteReaction(reaction['emoji'], this.currentChannel, post['id'], this.currentUserID)">
@@ -97,6 +98,7 @@
         
                     </div>
                 </div>
+              </ng-container>
             </div>
         </div>
         
