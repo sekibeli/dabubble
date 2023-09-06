@@ -25,6 +25,7 @@ export class PostheaderComponent implements OnInit, OnDestroy {
   countsOfMembers; // Anzahl der Mitglieder eines Channels
   currentChannelUser;
   currentChannel: BehaviorSubject<any> = new BehaviorSubject<any>(null); //
+  channel;
   // currentChannelID: string;
   currentChannelData: any; // Inhalt von currentChannel
   // activeCurrentChannel
@@ -38,10 +39,11 @@ export class PostheaderComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.channelService.activeChannel.subscribe((channel) => {  // Übergabe des ganzen channel Objekts
-      
-      this.currentChannel.next(channel); // Behavior Subject
-      this.currentChannelData = this.currentChannel.getValue();
+    this.channelService.displayedChannel.subscribe((channel) => {  // Übergabe des ganzen channel Objekts
+      this.channel = channel;
+      // this.currentChannel.next(channel); // Behavior Subject
+      // this.currentChannelData = this.currentChannel.getValue();
+     
     
 
     });
@@ -55,23 +57,25 @@ export class PostheaderComponent implements OnInit, OnDestroy {
       
     });
  
-    console.log('Postheader ngOnInit currentChannel:', this.currentChannel);
-    this.cdr.detectChanges();
+    // console.log('Postheader ngOnInit currentChannel:', this.currentChannel);
+    // this.cdr.detectChanges();
   }
 
-  openAddMemberDialog(activeChannelTitle: string) {
+  openAddMemberDialog() { 
  
     const dialogConfig = new MatDialogConfig();
     dialogConfig.position = {
       top: '200px',  // Ändere diese Werte entsprechend deiner gewünschten Position
       right: '10%'   // Ändere diese Werte entsprechend deiner gewünschten Position
     };
-    dialogConfig.data = { 
-      channelTitle: activeChannelTitle,
-    channel: this.currentChannelData };
-    const dialogRef = this.dialog.open(DialogAddMemberComponent, dialogConfig);
-    dialogRef.componentInstance.channelTitle = this.currentChannelData['title'];
-    dialogRef.componentInstance.channel = this.currentChannelData;
+    // dialogConfig.data = { 
+      // channelTitle: activeChannelTitle,
+    // channel: this.currentChannelData };
+    // channel: this.channelService.displayedChannel };
+    // const dialogRef = 
+    this.dialog.open(DialogAddMemberComponent, dialogConfig);
+    // dialogRef.componentInstance.channelTitle = this.currentChannelData['title'];
+    // dialogRef.componentInstance.channel = this.currentChannelData;
   }
 
   openShowMembersDialog(activeChannelTitle: string) {
@@ -81,12 +85,12 @@ export class PostheaderComponent implements OnInit, OnDestroy {
       right: '10%'   // Ändere diese Werte entsprechend deiner gewünschten Position
     };
     dialogConfig.data = { 
-      channelTitle: activeChannelTitle,
-    channel: this.currentChannelData,
-  serviceChannel: this.channelService.serviceChannel };
+      // channelTitle: activeChannelTitle,
+    // channel: this.currentChannelData,
+  serviceChannel: this.channelService.displayedChannel };
     const dialogRef =  this.dialog.open(DialogShowChanneluserComponent, dialogConfig);
     // dialogRef.componentInstance.channelTitle = this.currentChannelData['title'];
-    dialogRef.componentInstance.channel = this.currentChannelData;
+    // dialogRef.componentInstance.channel = this.currentChannelData;
     // dialogRef.componentInstance.serviceChannel = this.channelService.serviceChannel; //----> musste ich auskommentieren im nicht strict code.
   }
 

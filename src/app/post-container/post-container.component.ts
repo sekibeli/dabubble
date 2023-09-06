@@ -12,11 +12,11 @@ import { ChannelService } from '../services/channel.service';
 })
 export class PostContainerComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('scrollContainer') private scrollContainer: ElementRef;
-  timestamps = [];
+  // timestamps = [];
   posts;
   id;
   subscription: Subscription;
-  trueFalseArray = [];
+ 
 channelPromise;
 channel;
   constructor(public postService: PostService, public route: Router, public activatedRoute: ActivatedRoute, private channelService: ChannelService) {
@@ -50,6 +50,10 @@ channel;
     this.subscription.unsubscribe();
   }
 
+  trackByFn(index, item) {
+    return item.id; // Eindeutige ID aus dem item --> Kein flackern mehr!
+  }
+
   scrollToBottom(): void {
     try {
       this.scrollContainer.nativeElement.scrollTop = this.scrollContainer.nativeElement.scrollHeight;
@@ -65,7 +69,7 @@ getPosts(id) {
    
         this.posts = posts;
         // console.log(this.posts);
-     this.createTimestampArray(this.posts);
+    //  this.createTimestampArray(this.posts);
       });
     
     }
@@ -77,13 +81,13 @@ getPosts(id) {
  * @param posts Array with all posts
  * creates an array with the dates of all posts
  */
-  createTimestampArray(posts){
+  // createTimestampArray(posts){
    
-    posts.forEach((element) => {
-       this.timestamps.push(new Date(element['timestamp']).toLocaleString('de-DE', { weekday: 'long', day: '2-digit', month: 'long' }));
-     });
-       this.trueFalseArray = this.dateCompare(this.timestamps)
-     }
+  //   posts.forEach((element) => {
+  //      this.timestamps.push(new Date(element['timestamp']).toLocaleString('de-DE', { weekday: 'long', day: '2-digit', month: 'long' }));
+  //    });
+  //      this.trueFalseArray = this.dateCompare(this.timestamps)
+  //    }
 
      /**
       * 

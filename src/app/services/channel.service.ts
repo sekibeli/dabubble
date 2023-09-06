@@ -17,7 +17,7 @@ export class ChannelService implements OnInit, OnDestroy {
    private destroy$: Subject<void> = new Subject<void>();
    firestore: Firestore = inject(Firestore)
    channelUser: BehaviorSubject<any[]> = new BehaviorSubject<any[]>(null);
-   serviceChannel: BehaviorSubject<any> = new BehaviorSubject<any>(null); //BehaviorSubject mit dem aktuellen Channel
+   displayedChannel: BehaviorSubject<any> = new BehaviorSubject<any>(null); //BehaviorSubject mit dem aktuellen Channel
    channelUserIDArray;
    membersUserIDArray: any[];
    // channelUserArrayEmitter = new EventEmitter<any>();
@@ -26,13 +26,13 @@ export class ChannelService implements OnInit, OnDestroy {
 
 
  currentChannelUserArraySubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
-   currentChannelUserArray$ = this.currentChannelUserArraySubject.asObservable();
+   // currentChannelUserArray$ = this.currentChannelUserArraySubject.asObservable();
 
 
-   activeChannelTitle = new EventEmitter<string>();
-   activeChannelID = new EventEmitter<string>();
-   activeChannel = new EventEmitter<any>();
-   serviceChannelEmitter = new EventEmitter<any>();
+   // activeChannelTitle = new EventEmitter<string>();
+   // activeChannelID = new EventEmitter<string>();
+   // activeChannel = new EventEmitter<any>();
+   // serviceChannelEmitter = new EventEmitter<any>();
    constructor(private userService: UserService, public dialog: MatDialog) {
     
       // console.log('obsi:', this.currentChannelUserArray$);
@@ -65,15 +65,15 @@ export class ChannelService implements OnInit, OnDestroy {
    pushActiveChannel(channel:any) {
       this.currentChannelID.next(channel.id);
       this.channel = channel;
-           this.currentChannelTitle = channel['title'];
-         this.activeChannel.emit(channel);
+      this.currentChannelTitle = channel['title'];
+         // this.activeChannel.emit(channel);
          // this.serviceChannelEmitter.emit(this.serviceChannel)
-    this.serviceChannel.next(channel);
-console.log('Daten von folgendem Channel:', channel['title']);
-      this.getMembersOfChannelNEW(channel['id']).then(members => {
-         this.membersUserIDArray = members;
+    this.displayedChannel.next(channel); 
+
+      this.getMembersOfChannelNEW(channel['id']).then(members => { // hole Member of channel
+         this.membersUserIDArray = members; // übergebe das array mit strings
          // console.log('Inhalt membersUserIDArray', this.membersUserIDArray);
-         this.getMembersData(this.membersUserIDArray);
+         this.getMembersData(this.membersUserIDArray); // hole mit stringarray die members daten
       });
    }
 
@@ -90,12 +90,9 @@ console.log('Daten von folgendem Channel:', channel['title']);
 
             fetchCount--;
             if (fetchCount === 0) {
-               // this.currentChannelUserArray = [];
-               // this.currentChannelUserArray = usersArray;
                this.currentChannelUserArray = usersArray;
                this.currentChannelUserArraySubject.next(usersArray);
-               // console.log('Array nach getMembersData:', this.currentChannelUserArray);
-               // this.channelUserArrayEmitter.emit(this.currentChannelUserArray$);
+      
                console.log('this.currentChannelUserArraySubject', this.currentChannelUserArraySubject);
             }
          });
@@ -203,9 +200,9 @@ console.log('existiert der Channel?:', channelID);
          top: '200px',  // Ändere diese Werte entsprechend deiner gewünschten Position
          right: '10%'   // Ändere diese Werte entsprechend deiner gewünschten Position
       };
-      dialogConfig.data = { channelTitle: activeChannelTitle };
+      // dialogConfig.data = { channelTitle: activeChannelTitle };
       const dialogRef = this.dialog.open(DialogAddMemberComponent, dialogConfig);
-      dialogRef.componentInstance.channelTitle = this.activeChannelTitle;
+      // dialogRef.componentInstance.channelTitle = this.activeChannelTitle;
    }
 
 

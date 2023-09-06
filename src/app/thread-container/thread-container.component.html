@@ -4,7 +4,7 @@
 
 <app-single-post [countsOfThreads]="countsOfThreads"></app-single-post>
 <div class="scrollContainer">
-<div *ngFor="let thread of threads | objectToArray">
+<div *ngFor="let thread of threads | objectToArray; trackBy: trackByFn; let i = index">
   <app-thread-detail [thread]="thread" [singlePost]="singlePost"></app-thread-detail>
 </div>
 </div>

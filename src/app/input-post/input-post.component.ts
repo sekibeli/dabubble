@@ -51,10 +51,9 @@ export class InputPostComponent implements OnInit {
 //  this.currentChatLength = value;
 //    });
 
-   this.channelService.activeChannel.subscribe((value)=>{
-    // console.log(value['title']);
-    this.channelTitle.next(value['title']);
-   });
+  //  this.channelService.displayedChannel.subscribe((value)=>{
+  //       this.channelTitle.next(value['title']);
+  //  });
     this.currentUser = localStorage.getItem('currentUserID');
     this.directMessage = JSON.parse(localStorage.getItem('directMessage'));
     this.channelMessage = JSON.parse(localStorage.getItem('channelMessage'));
@@ -63,7 +62,7 @@ export class InputPostComponent implements OnInit {
 
   savePost(description, postId) {
     
-    console.log(this.url);
+    // console.log(this.url);
     // console.log('postDescription:', description);
     this.currentChannel = this.activatedRoute.snapshot.params['id'];
     let channelID = this.currentChannel;

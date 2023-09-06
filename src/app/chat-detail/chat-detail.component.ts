@@ -6,6 +6,7 @@ import { DialogProfileComponent } from '../dialog-profile/dialog-profile.compone
 import { SmilyService } from '../services/smily.service';
 import { PostService } from '../services/post.service';
 import { MessageService } from '../services/message.service';
+import { DateService } from '../services/date.service';
 
 @Component({
   selector: 'app-chat-detail',
@@ -22,7 +23,7 @@ export class ChatDetailComponent implements OnInit {
   currentUserID;
   dateMessageBefore: string = '';
   newDate: boolean;
-  constructor(private userService: UserService, private drawerService: DrawerService, private dialog: MatDialog, private smilyService: SmilyService, public postService: PostService, public messageService: MessageService) {
+  constructor(private userService: UserService, private drawerService: DrawerService, private dialog: MatDialog, private smilyService: SmilyService, public postService: PostService, public messageService: MessageService, private dateService: DateService) {
 
 
   }
@@ -52,27 +53,27 @@ if(!(this.chat['id'] == '')){
     });
   }
 
-    const currentDate = this.postService.getFormatedDateFromTimestamp(this.chat['timestamp']);
-    this.newDate = currentDate !== this.messageService.getLastDate();
+    const currentDate = this.dateService.getFormatedDateFromTimestamp(this.chat['timestamp']);
+    this.newDate = currentDate !== this.dateService.getLastDate();
 
     if (this.newDate) {
-      this.messageService.setLastDate(currentDate);
+      this.dateService.setLastDate(currentDate);
     }
 
 
-  }
+  } 
 
 
-  isNewDate(message: string) {
+  // isNewDate(message: string) {
 
-    if (message !== this.dateMessageBefore) {
-      this.dateMessageBefore = message;
-      this.newDate = true;
-    }
-    else {
-      this.newDate = false;
-    }
-  }
+  //   if (message !== this.dateMessageBefore) {
+  //     this.dateMessageBefore = message;
+  //     this.newDate = true;
+  //   }
+  //   else {
+  //     this.newDate = false;
+  //   }
+  // }
 
   getDetailsFromID(fromID) {
     this.userService.getCurrentUser(fromID).subscribe((user) => {

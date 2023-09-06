@@ -21,7 +21,7 @@
         *ngIf="
           !singlePost &&
           channelMessage &&
-          (this.channelService.serviceChannel | async) as currentChannel
+          (this.channelService.displayedChannel | async) as currentChannel
         "
         formControlName="description"
         id="message"

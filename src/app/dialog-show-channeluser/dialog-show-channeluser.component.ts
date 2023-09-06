@@ -24,11 +24,11 @@ constructor( public dialogRef: MatDialogRef<DialogShowChanneluserComponent> , pu
   
   this.members = this.channelService.currentChannelUserArray;
 
-  this.unsub = this.channelService.activeChannelTitle.subscribe((value)=>{
-    // console.log(value);
-    this.activeTitle = value;
+  // this.unsub = this.channelService.activeChannelTitle.subscribe((value)=>{
+  //   // console.log(value);
+  //   this.activeTitle = value;
   
-  });
+  // });
 
 
 }
@@ -45,12 +45,12 @@ openAddMember(){
     top: '200px',  // Ändere diese Werte entsprechend deiner gewünschten Position
     right: '10%'   // Ändere diese Werte entsprechend deiner gewünschten Position
   };
-dialogConfig.data = { 
-  channelTitle: this.channelService.currentChannelTitle,
-channel: this.data.channel }
+// dialogConfig.data = { 
+//   channelTitle: this.channelService.currentChannelTitle,
+// channel: this.data.channel }
  const dialogRef =  this.dialog.open(DialogAddMemberComponent, dialogConfig);
- dialogRef.componentInstance.channelTitle = this.channelService.currentChannelTitle;
- dialogRef.componentInstance.channel = this.data.channel; 
+//  dialogRef.componentInstance.channelTitle = this.channelService.currentChannelTitle;
+//  dialogRef.componentInstance.channel = this.data.channel; 
 
   this.dialogRef.close();
 

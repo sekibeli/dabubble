@@ -1,15 +1,15 @@
-<div class="postheader" *ngIf="(this.channelService.serviceChannel| async) as currentChannelData">
+<div class="postheader" *ngIf="(this.channelService.displayedChannel| async) as currentChannelData">
   <div class="postingheader">
     <div class="leftSide" (click)="openShowChannelInformation(currentChannelData)">
      
-      <div class="topic" *ngIf="(this.channelService.serviceChannel| async) as currentChannelData">
+      <div class="topic" *ngIf="(this.channelService.displayedChannel| async) as currentChannelData">
         # {{ currentChannelData['title'] }}
       </div>
       <div><mat-icon> keyboard_arrow_down </mat-icon></div>
     </div>
    
-      <div class="miniProfilePicsRow" *ngIf="(this.channelService.serviceChannel| async) as currentChannelData">
-        <div *ngIf="!isSmallScreen" class="user"  (click)="openShowMembersDialog(currentChannelData['title'])">
+      <div class="miniProfilePicsRow" *ngIf="(this.channelService.displayedChannel| async) as currentChannel">
+        <div *ngIf="!isSmallScreen" class="user"  (click)="openShowMembersDialog(currentChannel['title'])">
           
           <ng-container *ngFor="let member of members | slice: 0:3">
           <img [src]="member['img']" />
@@ -18,7 +18,7 @@
      
         <div class="amountOfMembers">{{ countsOfMembers }}</div>
         </div>
-        <div class="addMember" (click)="openAddMemberDialog(this.currentChannelData['title'])"> 
+        <div class="addMember" (click)="openAddMemberDialog()"> 
           <div class="hover">
          <mat-icon>person_add</mat-icon> 
           </div>

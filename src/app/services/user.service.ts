@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable, OnInit, inject } from '@angular/core';
 import { Firestore, collection, collectionData, doc, docData, limit, orderBy, query, setDoc, updateDoc, where } from '@angular/fire/firestore';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { User } from '../models/user.class';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { DialogProfileComponent } from '../dialog-profile/dialog-profile.component';
@@ -17,7 +17,7 @@ export class UserService implements OnInit {
   observeUsers: Observable<any>;
   startAt = new Subject();
 endAt = new Subject();
-
+// currentUserData: BehaviorSubject<User> = new BehaviorSubject<User>(null);
   constructor() {
     this.getUserData();
   }
@@ -39,6 +39,16 @@ endAt = new Subject();
     return docData(docRef);
 
   }
+
+  // getCurrentUserData(id: string) {
+   
+  //   const docRef = doc(this.firestore, 'users', id);
+
+  //   docData(docRef).subscribe((user)=> {
+  //     this.currentUserData.next(user as User);
+  //   });
+
+  // }
 
   getUserByEmail(email: string){
     const colRef = collection(this.firestore, 'users');

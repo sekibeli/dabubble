@@ -1,9 +1,11 @@
-<div *ngIf="trueFalse" class="deviderBox">
-       <div class="formatedDate">{{formatedDate}}</div>
-</div>
-<div *ngIf="trueFalse" class="dateDevider"></div>
 
-<div *ngIf="author && (this.channelService.serviceChannel |async) as channel"   class="singlePost" [ngClass]="{'background-blue': showEditForm}">
+<div *ngIf="newDate" class="deviderBox">
+  <div class="formatedDate">{{this.postService.getFormatedDateFromTimestamp(post['timestamp'])}}</div>
+</div>
+<div *ngIf="newDate" class="dateDevider"></div>
+
+
+<div *ngIf="author && (this.channelService.displayedChannel |async) as channel"   class="singlePost" [ngClass]="{'background-blue': showEditForm}">
   <div class="reactionEmoji">
     <emoji-mart
       class="emoji-mart"

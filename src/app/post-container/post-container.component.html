@@ -2,8 +2,8 @@
 <app-postheader></app-postheader>
 
 <div #scrollContainer class="scrollContainer">
-<div  *ngFor="let post of  posts; let i = index">
-  <app-post-detail [trueFalse]="trueFalseArray[i]" [timestamps]="timestamps" [post]="post"></app-post-detail>
+<div  *ngFor="let post of  posts; trackBy: trackByFn; let i = index">
+  <app-post-detail [post]="post"></app-post-detail>
 </div>
 </div>
 <app-input-post></app-input-post>

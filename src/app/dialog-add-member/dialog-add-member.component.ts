@@ -30,7 +30,8 @@ users;
 
 public channelTitle;
   constructor(public dialogRef: MatDialogRef<DialogAddMemberComponent>, private channelService: ChannelService, private userService: UserService, @Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog) { 
-   this.channel = data.channel;
+  //  this.channel = this.data.channel;
+  //  console.log('--->>', this.data.channel);
     // this.channelService.activeChannelTitle.subscribe((value)=>{
     // console.log(value);
     // })
@@ -46,14 +47,19 @@ public channelTitle;
       // console.log(this.users);
     })
   
-    
+    this.channelService.displayedChannel.subscribe((channel)=>{
+      this.channel = channel;
+      console.log('channel:', channel);
+    });
+     
   }
   addMemberToChannel() {
 
     // let channelID = this.channelService.currentChannelID;
     // console.log('Wichtig:', this.data);
-    this.channelService.addMemberToChannel(this.data.channel['id'], this.chosenUser['id']);
-console.log(this.data.channel['id'], this.chosenUser['id']);
+    console.log('channel und userID',this.channel['id'], this.chosenUser['id']);
+    this.channelService.addMemberToChannel(this.channel['id'], this.chosenUser['id']);
+
    this.dialogRef.close();
 
   }

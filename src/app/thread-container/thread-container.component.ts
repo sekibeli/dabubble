@@ -13,7 +13,7 @@ singlePost: any;
 threads;
 thread;
 countsOfThreads; //  Anzahl der Threads
-trueFalseArray;
+// trueFalseArray;
   constructor(private drawerService: DrawerService, private threadService: ThreadService ){
 
   }
@@ -45,6 +45,9 @@ console.log('singlePost Container:', this.singlePost['id']);
     localStorage.setItem('threadMessage', 'false');
   }
 
+  trackByFn(index, item) {
+    return item.id;  // oder irgendeine andere eindeutige Eigenschaft des Items
+  }
   /**
  * 
  * @param posts Array with all posts
@@ -56,7 +59,7 @@ console.log('singlePost Container:', this.singlePost['id']);
        this.timestamps.push(new Date(element['timestamp']).toLocaleString('de-DE', { weekday: 'long', day: '2-digit', month: 'long' }));
      });
    
-       this.trueFalseArray = this.dateCompare(this.timestamps)
+      //  this.trueFalseArray = this.dateCompare(this.timestamps)
      }
 
      /**

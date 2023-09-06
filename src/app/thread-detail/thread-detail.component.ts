@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogProfileComponent } from '../dialog-profile/dialog-profile.component';
@@ -11,19 +11,19 @@ import * as pdfjsLib from 'pdfjs-dist';
   templateUrl: './thread-detail.component.html',
   styleUrls: ['./thread-detail.component.scss']
 })
-export class ThreadDetailComponent implements OnInit {
+export class ThreadDetailComponent implements OnInit, OnDestroy, OnChanges {
 author;
 @Input() thread;
 @Input() singlePost;
 showPicker : boolean = false;
-// @Input() trueFalse: boolean;
+
 @ViewChild('pdfCanvasThread') pdfCanvasThread: ElementRef;
 downloadUrl;
 public pdfDataUrl: string;  // Der Base64-kodierte PDF-String
 public isPDF: boolean = false;
 time;
 reactions;
-// formatedDate;
+
 currentChannelID;
 currentUserID;
 
@@ -43,12 +43,14 @@ ngOnInit(){
     this.loadPDF();
 
 if(!this.singlePost){
-  console.log('bin raus');
+  // console.log('bin raus');
   return;
  
 }
 
-console.log('singlePost:', this.singlePost['id']);
+
+
+console.log('INIT singlePost:', this.singlePost['id']);
 
   // this.smilyService.getAllReactionsThread(localStorage.getItem('currentChannelID'), this.singlePost['id'], this.thread['id']).then((value) => {
   //   value.subscribe((reactions) => {
@@ -78,7 +80,13 @@ console.log('singlePost:', this.singlePost['id']);
 
   }
    
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('change', changes)
+  }
 
+  ngOnDestroy(): void {
+    console.log('zerstört');
+  }
 
 
 

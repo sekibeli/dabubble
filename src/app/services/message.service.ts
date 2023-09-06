@@ -129,13 +129,13 @@ export class MessageService {
     });
   }
 
-  setLastDate(date: string) {
-    this.lastDate = date;
-  }
+  // setLastDate(date: string) {
+  //   this.lastDate = date;
+  // }
 
-  getLastDate(): string {
-    return this.lastDate;
-  }
+  // getLastDate(): string {
+  //   return this.lastDate;
+  // }
  
 
 }

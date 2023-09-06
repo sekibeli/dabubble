@@ -1,6 +1,6 @@
 <div class="postheader">
     <div class="postingheader">
    <div class="topic">Thread</div>
-   <div class="channelTitle" *ngIf="channelTitle | async"># {{channelTitle.getValue()}}</div>
+   <div class="channelTitle" *ngIf="this.channelService.displayedChannel | async  as channel"> # {{channel['title']}}
     </div>
     </div>

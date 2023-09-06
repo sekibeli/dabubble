@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, OnChanges, ViewChild, SimpleChanges } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { User } from '../models/user.class';
 import { DrawerService } from '../services/drawer.service';
@@ -12,14 +12,16 @@ import { ChannelService } from '../services/channel.service';
 import { SmilyService } from '../services/smily.service';
 import { first } from 'rxjs';
 import * as pdfjsLib from 'pdfjs-dist';
+import { DateService } from '../services/date.service';
 
 
 @Component({
   selector: 'app-post-detail',
   templateUrl: './post-detail.component.html',
   styleUrls: ['./post-detail.component.scss']
+  
 })
-export class PostDetailComponent implements OnInit {
+export class PostDetailComponent implements OnInit, OnChanges {
   @ViewChild('textarea') textarea;
   @Input() post;
   @ViewChild('pdfCanvas') pdfCanvas: ElementRef;
@@ -32,7 +34,7 @@ export class PostDetailComponent implements OnInit {
   showEditForm: boolean = false; // show the edit input field or not
   showPost: boolean = true; //shows the standard post-detail content
   editPost: boolean = false; // shows the input field to edit the post
-  @Input() trueFalse: boolean;
+ 
   author;
   time;
   currentChannel;
@@ -49,7 +51,8 @@ export class PostDetailComponent implements OnInit {
   public hoveredReaction = null;
   usersArray;
   currentUserName;
-  lastAnswer; // Uhrzeit der letzten Nachricht im Thread
+  // lastAnswer; // Uhrzeit der letzten Nachricht im Thread
+  newDate;
 
   constructor(private userService: UserService,
     private drawerService: DrawerService,
@@ -57,7 +60,8 @@ export class PostDetailComponent implements OnInit {
     private postService: PostService,
     private dialog: MatDialog,
     public channelService: ChannelService,
-    private smilyService: SmilyService) {
+    private smilyService: SmilyService,
+    private dateService: DateService) {
 
     this.currentUserID = localStorage.getItem('currentUserID');
 
@@ -66,7 +70,7 @@ export class PostDetailComponent implements OnInit {
   ngOnInit() {
  
     this.currentChannel = this.channelService.currentChannelID.getValue();
-    console.log('test', this.currentChannel);
+    console.log('ngOnInit Post-detail', this.post);
     if (this.post) {
 
       if (this.post['author'] === localStorage.getItem('currentUserID')) {
@@ -76,9 +80,9 @@ export class PostDetailComponent implements OnInit {
       }
     }
     this.getAuthorDetails(this.post);
-    this.time = this.formatTime(this.post['timestamp']);
+    this.time = this.dateService.formatTime(this.post['timestamp']);
     this.getThread(this.postService.activeChannel, this.post.id);
-    this.getFormatedDateFromTimestamp(this.post['timestamp']);
+    this.dateService.getFormatedDateFromTimestamp(this.post['timestamp']);
 
 
     this.smilyService.getAllReactions(this.currentChannel, this.post['id']).then((value) => {
@@ -93,31 +97,29 @@ export class PostDetailComponent implements OnInit {
 
 this.currentUserName = localStorage.getItem("currentUserName");
 
-this.threadService.getTimeFromLastAnswer(this.post['id']).subscribe((time) => {
-  console.log('timearray:',time);
-  let lastElementArray = time.slice(-1); // Array mit dem letzten Element
-  let lastElement = lastElementArray[0];
-  if (lastElementArray.length != 0){
-  this.lastAnswer = this.formatTime(lastElement['timestamp']);
-  }
-});
+
 this.loadPDF();
+
+const currentDate = this.dateService.getFormatedDateFromTimestamp(this.post['timestamp']);
+    this.newDate = currentDate !== this.dateService.getLastDate();
+
+    if (this.newDate) {
+      this.dateService.setLastDate(currentDate);
+    }
+
   }
 
- formatTime(timestamp) {
-    const date = new Date(timestamp);
-    let hours = date.getHours();
-    let minutes = date.getMinutes();
-  
-    // Führende Nullen hinzufügen, falls nötig
-   let  strHours = (hours < 10 ? '0' : '') + hours.toString();
-   let  strMinutes = (minutes < 10 ? '0' : '') + minutes.toString();
-    return strHours + ':' + strMinutes;
-  }
 
   /**
    * Abruf von author-Daten anhand des Posts
    */
+
+ngOnChanges(changes: SimpleChanges): void {
+  console.log('ngOnChanges', changes);
+}
+
+
+
   getAuthorDetails(post) {
     const userDataRef = this.userService.getCurrentUser(post['author']).subscribe((value) => {
 
@@ -127,26 +129,11 @@ this.loadPDF();
   }
 
 
-  // getTimeFromTimestamp(timestamp) {
-  //   let date = new Date(timestamp);
-  //   let hours = date.getHours();
-  //   let minutes = date.getMinutes();
-  //   this.time = hours + ':' + minutes;
-
-  // }
-
   getThread(channelID, postID) {
     this.threadService.getThread(channelID, postID).then((threads: any) => {
       this.numberOfThreads = threads.length;
       localStorage.setItem('directMessage', 'false');
     });
-
-  }
-
-  getFormatedDateFromTimestamp(timestamp) {
-
-    let date = new Date(timestamp);
-    this.formatedDate = new Date(timestamp).toLocaleString('de-DE', { weekday: 'long', day: '2-digit', month: 'long' });
 
   }
 
@@ -278,7 +265,7 @@ this.loadPDF();
 
       loadingTask.promise.then(pdf => {
        
-        return pdf.getPage(1);  // oder welche Seite Sie anzeigen möchten
+        return pdf.getPage(1);  // will Seite 1 anzeigen lassen
       }).then(page => {
         const viewport = page.getViewport({ scale: 1.0 });
         const canvas = this.pdfCanvas.nativeElement;
