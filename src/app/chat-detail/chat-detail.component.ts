@@ -40,7 +40,7 @@ export class ChatDetailComponent implements OnInit {
         this.flip = false;
       // console.log(this.flip);
     }
-
+if(!(this.chat['id'] == '')){  
     this.smilyService.getAllReactionsMessage(this.chat['id']).then((value) => {
       value.subscribe((reactions) => {
         console.log("reactions", reactions);
@@ -50,6 +50,7 @@ export class ChatDetailComponent implements OnInit {
       });
 
     });
+  }
 
     const currentDate = this.postService.getFormatedDateFromTimestamp(this.chat['timestamp']);
     this.newDate = currentDate !== this.messageService.getLastDate();

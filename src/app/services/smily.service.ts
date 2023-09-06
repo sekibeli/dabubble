@@ -267,6 +267,7 @@ async addOrDeleteReactionThread(emoji, channelID: string, postID: string, thread
   }
 
   async getAllReactionsMessage(messageId: string) {
+    console.log('messageId:', messageId);
     const collRef = collection(this.firestore, 'messages', messageId, 'reactions');
     const docRef = await collectionData(collRef);
     return docRef;

@@ -31,7 +31,7 @@ export class MessageService {
     const to = localStorage.getItem('currentChatID');
     if (from === to) {
       console.log('von:', from, 'zu:', to);
-      const collRef = query(collection(this.firestore, 'messages', from, 'mess'), where('fromID', '==', this.currentUserID));
+      const collRef = query(collection(this.firestore, 'messages', from, 'messages'), where('fromID', '==', this.currentUserID));
       const collRefOrdered = query(collRef, orderBy('timestamp'));
       const docRef = collectionData(collRefOrdered);
 
@@ -75,13 +75,12 @@ export class MessageService {
     );
 
     console.log('Message:', this.message);
-
     if (from === to) { 
-      const collDocRef = collection(this.firestore, 'messages', from, 'mess');
+      const collDocRef = collection(this.firestore, 'messages', from, 'messages');
       addDoc(collDocRef, this.message.toJSON()).then((result) => {
         const messageId = result.id;
         this.message.id = messageId;
-        const docRefWithID = doc(this.firestore,'messages', messageId);
+        const docRefWithID = doc(this.firestore,'messages', from, 'messages', messageId);
         setDoc(docRefWithID, this.message.toJSON());
         console.log('Anlage erfolgreich')
       }).catch((error) => {

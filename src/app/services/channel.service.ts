@@ -2,10 +2,10 @@ import { EventEmitter, Injectable, OnDestroy, OnInit, inject } from '@angular/co
 import { DocumentSnapshot, Firestore, addDoc, arrayUnion, collection, collectionData, doc, docData, getDoc, onSnapshot, or, query, setDoc, updateDoc, where } from '@angular/fire/firestore';
 import { UserService } from './user.service';
 import { BehaviorSubject, Subject, first, forkJoin, merge, mergeAll, takeUntil } from 'rxjs';
-import { User } from '../models/user.class';
+
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogAddMemberComponent } from '../dialog-add-member/dialog-add-member.component';
-import { Channel } from '../models/channel.class';
+
 
 @Injectable({
    providedIn: 'root'
