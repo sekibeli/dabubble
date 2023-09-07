@@ -122,4 +122,4 @@ export class InputPostComponent implements OnInit {
   isImage(url: string): boolean {
     return url.startsWith('data:image');
   }
-}
+} 

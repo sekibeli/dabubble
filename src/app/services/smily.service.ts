@@ -12,7 +12,7 @@ export class SmilyService {
   // userArraySubject: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
   userNames: string[] = [];
   showPicker:boolean = false;
- 
+ currentChannelID;
   constructor(private userService:UserService) { }
 
   async saveReaction(event, channelID: string, postID: string, userID: string) {
@@ -93,9 +93,12 @@ export class SmilyService {
 
 
 
-async addOrDeleteReaction(emoji, channelID: string, postID: string, userID: string) {
+async addOrDeleteReaction(emoji, postID: string, userID: string) {
+  this.currentChannelID = localStorage.getItem('currentChannelID');
+  console.log(emoji);
+  console.log(this.currentChannelID, postID, userID);
   const reaction = emoji;
-  const reactionRef = doc(this.firestore, 'channels', channelID, 'posts', postID, 'reactions', reaction);
+  const reactionRef = doc(this.firestore, 'channels', this.currentChannelID, 'posts', postID, 'reactions', reaction);
   const reactionDoc = await getDoc(reactionRef);
 
   if (reactionDoc.exists()) {

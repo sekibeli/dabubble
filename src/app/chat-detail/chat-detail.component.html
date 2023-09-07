@@ -27,10 +27,17 @@
            <div (click)="openProfile(messageAuthor)" class="post-author pointer">{{messageAuthor['username']}}</div>
             <div class="post-description">{{chat['description']}}</div>
 
+            <!-- show attachement-->
+        <div class="showAttachement"> 
+            <a *ngIf="chat['file'] && !isPDF" [href]="downloadUrl" download="file.png" (click)="convertBase64ToFile()">
+            <img *ngIf="chat['file'] && !isPDF" [src]="chat['file']" alt="Bild"></a>
+            <canvas #pdfCanvasMessage *ngIf="isPDF" (click)="downloadPDF()"></canvas> 
+          </div>
 
             <div class="reactionsRow">
                 <img src="../../assets/img/add_reaction.svg" alt="" (click)="showPicker = !showPicker">
                 <div *ngFor="let reaction of reactions">
+                    <ng-container *ngIf="reaction['names'].length > 0">
                     <div class="reactionBubble" 
                         (mouseover)="hoveredReaction = reaction"
                         (mouseout)="hoveredReaction = null"
@@ -68,6 +75,7 @@
             
                         </div>
                     </div>
+                    </ng-container>
                 </div>
             </div>
 

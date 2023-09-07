@@ -233,7 +233,7 @@ outline: none;
     display: flex;
     position: absolute;
     bottom: 2px;
-    left: 0px;
+    left: 0;
     align-items: flex-start;
     justify-content: flex-end;
     mat-icon {
@@ -249,24 +249,50 @@ outline: none;
     border-right: 1px solid rgb(168, 168, 168);
     margin: 0px 10px;
     padding-right: 6px;
-    cursor: pointer;
+    // cursor: pointer;
+
+    img {
+      cursor: pointer;
+    }
   }
 
   .attachement {
+    border-radius: 20px;
+    position: relative;
     margin-left: 20px;
-    border-radius: 10px;
+    
+
+    img {
+      border-radius: 10px;
+    }
   
   }
 
   .relative {
     position: relative;
     margin: 10px 20px;
-    width: calc(100% - 50px);
+    width: calc(100% - 40px);
     border: 1px solid var(--light-purple-lines);
-    border-radius: 20px;
+   border-radius: 20px;
   }
+
   .file-preview {
+    border-radius: 20px;
+   width: 90px;
     margin: -30px 0 5px 130px;
   }
 
- 
+  .deleteIMG {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    z-index: 10;
+    position: absolute;
+    top:-5px;
+    right: -5px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: lightgrey;
+  }

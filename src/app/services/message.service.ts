@@ -60,7 +60,7 @@ export class MessageService {
     localStorage.setItem('currentChatUser', JSON.stringify(user));
   }
 
-  saveMessage(description) {
+  saveMessage(description, url?) {
     const from = localStorage.getItem('currentUserID');
     const to = localStorage.getItem('currentChatID');
 
@@ -70,7 +70,8 @@ export class MessageService {
         fromID: localStorage.getItem('currentUserID'),
         toID: localStorage.getItem('currentChatID'),
         description: description,
-        timestamp: new Date().getTime()
+        timestamp: new Date().getTime(),
+        file: url
       }
     );
 

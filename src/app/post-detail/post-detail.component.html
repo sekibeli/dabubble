@@ -20,11 +20,11 @@
 <div class="reaction" [ngClass]="{'d-none': !showPost}">
    
 
-     <button class=" custom-icon-button" *ngIf="reactions && reactions.length > 0" >
+     <button (click)="this.smilyService.addOrDeleteReaction(reactions[reactions.length-1]['emoji'],  post['id'], currentUserID)" class=" custom-icon-button" *ngIf="reactions && reactions.length > 0" >
        
       {{reactions[reactions.length-1]['emoji']}}
     </button>
-    <button class=" custom-icon-button" *ngIf="reactions && reactions.length > 1" >
+    <button (click)="this.smilyService.addOrDeleteReaction(reactions[reactions.length-2]['emoji'], post['id'], currentUserID)" class=" custom-icon-button" *ngIf="reactions && reactions.length > 1" >
       
       {{reactions[reactions.length-2]['emoji']}}
       </button>

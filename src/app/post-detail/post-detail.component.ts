@@ -38,6 +38,7 @@ export class PostDetailComponent implements OnInit, OnChanges {
   author;
   time;
   currentChannel;
+  currentChannelID;
   numberOfThreads = 0;
   formatedDate;
   lastWeekday = '';
@@ -64,7 +65,7 @@ export class PostDetailComponent implements OnInit, OnChanges {
     private dateService: DateService) {
 
     this.currentUserID = localStorage.getItem('currentUserID');
-
+this.currentChannelID = localStorage.getItem('currentChanneID');
   }
 
   ngOnInit() {

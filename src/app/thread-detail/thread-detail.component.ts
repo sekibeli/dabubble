@@ -5,6 +5,8 @@ import { DialogProfileComponent } from '../dialog-profile/dialog-profile.compone
 import { DrawerService } from '../services/drawer.service';
 import { SmilyService } from '../services/smily.service';
 import * as pdfjsLib from 'pdfjs-dist';
+import { ChannelService } from '../services/channel.service';
+import { ThreadService } from '../services/thread.service';
 
 @Component({
   selector: 'app-thread-detail',
@@ -13,6 +15,7 @@ import * as pdfjsLib from 'pdfjs-dist';
 })
 export class ThreadDetailComponent implements OnInit, OnDestroy, OnChanges {
 author;
+@ViewChild('textarea') textarea;
 @Input() thread;
 @Input() singlePost;
 showPicker : boolean = false;
@@ -23,11 +26,13 @@ public pdfDataUrl: string;  // Der Base64-kodierte PDF-String
 public isPDF: boolean = false;
 time;
 reactions;
-
+originalThread;
 currentChannelID;
 currentUserID;
-
-constructor(private userService: UserService, private dialog: MatDialog, private drawerService: DrawerService, private smilyService: SmilyService){
+showEditForm: boolean = false;
+showPost:boolean = true;
+showEditThread:boolean = false;
+constructor(private userService: UserService, private dialog: MatDialog, private drawerService: DrawerService, private smilyService: SmilyService, private channelService:ChannelService, private threadService:ThreadService){
   this.currentChannelID = localStorage.getItem('currentChannelID');
 this.currentUserID = localStorage.getItem("currentUserID");
 }
@@ -88,7 +93,11 @@ console.log('INIT singlePost:', this.singlePost['id']);
     console.log('zerstört');
   }
 
-
+  activateTimer(){
+    setTimeout(() => {
+      this.showEditThread = false;
+    }, 3000);
+  }
 
 getAuthorDetails(post){
   const userDataRef = this.userService.getCurrentUser(post['author']).subscribe((value)=>{
@@ -210,4 +219,33 @@ getAuthorDetails(post){
     link.click();
   }
 
+  editThisThread(thread) {
+    console.log('channelid', this.channelService.currentChannelID.getValue());
+    this.originalThread = JSON.parse(JSON.stringify(thread));
+    this.showEditForm = true;
+    this.showPost = false;
+
+  }
+
+  checkIfItIsCurrentUserPost() {
+    return this.thread['author'] === localStorage.getItem('currentUserID');
+
+  }
+
+  updateThread() {
+    if (this.thread['description'].length > 2) {
+      this.threadService.updatePost(localStorage.getItem('currentChannelID'), this.singlePost['id'], this.thread['id'], this.thread['description']);
+      this.showEditForm = false;
+      this.showPost = true;
+    }
+  }
+
+  cancel() {
+    Object.assign(this.thread, this.originalThread);
+    this.showEditForm = false;
+    this.showPost = true;
+
+
+
+  }
 }

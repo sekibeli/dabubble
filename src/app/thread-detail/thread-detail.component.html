@@ -19,43 +19,26 @@
       </div>
 
 
-      <div class="reaction" [ngClass]="{'d-none': !showPost}">
+      <div *ngIf="checkIfItIsCurrentUserPost()" class="reaction" [ngClass]="{'d-none': !showPost}">
    
-
-        <button class=" custom-icon-button" *ngIf="reactions && reactions.length > 0" >
-          
-         {{reactions[reactions.length-1]['emoji']}}
-       </button>
-       <button class=" custom-icon-button" *ngIf="reactions && reactions.length > 1" >
-         
-         {{reactions[reactions.length-2]['emoji']}}
-         </button>
-        
-    
-     <button class="custom-icon-button"  >
-       <!-- <mat-icon>home</mat-icon> -->
-       <img src="../../assets/img/add_reaction.svg" alt="" (click)="showPicker = !showPicker">
-     </button>
-     <button *ngIf="checkIfItIsCurrentUserPost()" class=" custom-icon-button" (click)="showEditPost = true; activateTimer()" >
-       <!-- <mat-icon>more_vert</mat-icon> -->
+     <button  class=" custom-icon-button" (click)="showEditThread = true; activateTimer()" >
+      
        <img src="../../assets/img/morevert.png" alt="" >
      </button>
           
-         <div *ngIf="showEditPost">
-           <div class="editPost" (click)="editThisPost(post)">Nachricht bearbeiten</div>
+         <div *ngIf="showEditThread">
+           <div class="editPost" (click)="editThisThread(thread); showEditform = true;">Nachricht bearbeiten</div>
          </div>
    </div>
 
-
+<div class="flex" *ngIf="showPost" [ngClass]="{'background-blue': showEditForm}">
     <div class="profile-pic"><img src="{{this.author['img']}}"></div>
+    <div >
     <div class="post-content">
        <div (click)="openProfile(author)" class="firstRow"> <div class="post-author">{{this.author['username']}}</div> <div class="postTime">{{time}} Uhr</div></div>
         <div class="post-description">{{this.thread.description}}</div>
     
-        <!-- <div class="showAttachement"> 
-            <a *ngIf="thread['file']" [href]="downloadUrl" download="file.png" (click)="convertBase64ToFile()">
-            <img *ngIf="thread['file']" [src]="thread['file']" alt="Bild"></a></div> -->
-
+       
 
               <!-- show attachement-->
         <div class="showAttachement"> 
@@ -63,10 +46,11 @@
             <img *ngIf="thread['file'] && !isPDF" [src]="thread['file']" alt="Bild"></a>
             <canvas #pdfCanvasThread *ngIf="isPDF" (click)="downloadPDF()"></canvas> 
           </div>
-
+        </div>
             <div class="reactionsRow">
                 <img src="../../assets/img/add_reaction.svg" alt="" (click)="showPicker = !showPicker">
                 <div *ngFor="let reaction of reactions">
+                  <ng-container *ngIf="reaction['user'].length > 0">
                     <div class="reactionBubble" 
                         (mouseover)="hoveredReaction = reaction"
                         (mouseout)="hoveredReaction = null"
@@ -104,8 +88,42 @@
             
                         </div>
                     </div>
+                  </ng-container>
                 </div>
             </div>
        
+</div>
+           
+
+
+    </div>
+    <div *ngIf="showEditForm" class="editbox">
+      <div  class="showEditForm">
+        <textarea
+        #textarea
+        [(ngModel)]="this.thread['description']"
+        matInput
+        placeholder="Deine Nachricht"
+      ></textarea>
+      <div class="button-section">
+        <button  (click)="cancel()" [disabled]="" class="lightButton">Abbrechen</button>
+        <button   (click)="updateThread()" [disabled]="" class="darkButton">Speichern</button>
+
+</div>
+      </div>
+      <!-- <div class="inputOptions">  <div class="emoji"  (click)="showEmojiPicker = !showEmojiPicker">
+        😀
+      </div></div>
+      <div class="emojiPickerPostDetail">
+        <emoji-mart
+          class="emoji-mart"
+          *ngIf="showEmojiPicker"
+          (emojiSelect)="addEmoji($event)"
+          [set] = "apple"
+          [enableSearch] = "false"
+          [showPreview] = "false"
+          title="Wähle Dein Emoji"
+        ></emoji-mart>
+      </div> -->
     </div>
 </div>

@@ -69,7 +69,7 @@ export class InputComponent implements OnInit {
     this.currentChannel = this.activatedRoute.snapshot.params['id'];
     let channelID = this.currentChannel;
     description = this.chatMessage.value.description;
-    this.postService.savePost(this.currentUser, channelID, description, postId);
+    this.postService.savePost(this.currentUser, channelID, description, postId, this.url);
     this.chatMessage.reset();
     
   }
@@ -77,7 +77,7 @@ export class InputComponent implements OnInit {
   saveMessage(description){
     description = this.chatMessage.value.description;
     // console.log('Message description:', description);
-    this.messageService.saveMessage(description);
+    this.messageService.saveMessage(description, this.url);
     this.chatMessage.reset();
     this.url = null;
   }

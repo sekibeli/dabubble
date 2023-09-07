@@ -264,7 +264,7 @@ separateUsersAndChannels(jsonArray) {
     } else {
       this.onProfileClick();
       let description = this.message.value.description;
-      this.messageService.saveMessage(description);
+      this.messageService.saveMessage(description, this.url);
       const url = "/home/chat/" + this.chosenItem['id'];
       this.route.navigateByUrl(url);
      

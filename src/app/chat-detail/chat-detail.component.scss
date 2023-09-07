@@ -52,7 +52,7 @@
 .chatContentContainerFliped {
     position: relative;
     display: flex;
-    align-items: center;
+    // align-items: center;
    
     flex-direction: row-reverse;
     padding: 10px 20px;
@@ -202,6 +202,29 @@
 
 .additionalInfo.visible {
     opacity: 1;
+}
+.showAttachement {
+    width: 90%;
+  
+
+    img {
+        width: 80%;
+        border-radius: 5px;
+    }
+
+    canvas {
+        cursor: pointer;
+    }
+}
+
+.showNames {
+    display: flex;
+}
+
+
+.emojiIcon {
+    margin: 5px 0;
+    font-size: 1em !important
 }
 
 

@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable, inject } from '@angular/core';
-import { Firestore, collection, collectionData, orderBy, query } from '@angular/fire/firestore';
+import { Firestore, collection, collectionData, doc, orderBy, query, updateDoc } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -55,5 +55,18 @@ localStorage.setItem('threadMessage', 'true');
     const postData = collectionData(answer);
 return postData;
   }
+
+
+  async updatePost(channelID, postID, threadID, description){
+    console.log('channel',channelID,'post', postID, 'Inhalt',description);
+    const docRef = doc(this.firestore, 'channels', channelID, 'posts', postID, 'threads', threadID);
+  
+    await updateDoc(docRef, {
+      description: description
+    });
+  
+  
+  
+   }
 }
 

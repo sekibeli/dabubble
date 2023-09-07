@@ -9,8 +9,12 @@
     }
 .singlePost {
     margin-top: 30px;
+  
 }   
 
+.flex {
+    display: flex;
+}
 .post-author {
     font-weight: 700;
 }
@@ -95,4 +99,166 @@
 }
 .reactionsRow {
     display: flex;
+
+    img {
+        cursor: pointer;
+    }
+}
+
+
+
+
+
+.singlePost {
+    position: relative;
+    cursor: default !important;
+
+    // display: flex;
+    // align-items:flex-start;
+    // margin-top: 30px;
+    // margin: 30px 15px 10px 15px;
+    .reaction {
+        display: none;
+        // top: -30px;
+        // right: 20px;
+        // position: absolute;
+        // z-index: 20;
+        // border: 1px solid #ADB0D9;
+
+
+    }    
+
+    &:hover {
+        cursor: pointer;
+        background-color: var(--background-color);
+
+        .post-description{
+            background-color: white;
+        }
+        .reaction {
+                       
+            display: flex;
+            align-items: center;
+            top: -18px;
+            right: 20px;
+            position: absolute;
+            z-index: 10;
+            border: 1px solid #ADB0D9;
+            background-color: white;
+            height: 30px;
+            border-radius: 20px;
+            border-bottom-right-radius: 0px !important;
+            padding: 0 10px;
+          transform: translateX(16%);
+            animation: flyIn 0.1s ease-out; 
+
+
+            @keyframes flyIn {
+                from {transform: translateX(30%)} to {transform: translate(16%)}
+            }
+         
+
+            .custom-icon-button {
+                background-color: transparent;
+                border: none;
+                padding: 2px;
+                margin: 0 2px;
+                border-radius: 50%;
+                cursor: pointer;
+                transition: background-color 0.3s;
+              }
+
+              .custom-icon-button:hover {
+                background-color: rgba(0, 0, 0, 0.04); /* This gives a light gray background when hovered */
+              }
+              
+              
+            //   .custom-icon-button:hover mat-icon {
+            //     color: #DA4567; 
+            //   }
+              
+              /* Remove focus styles if desired */
+              .custom-icon-button:focus {
+                outline: none;
+                box-shadow: none;
+              }
+
+
+            button {
+                margin: 0;
+                padding: 0;
+            }
+
+            img {
+                width: 18px;
+                height: 18px;
+            }
+    
+    
+        }    
+    }
+}
+
+.editPost {
+    top: 30px;
+    right: 0px;
+    position: absolute;
+    min-width: 150px; 
+    z-index: 10;
+    background-color: white;
+    border: 1px solid var(--light-purple-lines);
+    border-radius: 10px;
+    padding: 3px 5px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--background-color);
+        color: #444DF2;
+      
+      
+    }
+}
+.editbox {
+    position: relative;
+    background-color: var(--background-color);
+   width: 95%;
+
+}
+.showEditForm {
+    background-color: white;
+    border-radius: 20px;
+
+}
+textarea {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1em;
+    color: grey;
+    background-color: white;
+   outline: none;
+//    border: 1px solid #444DF2;
+border: none;
+   border-radius: 20px;
+   padding: 10px 10px;
+   width: 95%;
+   height: 80px;
+   
+}
+
+.background-blue {
+    background-color: var(--background-color);
+}
+
+.d-none{
+    display: none !important;
+}
+
+.button-section {
+    justify-content: flex-end;
+    display: flex;
+}
+
+.inputOptions {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
 }
