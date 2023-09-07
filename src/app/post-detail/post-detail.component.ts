@@ -108,7 +108,11 @@ const currentDate = this.dateService.getFormatedDateFromTimestamp(this.post['tim
     }
 
   }
-
+activateTimer(){
+  setTimeout(() => {
+    this.showEditPost = false;
+  }, 3000);
+}
 
   /**
    * Abruf von author-Daten anhand des Posts

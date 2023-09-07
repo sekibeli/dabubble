@@ -35,7 +35,9 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
       });
     
   }
-
+  trackByFn(index, item) {
+    return item.id; // Eindeutige ID aus dem item --> Kein flackern mehr!
+  }
 
 getThisChat(toID) {
   this.messageService.getThisChat(toID).subscribe((chats) => {
@@ -50,6 +52,7 @@ getThisChat(toID) {
 
 ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    console.log('zerstört');
   }
 
 

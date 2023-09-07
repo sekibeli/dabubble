@@ -34,7 +34,7 @@
     <!-- <mat-icon>home</mat-icon> -->
     <img src="../../assets/img/add_reaction.svg" alt="" (click)="showPicker = !showPicker">
   </button>
-  <button *ngIf="checkIfItIsCurrentUserPost()" class=" custom-icon-button" (click)="showEditPost = true" >
+  <button *ngIf="checkIfItIsCurrentUserPost()" class=" custom-icon-button" (click)="showEditPost = true; activateTimer()" >
     <!-- <mat-icon>more_vert</mat-icon> -->
     <img src="../../assets/img/morevert.png" alt="" >
   </button>

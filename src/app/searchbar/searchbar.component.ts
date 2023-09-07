@@ -84,12 +84,12 @@ ngOnInit() {
   async searchInFirestore(start, end) {
     // Suche in der 'users' Collection
     const usersCollRef = collection(this.firestore, 'users');
-    const usersQueryRef = query(usersCollRef, orderBy('username'), limit(10), startAt(start), endAt(end));
+    const usersQueryRef = query(usersCollRef, orderBy('username'), limit(30), startAt(start), endAt(end));
      const usersDocRef = await getDocs(usersQueryRef);
     
     // Suche in der 'channels' Collection
     const channelsCollRef = collection(this.firestore, 'channels');
-    const channelsQueryRef = query(channelsCollRef, orderBy('title'), limit(10), startAt(start), endAt(end));
+    const channelsQueryRef = query(channelsCollRef, orderBy('title'), limit(30), startAt(start), endAt(end));
     const channelsDocRef = await getDocs(channelsQueryRef);
     
   
@@ -123,6 +123,7 @@ separateUsersAndChannels(jsonArray) {
   
 
   openProfile(user){
+  
     const dialogConfig = new MatDialogConfig();
     if (this.drawerService.isSmallScreen) {
 
@@ -139,7 +140,7 @@ separateUsersAndChannels(jsonArray) {
   }
 
   showChannel(channel){
-   
+    this.search = false;
     this.openShowChannelInformation(channel)
   }
 
@@ -147,6 +148,7 @@ separateUsersAndChannels(jsonArray) {
   openShowChannelInformation(channel) {
     // this.changeDetect.detectChanges();
     // this.checkScreenSize();
+   
     console.log(channel);
     console.log(this.drawerService.isSmallScreen);
     const dialogConfig = new MatDialogConfig();

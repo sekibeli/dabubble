@@ -33,13 +33,13 @@ export class MessageService {
       console.log('von:', from, 'zu:', to);
       const collRef = query(collection(this.firestore, 'messages', from, 'messages'), where('fromID', '==', this.currentUserID));
       const collRefOrdered = query(collRef, orderBy('timestamp'));
-      const docRef = collectionData(collRefOrdered);
+      const docRef = collectionData(collRefOrdered, {idField: 'id'});
 
       return docRef;
     } else {
       const collRef = query(collection(this.firestore, 'messages'), where('fromID', 'in', [this.currentUserID, toID]), where('toID', 'in', [toID, this.currentUserID]));
       const collRefOrdered = query(collRef, orderBy('timestamp'));
-      const docRef = collectionData(collRefOrdered);
+      const docRef = collectionData(collRefOrdered, {idField: 'id'});
 
       return docRef;
     }

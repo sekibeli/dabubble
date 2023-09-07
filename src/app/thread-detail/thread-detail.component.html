@@ -19,6 +19,34 @@
       </div>
 
 
+      <div class="reaction" [ngClass]="{'d-none': !showPost}">
+   
+
+        <button class=" custom-icon-button" *ngIf="reactions && reactions.length > 0" >
+          
+         {{reactions[reactions.length-1]['emoji']}}
+       </button>
+       <button class=" custom-icon-button" *ngIf="reactions && reactions.length > 1" >
+         
+         {{reactions[reactions.length-2]['emoji']}}
+         </button>
+        
+    
+     <button class="custom-icon-button"  >
+       <!-- <mat-icon>home</mat-icon> -->
+       <img src="../../assets/img/add_reaction.svg" alt="" (click)="showPicker = !showPicker">
+     </button>
+     <button *ngIf="checkIfItIsCurrentUserPost()" class=" custom-icon-button" (click)="showEditPost = true; activateTimer()" >
+       <!-- <mat-icon>more_vert</mat-icon> -->
+       <img src="../../assets/img/morevert.png" alt="" >
+     </button>
+          
+         <div *ngIf="showEditPost">
+           <div class="editPost" (click)="editThisPost(post)">Nachricht bearbeiten</div>
+         </div>
+   </div>
+
+
     <div class="profile-pic"><img src="{{this.author['img']}}"></div>
     <div class="post-content">
        <div (click)="openProfile(author)" class="firstRow"> <div class="post-author">{{this.author['username']}}</div> <div class="postTime">{{time}} Uhr</div></div>

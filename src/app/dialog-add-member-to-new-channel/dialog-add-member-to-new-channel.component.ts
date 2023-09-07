@@ -7,6 +7,7 @@ import { ChannelService } from '../services/channel.service';
 import { UserService } from '../services/user.service';
 import { User } from '../models/user.class';
 import {MatRadioModule} from '@angular/material/radio';
+import { Channel } from '../models/channel.class';
 
 
 @Component({
@@ -27,19 +28,15 @@ users;
   endobs = this.endAt.asObservable();
   notChosen = true;
   chosenUser;
-  channel;
+ public channel: Channel;
 
 
 public channelTitle;
   constructor(public dialogRef: MatDialogRef<DialogAddMemberComponent>, private channelService: ChannelService, private userService: UserService, @Inject(MAT_DIALOG_DATA) public data: any) { 
+   console.log('neuer Channel: ',this.channel);
+  //  this.channel = data.channel;
+  //  console.log(data.channel);
    
-   this.channel = data.channel;
-   console.log(data.channel);
-    // this.channelService.activeChannelTitle.subscribe((value)=>{
-    // console.log(value);
-    // })
-    // this.channelTitle = this.data.activeChannelTitle;
-    // console.log('addMember Component', this.channelTitle);
   }
 
   ngOnInit() {
@@ -47,25 +44,21 @@ public channelTitle;
       this.searchUserInFirestore(value[0], value[1]).then((user)=>{
         this.users = user.docs.map(doc => doc.data());
       })
-      // console.log(this.users);
+      
     })
-  
-    
-  }
-  addMemberToChannel() {
+    console.log('neuer Channel: ',this.channel);
+   }
 
-    // let channelID = this.channelService.currentChannelID;
+
+  addMemberToChannel() {
     if(this.selectedOption == 'option1'){
       this.channelService.getMembersOfChannelAndPushInNewChannel(this.data.channel['id'])
 
     } else {
       this.channelService.addMemberToChannel(this.data.channel['id'], this.chosenUser['id']);
-      this.channelService.addMemberToChannel(this.data.channel['id'], localStorage.getItem('currentUserID'));
+      this.channelService.addMemberToChannel(this.data.channel['id'], localStorage.getItem('currentUserID')); // Gründer hinzufügen
     }
-   
-
-   this.dialogRef.close();
-
+    this.dialogRef.close();
   }
 
 
@@ -75,8 +68,7 @@ public channelTitle;
     this.endAt.next(q + "\uf8ff")
   }
 
-  // addNewMember() { }
-
+  
   chooseNewMember(user:User){
     this.chosenUser = user;
     // console.log(user);
@@ -84,14 +76,14 @@ public channelTitle;
     this.chosenUser = user;
   }
 
+
   searchUserInFirestore(start, end) {
     const collRef = collection(this.firestore, 'users');
     const queryRef = query(collRef, orderBy('username'), limit(10), startAt(start), endAt(end));
     const docRef = getDocs(queryRef);
     return docRef;
-   
+     }
 
-  }
 
   removeChosenUser(){
     this.notChosen = true;

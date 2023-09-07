@@ -28,7 +28,7 @@ endAt = new Subject();
 
   getUserData() {
     const collRef = collection(this.firestore, 'users');
-    const userData = collectionData(collRef);
+    const userData = collectionData(collRef, {idField: 'id'});
     return userData;
   }
 
