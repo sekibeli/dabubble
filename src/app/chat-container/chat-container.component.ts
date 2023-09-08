@@ -5,6 +5,7 @@ import { UserService } from '../services/user.service';
 import { doc, onSnapshot } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { PostService } from '../services/post.service';
+import { Post } from '../models/post.class';
 
 
 @Component({
@@ -13,13 +14,11 @@ import { PostService } from '../services/post.service';
   styleUrls: ['./chat-container.component.scss']
 })
 export class ChatContainerComponent implements OnInit, OnDestroy {
-  // currentUserID;
+
   subscription;
-  id;
-  chats;
-  data1;
- 
- 
+  id: string;
+  chats: Post[];
+
 
   constructor(private messageService: MessageService, public activatedRoute: ActivatedRoute, public userService: UserService, private postService: PostService) {
 
@@ -33,28 +32,26 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
         // console.log('localStorage:', localStorage.getItem('currentUserID'));
         this.getThisChat(this.id);
       });
-    
+
   }
-  trackByFn(index, item) {
+
+  trackByFn(item: Post) {
     return item.id; // Eindeutige ID aus dem item --> Kein flackern mehr!
   }
 
-getThisChat(toID) {
-  this.messageService.getThisChat(toID).subscribe((chats) => {
-                this.chats = chats;
-                localStorage.setItem('currentChatLength', this.chats.length);
-             
-                // console.log('ersteMessage', this.firstMessageDate);
-                // this.firstMessage = this.chats[0]['description'];
-                // console.log('aktueller Chat:', this.chats);
-          });
-    }
 
-ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-    console.log('zerstört');
+  getThisChat(toID) {
+    this.messageService.getThisChat(toID).subscribe((chats) => {
+      this.chats = <Post[]>chats;
+      console.log('this.chats', this.chats);
+      localStorage.setItem('currentChatLength', this.chats.length.toString());
+    });
   }
 
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+    console.log('zerstört');
+  }
 
 }

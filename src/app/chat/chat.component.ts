@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -6,15 +6,12 @@ import { UserService } from '../services/user.service';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss']
 })
-export class ChatComponent  {
-// chatTo;
-// user;
-chatLength;
-  constructor(public userService: UserService){
-this.chatLength = localStorage.getItem('currentChatLength');
+export class ChatComponent {
+
+  constructor() {
   }
 
 
 
-  }
+}
 
