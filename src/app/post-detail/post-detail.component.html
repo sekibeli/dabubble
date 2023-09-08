@@ -9,6 +9,7 @@
   <div class="reactionEmoji">
     <emoji-mart
       class="emoji-mart"
+      [style]="{ width: '238px' }"
       *ngIf="showPicker"
       (emojiSelect)="addReaction($event, channel)"
       [set] = "apple"
@@ -123,21 +124,23 @@
         <button   (click)="updatePost()" [disabled]="" class="darkButton">Speichern</button>
 
 </div>
+<div class="emojiPickerPostDetail">
+  <emoji-mart
+    class="emoji-mart"
+    [style]="{ width: '238px' }"
+    *ngIf="showEmojiPicker"
+    (emojiSelect)="addEmoji($event)"
+    [set] = "apple"
+    [enableSearch] = "false"
+    [showPreview] = "false"
+    title="Wähle Dein Emoji"
+  ></emoji-mart>
+</div>
       </div>
       <div class="inputOptions">  <div class="emoji"  (click)="showEmojiPicker = !showEmojiPicker">
         😀
       </div></div>
-      <div class="emojiPickerPostDetail">
-        <emoji-mart
-          class="emoji-mart"
-          *ngIf="showEmojiPicker"
-          (emojiSelect)="addEmoji($event)"
-          [set] = "apple"
-          [enableSearch] = "false"
-          [showPreview] = "false"
-          title="Wähle Dein Emoji"
-        ></emoji-mart>
-      </div>
+      
     </div>
    
 </div>

@@ -9,6 +9,7 @@
     <div class="reactionEmojiThread">
         <emoji-mart
           class="emoji-mart"
+          [style]="{ width: '238px' }"
           *ngIf="showPicker"
           (emojiSelect)="addReaction($event, singlePost['id'], thread['id'])"
           [set] = "apple"

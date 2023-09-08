@@ -4,6 +4,7 @@
     <div>
         <emoji-mart
           class="emoji-mart"
+          [style]="{ width: '238px' }"
           *ngIf="showEmojiPicker"
           (emojiSelect)="addEmoji($event)"
           [set] = "apple"
@@ -15,7 +16,7 @@
 <div class="relative">
 <!-- <textarea *ngIf="!singlePost && channelMessage && channelTitle | async" formControlName="description" id="message" name="meineTextarea"  rows="4" placeholder="Nachricht an #{{ channelTitle.getValue() }} schreiben ..."></textarea> -->
 <!-- <textarea *ngIf="singlePost " formControlName="description" id="message" name="meineTextarea"  rows="4" placeholder="Antworten ..."></textarea> -->
-<textarea *ngIf="directMessage && (user | async) as currentUser " formControlName="description" id="message" name="meineTextarea"  rows="4" placeholder="Direktnachricht an {{currentUser['username']}}  "></textarea>
+<textarea #textarea *ngIf="directMessage && (user | async) as currentUser " formControlName="description" id="message" name="meineTextarea"  rows="4" placeholder="Direktnachricht an {{currentUser['username']}}  "></textarea>
 
 <div class="stick">
 <!-- <div *ngIf="!singlePost && channelMessage" (click)="this.savePost(this.chatMessage)"><mat-icon>send</mat-icon></div> -->
@@ -30,11 +31,24 @@
          <input type="file" id="fileInput" style="display:none;" (change)="onSelectDocument($event)">
     </div> 
   
-    <div class="emoji"  (click)="showEmojiPicker = !showEmojiPicker">
-         <img src="../../assets/img/addEmoji.svg" alt="">
-         <img src="../../assets/img/addat.svg" alt="">
+    <div class="emoji"  >
+         <img (click)="showEmojiPicker = !showEmojiPicker" src="../../assets/img/addEmoji.svg" alt="">
+         <img (click)="toggleSearchAt()" src="../../assets/img/addat.svg" alt="">
     </div>
   </div>
+
+
+
+  <div *ngIf="searchAt" class="showUsers" >
+     <ng-container *ngFor="let user of users">
+        <div class="userLine" (click)="addAtUser(user['username'])">
+         <div class="stati"  [ngClass]="{ green: user['active'], grey: !user['active'] }"></div>
+         <div>@{{user['username']}}</div> 
+       </div>
+     </ng-container>
+   </div>
+
+
   <div>
       <div *ngIf="url" class="file-preview">
            <div class="attachement">
@@ -51,4 +65,4 @@
 <!-- </div> -->
 
 </div>
-<!-- <div class="buttonSend" (click)="this.savePost(this.chatMessage)"><mat-icon>send</mat-icon></div> -->
+<!-- <div class="buttonSend" (click)="this.savePost(this.chatMessage)"><mat-icon>send</mat-icon></div> --> 

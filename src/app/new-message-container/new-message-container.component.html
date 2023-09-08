@@ -107,6 +107,7 @@
       <div>
         <emoji-mart
           class="emoji-mart"
+          [style]="{ width: '238px' }"
           *ngIf="showEmojiPicker"
           (emojiSelect)="addEmoji($event)"
           [set] = "apple"
@@ -117,7 +118,7 @@
       </div>
       <div class="relative">
         
-        <textarea  formControlName="description" id="message" name="meineTextarea"  rows="4" placeholder="Eine neue Message schreiben ..."></textarea>
+        <textarea #textarea formControlName="description" id="my-message" name="meineTextarea"  rows="4" placeholder="Eine neue Message schreiben ..."></textarea>
         <!-- <textarea
           *ngIf="
             !singlePost &&
@@ -148,12 +149,23 @@
                <input type="file" id="fileInput" style="display:none;" (change)="onSelectDocument($event)">
             </div> 
            
-            <div class="emoji"  (click)="showEmojiPicker = !showEmojiPicker">
-                <img src="../../assets/img/addEmoji.svg" alt="">
-                 <img src="../../assets/img/addat.svg" alt="">
+            <div class="emoji"  >
+                <img (click)="showEmojiPicker = !showEmojiPicker" src="../../assets/img/addEmoji.svg" alt="">
+                 <img (click)="toggleSearchAt()" src="../../assets/img/addat.svg" alt="">
             </div>
          </div>
   
+         <div *ngIf="searchAt" class="showUsers" >
+          <ng-container *ngFor="let user of userSorted">
+             <div class="userLine" (click)="addAtUser(user['username'])">
+              <div class="stati"  [ngClass]="{ green: user['active'], grey: !user['active'] }"></div>
+              <div>@{{user['username']}}</div> 
+            </div>
+          </ng-container>
+        </div>
+
+
+
       <div>
          <div *ngIf="url" class="file-preview">
               <div class="attachement" >

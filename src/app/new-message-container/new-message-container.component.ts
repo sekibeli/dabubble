@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
 import { DocumentData, Firestore, collection, endAt, getDocs, limit, orderBy, query, startAt } from '@angular/fire/firestore';
 import { User } from '../models/user.class';
 import { Subject, combineLatest } from 'rxjs';
@@ -11,6 +11,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PostService } from '../services/post.service';
 import { Router } from '@angular/router';
 import { MessageService } from '../services/message.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-new-message-container',
@@ -18,7 +19,7 @@ import { MessageService } from '../services/message.service';
   styleUrls: ['./new-message-container.component.scss']
 })
 export class NewMessageContainerComponent implements OnInit {
-
+@ViewChild('textarea') textarea : ElementRef;
   firestore: Firestore = inject(Firestore);
 searchterm: string;
 startAt = new Subject();
@@ -36,17 +37,21 @@ isChannel: boolean; //is the chosen item a channel?
 channelID;
 authorID;
 url;
+userSorted;
 isActive: boolean; // Link left sideMenu is activated
 chosenItem: any; // the object of the chosen item, user or channel
 showEmojiPicker: boolean = false;
+searchAt:boolean = false;
+
 message: FormGroup = new FormGroup({
   description: new FormControl('', [Validators.required, Validators.minLength(2)]),
 })
 
 
-constructor(public dialog: MatDialog, private drawerService: DrawerService, private channelService: ChannelService, private postService: PostService, private route: Router, private messageService: MessageService){}
+constructor(public dialog: MatDialog, private drawerService: DrawerService, private channelService: ChannelService, private postService: PostService, private route: Router, private messageService: MessageService, private userService: UserService){}
 ngOnInit() {
-  console.log('für mobil:', this.isSmallScreen);
+  this.isSmallScreen = this.drawerService.isSmallScreen;
+  console.log('für mobil:', this.drawerService.isSmallScreen);
   this.currentUser = localStorage.getItem("currentuserID");
   // combineLatest([this.startobs, this.endobs]).subscribe((value)=> {
   //   this.searchUserInFirestore(value[0], value[1]).then((user)=>{
@@ -66,7 +71,11 @@ ngOnInit() {
       console.error("Error fetching data: ", error);
     });
   })
-  
+  this.userService.getUserDataSorted().subscribe((users)=> {
+    this.userSorted = users
+    console.log(this.userSorted);
+   
+  })
   // console.log(this.result.users);   
   // console.log(this.result.channels);
 }
@@ -88,6 +97,11 @@ searchMember($event) {
   this.endAt.next(q + "\uf8ff");
 }
 
+toggleSearchAt(){
+  console.log(this.searchAt);
+  this.searchAt = !this.searchAt;
+  console.log(this.searchAt);
+}
 
 resetSearchState($event){
   this.search = false;
@@ -116,7 +130,7 @@ resetSearchState($event){
   async searchInUserCollection(q) {
     // Suche in der 'users' Collection
     const usersCollRef = collection(this.firestore, 'users');
-    const usersQueryRef = query(usersCollRef, orderBy('username'), limit(10), startAt(q), endAt(q + "\uf8ff"));  //  orderBy('username'),
+    const usersQueryRef = query(usersCollRef, orderBy('username'), limit(30), startAt(q), endAt(q + "\uf8ff"));  //  orderBy('username'),
     const usersDocRef = await getDocs(usersQueryRef);
 
     const users = usersDocRef.docs.map(doc => doc.data());
@@ -128,7 +142,7 @@ resetSearchState($event){
 
   async searchInChannelsCollection(q){
     const channelsCollRef = collection(this.firestore, 'channels');
-    const channelsQueryRef = query(channelsCollRef, orderBy('title'), limit(10), startAt(q), endAt(q + "\uf8ff")); //  orderBy('title'),
+    const channelsQueryRef = query(channelsCollRef, orderBy('title'), limit(30), startAt(q), endAt(q + "\uf8ff")); //  orderBy('title'),
     const channelsDocRef = await getDocs(channelsQueryRef);
 
     const channels = channelsDocRef.docs.map(doc => {
@@ -324,6 +338,24 @@ separateUsersAndChannels(jsonArray) {
  
   isImage(url: string): boolean {
     return url.startsWith('data:image');
+  }
+  addAtUser(username:string) {
+    const text = `@${username}`;
+    const textareaElem = this.textarea.nativeElement;
+    const start = textareaElem.selectionStart;
+    const end = textareaElem.selectionEnd;
+    const before = textareaElem.value.substring(0, start);
+    const after = textareaElem.value.substring(end);
+
+    const newValue = before + text + after;
+    this.message.get('description').setValue(newValue);
+    textareaElem.focus();
+    textareaElem.selectionStart = textareaElem.selectionEnd = start + text.length;
+
+
+    this.searchAt = false;
+
+
   }
  
  }

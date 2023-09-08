@@ -30,6 +30,7 @@ isSmallScreen;
 
 constructor(public dialog: MatDialog, private drawerService: DrawerService, private channelService: ChannelService){}
 ngOnInit() {
+  this.isSmallScreen = this.drawerService.isSmallScreen;
   console.log('für mobil:', this.isSmallScreen);
   // combineLatest([this.startobs, this.endobs]).subscribe((value)=> {
   //   this.searchUserInFirestore(value[0], value[1]).then((user)=>{

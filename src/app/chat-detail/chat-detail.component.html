@@ -11,6 +11,7 @@
     <div class="reactionEmoji">
         <emoji-mart
           class="emoji-mart"
+          [style]="{ width: '238px' }"
           *ngIf="showPicker"
           (emojiSelect)="addReaction($event, chat)"
           [set] = "apple"

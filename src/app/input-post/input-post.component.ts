@@ -66,7 +66,7 @@ export class InputPostComponent implements OnInit {
       this.users = users
       console.log(this.users);
      
-    })
+    });
     }
 
   savePost(description, postId) {
@@ -83,11 +83,14 @@ export class InputPostComponent implements OnInit {
     this.url = null;
     
   }
+
 toggleSearchAt(){
   console.log(this.searchAt);
   this.searchAt = !this.searchAt;
   console.log(this.searchAt);
 }
+
+
   toggleEmojiPicker() {
     this.showEmojiPicker = !this.showEmojiPicker;
   }

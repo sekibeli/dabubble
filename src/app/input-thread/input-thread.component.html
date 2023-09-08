@@ -4,6 +4,7 @@
     <div>
         <emoji-mart
           class="emoji-mart"
+          [style]="{ width: '238px' }"
           *ngIf="showEmojiPicker"
           (emojiSelect)="addEmoji($event)"
           [set] = "apple"
@@ -14,7 +15,7 @@
       </div>
 <div class="relative">
     
-<textarea *ngIf="singlePost " formControlName="description" id="message" name="meineTextarea"  rows="4" placeholder="Antworten ..."></textarea>
+<textarea #textarea *ngIf="singlePost " formControlName="description" id="message" name="meineTextarea"  rows="4" placeholder="Antworten ..."></textarea>
 
 <div class="stick">
 <div *ngIf="singlePost"  (click)="this.savePost(this.chatMessage, this.singlePost['id'])"><mat-icon>send</mat-icon></div>
@@ -28,11 +29,24 @@
       <input type="file" id="fileInputThread" style="display:none;" (change)="onSelectDocument($event)"> 
   </div> 
 
-  <div class="emoji"  (click)="showEmojiPicker = !showEmojiPicker">
-      <img src="../../assets/img/addEmoji.svg" alt="">
-      <img src="../../assets/img/addat.svg" alt="">
+  <div class="emoji"  >
+      <img (click)="showEmojiPicker = !showEmojiPicker" src="../../assets/img/addEmoji.svg" alt="">
+      <img (click)="toggleSearchAt()" src="../../assets/img/addat.svg" alt="">
   </div>
 </div>
+
+
+
+<div *ngIf="searchAt" class="showUsers" >
+    <ng-container *ngFor="let user of users">
+       <div class="userLine" (click)="addAtUser(user['username'])">
+        <div class="stati"  [ngClass]="{ green: user['active'], grey: !user['active'] }"></div>
+        <div>@{{user['username']}}</div> 
+      </div>
+    </ng-container>
+  </div>
+
+
 <div>
      <div *ngIf="url" class="file-preview">
           <div class="attachement" >
@@ -40,7 +54,7 @@
                   <div class="deleteIMG" (click)="url = null">
                      <mat-icon>close</mat-icon>
                   </div>
-         </div>
+         </div> 
          <div class="attachement" *ngIf="!isImage(url)"><img src="../../assets/img/pdf50.png" alt=""></div>
     </div>
 </div>

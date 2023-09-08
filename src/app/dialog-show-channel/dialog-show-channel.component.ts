@@ -91,17 +91,17 @@ adjustHeight(event: any): void {
    
   }
  async updateChannel(){
-    const checkTitle = await this.channelService.checkChannelTitles(this.data.currentChannelData['title']);
-    if (!checkTitle){
+    // const checkTitle = await this.channelService.checkChannelTitles(this.data.currentChannelData['title']);
+    // if (!checkTitle){
       
     this.channelService.updateChannel(this.data.currentChannelData['id'], this.data.currentChannelData['title'], this.data.currentChannelData['description']);
     // this.dialogRef.close();
-    } else {
-      Object.assign(this.data.currentChannelData, this.originalChannel);
-      this.cd.detectChanges();
-      alert('Diesen Channel gibt es schon. Bitte wähle einen anderen Namen.')
+    // } else {
+    //   Object.assign(this.data.currentChannelData, this.originalChannel);
+    //   this.cd.detectChanges();
+    //   alert('Diesen Channel gibt es schon. Bitte wähle einen anderen Namen.')
       
-    }
+    // }
    this.editDescription = false;
    this.editTitle = false;
    

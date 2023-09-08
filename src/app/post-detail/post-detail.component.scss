@@ -128,7 +128,8 @@
     margin-top: 10px;
     margin-bottom: 10px;
     padding: 10px;
-    color: white
+    color: white;
+    margin-right: 35px;
 }
 
 .firstRow {
@@ -203,6 +204,7 @@
 .showEditForm {
     background-color: white;
     border-radius: 20px;
+    position: relative;
 
 }
 
@@ -241,7 +243,7 @@ border: none;
 }
 .emojiPickerPostDetail {
     position: absolute;
-    top: -460px;
+    top: -160px;
     left: 10px;
 }
 
@@ -318,6 +320,7 @@ border: none;
 
     canvas {
         cursor: pointer;
+      
     }
 }
 
@@ -340,4 +343,30 @@ border: none;
             height: 40px;
         }
         }
+
+
+        .showAttachement {
+            width: 90%;
+          
+        
+            img {
+                width: 80%;
+            }
+        
+            canvas {
+                cursor: pointer;
+                width: 100%;
+            }
+        }
+
+        .emoji {
+            position: absolute;
+            bottom: 10px;
+            left: -40px;
+        }
+
+      textarea {
+        width: 85%;
+      }
+     
 }
