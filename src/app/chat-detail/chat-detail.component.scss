@@ -37,26 +37,24 @@
         cursor: pointer;
         background-color: var(--background-color);
 
-        .post-description{
+        .post-description {
             background-color: white;
         }
+    }
 }
-}
+
 .reactionEmoji {
     z-index: 5;
     position: absolute;
     top: 150px;
-
 }
 
 .chatContentContainerFliped {
     position: relative;
     display: flex;
-    // align-items: center;
-   
     flex-direction: row-reverse;
     padding: 10px 20px;
-    
+
     .profile-pic {
         margin-right: 30px;
 
@@ -66,15 +64,12 @@
             width: 60px;
             height: 60px;
         }
-
     }
 
     &:hover {
         cursor: pointer;
         background-color: var(--background-color);
-
-        
-}
+    }
 }
 
 .deviderBox {
@@ -83,6 +78,7 @@
     margin-bottom: 15px;
     position: relative;
 }
+
 .dateDevider {
     margin-left: 20px;
     margin-bottom: 25px;
@@ -91,7 +87,7 @@
     height: 5px;
 }
 
-.formatedDate{
+.formatedDate {
     margin-bottom: 15px;
     z-index: 1;
     text-align: center;
@@ -116,7 +112,6 @@
 
 .firstRowFliped {
     display: flex;
-
     align-items: flex-end;
     flex-direction: column;
 
@@ -131,7 +126,6 @@
         padding: 10px;
         color: white;
     }
-
 }
 
 .postTime {
@@ -148,64 +142,58 @@
     z-index: 10;
     position: absolute;
     top: 150px;
-   
-    // left: 10px;
 }
+
 .reactionsRow {
     display: flex;
 }
 
 .reactionBubble {
     position: relative;
-    border: 1px solid  #ADB0D9;
+    border: 1px solid #ADB0D9;
     background-color: white;
-    padding:0px 10px;
+    padding: 0px 10px;
     border-radius: 20px;
     margin: 0 5px;
     display: flex;
     align-items: center;
     cursor: pointer !important;
-
-    // &:hover {
-    //     .additionalInfo{
-    //         opacity: 1;
-    //     }
-    // }   
 }
 
 .additionalInfo {
     padding: 10px 0;
-   opacity: 0;
-   position: absolute;
-   text-align: center;
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-        top: -103px;
-        left: 30px;
-        width: 150px;
-        height: 80px;
-        border-radius: 20px;
-        background-color: #444DF2;
-        color: white;
-        font-size: 0.8em;
-        line-height: 1em;
-        transition: opacity 0.3s ease-in-out;
-        border-bottom-left-radius: 0 !important;
+    opacity: 0;
+    position: absolute;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    top: -103px;
+    left: 30px;
+    width: 150px;
+    height: 80px;
+    border-radius: 20px;
+    background-color: #444DF2;
+    color: white;
+    font-size: 0.8em;
+    line-height: 1em;
+    transition: opacity 0.3s ease-in-out;
+    border-bottom-left-radius: 0 !important;
 
-        .emojiIcon {
-            margin: 10px 10px;
-            font-size: 2.0em !important
-        }
-   
+    .emojiIcon {
+        margin: 10px 10px;
+        font-size: 2.0em !important
+    }
+
 }
 
 .additionalInfo.visible {
     opacity: 1;
 }
+
 .showAttachement {
     width: 90%;
-  
+
 
     img {
         width: 80%;
@@ -226,5 +214,3 @@
     margin: 5px 0;
     font-size: 1em !important
 }
-
-
