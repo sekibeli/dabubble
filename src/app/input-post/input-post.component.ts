@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { User } from '../models/user.class';
 import { Post } from '../models/post.class';
@@ -6,6 +6,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PostService } from '../services/post.service';
 import { ActivatedRoute } from '@angular/router';
 import { ChannelService } from '../services/channel.service';
+import { UserService } from '../services/user.service';
 
 
 @Component({
@@ -14,7 +15,9 @@ import { ChannelService } from '../services/channel.service';
   styleUrls: ['./input-post.component.scss']
 })
 export class InputPostComponent implements OnInit {
+  @ViewChild('textarea') textarea: ElementRef;
   showEmojiPicker = false;
+  searchAt: boolean = false;
   messageContent;
   url;
   @Input() singlePost;
@@ -30,11 +33,12 @@ export class InputPostComponent implements OnInit {
   currentChatID;
   currentChatUser;
   currentChatLength;
+  users;
   chatMessage: FormGroup = new FormGroup({
     description: new FormControl('', [Validators.required, Validators.minLength(2)]),
   })
 
-  constructor(public postService: PostService, public activatedRoute: ActivatedRoute, public channelService: ChannelService) {
+  constructor(public postService: PostService, public activatedRoute: ActivatedRoute, public channelService: ChannelService, private userService: UserService) {
     const currentChatPartner = JSON.parse(localStorage.getItem('currentChatUser'))
     this.user.next(currentChatPartner);
     this.currentChatLength = (Number(localStorage.getItem('currentChatLength')));
@@ -58,6 +62,11 @@ export class InputPostComponent implements OnInit {
     this.directMessage = JSON.parse(localStorage.getItem('directMessage'));
     this.channelMessage = JSON.parse(localStorage.getItem('channelMessage'));
 
+    this.userService.getUserDataSorted().subscribe((users)=> {
+      this.users = users
+      console.log(this.users);
+     
+    })
     }
 
   savePost(description, postId) {
@@ -74,7 +83,11 @@ export class InputPostComponent implements OnInit {
     this.url = null;
     
   }
-
+toggleSearchAt(){
+  console.log(this.searchAt);
+  this.searchAt = !this.searchAt;
+  console.log(this.searchAt);
+}
   toggleEmojiPicker() {
     this.showEmojiPicker = !this.showEmojiPicker;
   }
@@ -87,6 +100,25 @@ export class InputPostComponent implements OnInit {
   this.chatMessage.get('description').setValue(newText);
   this.showEmojiPicker = false;
     
+  }
+
+  addAtUser(username:string) {
+    const text = `@${username}`;
+    const textareaElem = this.textarea.nativeElement;
+    const start = textareaElem.selectionStart;
+    const end = textareaElem.selectionEnd;
+    const before = textareaElem.value.substring(0, start);
+    const after = textareaElem.value.substring(end);
+
+    const newValue = before + text + after;
+    this.chatMessage.get('description').setValue(newValue);
+    textareaElem.focus();
+    textareaElem.selectionStart = textareaElem.selectionEnd = start + text.length;
+
+
+    this.searchAt = false;
+
+
   }
   // saveMessage(description){
   //   description = this.chatMessage.value.description;

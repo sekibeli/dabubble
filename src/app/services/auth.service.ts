@@ -8,6 +8,7 @@ import { ChannelService } from './channel.service';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { SnackComponent } from '../snackbar/snack/snack.component';
 import { Router } from '@angular/router';
+import { getAuth, setPersistence, browserSessionPersistence } from "firebase/auth";
 
 
 // Service 
@@ -25,7 +26,12 @@ export class AuthService implements OnInit {
 
   firestore: Firestore = inject(Firestore);
 
-  constructor(private afs: AngularFireAuth, private channelService: ChannelService, private snackbar: MatSnackBar, private route: Router) { }
+  constructor(private afs: AngularFireAuth, private channelService: ChannelService, private snackbar: MatSnackBar, private route: Router) { 
+    const auth = getAuth();
+  setPersistence(auth, browserSessionPersistence).catch(error => {
+    console.error("Fehler bei der Konfiguration der Authentifizierungspersistenz", error);
+  });
+  }
 
   ngOnInit() { }
 

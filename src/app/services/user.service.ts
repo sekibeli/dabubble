@@ -32,7 +32,12 @@ endAt = new Subject();
     return userData;
   }
 
-
+  getUserDataSorted() {
+    const collRef = collection(this.firestore, 'users');
+    const collRefOrdered = query(collRef, orderBy('username'))
+    const userData = collectionData(collRefOrdered, {idField: 'id'});
+    return userData;
+  }
   getCurrentUser(id: string) {
    
     const docRef = doc(this.firestore, 'users', id);

@@ -40,6 +40,46 @@ export class SmilyService {
 
   }
 
+  // async saveReactionNEU(event, channelID: string, postID: string, userID: string) {
+
+  //   const reaction = event.emoji.native;
+  // const reactionRef = doc(this.firestore, 'channels', channelID, 'posts', postID, 'reactions', reaction);
+  // const reactionDoc = await getDoc(reactionRef);
+
+  // if (reactionDoc.exists()) {
+  //   // Hole das bestehende 'user'-Array aus dem Dokument
+  //   const existingUsers = reactionDoc.data().user || [];
+
+  //   // Überprüfe, ob der Benutzer bereits reagiert hat
+  //   const existingEntry = existingUsers.find((entry) => entry[1] === userID);
+
+  //   if (existingEntry) {
+  //     // Entferne den bestehenden Eintrag
+  //     const index = existingUsers.indexOf(existingEntry);
+  //     existingUsers.splice(index, 1);
+  //   } else {
+  //     // Füge einen neuen Eintrag hinzu
+  //     const user = await this.userService.getCurrentUser(userID).pipe(first()).toPromise();
+  //     existingUsers.push([user['username'], userID]);
+  //   }
+
+  //   // Aktualisiere das Dokument
+  //   await updateDoc(reactionRef, {
+  //     user: existingUsers,
+  //   });
+
+  // } else {
+  //   // Erstelle ein neues Dokument
+  //   const user = await this.userService.getCurrentUser(userID).pipe(first()).toPromise();
+  //   await setDoc(reactionRef, {
+  //     emoji: reaction,
+  //     user: [[user['username'], user['id']]],
+  //   });
+  // }
+
+
+  // }
+
 
   async saveReactionMessage(event, messageID: string, userID: string) {
 
@@ -91,6 +131,7 @@ export class SmilyService {
 
   }
 
+  
 
 
 async addOrDeleteReaction(emoji, postID: string, userID: string) {

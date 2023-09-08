@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../services/auth.service';
 import { Firestore, collection, collectionData, doc, setDoc } from '@angular/fire/firestore';
 import { User } from '../models/user.class';
-import { getAuth } from '@angular/fire/auth';
+import { getAuth, setPersistence, signInWithEmailAndPassword, browserSessionPersistence } from "firebase/auth";
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
@@ -14,7 +14,7 @@ import { BehaviorSubject } from 'rxjs';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-// aut = getAuth();
+//  aut = getAuth();
 error = true;
 // errormessage: BehaviorSubject<string> = new BehaviorSubject<string>('');
   hide = true;
@@ -28,6 +28,8 @@ error = true;
     password: new FormControl('', Validators.required)
   })
 
+
+ 
   loginWithGoogle() {
     const userData = Object.assign({ email: this.loginForm.value.username }, this.loginForm.value);
     this.auth.signinWithGoogle().then((result: any) => {

@@ -66,7 +66,7 @@
                 <div  class="reactionBubble" 
                     (mouseover)="hoveredReaction = reaction"
                     (mouseout)="hoveredReaction = null"
-                    (click)="this.smilyService.addOrDeleteReaction(reaction['emoji'], this.currentChannel, post['id'], this.currentUserID)">
+                    (click)="this.smilyService.addOrDeleteReaction(reaction['emoji'], post['id'], currentUserID)">
                     {{reaction['emoji']}} {{reaction['user'].length}}
                     
                     <div class="additionalInfo" [ngClass]="{'visible': hoveredReaction === reaction}">

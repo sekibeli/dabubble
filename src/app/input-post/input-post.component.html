@@ -18,6 +18,7 @@
       
     
       <textarea
+      #textarea
         *ngIf="
           !singlePost &&
           channelMessage &&
@@ -50,12 +51,25 @@
              <input type="file" id="fileInput" style="display:none;" (change)="onSelectDocument($event)">
           </div> 
          
-          <div class="emoji"  (click)="showEmojiPicker = !showEmojiPicker">
-              <img src="../../assets/img/addEmoji.svg" alt="">
-               <img src="../../assets/img/addat.svg" alt="">
+          <div class="emoji" >
+              <img  (click)="showEmojiPicker = !showEmojiPicker" src="../../assets/img/addEmoji.svg" alt="">
+               <img (click)="toggleSearchAt()" src="../../assets/img/addat.svg" alt="">
           </div>
        </div>
-
+<div *ngIf="searchAt" class="showUsers" >
+  <ng-container *ngFor="let user of users">
+    <div class="userLine" (click)="addAtUser(user['username'])">
+     <!-- <div  class="stati">{{user['active']}}</div> -->
+      <div
+      class="stati"
+      [ngClass]="{ green: user['active'], grey: !user['active'] }"
+    ></div>
+   <div>@{{user['username']}}</div> <br>
+    </div>
+  
+ 
+  </ng-container>
+</div>
     <div>
        <div *ngIf="url" class="file-preview">
             <div class="attachement" >
