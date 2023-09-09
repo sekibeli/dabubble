@@ -18,23 +18,22 @@ import { Router } from '@angular/router';
     ]),
     transition('in => out', animate('1s ease-in-out')),
   ]),
-]
+  ]
 })
 export class ForgotPasswordComponent {
-  isFlyingMessageVisible = false;
+  isFlyingMessageVisible: boolean = false;
   email;
   forgotPasswordForm: FormGroup = new FormGroup({
-       email: new FormControl('', [Validators.required, Validators.email]),
-      
+    email: new FormControl('', [Validators.required, Validators.email]),
   })
 
-  constructor(private auth: AngularFireAuth, private route: Router){}
+  constructor(private auth: AngularFireAuth, private route: Router) { }
 
   toggleFlyingMessage() {
     this.isFlyingMessageVisible = !this.isFlyingMessageVisible;
   }
 
-  resetPassword(){
+  resetPassword() {
     const userEmail = this.forgotPasswordForm.get('email').value;
     this.auth.sendPasswordResetEmail(userEmail)
       .then(() => {
@@ -43,8 +42,8 @@ export class ForgotPasswordComponent {
       .catch(error => {
         console.error('Fehler beim Senden der Passwort-Zurücksetzungs-E-Mail:', error);
       });
-      setTimeout(() => {
-        this.route.navigateByUrl('login');
-       }, 4000); 
+    setTimeout(() => {
+      this.route.navigateByUrl('login');
+    }, 4000);
   }
 }

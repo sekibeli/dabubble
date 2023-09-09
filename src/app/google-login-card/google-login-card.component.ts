@@ -6,5 +6,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./google-login-card.component.scss']
 })
 export class GoogleLoginCardComponent {
-
 }

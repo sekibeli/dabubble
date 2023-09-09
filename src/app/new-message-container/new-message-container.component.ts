@@ -40,6 +40,7 @@ url;
 userSorted;
 isActive: boolean; // Link left sideMenu is activated
 chosenItem: any; // the object of the chosen item, user or channel
+postID;
 showEmojiPicker: boolean = false;
 searchAt:boolean = false;
 
@@ -264,12 +265,13 @@ separateUsersAndChannels(jsonArray) {
    }
 
    sendMessage(message){
+    // if (this.url = '') this.url = null;
     if(this.isChannel){
       
       // let channelID = this.currentChannel;
       let description = this.message.value.description;
       console.log(description);
-      this.postService.savePost(this.currentUser, this.chosenItem['id'], description);
+      this.postService.savePost(this.currentUser, this.chosenItem['id'], description, this.postID, this.url);
       // this.channelService.pushActiveChannel(this.chosenItem);
       const url = "/home/channel/" + this.chosenItem['id'];
       this.route.navigateByUrl(url);

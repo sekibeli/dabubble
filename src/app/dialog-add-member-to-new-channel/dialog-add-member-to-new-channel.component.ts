@@ -1,12 +1,10 @@
-import { Component, Inject, inject } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, inject } from '@angular/core';
 import { Firestore, collection, endAt, getDocs, limit, orderBy, query, startAt } from '@angular/fire/firestore';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Subject, combineLatest } from 'rxjs';
+import { Subject, Subscription, combineLatest } from 'rxjs';
 import { DialogAddMemberComponent } from '../dialog-add-member/dialog-add-member.component';
 import { ChannelService } from '../services/channel.service';
-import { UserService } from '../services/user.service';
 import { User } from '../models/user.class';
-import {MatRadioModule} from '@angular/material/radio';
 import { Channel } from '../models/channel.class';
 
 
@@ -15,49 +13,39 @@ import { Channel } from '../models/channel.class';
   templateUrl: './dialog-add-member-to-new-channel.component.html',
   styleUrls: ['./dialog-add-member-to-new-channel.component.scss']
 })
-export class DialogAddMemberToNewChannelComponent {
+export class DialogAddMemberToNewChannelComponent implements OnInit, OnDestroy {
+  unsubscribeLatest:Subscription;
   firestore: Firestore = inject(Firestore);
   selectedOption: string;
-
   searchterm: string;
   startAt = new Subject();
   endAt = new Subject();
-  username;
-users;
+  users;
   startobs = this.startAt.asObservable();
   endobs = this.endAt.asObservable();
-  notChosen = true;
+  notChosen: boolean = true;
   chosenUser;
- public channel: Channel;
-
-
-public channelTitle;
-  constructor(public dialogRef: MatDialogRef<DialogAddMemberComponent>, private channelService: ChannelService, private userService: UserService, @Inject(MAT_DIALOG_DATA) public data: any) { 
-   console.log('neuer Channel: ',this.channel);
-  //  this.channel = data.channel;
-  //  console.log(data.channel);
-   
+  public channel: Channel;
+  
+  
+  constructor(public dialogRef: MatDialogRef<DialogAddMemberComponent>, private channelService: ChannelService, @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
   ngOnInit() {
-    combineLatest([this.startobs, this.endobs]).subscribe((value)=> {
-      this.searchUserInFirestore(value[0], value[1]).then((user)=>{
+    this.unsubscribeLatest = combineLatest([this.startobs, this.endobs]).subscribe((value) => {
+      this.searchUserInFirestore(value[0], value[1]).then((user) => {
         this.users = user.docs.map(doc => doc.data());
-      })
-      
-    })
-    console.log('neuer Channel: ',this.channel);
+      });
+    });
    }
 
 
   addMemberToChannel() {
-    if(this.selectedOption == 'option1'){
+    if (this.selectedOption == 'option1') {
       this.channelService.getMembersOfChannelAndPushInNewChannel(this.data.channel['id'])
-
     } else {
       this.channelService.addMemberToChannel(this.data.channel['id'], this.chosenUser['id']);
-      this.channelService.addMemberToChannel(this.data.channel['id'], localStorage.getItem('currentUserID')); // Gründer hinzufügen
-    }
+       }
     this.dialogRef.close();
   }
 
@@ -68,12 +56,10 @@ public channelTitle;
     this.endAt.next(q + "\uf8ff")
   }
 
-  
-  chooseNewMember(user:User){
+
+  chooseNewMember(user: User) {
     this.chosenUser = user;
-    // console.log(user);
     this.notChosen = false;
-    this.chosenUser = user;
   }
 
 
@@ -82,11 +68,15 @@ public channelTitle;
     const queryRef = query(collRef, orderBy('username'), limit(10), startAt(start), endAt(end));
     const docRef = getDocs(queryRef);
     return docRef;
-     }
+  }
 
 
-  removeChosenUser(){
+  removeChosenUser() {
     this.notChosen = true;
     this.chosenUser = null;
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribeLatest.unsubscribe();
   }
 }

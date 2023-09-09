@@ -52,7 +52,7 @@ export class PostDetailComponent implements OnInit, OnChanges {
   public hoveredReaction = null;
   usersArray;
   currentUserName;
-  // lastAnswer; // Uhrzeit der letzten Nachricht im Thread
+  lastAnswer:string; // Uhrzeit der letzten Nachricht im Thread
   newDate;
 
   constructor(private userService: UserService,
@@ -107,7 +107,7 @@ const currentDate = this.dateService.getFormatedDateFromTimestamp(this.post['tim
     if (this.newDate) {
       this.dateService.setLastDate(currentDate);
     }
-
+this.getLastAnswer(this.post['id']);
   }
 activateTimer(){
   setTimeout(() => {
@@ -122,7 +122,15 @@ activateTimer(){
 ngOnChanges(changes: SimpleChanges): void {
   console.log('ngOnChanges', changes);
 }
-
+getLastAnswer(postID:string){
+  this.threadService.getTimeFromLastAnswer(postID).subscribe((value)=> {
+    if(value.length > 0){
+      const lastAnswerTimestamp = value[value.length - 1]['timestamp'];
+      this.lastAnswer = this.dateService.formatTime(lastAnswerTimestamp);
+    }
+  });
+  
+}
 
 
   getAuthorDetails(post) {

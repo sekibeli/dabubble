@@ -8,7 +8,9 @@ import { Router } from '@angular/router';
 })
 export class StartComponent implements OnInit{
 
-  constructor(private route: Router){}
+  constructor(private route: Router){
+   
+  }
 
   ngOnInit(): void {
     setTimeout(()=> {

@@ -1,28 +1,27 @@
-
 <div class="app-wrapper">
-<div class="showUserContainer">
-   <div class="dialogHeader"> <div><h3>Mitglieder</h3></div><div class="close"  (click)="dialogRef.close()"><mat-icon >close</mat-icon></div></div>
-<ul>
-    <li *ngFor="let user of members"
-    class="message"
-    (click)="openProfile(user)"
-  
-   >
-   
-      <div class="profile-overview">
-        <div class="relativePic">
-          <img class="profile-img" src="{{user['img']}}" alt="">
-          <div class="status"  [ngClass]="{'green': user['active'], 'grey': !user['active']}" ></div>
-          </div>
-          <div *ngIf="user['id'] != this.currentUserID" class="profile-name">{{ user['username']}}</div>
-          <div *ngIf="user['id'] == this.currentUserID" class="profile-name">{{ user['username']}} (Du)</div>
-     </div>
-    
-     
-    </li>
-    <li (click)="this.openAddMember()" class="lastItem"><img src="../../assets/img/add_member.svg" alt=""> <div>Mitglieder hinzufügen</div></li>
-   </ul>
-</div>
-</div>
+   <div class="showUserContainer">
+      <div class="dialogHeader">
+         <div>
+            <h3>Mitglieder</h3>
+         </div>
+         <div class="close" (click)="dialogRef.close()"><mat-icon>close</mat-icon></div>
+      </div>
+      <ul>
+         <li *ngFor="let user of members" class="message" (click)="openProfile(user)">
 
-<!-- channelService.openAddMemberDialog(activeTitle) -->
+            <div class="profile-overview">
+               <div class="relativePic">
+                  <img class="profile-img" src="{{user['img']}}" alt="">
+                  <div class="status" [ngClass]="{'green': user['active'], 'grey': !user['active']}"></div>
+               </div>
+               <div *ngIf="user['id'] != this.currentUserID" class="profile-name">{{ user['username']}}</div>
+               <div *ngIf="user['id'] == this.currentUserID" class="profile-name">{{ user['username']}} (Du)</div>
+            </div>
+
+         </li>
+         <li (click)="this.openAddMember()" class="lastItem"><img src="../../assets/img/add_member.svg" alt="">
+            <div>Mitglieder hinzufügen</div>
+         </li>
+      </ul>
+   </div>
+</div>

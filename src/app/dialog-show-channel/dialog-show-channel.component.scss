@@ -3,49 +3,47 @@
     justify-content: space-between;
     margin: 10px;
     position: relative;
-   
+}
 
-  }
-  .border {
+.border {
     position: absolute;
-    bottom:3px;
-    left:-10px;
+    bottom: 3px;
+    left: -10px;
     right: -10px;
     height: 3px;
-   
     border-bottom: 1px solid lightgrey;
     box-shadow: 0 3px 4px rgba(0, 0, 0, 0.1);
-  }
-  .close{
+}
+
+.close {
     cursor: pointer;
 }
+
 .channelEdition {
     display: flex;
     min-width: 300px;
     padding: 20px;
     flex-direction: column;
     justify-content: center;
-   
-    gap: 20px; 
+    gap: 20px;
 }
+
 .activeChannelContainer {
     border-radius: 20px;
     padding: 20px;
-border: 1px solid var(--ligth-purple-lines, #ADB0D9);
+    border: 1px solid var(--ligth-purple-lines, #ADB0D9);
 }
 
 .headline {
     font-size: 1em;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
 }
 
 .hr {
-    // height:1px;
-    border: 1px solid var(--ligth-purple-lines,  #ADB0D9);
+    border: 1px solid var(--ligth-purple-lines, #ADB0D9);
     margin: 20px 0;
-   
 }
 
 .mat-mdc-dialog-container {
@@ -71,10 +69,11 @@ input {
     color: #686868;
     width: 90%;
 }
+
 textarea {
     margin-top: 20px;
     min-height: 100px;
-    font-family: 'Nunito' ;
+    font-family: 'Nunito';
     border: 1px solid var(--light-purple-lines);
     padding: 10px 20px;
     border-radius: 15px;
@@ -84,28 +83,28 @@ textarea {
     align-self: stretch;
 }
 
-@media(max-width: 600px){
-    .channelContainer{
+@media(max-width: 600px) {
+    .channelContainer {
         height: 100vh;
         width: 100%;
-        margin:0;
+        margin: 0;
         overflow-y: scroll;
     }
 
-    .mat-dialog-container, .mat-mdc-dialog-container {
+    .mat-dialog-container,
+    .mat-mdc-dialog-container {
         width: 100%;
-    max-width: 100%;
-    height: 100vh;
-    max-height: 100vh;
-    padding: 0 !important;
-    margin: 0 !important;
-    border-radius: 0;
-    overflow-y: scroll;
+        max-width: 100%;
+        height: 100vh;
+        max-height: 100vh;
+        padding: 0 !important;
+        margin: 0 !important;
+        border-radius: 0;
+        overflow-y: scroll;
     }
 
     .channelEdition {
         display: flex;
         min-width: 200px;
-       
     }
 }

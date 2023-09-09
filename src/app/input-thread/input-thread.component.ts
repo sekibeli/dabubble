@@ -1,14 +1,11 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Post } from '../models/post.class';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PostService } from '../services/post.service';
 import { ActivatedRoute } from '@angular/router';
-import { AuthService } from '../services/auth.service';
-import { PostContainerComponent } from '../post-container/post-container.component';
 import { MessageService } from '../services/message.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { User } from '../models/user.class';
-import { ChannelService } from '../services/channel.service';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -16,67 +13,46 @@ import { UserService } from '../services/user.service';
   templateUrl: './input-thread.component.html',
   styleUrls: ['./input-thread.component.scss']
 })
-export class InputThreadComponent implements OnInit {
+export class InputThreadComponent implements OnInit,OnDestroy {
   @ViewChild('textarea') textarea: ElementRef;
   @Input() singlePost;
   url;
   showEmojiPicker: boolean = false;
   chatLength: BehaviorSubject<number>;
-  // @Input() user; // aus message der User an den die Message ist
-  user: BehaviorSubject<User> = new BehaviorSubject<User>(null);
+   user: BehaviorSubject<User> = new BehaviorSubject<User>(null);
   currentUser;
   currentChannel; // die ID
   channelTitle: BehaviorSubject<String> = new BehaviorSubject<String>('Angular');
   post: Post;
-  directMessage; // sets if input is directMessage or not
-  channelMessage;
-  currentChatID;
-  currentChatUser;
-  currentChatLength;
+  directMessage:boolean; // sets if input is directMessage or not
+  channelMessage:boolean;
+  currentChatID:string;
+  currentChatUser:User;
+  currentChatLength:number;
   users;
   searchAt:boolean = false;
+  unsubscribeSortedUser:Subscription;
   chatMessage: FormGroup = new FormGroup({
     description: new FormControl('', [Validators.required, Validators.minLength(2)]),
   })
 
-  constructor(public postService: PostService, public activatedRoute: ActivatedRoute, public messageService: MessageService, private channelService: ChannelService, private userService:UserService) {
+  constructor(public postService: PostService, public activatedRoute: ActivatedRoute, public messageService: MessageService, private userService:UserService) {
     const currentChatPartner = JSON.parse(localStorage.getItem('currentChatUser'))
     this.user.next(currentChatPartner);
     this.currentChatLength = (Number(localStorage.getItem('currentChatLength')));
     this.currentUser = localStorage.getItem('currentUserID');
     this.directMessage = JSON.parse(localStorage.getItem('directMessage'));
     this.channelMessage = JSON.parse(localStorage.getItem('channelMessage'));
-     
-
-  }
+       }
 
   ngOnInit() {
-//     this.messageService.activeChatUser.subscribe((value)=>{
-//       this.user.next(value) ;
-//    })
-
-//    this.messageService.chatLengthEmitter.subscribe((value)=>{
-//  this.currentChatLength = value;
-//    });
-
-  //  this.channelService.displayedChannel.subscribe((value)=>{
-  //   this.channelTitle.next(value['title']);
-  //  });
-    this.currentUser = localStorage.getItem('currentUserID');
-    this.directMessage = JSON.parse(localStorage.getItem('directMessage'));
-    this.channelMessage = JSON.parse(localStorage.getItem('channelMessage'));
-
-
-    this.userService.getUserDataSorted().subscribe((users)=> {
+   this.unsubscribeSortedUser =  this.userService.getUserDataSorted().subscribe((users)=> {
       this.users = users
-      console.log(this.users);
-     
-    })
+              })
     }
 
-  savePost(description, postId) {
-    // console.log('postDescription:', description);
-    this.currentChannel = this.activatedRoute.snapshot.params['id'];
+  savePost(description:string, postId:string) {
+       this.currentChannel = this.activatedRoute.snapshot.params['id'];
     let channelID = this.currentChannel;
     description = this.chatMessage.value.description;
     this.postService.savePost(this.currentUser, channelID, description, postId, this.url);
@@ -85,23 +61,19 @@ export class InputThreadComponent implements OnInit {
     
   }
 
-  saveMessage(description){
+  saveMessage(description:string){
     description = this.chatMessage.value.description;
-    // console.log('Message description:', description);
-    this.messageService.saveMessage(description);
+      this.messageService.saveMessage(description);
     this.chatMessage.reset();
     this.url = null;
   }
 
   toggleSearchAt(){
-    console.log(this.searchAt);
-    this.searchAt = !this.searchAt;
-    console.log(this.searchAt);
-  }
+        this.searchAt = !this.searchAt;
+      }
 
   onSelectDocument(event) {
-    // this.avatarpic = false;
-    const file: File = event.target.files[0]; // ausgewählte Datei wird gespeichert in Variable file
+       const file: File = event.target.files[0]; // ausgewählte Datei wird gespeichert in Variable file
     let fileType = file.type;
     let fileSize = file.size;
     if (fileSize > 500 * 1024) {
@@ -115,27 +87,26 @@ export class InputThreadComponent implements OnInit {
       reader.onload = (event: any) => {
         this.url = event.target.result;
         console.log('thread nach dem Lesen:', this.url); // this.url ist ein Bild im Base64 Format
-        // this.setNewPic(this.url);
-       
-      };
+            };
     } else {
       window.alert('Bitte nur png, jpg, jpeg oder PDF senden');
     }
   }
 
+
   isImage(url: string): boolean {
     return url.startsWith('data:image');
   }
+
 
   addEmoji(event) {
     const text = `${event.emoji.native}`;
   const currentText = this.chatMessage.get('description').value;
   const newText = currentText + text;
-
   this.chatMessage.get('description').setValue(newText);
   this.showEmojiPicker = false;
-    
-  }
+      }
+
 
   addAtUser(username:string) {
     const text = `@${username}`;
@@ -150,11 +121,10 @@ export class InputThreadComponent implements OnInit {
     textareaElem.focus();
     textareaElem.selectionStart = textareaElem.selectionEnd = start + text.length;
 
-
     this.searchAt = false;
+  }
 
-
+  ngOnDestroy(): void {
+    this.unsubscribeSortedUser.unsubscribe();
   }
 } 
-
-

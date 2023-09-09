@@ -61,11 +61,7 @@
                 background-color: rgba(0, 0, 0, 0.04); /* This gives a light gray background when hovered */
               }
               
-              
-            //   .custom-icon-button:hover mat-icon {
-            //     color: #DA4567; 
-            //   }
-              
+           
               /* Remove focus styles if desired */
               .custom-icon-button:focus {
                 outline: none;
@@ -107,6 +103,7 @@
 
 .post-author {
     font-weight: 700;
+    cursor: pointer;
 }
 .post-description {
     background-color: var(--background-color);
@@ -148,6 +145,7 @@
     font-size: 0.9em;
     color: var(--light-purple-lines);
     cursor: pointer;
+    align-items: flex-end;
 }
 .deviderBox {
     z-index: 0;

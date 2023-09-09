@@ -2,9 +2,8 @@
     border-radius: 30px;
 }
 
-.showUserContainer{
+.showUserContainer {
     margin: 15px;
-
 }
 
 .profile-overview {
@@ -21,11 +20,9 @@
         background-color: var(--background-color);
         color: #535AF1;
     }
-    
 }
 
 .profile-img {
-    
     margin: 0 20px 0 0;
     width: 40px;
     height: 40px;
@@ -34,39 +31,40 @@
 }
 
 ul {
-    list-style: none; 
+    list-style: none;
     padding: 0;
     outline: none;
- }
+}
 
- .cdk-overlay-pane {
+.cdk-overlay-pane {
     border-top-left-radius: 30px;
-    background-color: rgba(0, 0, 0, 0.5); /* Farbe des Overlay-Hintergrunds */
-  }
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Farbe des Overlay-Hintergrunds */
+}
 
-  .lastItem {
+.lastItem {
     display: flex;
     align-items: center;
-   
     border-radius: 30px;
     padding: 2px 15px;
 
     cursor: pointer;
+
     &:hover {
         background-color: var(--background-color);
         color: #535AF1;
     }
 
-    img{
+    img {
         margin-right: 20px;
     }
-  }
-
-  .dialogHeader {
-    display: flex;
-    justify-content: space-between;
-  }
-  .close{
-    cursor: pointer;
 }
 
+.dialogHeader {
+    display: flex;
+    justify-content: space-between;
+}
+
+.close {
+    cursor: pointer;
+}

@@ -1,14 +1,15 @@
 .dialogHeader {
     display: flex;
     justify-content: space-between;
-  }
-  .close{
+}
+
+.close {
     cursor: pointer;
 }
 
-.showProfileContainer{
-display: flex;
-flex-direction: column;
+.showProfileContainer {
+    display: flex;
+    flex-direction: column;
     margin: 25px;
     width: 300px;
     min-height: 500px;
@@ -20,9 +21,9 @@ flex-direction: column;
     border-radius: 50%;
     background-color: green;
     margin-right: 15px;
- 
 }
-.redPoint{
+
+.redPoint {
     width: 15px;
     height: 15px;
     border-radius: 50%;
@@ -30,10 +31,11 @@ flex-direction: column;
     margin-right: 15px;
 }
 
-.isActive{
-   color: green;
+.isActive {
+    color: green;
 }
-.isInactive{
+
+.isInactive {
     color: grey;
 }
 
@@ -41,8 +43,8 @@ flex-direction: column;
     display: flex;
     justify-content: center;
     cursor: pointer;
-   
-    .profileImg{
+
+    .profileImg {
         width: 200px;
         height: 200px;
         border-radius: 50%;
@@ -51,11 +53,11 @@ flex-direction: column;
 
 .email-details {
     margin-top: 15px;
-display: flex;
+    display: flex;
 
-mat-icon {
-    margin-right: 15px;
-}
+    mat-icon {
+        margin-right: 15px;
+    }
 }
 
 .profileStatus {
@@ -74,17 +76,15 @@ mat-icon {
     cursor: pointer;
 }
 
-@media (max-width: 600px){
-    .showProfileContainer{
-        
-       
-            // margin: 25px;
-            width: 80vw;
-            min-height: 500px;
-        }
+@media (max-width: 600px) {
+    .showProfileContainer {
+        width: 80vw;
+        min-height: 500px;
+    }
 
-        .mat-dialog-container, .mat-mdc-dialog-container {
-            width: 100%;
+    .mat-dialog-container,
+    .mat-mdc-dialog-container {
+        width: 100%;
         max-width: 100%;
         height: 100vh;
         max-height: 100vh;
@@ -92,10 +92,10 @@ mat-icon {
         margin: 0 !important;
         border-radius: 0px;
         overflow-y: scroll;
-        }
+    }
 
-        .mat-mdc-dialog-container .mdc-dialog__surface {
-            border-radius: 30px !important;
-           
-        }
+    .mat-mdc-dialog-container .mdc-dialog__surface {
+        border-radius: 30px !important;
+
+    }
 }

@@ -13,15 +13,15 @@ import { DialogAddMemberToNewChannelComponent } from '../dialog-add-member-to-ne
 })
 export class DialogNewChannelComponent {
   firestore: Firestore = inject(Firestore);
-  createdBy;
+  // createdBy;
   isUsed: boolean;
+  
   newChannelForm: FormGroup = new FormGroup({
     title: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required)
   })
 
   constructor(public dialogRef: MatDialogRef<DialogNewChannelComponent>, private channelService: ChannelService, private dialog: MatDialog) {
-
   }
 
   checkChannelTitles(): Promise<boolean> {
@@ -41,31 +41,6 @@ export class DialogNewChannelComponent {
     });
   }
 
-  // async addNewChannel(){
-  //       const isTitleUsed = await this.checkChannelTitles();
-
-  //       if(isTitleUsed){
-  //         this.newChannelForm.controls['title'].setErrors({ 'titleTaken': true });
-  //       } else { 
-  //         let membersArray = [];
-  //         // membersArray.push(localStorage.getItem('currentUserID'));
-
-  //         const test = this.newChannelForm.value.title;
-  //           let channel = new Channel({
-  //            id: '',
-  //           title: this.newChannelForm.value.title,
-  //           description: this.newChannelForm.value.description,
-  //           createdBy: localStorage.getItem('currentUserID'),
-  //           members: membersArray
-  //         });
-
-  //         this.channelService.saveChannel(channel);
-  //         this.openDialogAddMemberToNewChannel(channel)
-  //         this.dialogRef.close();
-  //       } 
-
-
-  // }
   async checkAndSetFormErrors() {
     const isTitleUsed = await this.checkChannelTitles();
     if (isTitleUsed) {
@@ -77,7 +52,7 @@ export class DialogNewChannelComponent {
 
 
   async createAndSaveChannel() {
-    let membersArray = [];
+    let membersArray = [localStorage.getItem('currentUserID')]; // Gründer ist immer Anfangs Mitglied.
     const test = this.newChannelForm.value.title;
     let channel = new Channel({
       id: '',
@@ -104,11 +79,10 @@ export class DialogNewChannelComponent {
 
     const dialogConfig = new MatDialogConfig();
     dialogConfig.position = {
-      top: '200px', 
-      
+      top: '200px',
+
     };
     dialogConfig.data = {
-   
       channel: channel
     };
     const dialogRef = this.dialog.open(DialogAddMemberToNewChannelComponent, dialogConfig);

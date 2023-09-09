@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable, OnInit, inject } from '@angular/core';
 import { Firestore, collection, collectionData, doc, docData, limit, orderBy, query, setDoc, updateDoc, where } from '@angular/fire/firestore';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, map } from 'rxjs';
 import { User } from '../models/user.class';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { DialogProfileComponent } from '../dialog-profile/dialog-profile.component';
@@ -39,9 +39,8 @@ endAt = new Subject();
     return userData;
   }
   getCurrentUser(id: string) {
-   
     const docRef = doc(this.firestore, 'users', id);
-    return docData(docRef);
+    return docData(docRef).pipe(map(data => data as User)); // gibt immer Daten vom Typ User zurück
 
   }
 

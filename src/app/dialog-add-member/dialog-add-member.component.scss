@@ -1,13 +1,14 @@
 .addMemberContainer {
     margin: 15px;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .dialogHeader {
     display: flex;
     justify-content: space-between;
-  }
-  .close{
+}
+
+.close {
     cursor: pointer;
 }
 
@@ -28,7 +29,6 @@
 }
 
 .profile-img {
-    
     margin: 0 20px 0 0;
     width: 40px;
     height: 40px;
@@ -37,10 +37,11 @@
 }
 
 ul {
-    list-style: none; 
+    list-style: none;
     padding: 0;
- }
- .search {
+}
+
+.search {
     border: 1px solid var(--light-purple-lines);
     border-radius: 20px;
     padding: 10px 20px;
@@ -49,34 +50,36 @@ ul {
     &:focus {
         outline: none;
     }
- }
- .channelTitle {
+}
+
+.channelTitle {
     font-size: 0.8em;
     color: #535AF1;
-  }
+}
 
-  .end {
+.end {
     display: flex;
     justify-content: flex-end;
-  }
+}
 
-  .littleUserOverview {
+.littleUserOverview {
     display: flex;
     align-items: center;
     background-color: var(--background-color);
     border-radius: 20px;
     padding: 1px 10px;
 
-    img{
+    img {
         width: 25px;
         height: 25px;
         border-radius: 50%;
         margin-right: 10px;
     }
+
     mat-icon {
         margin-left: 15px;
         font-size: 1em;
-       vertical-align: middle;
-    padding-top: 7px;
+        vertical-align: middle;
+        padding-top: 7px;
     }
-  }
+}

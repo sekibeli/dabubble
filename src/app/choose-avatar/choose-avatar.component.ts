@@ -10,6 +10,8 @@ import {
   animate,
   transition,
 } from '@angular/animations';
+import { Subscription } from 'rxjs';
+import { User } from '../models/user.class';
 
 @Component({
   selector: 'app-choose-avatar',
@@ -31,29 +33,30 @@ import {
 export class ChooseAvatarComponent implements OnInit {
   isFlyingMessageVisible = false;
   avatarpic: boolean = true;
-  // fileToUpload: File | null = null;
   url = '../../assets/img/profile_img/benutzer.png';
   currentPic = 'benutzer.png';
-  newUserID;
-  newUser;
+  newUserID:string;
+  newUser:User;
   avatars = ['1.svg', '2.svg', '3.svg', '4.svg', '5.svg', '6.svg'];
-
+  unsubscribeUser: Subscription;
 
 
   constructor(private userService: UserService, private route: Router, private fileUploadService: FileUploadService) {
     this.newUserID = localStorage.getItem('currentUserID');
-
   }
+
 
   ngOnInit(): void {
-    this.userService.getCurrentUser(this.newUserID).subscribe((value) => {
-      this.newUser = value;
+    this.unsubscribeUser = this.userService.getCurrentUser(this.newUserID).subscribe((value) => {
+      this.newUser = <User>value;
     });
   }
+
 
   setNewPic(image) {
     this.currentPic = image;
   }
+
 
   saveNewPic(image: string) {
     this.userService.saveUserPic(this.newUserID, image, this.avatarpic);
@@ -78,14 +81,13 @@ export class ChooseAvatarComponent implements OnInit {
     
       reader.onload = (event: any) => {
         this.url = event.target.result;
-        // console.log('nach dem Lesen:', this.url); // this.url ist ein Bild im Base64 Format
         this.setNewPic(this.url);
-       
-      };
+        };
     } else {
       window.alert('Bitte nur png, jpg oder jpeg senden');
     }
   }
+
 
   toggleFlyingMessage() {
     this.isFlyingMessageVisible = !this.isFlyingMessageVisible;

@@ -1,5 +1,5 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { User } from '../models/user.class';
 import { Post } from '../models/post.class';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -14,7 +14,7 @@ import { UserService } from '../services/user.service';
   templateUrl: './input-post.component.html',
   styleUrls: ['./input-post.component.scss']
 })
-export class InputPostComponent implements OnInit {
+export class InputPostComponent implements OnInit, OnDestroy {
   @ViewChild('textarea') textarea: ElementRef;
   showEmojiPicker = false;
   searchAt: boolean = false;
@@ -22,10 +22,9 @@ export class InputPostComponent implements OnInit {
   url;
   @Input() singlePost;
   chatLength: BehaviorSubject<number>;
-  // @Input() user; // aus message der User an den die Message ist
   user: BehaviorSubject<User> = new BehaviorSubject<User>(null);
   currentUser;
-  currentChannel; // die ID
+  currentChannelID: string; // die ID
   channelTitle: BehaviorSubject<String> = new BehaviorSubject<String>('');
   post: Post;
   directMessage; // sets if input is directMessage or not
@@ -34,6 +33,7 @@ export class InputPostComponent implements OnInit {
   currentChatUser;
   currentChatLength;
   users;
+  unsubscribeSortedUser: Subscription;
   chatMessage: FormGroup = new FormGroup({
     description: new FormControl('', [Validators.required, Validators.minLength(2)]),
   })
@@ -42,70 +42,51 @@ export class InputPostComponent implements OnInit {
     const currentChatPartner = JSON.parse(localStorage.getItem('currentChatUser'))
     this.user.next(currentChatPartner);
     this.currentChatLength = (Number(localStorage.getItem('currentChatLength')));
-     
+
 
   }
 
   ngOnInit() {
-  //   this.messageService.activeChatUser.subscribe((value)=>{
-  //     this.user.next(value) ;
-  //  })
-
-//    this.messageService.chatLengthEmitter.subscribe((value)=>{
-//  this.currentChatLength = value;
-//    });
-
-  //  this.channelService.displayedChannel.subscribe((value)=>{
-  //       this.channelTitle.next(value['title']);
-  //  });
     this.currentUser = localStorage.getItem('currentUserID');
     this.directMessage = JSON.parse(localStorage.getItem('directMessage'));
     this.channelMessage = JSON.parse(localStorage.getItem('channelMessage'));
 
-    this.userService.getUserDataSorted().subscribe((users)=> {
+    this.unsubscribeSortedUser = this.userService.getUserDataSorted().subscribe((users) => {
       this.users = users
-      console.log(this.users);
-     
     });
-    }
-
-  savePost(description, postId) {
-    
-    // console.log(this.url);
-    // console.log('postDescription:', description);
-    this.currentChannel = this.activatedRoute.snapshot.params['id'];
-    let channelID = this.currentChannel;
-    description = this.chatMessage.value.description;
-    this.postService.savePost(this.currentUser, channelID, description, postId, this.url);
-   
-   
-    this.chatMessage.reset();
-    this.url = null;
-    
   }
 
-toggleSearchAt(){
-  console.log(this.searchAt);
-  this.searchAt = !this.searchAt;
-  console.log(this.searchAt);
-}
+  savePost(description, postId) {
+
+    this.currentChannelID = this.activatedRoute.snapshot.params['id'];
+    let channelID = this.currentChannelID;
+    description = this.chatMessage.value.description;
+    this.postService.savePost(this.currentUser, channelID, description, postId, this.url);
+
+    this.chatMessage.reset();
+    this.url = null;
+  }
+
+  toggleSearchAt() {
+    this.searchAt = !this.searchAt;
+  }
 
 
   toggleEmojiPicker() {
     this.showEmojiPicker = !this.showEmojiPicker;
   }
 
+
   addEmoji(event) {
     const text = `${event.emoji.native}`;
-  const currentText = this.chatMessage.get('description').value;
-  const newText = currentText + text;
+    const currentText = this.chatMessage.get('description').value;
+    const newText = currentText + text;
+    this.chatMessage.get('description').setValue(newText);
+    this.showEmojiPicker = false;
 
-  this.chatMessage.get('description').setValue(newText);
-  this.showEmojiPicker = false;
-    
   }
 
-  addAtUser(username:string) {
+  addAtUser(username: string) {
     const text = `@${username}`;
     const textareaElem = this.textarea.nativeElement;
     const start = textareaElem.selectionStart;
@@ -118,20 +99,11 @@ toggleSearchAt(){
     textareaElem.focus();
     textareaElem.selectionStart = textareaElem.selectionEnd = start + text.length;
 
-
     this.searchAt = false;
-
-
   }
-  // saveMessage(description){
-  //   description = this.chatMessage.value.description;
-  //   console.log('Message description:', description);
-  //   this.messageService.saveMessage(description);
-  //   this.chatMessage.reset();
-  // }
 
   onSelectDocument(event) {
-    // this.avatarpic = false;
+
     const file: File = event.target.files[0]; // ausgewählte Datei wird gespeichert in Variable file
     let fileType = file.type;
     let fileSize = file.size;
@@ -142,19 +114,23 @@ toggleSearchAt(){
     if (fileType.match(/image\/(png|jpeg|jpg)|application\/pdf/)) {
       let reader = new FileReader();
       reader.readAsDataURL(file);
-    
+
       reader.onload = (event: any) => {
-        this.url = event.target.result;
-        console.log('nach dem Lesen:', this.url); // this.url ist ein Bild im Base64 Format
-        // this.setNewPic(this.url);
-       
+        this.url = event.target.result; // this.url ist ein Bild im Base64 Format
+
       };
     } else {
       window.alert('Bitte nur png, jpg, jpeg oder PDF senden');
     }
   }
 
+
   isImage(url: string): boolean {
     return url.startsWith('data:image');
+  }
+
+
+  ngOnDestroy(): void {
+    this.unsubscribeSortedUser.unsubscribe();
   }
 } 

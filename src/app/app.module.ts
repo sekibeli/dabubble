@@ -49,7 +49,6 @@ import { DialogProfileComponent } from './dialog-profile/dialog-profile.componen
 import { ImpressumComponent } from './impressum/impressum.component';
 import { DialogLogoutComponent } from './dialog-logout/dialog-logout.component';
 import {MatButtonModule} from '@angular/material/button';
-import { DialogEditPlayerImgComponent } from './dialog-edit-player-img/dialog-edit-player-img.component';
 import { ChooseAvatarComponent } from './choose-avatar/choose-avatar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DialogEditUserComponent } from './dialog-edit-user/dialog-edit-user.component';
@@ -111,8 +110,6 @@ import { EmojiPickerComponent } from './emoji-picker/emoji-picker.component';
     DialogProfileComponent,
     ImpressumComponent,
     DialogLogoutComponent,
-  
-    DialogEditPlayerImgComponent,
        ChooseAvatarComponent,
        DialogEditUserComponent,
        DialogShowChannelComponent,

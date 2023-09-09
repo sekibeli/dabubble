@@ -1,12 +1,10 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Post } from '../models/post.class';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PostService } from '../services/post.service';
 import { ActivatedRoute } from '@angular/router';
-import { AuthService } from '../services/auth.service';
-import { PostContainerComponent } from '../post-container/post-container.component';
 import { MessageService } from '../services/message.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { User } from '../models/user.class';
 import { ChannelService } from '../services/channel.service';
 import { UserService } from '../services/user.service';
@@ -16,25 +14,27 @@ import { UserService } from '../services/user.service';
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.scss']
 })
-export class InputComponent implements OnInit {
+export class InputComponent implements OnInit, OnDestroy {
   @ViewChild('textarea') textarea: ElementRef;
   @Input() singlePost;
   url;
   showEmojiPicker: boolean = false;
   chatLength: BehaviorSubject<number>;
-  // @Input() user; // aus message der User an den die Message ist
   user: BehaviorSubject<User> = new BehaviorSubject<User>(null);
-  currentUser;
-  currentChannel; // die ID
+  currentUserID: string;
+  currentChannel: string; // die ID
   channelTitle: BehaviorSubject<String> = new BehaviorSubject<String>('Angular');
   post: Post;
-  directMessage; // sets if input is directMessage or not
-  channelMessage;
-  currentChatID;
-  currentChatUser;
-  currentChatLength;
+  directMessage: boolean; // sets if input is directMessage or not
+  channelMessage:boolean;
+  currentChatID: string;
+  currentChatUser:User;
+  currentChatLength: number;
   users;
-  searchAt:boolean = false;
+  searchAt: boolean = false;
+  unsubscribeUserSorted: Subscription;
+  unsubscribeChatUser:Subscription;
+  unsubChatLength:Subscription;
   chatMessage: FormGroup = new FormGroup({
     description: new FormControl('', [Validators.required, Validators.minLength(2)]),
   })
@@ -43,69 +43,60 @@ export class InputComponent implements OnInit {
     const currentChatPartner = JSON.parse(localStorage.getItem('currentChatUser'))
     this.user.next(currentChatPartner);
     this.currentChatLength = (Number(localStorage.getItem('currentChatLength')));
-    this.currentUser = localStorage.getItem('currentUserID');
+    this.currentUserID = localStorage.getItem('currentUserID');
     this.directMessage = JSON.parse(localStorage.getItem('directMessage'));
     this.channelMessage = JSON.parse(localStorage.getItem('channelMessage'));
-     
-
   }
 
   ngOnInit() {
-    this.messageService.activeChatUser.subscribe((value)=>{
-      this.user.next(value) ;
-   })
-
-   this.messageService.chatLengthEmitter.subscribe((value)=>{
- this.currentChatLength = value;
-   });
-
-  //  this.channelService.displayedChannel.subscribe((value)=>{
-  //   this.channelTitle.next(value['title']);
-  //  });
-    this.currentUser = localStorage.getItem('currentUserID');
-    this.directMessage = JSON.parse(localStorage.getItem('directMessage'));
-    this.channelMessage = JSON.parse(localStorage.getItem('channelMessage'));
-
-    this.userService.getUserDataSorted().subscribe((users)=> {
-      this.users = users
-      console.log(this.users);
-     
+   this.unsubscribeChatUser =  this.messageService.activeChatUser.subscribe((value) => {
+      this.user.next(value);
     })
-    }
 
-    toggleSearchAt(){
-      console.log(this.searchAt);
-      this.searchAt = !this.searchAt;
-      console.log(this.searchAt);
-    }
+    this.unsubChatLength = this.messageService.chatLengthEmitter.subscribe((value) => {
+      this.currentChatLength = value;
+    });
+
+    //  this.channelService.displayedChannel.subscribe((value)=>{
+    //   this.channelTitle.next(value['title']);
+    //  });
+    // this.currentUserID = localStorage.getItem('currentUserID');
+    // this.directMessage = JSON.parse(localStorage.getItem('directMessage'));
+    // this.channelMessage = JSON.parse(localStorage.getItem('channelMessage'));
+
+    this.unsubscribeUserSorted = this.userService.getUserDataSorted().subscribe((users) => {
+      this.users = users
+    })
+  }
+
+  toggleSearchAt() {
+       this.searchAt = !this.searchAt;
+     }
+
 
   savePost(description, postId) {
-    // console.log('postDescription:', description);
     this.currentChannel = this.activatedRoute.snapshot.params['id'];
     let channelID = this.currentChannel;
     description = this.chatMessage.value.description;
-    this.postService.savePost(this.currentUser, channelID, description, postId, this.url);
+    this.postService.savePost(this.currentUserID, channelID, description, postId, this.url);
     this.chatMessage.reset();
-    
   }
 
-  saveMessage(description){
+
+  saveMessage(description:string) {
     description = this.chatMessage.value.description;
-    // console.log('Message description:', description);
     if (this.url) {
       this.messageService.saveMessage(description, this.url);
     } else {
       this.messageService.saveMessage(description, null);
     }
-   
-   
+
     this.chatMessage.reset();
     this.url = null;
   }
 
 
   onSelectDocument(event) {
-    // this.avatarpic = false;
     const file: File = event.target.files[0]; // ausgewählte Datei wird gespeichert in Variable file
     let fileType = file.type;
     let fileSize = file.size;
@@ -116,48 +107,48 @@ export class InputComponent implements OnInit {
     if (fileType.match(/image\/(png|jpeg|jpg)|application\/pdf/)) {
       let reader = new FileReader();
       reader.readAsDataURL(file);
-    
+
       reader.onload = (event: any) => {
-        this.url = event.target.result;
-        console.log('nach dem Lesen:', this.url); // this.url ist ein Bild im Base64 Format
-        // this.setNewPic(this.url);
-       
+        this.url = event.target.result;// this.url ist ein Bild im Base64 Format
       };
     } else {
       window.alert('Bitte nur png, jpg, jpeg oder PDF senden');
     }
   }
 
+
   isImage(url: string): boolean {
     return url.startsWith('data:image');
   }
 
+
   addEmoji(event) {
     const text = `${event.emoji.native}`;
-  const currentText = this.chatMessage.get('description').value;
-  const newText = currentText + text;
-
-  this.chatMessage.get('description').setValue(newText);
-  this.showEmojiPicker = false;
-    
+    const currentText = this.chatMessage.get('description').value;
+    const newText = currentText + text;
+    this.chatMessage.get('description').setValue(newText);
+    this.showEmojiPicker = false;
   }
 
-  addAtUser(username:string) {
+
+  addAtUser(username: string) {
     const text = `@${username}`;
     const textareaElem = this.textarea.nativeElement;
     const start = textareaElem.selectionStart;
     const end = textareaElem.selectionEnd;
     const before = textareaElem.value.substring(0, start);
     const after = textareaElem.value.substring(end);
-
     const newValue = before + text + after;
     this.chatMessage.get('description').setValue(newValue);
     textareaElem.focus();
     textareaElem.selectionStart = textareaElem.selectionEnd = start + text.length;
 
-
     this.searchAt = false;
+  }
 
-
+  ngOnDestroy(): void {
+    this.unsubscribeUserSorted.unsubscribe();
+    this.unsubscribeChatUser.unsubscribe();
+    this.unsubChatLength.unsubscribe();
   }
 }

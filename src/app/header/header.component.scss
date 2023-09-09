@@ -1,33 +1,29 @@
 .postheader {
-    z-index: 20;
-    
-      border-top-right-radius: 20px;
-      border-top-left-radius: 20px;
-     
-      position: sticky;
-      top: 0px;
-    //   left: 0px;
-    // right: 0px;
-    height: 65px;
-      background-color: white;
-      box-shadow: 0 2px 4px -1px rgb(195, 195, 195);
-  
+  z-index: 20;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+  position: sticky;
+  top: 0px;
+  height: 65px;
+  background-color: white;
+  box-shadow: 0 2px 4px -1px rgb(195, 195, 195);
+
+}
+
+.postingheader {
+  padding: 20px 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
+
+
+  .topic {
+    font-size: 1.2em;
+    margin-right: 10px;
   }
-  
-  .postingheader{
-      padding: 20px 10px;
-      display: flex;
-      justify-content: flex-start;
-      align-items: baseline;
 
-
-      .topic{
-        font-size: 1.2em;
-        margin-right: 10px;
-      }
-
-      .channelTitle {
-        font-size: 0.8em;
-        color: #535AF1;
-      }
+  .channelTitle {
+    font-size: 0.8em;
+    color: #535AF1;
   }
+}

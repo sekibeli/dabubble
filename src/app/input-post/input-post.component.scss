@@ -1,152 +1,144 @@
 .input-container {
-    display: flex;
-    flex-direction:column;
-    width: 100%;
-    justify-content: center;
-      z-index: 0;
-      position: sticky;
-      bottom: -5px;
-      left: 30px;
-    right: 30px;
-      background-color: white;
-      // margin-bottom: 20px;
-     
-  
-      textarea {
-        // position: absolute;
-        font-family: 'Nunito';
-        padding: 10px;
-        // margin-left: 20px;
-        // margin-right: 20px;
-        margin: 0px 0px 30px 0px;
-        width: calc(100% - 30px);
-        border: 0px solid var(--light-purple-lines);
-        border-radius: 20px;
-outline: none;
-      }
-  
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  z-index: 0;
+  position: sticky;
+  bottom: -5px;
+  left: 30px;
+  right: 30px;
+  background-color: white;
+
+
+  textarea {
+    font-family: 'Nunito';
+    padding: 10px;
+    margin: 0px 0px 30px 0px;
+    width: calc(100% - 30px);
+    border: 0px solid var(--light-purple-lines);
+    border-radius: 20px;
+    outline: none;
   }
-  .buttonSend {
-    position: sticky;
+
+}
+
+.buttonSend {
+  position: sticky;
   margin-top: 90px;
-    color: rgb(0, 139, 51);
+  color: rgb(0, 139, 51);
   right: 60px;
   cursor: pointer;
-  
+}
+
+.stick {
+  position: absolute;
+  bottom: 0px;
+  right: 30px;
+  color: darkblue;
+  cursor: pointer;
+}
+
+.inputOptions {
+  display: flex;
+  position: absolute;
+  bottom: 2px;
+  left: 0;
+  align-items: flex-start;
+  justify-content: flex-end;
+  cursor: pointer;
+
+  mat-icon {
+    color: grey;
   }
-  
-  .stick {
-    position: absolute;
-    bottom: 0px;
-    right: 30px;
-    color: darkblue;
+}
+
+.addDevide {
+  height: 30px;
+  border-right: 1px solid rgb(168, 168, 168);
+  margin: 0px 10px;
+  padding-right: 6px;
+
+  img {
     cursor: pointer;
   }
+}
 
-  .inputOptions {
-    display: flex;
-    position: absolute;
-    bottom: 2px;
-    left: 0;
-    align-items: flex-start;
-    justify-content: flex-end;
-    mat-icon {
-      color: grey;
-      
-    }
-    
-    cursor: pointer;
+.attachement {
+  border-radius: 20px;
+  position: relative;
+  margin-left: 20px;
+
+  img {
+    border-radius: 10px;
   }
-  
-  .addDevide {
-    height: 30px;
-    border-right: 1px solid rgb(168, 168, 168);
-    margin: 0px 10px;
-    padding-right: 6px;
-    // cursor: pointer;
+}
 
-    img {
-      cursor: pointer;
-    }
-  }
+.relative {
+  position: relative;
+  margin: 10px 20px;
+  width: calc(100% - 40px);
+  border: 1px solid var(--light-purple-lines);
+  border-radius: 20px;
+}
 
-  .attachement {
-    border-radius: 20px;
-    position: relative;
-    margin-left: 20px;
-    
-
-    img {
-      border-radius: 10px;
-    }
-  
-  }
-
-  .relative {
-    position: relative;
-    margin: 10px 20px;
-    width: calc(100% - 40px);
-    border: 1px solid var(--light-purple-lines);
-   border-radius: 20px;
-  }
-
-  .showUsers {
-position: absolute;
-bottom: 40px;
-left: 150px;
-width: 200px;
-height: 100px;
-padding: 10px;
-background: #ECEEFE;
-border: 1px solid var(--light-purple-lines);
-box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
-font-size: 0.9em;
-z-index: 20;
-border-radius: 10px;
-
-overflow-y: scroll;
-  }
+.showUsers {
+  position: absolute;
+  bottom: 40px;
+  left: 150px;
+  width: 200px;
+  height: 100px;
+  padding: 10px;
+  background: #ECEEFE;
+  border: 1px solid var(--light-purple-lines);
+  box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
+  font-size: 0.9em;
+  z-index: 20;
+  border-radius: 10px;
+  overflow-y: scroll;
+}
 
 .userLine {
   display: flex;
   align-items: center;
   margin: 5px;
-  padding:0 15px;
+  padding: 0 15px;
   border-radius: 15px;
- cursor: pointer;
- &:hover {
-  background-color: white;
- }
-}
-  .stati{
-    margin-right: 10px;
-    width: 10px;
-    height: 10px;
-   
-    border-radius: 50%;
-    // border: 2px solid white;
-}
-  .file-preview {
-    border-radius: 20px;
-   width: 90px;
-    margin: -30px 0 5px 130px;
-  }
+  cursor: pointer;
 
-  .deleteIMG {
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items:center;
-    z-index: 10;
-    position: absolute;
-    top:-5px;
-    right: -5px;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: lightgrey;
+  &:hover {
+    background-color: white;
   }
+}
 
-  .coloredName {
-    background-color:#ECEEFE;
-  }
+.stati {
+  margin-right: 10px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.file-preview {
+  border-radius: 20px;
+  width: 90px;
+  margin: -30px 0 5px 130px;
+}
+
+.deleteIMG {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: lightgrey;
+}
+
+.coloredName {
+  background-color: #ECEEFE;
+}

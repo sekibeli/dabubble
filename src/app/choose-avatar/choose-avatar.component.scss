@@ -3,17 +3,14 @@
     display: flex;
     justify-content: space-evenly;
     align-items: flex-start;
-    // width: 100vw;
     height: 98vh;
     padding-top: 50px;
     background-color: var(--background-color);
-
 }
 
 .avatar-container {
     display: flex;
     flex-direction: column;
-
     text-align: center;
     padding: 16px;
     max-width: 400px;
@@ -21,7 +18,6 @@
     border-radius: 20px;
     margin: 10px;
     animation: fadeIn ease 1s;
-
 }
 
 .legals {
@@ -40,14 +36,12 @@
     margin: 20px 0;
     display: flex;
     flex-wrap: wrap;
-    
 
     img {
         width: 60px;
         height: 60px;
         border-radius: 50%;
     }
-
 }
 
 .newUser {
@@ -85,7 +79,7 @@
 
 .custom-icon-button:hover {
     background-color: rgba(164, 171, 249, 0.1);
-    /* This gives a light gray background when hovered */
+    /*  light gray background when hovered */
 }
 
 .button-section {
@@ -121,20 +115,14 @@ label {
 
 .flyingMessage {
     z-index: 50;
-  position: absolute;
-  bottom: 100px;
-
-  right: 10%;
-   
-    
+    position: absolute;
+    bottom: 100px;
+    right: 10%;
     border-radius: 30px 30px 0px 30px;
-background:  #444DF2;
-padding: 50px;
-color: white;
-
-box-shadow: 0px 6px 10px 0px rgba(0, 0, 0, 0.20);
-
-
+    background: #444DF2;
+    padding: 50px;
+    color: white;
+    box-shadow: 0px 6px 10px 0px rgba(0, 0, 0, 0.20);
 }
 
 
