@@ -48,7 +48,7 @@ import { DialogShowChanneluserComponent } from './dialog-show-channeluser/dialog
 import { DialogProfileComponent } from './dialog-profile/dialog-profile.component';
 import { ImpressumComponent } from './impressum/impressum.component';
 import { DialogLogoutComponent } from './dialog-logout/dialog-logout.component';
-import {MatButtonModule} from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { ChooseAvatarComponent } from './choose-avatar/choose-avatar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DialogEditUserComponent } from './dialog-edit-user/dialog-edit-user.component';
@@ -56,22 +56,16 @@ import { DialogShowChannelComponent } from './dialog-show-channel/dialog-show-ch
 import { InputPostComponent } from './input-post/input-post.component';
 import { SearchbarComponent } from './searchbar/searchbar.component';
 import { SnackComponent } from './snackbar/snack/snack.component';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { NewPasswordComponent } from './new-password/new-password.component';
 import { DialogAddMemberToNewChannelComponent } from './dialog-add-member-to-new-channel/dialog-add-member-to-new-channel.component';
-import {MAT_RADIO_DEFAULT_OPTIONS, MatRadioModule} from '@angular/material/radio';
-import { NewMessageHeaderComponent } from './new-message-header/new-message-header.component';
+import { MAT_RADIO_DEFAULT_OPTIONS, MatRadioModule } from '@angular/material/radio';
 import { NewMessageContainerComponent } from './new-message-container/new-message-container.component';
 import { DialogEditImageComponent } from './dialog-edit-image/dialog-edit-image.component';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { InputThreadComponent } from './input-thread/input-thread.component';
 import { EmojiPickerComponent } from './emoji-picker/emoji-picker.component';
-
-
-
-
-
 
 
 
@@ -110,29 +104,22 @@ import { EmojiPickerComponent } from './emoji-picker/emoji-picker.component';
     DialogProfileComponent,
     ImpressumComponent,
     DialogLogoutComponent,
-       ChooseAvatarComponent,
-       DialogEditUserComponent,
-       DialogShowChannelComponent,
-       InputPostComponent,
-       SearchbarComponent,
-       SnackComponent,
-       ForgotPasswordComponent,
-       NewPasswordComponent,
-       DialogAddMemberToNewChannelComponent,
-   
-    
-       NewMessageHeaderComponent,
-       NewMessageContainerComponent,
-       DialogEditImageComponent,
-       InputThreadComponent,
-       EmojiPickerComponent
-   
+    ChooseAvatarComponent,
+    DialogEditUserComponent,
+    DialogShowChannelComponent,
+    InputPostComponent,
+    SearchbarComponent,
+    SnackComponent,
+    ForgotPasswordComponent,
+    NewPasswordComponent,
+    DialogAddMemberToNewChannelComponent,
+    NewMessageContainerComponent,
+    DialogEditImageComponent,
+    InputThreadComponent,
+    EmojiPickerComponent
 
-   
-    
 
-   
-  
+
   ],
   imports: [
     BrowserModule,
@@ -155,7 +142,7 @@ import { EmojiPickerComponent } from './emoji-picker/emoji-picker.component';
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),
-   
+
     provideFirestore(() => getFirestore()),
     BrowserAnimationsModule
   ],
@@ -164,7 +151,7 @@ import { EmojiPickerComponent } from './emoji-picker/emoji-picker.component';
     {
       provide: MAT_RADIO_DEFAULT_OPTIONS,
       useValue: { color: 'primary' },
-  }
+    }
   ],
   bootstrap: [AppComponent]
 })

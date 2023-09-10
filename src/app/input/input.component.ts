@@ -57,13 +57,6 @@ export class InputComponent implements OnInit, OnDestroy {
       this.currentChatLength = value;
     });
 
-    //  this.channelService.displayedChannel.subscribe((value)=>{
-    //   this.channelTitle.next(value['title']);
-    //  });
-    // this.currentUserID = localStorage.getItem('currentUserID');
-    // this.directMessage = JSON.parse(localStorage.getItem('directMessage'));
-    // this.channelMessage = JSON.parse(localStorage.getItem('channelMessage'));
-
     this.unsubscribeUserSorted = this.userService.getUserDataSorted().subscribe((users) => {
       this.users = users
     })

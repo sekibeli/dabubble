@@ -3,140 +3,141 @@
     background: linear-gradient(0deg, #313AE5 0%, #797EF3 100%);
     width: 100vw;
     height: 100vh;
-display: flex;
-justify-content: center;
-align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
 
+    .logo-animation {
+        z-index: 5;
+        animation: goLeft 500ms ease 0s 1 normal forwards;
 
-
-.logo-animation {
-    
-    z-index: 5;
-    animation: goLeft 500ms ease 0s 1 normal forwards;
-    img{
-        width: 250px;
-        height: 150px;
+        img {
+            width: 250px;
+            height: 150px;
+        }
     }
-    
-}
 }
 
 @keyframes goLeft {
-	0% {
-		opacity: 1;
-		transform: translateX(250px);
-	}
+    0% {
+        opacity: 1;
+        transform: translateX(250px);
+    }
+
     40% {
-		opacity: 1;
-		transform: translateX(250px);
-	}
+        opacity: 1;
+        transform: translateX(250px);
+    }
+
     100% {
-		opacity: 1;
-		transform: translateX(0);
-	}
+        opacity: 1;
+        transform: translateX(0);
+    }
 
 }
 
 .text-animation {
-  
     animation: goRight 500ms ease 500ms 1 normal forwards;
     opacity: 0;
     color: white;
     font-size: 4em;
 }
-@keyframes goRight {
-	0% {
-		opacity: 1;
-		transform: translateX(-250px);
-	}
 
-	100% {
-		opacity: 1;
-		transform: translateX(0);
-	}
-  
+@keyframes goRight {
+    0% {
+        opacity: 1;
+        transform: translateX(-250px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 .together {
     display: flex;
-    align-items:  center;;
-    animation: goUpLeft 500ms ease 1s 1 normal forwards; 
+    align-items: center;
+    ;
+    animation: goUpLeft 500ms ease 1s 1 normal forwards;
 }
 
 .hidingIt {
     position: absolute;
-    z-index:3;
+    z-index: 3;
     top: 0;
-    bottom:0;
+    bottom: 0;
     left: 0;
     right: 55%;
     background: linear-gradient(0deg, #313AE5 0%, #797EF3 100%);
 }
 
 
-@media ( max-width: 600px){
+@media (max-width: 600px) {
     .hidingIt {
         position: absolute;
-        z-index:3;
+        z-index: 3;
         top: 0;
-        bottom:0;
+        bottom: 0;
         left: 0;
         right: 55%;
         background: linear-gradient(0deg, #313AE5 0%, #797EF3 100%);
     }
+
     @keyframes goLeft {
         0% {
             opacity: 1;
             transform: translateX(180px);
         }
+
         40% {
             opacity: 1;
             transform: translateX(180px);
         }
+
         100% {
             opacity: 1;
             transform: translateX(0);
         }
-    
+
     }
+
     @keyframes goRight {
         0% {
             opacity: 1;
             transform: translateX(-300px);
         }
-    
+
         100% {
             opacity: 1;
             transform: translateX(-130);
         }
-      
+
     }
+
     .background-container {
         position: relative;
         background: linear-gradient(0deg, #313AE5 0%, #797EF3 100%);
         width: 100vw;
         height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    
-    
-    
-    .logo-animation {
-        
-        z-index: 5;
-        animation: goLeft 500ms ease 0s 1 normal forwards;
-        img{
-            width: 150px;
-            height: 80px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+
+        .logo-animation {
+            z-index: 5;
+            animation: goLeft 500ms ease 0s 1 normal forwards;
+
+            img {
+                width: 150px;
+                height: 80px;
+            }
         }
-        
     }
-    }
+
     .text-animation {
-  
         animation: goRight 500ms ease 500ms 1 normal forwards;
         opacity: 0;
         color: white;

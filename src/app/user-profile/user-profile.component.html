@@ -1,9 +1,7 @@
 <div *ngIf="!this.isSmallScreen" class="profile-overview" (click)="openLogoutMenu()">
- 
   <div class="profile-name">{{ this.currentUser["username"] }}</div>
   <img class="profile-img" src="{{ this.currentUser['img'] }}" alt="" />
   <div class="matIcon"><mat-icon> keyboard_arrow_down </mat-icon></div>
 </div>
-<div (click)="openLogoutMenu()" class="userProfile" *ngIf="this.isSmallScreen"> <img class="profile-img" src="{{ this.currentUser['img'] }}" alt="" /></div>
-
-<!-- <a target="_blank" href="https://icons8.com/icon/492ILERveW8G/m%C3%A4nnlicher-benutzer-eingekreist">Männlicher Benutzer eingekreist</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a> -->
+<div (click)="openLogoutMenu()" class="userProfile" *ngIf="this.isSmallScreen"> <img class="profile-img"
+    src="{{ this.currentUser['img'] }}" alt="" /></div>

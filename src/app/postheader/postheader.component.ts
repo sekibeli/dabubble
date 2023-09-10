@@ -17,7 +17,7 @@ import { User } from '../models/user.class';
   styleUrls: ['./postheader.component.scss']
 })
 export class PostheaderComponent implements OnInit, OnDestroy {
- 
+
   unsub;
   firestore: Firestore = inject(Firestore);
   isSmallScreen;
@@ -26,78 +26,52 @@ export class PostheaderComponent implements OnInit, OnDestroy {
   currentChannelUser;
   currentChannel: BehaviorSubject<any> = new BehaviorSubject<any>(null); //
   channel;
-  // currentChannelID: string;
   currentChannelData: any; // Inhalt von currentChannel
-  // activeCurrentChannel
   constructor(public channelService: ChannelService, public userService: UserService, public dialog: MatDialog, private cdr: ChangeDetectorRef) {
-   this.checkScreenSize();
-// this.currentChannelData = this.channel;
-// console.log('Von aussen hereingegeben:',this.channel);
-  
-
+    this.checkScreenSize();
   }
 
   ngOnInit() {
 
     this.channelService.displayedChannel.subscribe((channel) => {  // Übergabe des ganzen channel Objekts
       this.channel = channel;
-      // this.currentChannel.next(channel); // Behavior Subject
-      // this.currentChannelData = this.currentChannel.getValue();
-     
-    
-
     });
 
-  
-   
+
     this.unsub = this.channelService.currentChannelUserArraySubject.subscribe(members => {
       this.members = members;
-      console.log('members:', this.members);
-       this.countsOfMembers = members.length;
-      
+      this.countsOfMembers = members.length;
     });
- 
-    // console.log('Postheader ngOnInit currentChannel:', this.currentChannel);
-    // this.cdr.detectChanges();
   }
 
-  openAddMemberDialog() { 
- 
+  openAddMemberDialog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.position = {
       top: '200px',  // Ändere diese Werte entsprechend deiner gewünschten Position
       right: '10%'   // Ändere diese Werte entsprechend deiner gewünschten Position
     };
-    // dialogConfig.data = { 
-      // channelTitle: activeChannelTitle,
-    // channel: this.currentChannelData };
-    // channel: this.channelService.displayedChannel };
-    // const dialogRef = 
+
     this.dialog.open(DialogAddMemberComponent, dialogConfig);
-    // dialogRef.componentInstance.channelTitle = this.currentChannelData['title'];
-    // dialogRef.componentInstance.channel = this.currentChannelData;
   }
 
-  openShowMembersDialog(activeChannelTitle: string) {
+  openShowMembersDialog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.position = {
       top: '200px',  // Ändere diese Werte entsprechend deiner gewünschten Position
       right: '10%'   // Ändere diese Werte entsprechend deiner gewünschten Position
     };
-    dialogConfig.data = { 
-      // channelTitle: activeChannelTitle,
-    // channel: this.currentChannelData,
-  serviceChannel: this.channelService.displayedChannel };
-    const dialogRef =  this.dialog.open(DialogShowChanneluserComponent, dialogConfig);
-    // dialogRef.componentInstance.channelTitle = this.currentChannelData['title'];
-    // dialogRef.componentInstance.channel = this.currentChannelData;
-    // dialogRef.componentInstance.serviceChannel = this.channelService.serviceChannel; //----> musste ich auskommentieren im nicht strict code.
+    dialogConfig.data = {
+      serviceChannel: this.channelService.displayedChannel
+    };
+    const dialogRef = this.dialog.open(DialogShowChanneluserComponent, dialogConfig);
   }
+
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.checkScreenSize();
   }
+
 
   checkScreenSize() {
     if (window.innerWidth < 650) {
@@ -106,8 +80,10 @@ export class PostheaderComponent implements OnInit, OnDestroy {
       this.isSmallScreen = false;
     }
   }
+
+
   openShowChannelInformation(channel) {
-   
+
     this.checkScreenSize();
     const dialogConfig = new MatDialogConfig();
     if (this.isSmallScreen) {
@@ -115,22 +91,16 @@ export class PostheaderComponent implements OnInit, OnDestroy {
       dialogConfig.width = '100vw';
       dialogConfig.maxWidth = '100vw';
       dialogConfig.height = '100vh';
-      
-
     }
-    console.log('small:', this.isSmallScreen);
-    
+
     dialogConfig.data = {
-      currentChannelData: channel, 
+      currentChannelData: channel,
       isSmallScreen: this.isSmallScreen,
-      // members: this.members
-    
     };
     this.dialog.open(DialogShowChannelComponent, dialogConfig);
-
   }
 
-ngOnDestroy(){
-  this.unsub.unsubscribe();
-}
+  ngOnDestroy() {
+    this.unsub.unsubscribe();
+  }
 }

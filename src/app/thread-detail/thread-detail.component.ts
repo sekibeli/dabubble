@@ -80,13 +80,13 @@ console.log('INIT singlePost:', this.singlePost['id']);
   );
 })
 .catch((error) => {
-  console.log('Problem bei der Promised-basierten Operation');
+  console.log('Problem bei der Promised-basierten Operation', error);
 });
 
   }
    
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('change', changes)
+    // console.log('change', changes)
   }
 
   ngOnDestroy(): void {

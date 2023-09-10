@@ -19,7 +19,7 @@ import { DateService } from '../services/date.service';
   selector: 'app-post-detail',
   templateUrl: './post-detail.component.html',
   styleUrls: ['./post-detail.component.scss']
-  
+
 })
 export class PostDetailComponent implements OnInit, OnChanges {
   @ViewChild('textarea') textarea;
@@ -34,7 +34,7 @@ export class PostDetailComponent implements OnInit, OnChanges {
   showEditForm: boolean = false; // show the edit input field or not
   showPost: boolean = true; //shows the standard post-detail content
   editPost: boolean = false; // shows the input field to edit the post
- 
+
   author;
   time;
   currentChannel;
@@ -52,7 +52,7 @@ export class PostDetailComponent implements OnInit, OnChanges {
   public hoveredReaction = null;
   usersArray;
   currentUserName;
-  lastAnswer:string; // Uhrzeit der letzten Nachricht im Thread
+  lastAnswer: string; // Uhrzeit der letzten Nachricht im Thread
   newDate;
 
   constructor(private userService: UserService,
@@ -65,13 +65,13 @@ export class PostDetailComponent implements OnInit, OnChanges {
     private dateService: DateService) {
 
     this.currentUserID = localStorage.getItem('currentUserID');
-this.currentChannelID = localStorage.getItem('currentChanneID');
+    this.currentChannelID = localStorage.getItem('currentChanneID');
   }
 
   ngOnInit() {
- 
+
     this.currentChannel = this.channelService.currentChannelID.getValue();
-    console.log('ngOnInit Post-detail', this.post);
+    
     if (this.post) {
 
       if (this.post['author'] === localStorage.getItem('currentUserID')) {
@@ -88,54 +88,50 @@ this.currentChannelID = localStorage.getItem('currentChanneID');
 
     this.smilyService.getAllReactions(this.currentChannel, this.post['id']).then((value) => {
       value.subscribe((reactions) => {
-        console.log("reactions", reactions);
-       
         this.reactions = reactions;
-       
       });
-
     });
 
-this.currentUserName = localStorage.getItem("currentUserName");
+    this.currentUserName = localStorage.getItem("currentUserName");
 
 
-this.loadPDF();
+    this.loadPDF();
 
-const currentDate = this.dateService.getFormatedDateFromTimestamp(this.post['timestamp']);
+    const currentDate = this.dateService.getFormatedDateFromTimestamp(this.post['timestamp']);
     this.newDate = currentDate !== this.dateService.getLastDate();
 
     if (this.newDate) {
       this.dateService.setLastDate(currentDate);
     }
-this.getLastAnswer(this.post['id']);
+    this.getLastAnswer(this.post['id']);
   }
-activateTimer(){
-  setTimeout(() => {
-    this.showEditPost = false;
-  }, 3000);
-}
+  activateTimer() {
+    setTimeout(() => {
+      this.showEditPost = false;
+    }, 3000);
+  }
 
   /**
    * Abruf von author-Daten anhand des Posts
    */
 
-ngOnChanges(changes: SimpleChanges): void {
-  console.log('ngOnChanges', changes);
-}
-getLastAnswer(postID:string){
-  this.threadService.getTimeFromLastAnswer(postID).subscribe((value)=> {
-    if(value.length > 0){
-      const lastAnswerTimestamp = value[value.length - 1]['timestamp'];
-      this.lastAnswer = this.dateService.formatTime(lastAnswerTimestamp);
-    }
-  });
-  
-}
+  ngOnChanges(changes: SimpleChanges): void {
+
+  }
+
+  getLastAnswer(postID: string) {
+    this.threadService.getTimeFromLastAnswer(postID).subscribe((value) => {
+      if (value.length > 0) {
+        const lastAnswerTimestamp = value[value.length - 1]['timestamp'];
+        this.lastAnswer = this.dateService.formatTime(lastAnswerTimestamp);
+      }
+    });
+
+  }
 
 
   getAuthorDetails(post) {
     const userDataRef = this.userService.getCurrentUser(post['author']).subscribe((value) => {
-
       this.author = value;
 
     });
@@ -154,13 +150,11 @@ getLastAnswer(postID:string){
     const dialogConfig = new MatDialogConfig();
 
     if (this.drawerService.isSmallScreen) {
-
       dialogConfig.maxWidth = '100vw';
       dialogConfig.maxHeight = '90vh';
     }
 
     dialogConfig.data = { user: user };
-
     const dialogRef = this.dialog.open(DialogProfileComponent, dialogConfig);
     dialogRef.componentInstance.user = user;
 
@@ -192,18 +186,18 @@ getLastAnswer(postID:string){
     Object.assign(this.post, this.originalPost);
     this.showEditForm = false;
     this.showPost = true;
-
-
-
   }
+
 
   toggleEmojiPicker() {
     this.showEmojiPicker = !this.showEmojiPicker;
   }
 
+
   toggleReactionsPicker() {
     this.showPicker = !this.showPicker;
   }
+
 
   addEmoji(event) {
     const text = `${event.emoji.native}`;
@@ -217,18 +211,10 @@ getLastAnswer(postID:string){
     this.post['description'] = textareaElem.value;
     textareaElem.selectionStart = textareaElem.selectionEnd = start + text.length;
 
-
     this.showEmojiPicker = false;
-
-
   }
 
   addReaction(event, channel) {
-    // const smily = `${event.emoji.native}`;
-    console.log(event);
-    console.log(channel['id']);
-    console.log(this.post['id']);
-    console.log(localStorage.getItem("currentUserID"));
     this.smilyService.saveReaction(event, channel['id'], this.post['id'], localStorage.getItem('currentUserID'));
     this.showPicker = false;
 
@@ -257,27 +243,26 @@ getLastAnswer(postID:string){
       const blob = new Blob([byteArray], { type: 'image/png' });
       this.downloadUrl = window.URL.createObjectURL(blob);
     } catch (e) {
-      console.error('Fehler bei der Umwandlung von Base64 zu Blob:', e);
+      console.log('Fehler bei der Umwandlung von Base64 zu Blob:', e);
     }
   }
 
   loadPDF() {
     this.pdfDataUrl = this.post ? this.post['file'] : '';  // Setze einen leeren String, wenn this.post oder this.post['file'] undefined ist
-    // this.pdfDataUrl = this.post['file'];
-  
+
     if (this.pdfDataUrl && this.pdfDataUrl.startsWith('data:application/pdf')) {
       this.isPDF = true;
-      console.log('isPDF', this.isPDF);
+
     }
 
     if (this.isPDF) {
       pdfjsLib.GlobalWorkerOptions.workerSrc = "/assets/pdf.worker.min.js"
-     
+
       // Laden und rendern des pdf
       const loadingTask = pdfjsLib.getDocument({ data: atob(this.pdfDataUrl.split('base64,')[1]) });
 
       loadingTask.promise.then(pdf => {
-       
+
         return pdf.getPage(1);  // will Seite 1 anzeigen lassen
       }).then(page => {
         const viewport = page.getViewport({ scale: 1.0 });
@@ -295,9 +280,8 @@ getLastAnswer(postID:string){
       });
     }
   }
-    
-    downloadPDF() {
-    // PDF herunterladen
+
+  downloadPDF() {
     const link = document.createElement('a');
     link.href = this.pdfDataUrl;
     link.download = 'document.pdf';

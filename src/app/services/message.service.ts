@@ -19,8 +19,7 @@ export class MessageService {
 
   constructor(public userService: UserService) {
     this.currentUserID = localStorage.getItem('currentUserID');
-    console.log(this.currentUserID);
-    const currentUser = JSON.parse(localStorage.getItem('currentChatUser'));
+     const currentUser = JSON.parse(localStorage.getItem('currentChatUser'));
 
   }
 
@@ -43,11 +42,6 @@ export class MessageService {
 
       return docRef;
     }
-
-
-
-
-
   }
 
 
@@ -84,7 +78,7 @@ export class MessageService {
         this.message.id = messageId;
         const docRefWithID = doc(this.firestore,'messages', from, 'messages', messageId);
         setDoc(docRefWithID, this.message.toJSON());
-        console.log('Anlage erfolgreich')
+        
       }).catch((error) => {
         console.log(error);
       });
@@ -95,7 +89,7 @@ export class MessageService {
         this.message.id = messageId;
         const docRefWithID = doc(this.firestore,'messages', messageId);
         setDoc(docRefWithID, this.message.toJSON());
-        console.log('Anlage erfolgreich')
+        
       }).catch((error) => {
         console.log(error);
       });

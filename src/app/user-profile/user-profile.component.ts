@@ -13,61 +13,56 @@ import { DrawerService } from '../services/drawer.service';
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.scss']
 })
-export class UserProfileComponent implements OnInit, OnDestroy{
+export class UserProfileComponent implements OnInit, OnDestroy {
   isSmallScreen;
-  @Input()  userLoggedIn_UID;
+  @Input() userLoggedIn_UID;
   @Input() currentUser;
   user: User;
 
   constructor(private afAuth: AngularFireAuth, private userService: UserService, private dialog: MatDialog, public drawerService: DrawerService) {
     this.checkScreenSize();
-   
   }
 
   ngOnInit(): void {
     console.log('currentUser:', this.currentUser['id']);
     this.userService.setUserStatus(this.currentUser['id'], true);
-localStorage.setItem("currentUserName", this.currentUser['username']);
+    localStorage.setItem("currentUserName", this.currentUser['username']);
   }
 
- ngOnDestroy(): void {
-  this.userService.setUserStatus(this.currentUser['id'], false);
- }
-
-  logUserOut(){
-   this.afAuth.signOut().then(()=>{
-    this.currentUser['active'] = false;
- console.log( this.currentUser['id'])
-    console.log('User ist ausgeloggt')
+  ngOnDestroy(): void {
     this.userService.setUserStatus(this.currentUser['id'], false);
-
-   }).catch((err)=>{
-    console.log(err.message);
-   });
-   localStorage.setItem('currentUserID', '');
   }
 
-  openLogoutMenu(){
+  logUserOut() {
+    this.afAuth.signOut().then(() => {
+      this.currentUser['active'] = false;
+      this.userService.setUserStatus(this.currentUser['id'], false);
+
+    }).catch((err) => {
+      console.log(err.message);
+    });
+    localStorage.setItem('currentUserID', '');
+  }
+
+  openLogoutMenu() {
     const dialogConfig = new MatDialogConfig();
-if(this.isSmallScreen){
-dialogConfig.position = {
-  bottom: '0px',
-  right: '0px',
-  left: '0px'
-};
-dialogConfig.width = '100%';
-dialogConfig.maxWidth = '100vw';
-dialogConfig.maxHeight = '90vh';
+    if (this.isSmallScreen) {
+      dialogConfig.position = {
+        bottom: '0px',
+        right: '0px',
+        left: '0px'
+      };
+      dialogConfig.width = '100%';
+      dialogConfig.maxWidth = '100vw';
+      dialogConfig.maxHeight = '90vh';
 
-}else {
-  dialogConfig.position = {
-    top: '100px',  // Ändere diese Werte entsprechend deiner gewünschten Position
-    right: '5%'   // Ändere diese Werte entsprechend deiner gewünschten Position
-  };
-}
-
-   
-this.dialog.open(DialogLogoutComponent, dialogConfig);
+    } else {
+      dialogConfig.position = {
+        top: '100px',  // Ändere diese Werte entsprechend deiner gewünschten Position
+        right: '5%'   // Ändere diese Werte entsprechend deiner gewünschten Position
+      };
+    }
+    this.dialog.open(DialogLogoutComponent, dialogConfig);
   }
 
   @HostListener('window:resize', ['$event'])
@@ -75,14 +70,14 @@ this.dialog.open(DialogLogoutComponent, dialogConfig);
     this.checkScreenSize();
   }
 
+
   checkScreenSize() {
-    if(window.innerWidth < 650) {
+    if (window.innerWidth < 650) {
       this.isSmallScreen = true;
     } else {
       this.isSmallScreen = false;
     }
   }
-
 }
 
 

@@ -2,30 +2,19 @@
     position: relative;
     cursor: default !important;
 
-    // display: flex;
-    // align-items:flex-start;
-    // margin-top: 30px;
-    // margin: 30px 15px 10px 15px;
     .reaction {
         display: none;
-        // top: -30px;
-        // right: 20px;
-        // position: absolute;
-        // z-index: 20;
-        // border: 1px solid #ADB0D9;
-
-
-    }    
+    }
 
     &:hover {
         cursor: pointer;
         background-color: var(--background-color);
 
-        .post-description{
+        .post-description {
             background-color: white;
         }
+
         .reaction {
-                       
             display: flex;
             align-items: center;
             top: -18px;
@@ -38,14 +27,20 @@
             border-radius: 20px;
             border-bottom-right-radius: 0px !important;
             padding: 0 10px;
-          transform: translateX(16%);
-            animation: flyIn 0.1s ease-out; 
+            transform: translateX(16%);
+            animation: flyIn 0.1s ease-out;
 
 
             @keyframes flyIn {
-                from {transform: translateX(30%)} to {transform: translate(16%)}
+                from {
+                    transform: translateX(30%)
+                }
+
+                to {
+                    transform: translate(16%)
+                }
             }
-         
+
 
             .custom-icon-button {
                 background-color: transparent;
@@ -55,18 +50,19 @@
                 border-radius: 50%;
                 cursor: pointer;
                 transition: background-color 0.3s;
-              }
+            }
 
-              .custom-icon-button:hover {
-                background-color: rgba(0, 0, 0, 0.04); /* This gives a light gray background when hovered */
-              }
-              
-           
-              /* Remove focus styles if desired */
-              .custom-icon-button:focus {
+            .custom-icon-button:hover {
+                background-color: rgba(0, 0, 0, 0.04);
+                /* This gives a light gray background when hovered */
+            }
+
+
+            /* Remove focus styles if desired */
+            .custom-icon-button:focus {
                 outline: none;
                 box-shadow: none;
-              }
+            }
 
 
             button {
@@ -78,9 +74,7 @@
                 width: 18px;
                 height: 18px;
             }
-    
-    
-        }    
+        }
     }
 }
 
@@ -98,13 +92,14 @@
         width: 60px;
         height: 60px;
     }
-    }
+}
 
 
 .post-author {
     font-weight: 700;
     cursor: pointer;
 }
+
 .post-description {
     background-color: var(--background-color);
     border-top-right-radius: 20px;
@@ -113,8 +108,6 @@
     margin-top: 10px;
     margin-bottom: 10px;
     padding: 10px;
-
-   
 }
 
 .post-description-flip {
@@ -140,6 +133,7 @@
     font-size: 12px;
     color: grey;
 }
+
 .postAnswer {
     display: flex;
     font-size: 0.9em;
@@ -147,11 +141,13 @@
     cursor: pointer;
     align-items: flex-end;
 }
+
 .deviderBox {
     z-index: 0;
     margin-top: 15px;
     position: relative;
 }
+
 .dateDevider {
     margin-left: 20px;
 
@@ -160,7 +156,7 @@
     height: 5px;
 }
 
-.formatedDate{
+.formatedDate {
     z-index: 1;
     text-align: center;
     position: absolute;
@@ -178,7 +174,7 @@
     top: 30px;
     right: 0px;
     position: absolute;
-    min-width: 150px; 
+    min-width: 150px;
     z-index: 10;
     background-color: white;
     border: 1px solid var(--light-purple-lines);
@@ -189,16 +185,18 @@
     &:hover {
         background-color: var(--background-color);
         color: #444DF2;
-      
-      
+
+
     }
 }
+
 .editbox {
     position: relative;
     background-color: var(--background-color);
-   width: 95%;
+    width: 95%;
 
 }
+
 .showEditForm {
     background-color: white;
     border-radius: 20px;
@@ -211,21 +209,19 @@ textarea {
     font-size: 1em;
     color: grey;
     background-color: white;
-   outline: none;
-//    border: 1px solid #444DF2;
-border: none;
-   border-radius: 20px;
-   padding: 15px 10px;
-   width: 95%;
-   height: 80px;
-   
+    outline: none;
+    border: none;
+    border-radius: 20px;
+    padding: 15px 10px;
+    width: 95%;
+    height: 80px;
 }
 
 .background-blue {
     background-color: var(--background-color);
 }
 
-.d-none{
+.d-none {
     display: none !important;
 }
 
@@ -239,6 +235,7 @@ border: none;
     bottom: 10px;
     left: 10px;
 }
+
 .emojiPickerPostDetail {
     position: absolute;
     top: -160px;
@@ -249,68 +246,58 @@ border: none;
     z-index: 10;
     position: absolute;
     top: 150px;
-   
-    // left: 10px;
 }
+
 .reactionsRow {
     display: flex;
 }
 
 .reactionBubble {
     position: relative;
-    border: 1px solid  #ADB0D9;
+    border: 1px solid #ADB0D9;
     background-color: white;
-    padding:0px 10px;
+    padding: 0px 10px;
     border-radius: 20px;
     margin: 0 5px;
     display: flex;
     align-items: center;
     cursor: pointer !important;
-
-    // &:hover {
-    //     .additionalInfo{
-    //         opacity: 1;
-    //     }
-    // }   
 }
 
 .additionalInfo {
     padding: 10px 0;
-   opacity: 0;
-   position: absolute;
-   text-align: center;
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-        top: -103px;
-        left: 30px;
-        width: 150px;
-        height: 80px;
-        border-radius: 20px;
-        background-color: #444DF2;
-        color: white;
-        font-size: 0.8em;
-        line-height: 1em;
-        transition: opacity 0.3s ease-in-out;
-        border-bottom-left-radius: 0 !important;
+    opacity: 0;
+    position: absolute;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    top: -103px;
+    left: 30px;
+    width: 150px;
+    height: 80px;
+    border-radius: 20px;
+    background-color: #444DF2;
+    color: white;
+    font-size: 0.8em;
+    line-height: 1em;
+    transition: opacity 0.3s ease-in-out;
+    border-bottom-left-radius: 0 !important;
 
-        .emojiIcon {
-            margin: 10px 10px;
-            font-size: 2.0em !important
-        }
-   
+    .emojiIcon {
+        margin: 10px 10px;
+        font-size: 2.0em !important
+    }
+
 }
 
 .additionalInfo.visible {
     opacity: 1;
 }
 
-// .reactionBubble:hover .hover {
-//     opacity: 1;
-//   }
 .showAttachement {
     width: 90%;
-  
+
 
     img {
         width: 80%;
@@ -318,7 +305,7 @@ border: none;
 
     canvas {
         cursor: pointer;
-      
+
     }
 }
 
@@ -331,40 +318,40 @@ border: none;
     margin: 5px 0;
     font-size: 1em !important
 }
+
 @media (max-width: 700px) {
     .profile-pic {
         margin-right: 20px;
-    
+
         img {
             border-radius: 50%;
             width: 40px;
             height: 40px;
         }
+    }
+
+
+    .showAttachement {
+        width: 90%;
+
+        img {
+            width: 80%;
         }
 
-
-        .showAttachement {
-            width: 90%;
-          
-        
-            img {
-                width: 80%;
-            }
-        
-            canvas {
-                cursor: pointer;
-                width: 100%;
-            }
+        canvas {
+            cursor: pointer;
+            width: 100%;
         }
+    }
 
-        .emoji {
-            position: absolute;
-            bottom: 10px;
-            left: -40px;
-        }
+    .emoji {
+        position: absolute;
+        bottom: 10px;
+        left: -40px;
+    }
 
-      textarea {
+    textarea {
         width: 85%;
-      }
-     
+    }
+
 }

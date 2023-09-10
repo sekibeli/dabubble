@@ -1,6 +1,4 @@
 .singlePost {
-    // display: flex;
-    // align-items:flex-start;
     border-bottom: 1px solid var(--background-color);
 }
 
@@ -18,12 +16,13 @@
         width: 60px;
         height: 60px;
     }
-    }
- 
+}
+
 
 .post-author {
     font-weight: 700;
 }
+
 .post-description {
     background-color: var(--background-color);
     border-top-right-radius: 20px;
@@ -38,7 +37,6 @@
     display: flex;
     align-items: center;
     cursor: pointer;
-
 }
 
 .postTime {

@@ -16,8 +16,7 @@ export class PostContainerComponent implements OnInit, AfterViewInit, OnDestroy 
   posts;
   id;
   subscription: Subscription;
- 
-channelPromise;
+ channelPromise;
 channel;
   constructor(public postService: PostService, public route: Router, public activatedRoute: ActivatedRoute, private channelService: ChannelService) {
   
@@ -34,10 +33,7 @@ channel;
       //  console.log(channelData);
        this.channel = channelData;
       });
-    
-      
-    
-  }
+      }
 
   ngAfterViewInit() {
     this.scrollToBottom();
@@ -75,20 +71,6 @@ getPosts(id) {
     }
 
   
-
-/**
- * 
- * @param posts Array with all posts
- * creates an array with the dates of all posts
- */
-  // createTimestampArray(posts){
-   
-  //   posts.forEach((element) => {
-  //      this.timestamps.push(new Date(element['timestamp']).toLocaleString('de-DE', { weekday: 'long', day: '2-digit', month: 'long' }));
-  //    });
-  //      this.trueFalseArray = this.dateCompare(this.timestamps)
-  //    }
-
      /**
       * 
       * @param strings the array with the dates of all posts as string

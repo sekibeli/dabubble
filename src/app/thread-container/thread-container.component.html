@@ -1,11 +1,10 @@
 <div class="close" (click)="this.closeThread()"><mat-icon>close</mat-icon></div>
-<!-- <app-postheader></app-postheader> -->
 <app-header></app-header>
 
 <app-single-post [countsOfThreads]="countsOfThreads"></app-single-post>
 <div class="scrollContainer">
-<div *ngFor="let thread of threads | objectToArray; trackBy: trackByFn; let i = index">
-  <app-thread-detail [thread]="thread" [singlePost]="singlePost"></app-thread-detail>
-</div>
+  <div *ngFor="let thread of threads | objectToArray; trackBy: trackByFn; let i = index">
+    <app-thread-detail [thread]="thread" [singlePost]="singlePost"></app-thread-detail>
+  </div>
 </div>
 <app-input-thread [singlePost]="singlePost"></app-input-thread>

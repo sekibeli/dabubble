@@ -32,15 +32,9 @@ export class LeftDrawerComponent implements OnInit {
 
   constructor(public postService: PostService, public drawerService: DrawerService, public channelService: ChannelService, public userService: UserService, public messageService: MessageService, public dialog: MatDialog) {
     this.checkScreenSize();
-    // this.channelService.getChannels().subscribe((value) => {
-
-    //     this.channels = value;
-    //     console.log('channels:', value);
-    //   });
-
+   
     this.channelService.getChannelsWhereCurrentUserIsMember(localStorage.getItem('currentUserID')).subscribe((value) => {
-      // console.log('channels from curentUser:', value);
-      this.channels = value;
+           this.channels = value;
     });
     if (localStorage.getItem('currentChannelID') == null) { 
       localStorage.setItem('currentChannelID', 'BwYu94QGYDi8hQta31RP');
@@ -48,7 +42,7 @@ export class LeftDrawerComponent implements OnInit {
     if (localStorage.getItem('currentChannelID') === '') {
       this.channelService.getChannelData('BwYu94QGYDi8hQta31RP').then(
         (value) => {
-          // console.log(value);
+         
           this.channelService.pushActiveChannel(value);
         }
       );
@@ -56,15 +50,10 @@ export class LeftDrawerComponent implements OnInit {
       const activeChannel = localStorage.getItem('currentChannelID');
       this.channelService.getChannelData(activeChannel).then(
         (value) => {
-          // console.log(value);
-          this.channelService.pushActiveChannel(value);
+                    this.channelService.pushActiveChannel(value);
         }
       );
     }
-
-
-
-    // this.channelService.pushActiveChannel('Allgemein', id, channel);
 
   }
 
@@ -84,8 +73,6 @@ export class LeftDrawerComponent implements OnInit {
     }
     })
 
-    // this.currentUserID = localStorage.getItem('currentUserID');
-    // console.log(this.currentUserID);
   }
 
   triggerToggle() {
@@ -98,23 +85,29 @@ export class LeftDrawerComponent implements OnInit {
 
   }
 
+
   openDialogAddChannel() {
     this.dialog.open(DialogNewChannelComponent)
   }
+
 
   toggleChannelOpenClose() {
     this.chOpen = !this.chOpen;
     this.chArrowIcon = this.chArrowIcon === 'arrow_drop_down' ? 'arrow_right' : 'arrow_drop_down'
   }
 
+
   toggleUserOpenClose() {
     this.userOpen = !this.userOpen;
     this.userArrowIcon = this.userArrowIcon === 'arrow_drop_down' ? 'arrow_right' : 'arrow_drop_down'
   }
+
+
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.checkScreenSize();
   }
+
 
   checkScreenSize() {
     if (window.innerWidth < 650) {
@@ -123,11 +116,12 @@ export class LeftDrawerComponent implements OnInit {
       this.isSmallScreen = false;
     }
   }
+
+
 onNewMessageClick(event){
   this.drawerService.close();
   this.drawerService.toggle();
   event.preventDefault();
-
   this.drawerService.setMyVariable(true)
 }
 }

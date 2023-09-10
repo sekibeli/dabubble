@@ -11,9 +11,6 @@ import { Router } from '@angular/router';
 import { getAuth, setPersistence, browserSessionPersistence } from "firebase/auth";
 
 
-// Service 
-// • für die Anmeldung des Users
-// • für die Speicherung der Daten des angemeldeten Users
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +26,7 @@ export class AuthService implements OnInit {
   constructor(private afs: AngularFireAuth, private channelService: ChannelService, private snackbar: MatSnackBar, private route: Router) { 
     const auth = getAuth();
   setPersistence(auth, browserSessionPersistence).catch(error => {
-    console.error("Fehler bei der Konfiguration der Authentifizierungspersistenz", error);
+    console.log("Fehler bei der Konfiguration der Authentifizierungspersistenz", error);
   });
   }
 
@@ -40,35 +37,30 @@ export class AuthService implements OnInit {
 
       .then(result => {
 
-        console.log('result user aus authService: ', result.user);
         this.userUID = result.user.uid;
         this.currentUser = result.user;
-        console.log('Eingeloggter User:', this.userUID);
         this.saveCurrentUserIDInLocalStorage(this.userUID);
         this.pushNewUserInAllgemeinChannel(this.userUID);
-        // this.showMessage('Konto erfolgreich erstellt!');
-      })
+             })
       .catch(error => {
-        console.error(error);
+        console.log(error);
       });
   }
 
   registerWithEmailAndPassword(user: { email: string, password: string }) {
-
     return this.afs.createUserWithEmailAndPassword(user.email, user.password);
   }
 
   loginWithEmailAndPassword( user: { email: string, password: string }) {
     return this.afs.signInWithEmailAndPassword(user.email, user.password).then(result => {
-console.log(result);
+
       this.userUID = result.user.uid;
-      console.log('Eingeloggter User:', this.userUID);
-      this.saveCurrentUserIDInLocalStorage(this.userUID);
+        this.saveCurrentUserIDInLocalStorage(this.userUID);
       this.pushNewUserInAllgemeinChannel(this.userUID);
       localStorage.setItem('directMessage', 'false');
       setTimeout(() => {
         this.route.navigateByUrl('home/channel/BwYu94QGYDi8hQta31RP');
-      }, 2000);
+      }, 1000);
 
     }).catch(error => {
       // console.error(error);
@@ -80,8 +72,7 @@ console.log(result);
             setTimeout(() => {
               this.errormessage.next('');
             }, 5000);
-            // Hier können Sie auch eine Benachrichtigung oder einen Toast anzeigen, 
-            // um den Benutzer über den Fehler zu informieren.
+          
             break;
         case 'auth/user-not-found':
             // console.error('Kein Benutzer mit dieser E-Mail-Adresse gefunden.');
@@ -90,7 +81,7 @@ console.log(result);
               this.errormessage.next('');
             }, 5000);
             break;
-        // ... Sie können hier weitere Fehlercodes hinzufügen und behandeln ...
+       
 
         default:
             // console.error('Ein unbekannter Fehler ist aufgetreten:', error);
@@ -98,12 +89,10 @@ console.log(result);
               this.errormessage.next('');
             }, 5000);
     }
-    
-    });
+        });
   }
 
   
-
   saveCurrentUserIDInLocalStorage(id: string) {
        localStorage.setItem('currentUserID', id);
   }
@@ -113,17 +102,19 @@ console.log(result);
    
   }
 
+
 pushNewUserInAllgemeinChannel(newUser){
   this.channelService.addMemberToChannel('BwYu94QGYDi8hQta31RP', newUser);
 }
 
-showMessage(message){
-  const config = new MatSnackBarConfig();
-  config.data = message;
-  config.duration = 3000;
-  config.verticalPosition = 'bottom';
-  config.horizontalPosition = 'right';
-this.snackbar.openFromComponent(SnackComponent, config);
-}
+
+// showMessage(message){
+//   const config = new MatSnackBarConfig();
+//   config.data = message;
+//   config.duration = 3000;
+//   config.verticalPosition = 'bottom';
+//   config.horizontalPosition = 'right';
+// this.snackbar.openFromComponent(SnackComponent, config);
+// }
 
 }

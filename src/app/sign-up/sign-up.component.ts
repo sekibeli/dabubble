@@ -17,7 +17,7 @@ export class SignUpComponent {
   hide = true;
   hideConfirmPassword = true;
 
-  constructor(public auth: AuthService, private route: Router){}
+  constructor(public auth: AuthService, private route: Router) { }
 
   signUpForm: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
@@ -26,37 +26,32 @@ export class SignUpComponent {
     confirmPassword: new FormControl('', Validators.required)
   })
 
-  loginWithGoogle(){}
+  loginWithGoogle() { }
 
-  registerWithEmailAndPassword(){
+  registerWithEmailAndPassword() {
     console.log(this.signUpForm.value);
-    const userData = Object.assign({email: this.signUpForm.value.username}, this.signUpForm.value);
+    const userData = Object.assign({ email: this.signUpForm.value.username }, this.signUpForm.value);
     console.log(userData);
     this.auth.registerWithEmailAndPassword(userData).then((result: any) => {
 
       const collRef = doc(this.firestore, 'users', result.user.uid);
-     
-      
 
       this.user = new User({
         id: result.user.uid,
         username: userData.name,
-        email : userData.email,
+        email: userData.email,
         img: '../../assets/img/profile_img/benutzer.png',
-        active : true
+        active: true
       })
-      // this.auth.showMessage('Konto erfolgreich erstellt!');
-      setDoc( collRef, this.user.toJSON());
+
+      setDoc(collRef, this.user.toJSON());
 
       localStorage.setItem('currentUserID', result.user.uid);
 
-
       this.route.navigateByUrl('avatar');
       console.log(result);
-        }).catch( (error: any) => {
-          console.error(error);
-        })  ;
-    
+    }).catch((error: any) => {
+      console.error(error);
+    });
   }
-
 }

@@ -49,7 +49,7 @@ export class DialogLogoutComponent implements OnDestroy{
      
       setTimeout(() => {
         location.reload();
-      }, 1300);
+      }, 1500);
 
     })
       .catch((err) => {

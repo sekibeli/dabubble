@@ -1,67 +1,61 @@
-
 <div class="container">
-   
+
     <div class="logo">
         <img src="../../assets/img/logo.svg" alt="">
         <div>DABubble</div>
     </div>
 
-<div class="login-container">
-    <button routerLink="/login" mat-icon-button color="primary"> <mat-icon>arrow_back</mat-icon></button>
-    <h2>Konto erstellen</h2>
-    <p>Mit deinem Namen und deiner E-mail-Adresse hast Du Dein neues DABubble-Konto. Das Passwort muss mindestens 6 Zeichen haben.</p>
-    <div [formGroup]="signUpForm" class="login-content">
-        
-        <mat-form-field appearance="outline" class="fullWidth custom-field">
-            <mat-label>Vorname und Nachname</mat-label>
-            <input formControlName="name" required matInput type="text">
-            <mat-icon matIconPrefix>person</mat-icon>
-              <mat-error *ngIf="signUpForm.controls['email'].hasError('required')">Bitte Vor- und Nachname eingeben</mat-error>
-           
-        </mat-form-field>
-        
-        <mat-form-field appearance="outline" class="fullWidth custom-field">
-            <mat-label>Email</mat-label>
-            <input formControlName="email" matInput type="text">
-            <mat-icon matIconPrefix>email</mat-icon>
-              <mat-error *ngIf="signUpForm.controls['email'].hasError('required')">Bitte email eingeben</mat-error>
-            <mat-error *ngIf="signUpForm.controls['email'].hasError('email')">Ungültige email</mat-error>
-        </mat-form-field>
-<div class="spacer"></div>
-        <mat-form-field appearance="outline" class="fullWidth">
-            <mat-label>Passwort</mat-label>
-            <input formControlName="password" matInput [type]="hide ? 'password' : 'text'">
-            <mat-icon matIconPrefix>lock</mat-icon>
-            <mat-icon (click)="hide = !hide" matSuffix>{{hide ? 'visibility_off' : 'visibility' }}</mat-icon>
-            <mat-error *ngIf="signUpForm.controls['password'].hasError('required')">Bitte Passwort eingeben</mat-error>
-            <mat-error *ngIf="signUpForm.controls['password'].hasError('minlength')">Mindestlänge 6 Zeichen</mat-error>
-        </mat-form-field>
+    <div class="login-container">
+        <button routerLink="/login" mat-icon-button color="primary"> <mat-icon>arrow_back</mat-icon></button>
+        <h2>Konto erstellen</h2>
+        <p>Mit deinem Namen und deiner E-mail-Adresse hast Du Dein neues DABubble-Konto. Das Passwort muss mindestens 6
+            Zeichen haben.</p>
+        <div [formGroup]="signUpForm" class="login-content">
 
-        <mat-form-field appearance="outline" class="fullWidth">
-            <mat-label>Passwort wiederholen</mat-label>
-            <input formControlName="confirmPassword" matInput [type]="hideConfirmPassword ? 'password' : 'text'">
-            <mat-icon matIconPrefix>lock</mat-icon>
-            <mat-icon (click)="hideConfirmPassword = !hideConfirmPassword" matSuffix>{{hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
-            <mat-error *ngIf="signUpForm.controls['confirmPassword'].hasError('required')">Passwort wiederholen</mat-error>
-        </mat-form-field>
+            <mat-form-field appearance="outline" class="fullWidth custom-field">
+                <mat-label>Vorname und Nachname</mat-label>
+                <input formControlName="name" required matInput type="text">
+                <mat-icon matIconPrefix>person</mat-icon>
+                <mat-error *ngIf="signUpForm.controls['email'].hasError('required')">Bitte Vor- und Nachname
+                    eingeben</mat-error>
 
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="fullWidth custom-field">
+                <mat-label>Email</mat-label>
+                <input formControlName="email" matInput type="text">
+                <mat-icon matIconPrefix>email</mat-icon>
+                <mat-error *ngIf="signUpForm.controls['email'].hasError('required')">Bitte email eingeben</mat-error>
+                <mat-error *ngIf="signUpForm.controls['email'].hasError('email')">Ungültige email</mat-error>
+            </mat-form-field>
+            <div class="spacer"></div>
+            <mat-form-field appearance="outline" class="fullWidth">
+                <mat-label>Passwort</mat-label>
+                <input formControlName="password" matInput [type]="hide ? 'password' : 'text'">
+                <mat-icon matIconPrefix>lock</mat-icon>
+                <mat-icon (click)="hide = !hide" matSuffix>{{hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+                <mat-error *ngIf="signUpForm.controls['password'].hasError('required')">Bitte Passwort
+                    eingeben</mat-error>
+                <mat-error *ngIf="signUpForm.controls['password'].hasError('minlength')">Mindestlänge 6
+                    Zeichen</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="fullWidth">
+                <mat-label>Passwort wiederholen</mat-label>
+                <input formControlName="confirmPassword" matInput [type]="hideConfirmPassword ? 'password' : 'text'">
+                <mat-icon matIconPrefix>lock</mat-icon>
+                <mat-icon (click)="hideConfirmPassword = !hideConfirmPassword" matSuffix>{{hideConfirmPassword ?
+                    'visibility_off' : 'visibility' }}</mat-icon>
+                <mat-error *ngIf="signUpForm.controls['confirmPassword'].hasError('required')">Passwort
+                    wiederholen</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="button-section">
+            <button (click)="registerWithEmailAndPassword()"
+                [disabled]="signUpForm.invalid || signUpForm.get('password')?.value != signUpForm.get('confirmPassword')?.value"
+                class="darkButton">Weiter</button>
+        </div>
     </div>
-    <!-- <span class="important">Passwort vergessen?</span>
-
-    <div class="devider">
-        
-        <div class="text">ODER</div>
-    </div>
-   
-    <div (click)="loginWithGoogle()" class="google-card">
-        <app-google-login-card></app-google-login-card>
-    </div> -->
-    <div class="button-section">
-        <button  (click)="registerWithEmailAndPassword()" [disabled]="signUpForm.invalid || signUpForm.get('password')?.value != signUpForm.get('confirmPassword')?.value" class="darkButton">Weiter</button>
-        <!-- <button class="lightButton">Gäste-Login</button> -->
-    </div>
-
-</div>
-
-<div></div>
+    <div></div>
 </div>

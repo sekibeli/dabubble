@@ -12,38 +12,37 @@ export class UserComponent implements OnInit {
   currentUserID;
   isActive: boolean = false;
 
-  constructor(public messageService: MessageService, public drawerService: DrawerService){}
+  constructor(public messageService: MessageService, public drawerService: DrawerService) { }
 
-ngOnInit(): void {
-  this.currentUserID = localStorage.getItem('currentUserID');
-  // console.log(this.currentUserID);
-}
-  pushChatUser(user){
+  ngOnInit(): void {
+    this.currentUserID = localStorage.getItem('currentUserID');
+  }
+  pushChatUser(user) {
     this.messageService.pushChatUser(user);
-   
-   }
-   
-   
-  setMode(mode:boolean){
+
+  }
+
+
+  setMode(mode: boolean) {
     localStorage.setItem('directMessage', JSON.stringify(mode));
     localStorage.setItem('channelMessage', JSON.stringify(!mode));
   }
 
-  onProfileClick($event){
+  onProfileClick($event) {
     this.isActive = !this.isActive;
     this.messageService.getThisChat(this.user['id']);
-    this.setMode(true); 
-    this.drawerService.close(); 
-    this.messageService.setChatUser(this.user); 
-    this.pushChatUser(this.user); 
+    this.setMode(true);
+    this.drawerService.close();
+    this.messageService.setChatUser(this.user);
+    this.pushChatUser(this.user);
     this.messageService.getChatLength(this.user['id'])
 
     if (window.innerWidth < 650) {
       this.drawerService.toggle();
       event.preventDefault();
-    
+
       this.drawerService.setMyVariable(true)
- 
+
     }
   }
 }

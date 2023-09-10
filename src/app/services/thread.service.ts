@@ -16,15 +16,15 @@ export class ThreadService {
   public readonly threads = this._threads.asObservable();
   public readonly postForThread$ = this._postForThread.asObservable();
   public readonly author$ = this._author.asObservable();
-// countsOfThreadsNew = new EventEmitter();
+
   constructor() { }
 
 
   async getThread(channelID, postID) {
-localStorage.setItem('threadMessage', 'true');
+    localStorage.setItem('threadMessage', 'true');
     const collRef = await collection(this.firestore, 'channels', channelID, 'posts', postID, 'threads');
     const answer = query(collRef, orderBy('timestamp'))
-    const userData = collectionData(answer, {idField: "id"});
+    const userData = collectionData(answer, { idField: "id" });
 
     return new Promise((resolve, reject) => {
       userData.subscribe((threads) => {
@@ -33,9 +33,7 @@ localStorage.setItem('threadMessage', 'true');
         resolve(threads);
       }, reject)
     });
-
   }
-
 
 
   getPostForThread(post, author) {
@@ -44,29 +42,22 @@ localStorage.setItem('threadMessage', 'true');
   }
 
 
-  // pushCountsOfThreads(counts){
-  //   this.countsOfThreadsNew.emit(counts);
-  // }
 
-  getTimeFromLastAnswer(postID:string){
+  getTimeFromLastAnswer(postID: string) {
     let channelID = localStorage.getItem('currentChannelID');
     const colRef = collection(this.firestore, 'channels', channelID, 'posts', postID, 'threads');
     const answer = query(colRef, orderBy('timestamp'))
     const postData = collectionData(answer);
-return postData;
+    return postData;
   }
 
 
-  async updatePost(channelID, postID, threadID, description){
-    console.log('channel',channelID,'post', postID, 'Inhalt',description);
+  async updatePost(channelID, postID, threadID, description) {
     const docRef = doc(this.firestore, 'channels', channelID, 'posts', postID, 'threads', threadID);
-  
+
     await updateDoc(docRef, {
       description: description
     });
-  
-  
-  
-   }
+  }
 }
 

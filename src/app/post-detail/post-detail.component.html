@@ -22,22 +22,18 @@
    
 
      <button (click)="this.smilyService.addOrDeleteReaction(reactions[reactions.length-1]['emoji'],  post['id'], currentUserID)" class=" custom-icon-button" *ngIf="reactions && reactions.length > 0" >
-       
-      {{reactions[reactions.length-1]['emoji']}}
+             {{reactions[reactions.length-1]['emoji']}}
     </button>
     <button (click)="this.smilyService.addOrDeleteReaction(reactions[reactions.length-2]['emoji'], post['id'], currentUserID)" class=" custom-icon-button" *ngIf="reactions && reactions.length > 1" >
-      
-      {{reactions[reactions.length-2]['emoji']}}
+            {{reactions[reactions.length-2]['emoji']}}
       </button>
      
  
   <button class="custom-icon-button"  >
-    <!-- <mat-icon>home</mat-icon> -->
-    <img src="../../assets/img/add_reaction.svg" alt="" (click)="showPicker = !showPicker">
+       <img src="../../assets/img/add_reaction.svg" alt="" (click)="showPicker = !showPicker">
   </button>
   <button *ngIf="checkIfItIsCurrentUserPost()" class=" custom-icon-button" (click)="showEditPost = true; activateTimer()" >
-    <!-- <mat-icon>more_vert</mat-icon> -->
-    <img src="../../assets/img/morevert.png" alt="" >
+       <img src="../../assets/img/morevert.png" alt="" >
   </button>
        
       <div *ngIf="showEditPost">
@@ -146,4 +142,4 @@
 </div>
 
 
- <!-- <a target="_blank" href="https://icons8.com/icon/JNPZ70My1I5A/men%C3%BC-2">Menü 2</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a> -->
+ 

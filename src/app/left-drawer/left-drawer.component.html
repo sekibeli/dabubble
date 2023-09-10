@@ -8,37 +8,34 @@
 <div class="channelContainer">
 
   <div class="channelsTop">
-    <div class="head" (click)="toggleChannelOpenClose()"><mat-icon class="pointer">{{ chArrowIcon}}</mat-icon><mat-icon>workspacesOutlined</mat-icon>
+    <div class="head" (click)="toggleChannelOpenClose()"><mat-icon class="pointer">{{
+        chArrowIcon}}</mat-icon><mat-icon>workspacesOutlined</mat-icon>
       <div>Channels</div>
     </div>
-   <div class="pointer" (click)="openDialogAddChannel()"><div class="hover"><mat-icon >add</mat-icon></div></div>
-  </div>
-
-
-  <div *ngIf="chOpen"  class="channelList">
-
-    <ng-container class="spacer" *ngFor="let channel of channels">
-      <app-channel [channel]="channel" ></app-channel>
-   
-     </ng-container>
-  </div>
-
-
-
-
-  <div class="messagesTop" (click)="toggleUserOpenClose()"><mat-icon class="pointer">{{ userArrowIcon }}</mat-icon><mat-icon>account_circleOutlined</mat-icon>Direktnachrichten</div>
- 
-  <div *ngIf="userOpen" class="userList">
-  <ng-container *ngFor="let user of users">
-    <app-user [user]="user" ></app-user>
-   
-    </ng-container>
+    <div class="pointer" (click)="openDialogAddChannel()">
+      <div class="hover"><mat-icon>add</mat-icon></div>
     </div>
+  </div>
+
+  <div *ngIf="chOpen" class="channelList">
+    <ng-container class="spacer" *ngFor="let channel of channels">
+      <app-channel [channel]="channel"></app-channel>
+
+    </ng-container>
+  </div>
+
+  <div class="messagesTop" (click)="toggleUserOpenClose()"><mat-icon class="pointer">{{ userArrowIcon
+      }}</mat-icon><mat-icon>account_circleOutlined</mat-icon>Direktnachrichten</div>
+
+  <div *ngIf="userOpen" class="userList">
+    <ng-container *ngFor="let user of users">
+      <app-user [user]="user"></app-user>
+
+    </ng-container>
+  </div>
 
 </div>
-<div *ngIf="isSmallScreen" class="newMessageButton"
-(click)="onNewMessageClick($event)"
-[routerLink]="['/home', 'message']"
-routerLinkActive="active">
+<div *ngIf="isSmallScreen" class="newMessageButton" (click)="onNewMessageClick($event)"
+  [routerLink]="['/home', 'message']" routerLinkActive="active">
   <img src="../../assets/img/newMessMobile.svg" alt="">
 </div>

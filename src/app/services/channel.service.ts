@@ -1,8 +1,7 @@
-import { EventEmitter, Injectable, OnDestroy, OnInit, inject } from '@angular/core';
-import { DocumentSnapshot, Firestore, addDoc, arrayUnion, collection, collectionData, doc, docData, getDoc, onSnapshot, or, query, setDoc, updateDoc, where } from '@angular/fire/firestore';
+import { Injectable, OnDestroy, OnInit, inject } from '@angular/core';
+import { DocumentSnapshot, Firestore, addDoc, arrayUnion, collection, collectionData, doc, getDoc, query, setDoc, updateDoc, where } from '@angular/fire/firestore';
 import { UserService } from './user.service';
-import { BehaviorSubject, Subject, first, forkJoin, merge, mergeAll, takeUntil } from 'rxjs';
-
+import { BehaviorSubject, Subject, first } from 'rxjs';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogAddMemberComponent } from '../dialog-add-member/dialog-add-member.component';
 
@@ -20,24 +19,14 @@ export class ChannelService implements OnInit, OnDestroy {
    displayedChannel: BehaviorSubject<any> = new BehaviorSubject<any>(null); //BehaviorSubject mit dem aktuellen Channel
    channelUserIDArray;
    membersUserIDArray: any[];
-   // channelUserArrayEmitter = new EventEmitter<any>();
-   currentChannelTitle;
+      currentChannelTitle;
    currentChannelUserArray = [];
 
 
  currentChannelUserArraySubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
-   // currentChannelUserArray$ = this.currentChannelUserArraySubject.asObservable();
-
-
-   // activeChannelTitle = new EventEmitter<string>();
-   // activeChannelID = new EventEmitter<string>();
-   // activeChannel = new EventEmitter<any>();
-   // serviceChannelEmitter = new EventEmitter<any>();
+  
    constructor(private userService: UserService, public dialog: MatDialog) {
-    
-      // console.log('obsi:', this.currentChannelUserArray$);
-      // this.getInitials('9Gwz1Ce763caWx5FCBZL');
-   }
+     }
 
    getChannels() {
       const collRef = collection(this.firestore, 'channels');
@@ -46,17 +35,12 @@ export class ChannelService implements OnInit, OnDestroy {
    }
 
    ngOnInit() {
-
    }
 
    getChannelsWhereCurrentUserIsMember(userId: string) {
-      // const userId = 'xeLjLZJ7SYVREnmskY07GgKMwnx1';
-      // const collRef = query(collection(this.firestore, 'channels'), where('members', 'array-contains', userId), where('createdBy', '==', userId));
-      // const docRef = collectionData(collRef, { idField: 'id' });
-      const collRef = collection(this.firestore, 'channels');
-      // const collRefQuery = query(collRef, or(where('members', 'array-contains', userId), where('createdBy', '==', userId)))
-      const collRefQuery = query(collRef, where('members', 'array-contains', userId));
-      const docRef = collectionData(collRefQuery); // hinter collRefQuery war , { idField: 'id' }
+           const collRef = collection(this.firestore, 'channels');
+            const collRefQuery = query(collRef, where('members', 'array-contains', userId));
+      const docRef = collectionData(collRefQuery); 
       return docRef;
    }
 
@@ -66,14 +50,11 @@ export class ChannelService implements OnInit, OnDestroy {
       this.currentChannelID.next(channel.id);
       this.channel = channel;
       this.currentChannelTitle = channel['title'];
-         // this.activeChannel.emit(channel);
-         // this.serviceChannelEmitter.emit(this.serviceChannel)
-    this.displayedChannel.next(channel); 
+           this.displayedChannel.next(channel); 
 
       this.getMembersOfChannelNEW(channel['id']).then(members => { // hole Member of channel
          this.membersUserIDArray = members; // übergebe das array mit strings
-         // console.log('Inhalt membersUserIDArray', this.membersUserIDArray);
-         this.getMembersData(this.membersUserIDArray); // hole mit stringarray die members daten
+                  this.getMembersData(this.membersUserIDArray); // hole mit stringarray die members daten
       });
    }
 
@@ -92,19 +73,11 @@ export class ChannelService implements OnInit, OnDestroy {
             if (fetchCount === 0) {
                this.currentChannelUserArray = usersArray;
                this.currentChannelUserArraySubject.next(usersArray);
-      
-               console.log('this.currentChannelUserArraySubject', this.currentChannelUserArraySubject);
-            }
+                  }
          });
       });
    }
 
-
-   // getMembersOfChannel(channel: string) {
-   //    const collRef = collection(this.firestore, 'channels', channel);
-   //    const docRef = collectionData(collRef);
-   //    return docRef;
-   // }
 
    async getMembersOfChannelNEW(channel: string): Promise<any[]> {
 
@@ -114,12 +87,11 @@ export class ChannelService implements OnInit, OnDestroy {
       if (channelDoc.exists()) {
          const channelData = channelDoc.data();
          const channelMember = channelData['members'];
-         console.log('Mitglieder IDs des Channels:', channelMember);
-         this.getMembersData(channelMember);
-         // this.currentChannelUserArraySubject.next(channelMember);  <-----
+               this.getMembersData(channelMember);
+        
          return channelMember;
       } else {
-         console.error('dokument existiert nicht');
+         console.log('dokument existiert nicht');
          return [];
       }
 
@@ -131,26 +103,16 @@ export class ChannelService implements OnInit, OnDestroy {
 
 
    async getChannelData(channelID: string) {
-console.log('existiert der Channel?:', channelID);
       const docRef = doc(this.firestore, 'channels', channelID)
       const docSnap = await getDoc(docRef);
 
       if (!docSnap.exists()) {
-         console.log('Der Channel existiert nicht!');
-         return null;
+              return null;
       }
       const data = docSnap.data();
       return { id: docSnap.id, ...data };
    }
-   // getInitials(id) {
-   //    const data = this.getMembersOfChannel(id);
-   //    data.subscribe((user) => {
-   //       console.log('test', user);
-   //       this.channelUserIDArray = user;
-   //       console.log(this.channelUserIDArray);
-   //    })
-   // }
-
+   
    ngOnDestroy(): void {
       this.destroy$.next();
       this.destroy$.complete();
@@ -158,7 +120,7 @@ console.log('existiert der Channel?:', channelID);
 
    saveChannel(channel) {
       const collRef = collection(this.firestore, 'channels');
-      // addDoc(collRef, channel.toJSON());
+      
       addDoc(collRef, channel.toJSON()).then(docRef => {
          // docRef enthält die Referenz auf das neu erstellte Firestore-Dokument
          const channelID = docRef.id;
@@ -167,20 +129,16 @@ console.log('existiert der Channel?:', channelID);
          channel.id = channelID;
          const docRefWithID = doc(this.firestore, 'channels', channelID);
          setDoc(docRefWithID, channel.toJSON());
-         // Sie können hier weitere Aktionen ausführen oder das aktualisierte Objekt zurückgeben
-         console.log('Neuer Kanal wurde erstellt:', channel);
-       });
+                         });
 
 
 
    }
 
    addMemberToChannel(channelID, user) {
-      console.log(channelID);
-      console.log(user);
+     
       this.checkIfUserIsAlreadyMemberOfChannel(channelID, user).then(result => {
-         console.log('Ergebnis:', result);
-         this.check = result;
+                this.check = result;
       })
       if (!this.check) {
          console.log('User wird hinzugefügt');
@@ -194,15 +152,15 @@ console.log('existiert der Channel?:', channelID);
    }
 
    openAddMemberDialog(activeChannelTitle: string) {
-      console.log('openDialog');
+     
       const dialogConfig = new MatDialogConfig();
       dialogConfig.position = {
          top: '200px',  // Ändere diese Werte entsprechend deiner gewünschten Position
          right: '10%'   // Ändere diese Werte entsprechend deiner gewünschten Position
       };
-      // dialogConfig.data = { channelTitle: activeChannelTitle };
+      
       const dialogRef = this.dialog.open(DialogAddMemberComponent, dialogConfig);
-      // dialogRef.componentInstance.channelTitle = this.activeChannelTitle;
+      
    }
 
 
@@ -210,22 +168,19 @@ console.log('existiert der Channel?:', channelID);
       let check: boolean;
 
       const value = await this.getMembersOfChannelNEW(channelID);
-
-      // console.log('member:', value);
-
+     
       if (value) {
          check = value.includes(user);
       } else {
          check = false;
       }
 
-      console.log('check:', check);
-      return check;
+           return check;
    }
 
 
    async updateChannel(id, title, description) {
-      console.log('id:', id);
+     
       try {
          const docRef = doc(this.firestore, 'channels', id);
 
@@ -235,15 +190,12 @@ console.log('existiert der Channel?:', channelID);
                description: description
             });
       } catch (error) {
-         console.error('Fehler: ', error);
+         console.log('Fehler: ', error);
       }
    }
 
    async deleteMemberFromChannel(channelID, userId){
-      console.log(channelID);
-      console.log(userId);
-
-   
+        
       const  docRef = doc(this.firestore, 'channels', channelID);
      
       try {

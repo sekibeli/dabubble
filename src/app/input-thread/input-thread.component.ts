@@ -58,8 +58,7 @@ export class InputThreadComponent implements OnInit,OnDestroy {
     this.postService.savePost(this.currentUser, channelID, description, postId, this.url);
     this.chatMessage.reset();
     this.url = null;
-    
-  }
+      }
 
   saveMessage(description:string){
     description = this.chatMessage.value.description;

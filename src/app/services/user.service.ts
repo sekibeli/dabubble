@@ -16,49 +16,45 @@ export class UserService implements OnInit {
   users!: Observable<User>;
   observeUsers: Observable<any>;
   startAt = new Subject();
-endAt = new Subject();
-// currentUserData: BehaviorSubject<User> = new BehaviorSubject<User>(null);
+  endAt = new Subject();
+
   constructor() {
     this.getUserData();
   }
 
-  ngOnInit() {
 
+  ngOnInit() {
   }
+
 
   getUserData() {
     const collRef = collection(this.firestore, 'users');
-    const userData = collectionData(collRef, {idField: 'id'});
+    const userData = collectionData(collRef, { idField: 'id' });
     return userData;
   }
+
 
   getUserDataSorted() {
     const collRef = collection(this.firestore, 'users');
     const collRefOrdered = query(collRef, orderBy('username'))
-    const userData = collectionData(collRefOrdered, {idField: 'id'});
+    const userData = collectionData(collRefOrdered, { idField: 'id' });
     return userData;
   }
+
+
   getCurrentUser(id: string) {
     const docRef = doc(this.firestore, 'users', id);
     return docData(docRef).pipe(map(data => data as User)); // gibt immer Daten vom Typ User zurück
 
   }
 
-  // getCurrentUserData(id: string) {
-   
-  //   const docRef = doc(this.firestore, 'users', id);
 
-  //   docData(docRef).subscribe((user)=> {
-  //     this.currentUserData.next(user as User);
-  //   });
-
-  // }
-
-  getUserByEmail(email: string){
+  getUserByEmail(email: string) {
     const colRef = collection(this.firestore, 'users');
     const docRef = query((colRef), where('email', '==', email));
     console.log(docRef);
   }
+
 
   getAuthorDetails(post) {
     const userDataRef = this.getCurrentUser(post['author']).subscribe((value) => {
@@ -75,17 +71,14 @@ endAt = new Subject();
         {
           active: status,
         });
-         return true;
+      return true;
     } catch (error) {
-      console.error('Fehler: ', error);
-     
-
+      console.log('Fehler: ', error);
       return false;
     }
   }
 
   async setUserName(id, username) {
-   
     try {
       const docRef = doc(this.firestore, 'users', id);
 
@@ -93,38 +86,31 @@ endAt = new Subject();
         {
           username: username,
         });
-        
+
     } catch (error) {
-      console.error('Fehler: ', error);
+      console.log('Fehler: ', error);
     }
   }
 
-  async saveUserPic(id, image, avatar){
-    console.log('id:', id);
+
+  async saveUserPic(id, image, avatar) {
+
     try {
       const docRef = doc(this.firestore, 'users', id);
-if(avatar){ await updateDoc(docRef,
-  { 
-    img: '../../assets/img/profile_img/'+ image,
-  });} else {
-    await updateDoc(docRef,
-      { 
-        img: image,
-      });
-  }
-     
+      if (avatar) {
+        await updateDoc(docRef,
+          {
+            img: '../../assets/img/profile_img/' + image,
+          });
+      } else {
+        await updateDoc(docRef,
+          {
+            img: image,
+          });
+      }
+
     } catch (error) {
-      console.error('Fehler: ', error);
+      console.log('Fehler: ', error);
     }
   }
- 
-
-  // searchUserInFirestore(start, end){
-  //   const collRef = collection(this.firestore, 'users');
-  //  return  query(collRef, limit(4), orderBy('username'), startAt(start), this.endAt(end));
-
-  // }
-
-  
-
 }

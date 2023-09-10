@@ -15,27 +15,29 @@ import { NewMessageContainerComponent } from './new-message-container/new-messag
 
 
 const routes: Routes = [
-  {path: '', redirectTo: 'start', pathMatch: 'full'},
-  {path: 'start', component: StartComponent},
-  {path: 'login', component: LoginComponent},
-  {path: 'signup', component: SignUpComponent},
-  {path: 'impressum', component: ImpressumComponent},
-  {path: 'avatar', component: ChooseAvatarComponent},
-  {path: 'forgotPassword', component: ForgotPasswordComponent},
-  {path: 'newpassword', component: NewPasswordComponent},
-  {path: 'home', component: HomeComponent,
+  { path: '', redirectTo: 'start', pathMatch: 'full' },
+  { path: 'start', component: StartComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'signup', component: SignUpComponent },
+  { path: 'impressum', component: ImpressumComponent },
+  { path: 'avatar', component: ChooseAvatarComponent },
+  { path: 'forgotPassword', component: ForgotPasswordComponent },
+  { path: 'newpassword', component: NewPasswordComponent },
+  {
+    path: 'home', component: HomeComponent,
 
-children: [
-  {path:'', component: MainComponent},
-  {path:'message', component: NewMessageContainerComponent},
-  {path:'channel/:id', component: PostContainerComponent},
-  {path:'chat/:id', component: ChatComponent}
-]},
- 
+    children: [
+      { path: '', component: MainComponent },
+      { path: 'message', component: NewMessageContainerComponent },
+      { path: 'channel/:id', component: PostContainerComponent },
+      { path: 'chat/:id', component: ChatComponent }
+    ]
+  },
+
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes) ],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

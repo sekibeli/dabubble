@@ -8,14 +8,14 @@ import { UserService } from './user.service';
 })
 export class AutologoutService {
   currentUser; 
-  private idleTimeLimit: number = 10 * 60 * 1000; // 5 Minuten in Millisekunden
+  private idleTimeLimit: number = 60 * 60 * 1000; // 60 Minuten in Millisekunden
   private timer;
   
   
   constructor(private auth:AngularFireAuth, private route:Router, private userService:UserService) { 
     this.currentUser = localStorage.getItem('currentUserID');
     this.startListener();
-    // this.startUnloadListener();
+   
   }
 
   startListener(){
@@ -25,11 +25,6 @@ export class AutologoutService {
     this.resetTimer();  // Timer starten das erste mal
   }
 
-  // startUnloadListener() {
-  //   window.addEventListener('beforeunload', (event) => {
-  //     this.autoLogout();
-  //   });
-  // }
   resetTimer(){
     if(this.timer){  // wenn ein Timer schon gesetzt ist, wird er gelöscht
       clearTimeout(this.timer);
