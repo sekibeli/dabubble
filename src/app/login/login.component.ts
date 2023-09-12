@@ -1,5 +1,5 @@
 import { Component, Inject, inject } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../services/auth.service';
@@ -23,7 +23,7 @@ export class LoginComponent {
   passwordControl: FormControl = new FormControl('', Validators.required);
 
   loginForm: FormGroup = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
+    email: new FormControl('', [Validators.required, Validators.email, this.emailFormatValidator()]),
     password: new FormControl('', Validators.required)
   })
 
@@ -68,6 +68,13 @@ export class LoginComponent {
 
   }
 
+  emailFormatValidator(): ValidatorFn {
+    return (control: FormControl) => {
+      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+      const isValid = emailPattern.test(control.value);
+      return isValid ? null : { invalidEmailFormat: true };
+    };
+  }
 
   loginAsGuest() {
 
@@ -83,7 +90,7 @@ export class LoginComponent {
       }, 1000);
 
     }).catch((error: any) => {
-      console.log(error);
+      // console.log(error);
     });
   }
 

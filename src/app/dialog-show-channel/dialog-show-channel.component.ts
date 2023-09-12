@@ -47,9 +47,9 @@ export class DialogShowChannelComponent implements OnDestroy {
   exitChannel() {
     this.channelService.deleteMemberFromChannel(this.currentChannel['id'], localStorage.getItem('currentUserID'));
     const unsub = this.channelService.getChannelsWhereCurrentUserIsMember(localStorage.getItem('currentUserID')).subscribe((value) => {
-      console.log(value);
+      // console.log(value);
       setTimeout(() => {
-        console.log('auf zu:', value[0]);
+        // console.log('auf zu:', value[0]);
         this.channelService.pushActiveChannel(value[0]);
         this.route.navigateByUrl('/home/channel/' + value[0]['id'])
       }, 100);

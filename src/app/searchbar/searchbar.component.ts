@@ -38,7 +38,7 @@ export class SearchbarComponent implements OnInit {
         this.result = this.separateUsersAndChannels(items);
       })
         .catch(error => {
-          console.log("Error fetching data: ", error);
+          // console.log("Error fetching data: ", error);
         });
     })
 

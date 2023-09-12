@@ -10,6 +10,6 @@ export class SnackComponent {
 
   constructor(@Inject(MAT_SNACK_BAR_DATA) public data: any){
 
-    console.log(data);
+    // console.log(data);
   }
 }

@@ -85,7 +85,7 @@ export class InputThreadComponent implements OnInit,OnDestroy {
     
       reader.onload = (event: any) => {
         this.url = event.target.result;
-        console.log('thread nach dem Lesen:', this.url); // this.url ist ein Bild im Base64 Format
+        // console.log('thread nach dem Lesen:', this.url); // this.url ist ein Bild im Base64 Format
             };
     } else {
       window.alert('Bitte nur png, jpg, jpeg oder PDF senden');

@@ -63,13 +63,13 @@ ngOnInit() {
   combineLatest([this.startobs, this.endobs]).subscribe((value)=> {
     this.searchInFirestore(value[0], value[1]).then((items)=>{
       this.users = items;
-      console.log(items);
+      // console.log(items);
       this.result = this.separateUsersAndChannels(items);
-      console.log('USER',this.result.users);
-      console.log('CHANNEL',this.result.channels, this.result.channels.length);
+      // console.log('USER',this.result.users);
+      // console.log('CHANNEL',this.result.channels, this.result.channels.length);
     })
     .catch(error => {
-      console.error("Error fetching data: ", error);
+      // console.error("Error fetching data: ", error);
     });
   })
   this.userService.getUserDataSorted().subscribe((users)=> {
@@ -88,7 +88,7 @@ searchMember($event) {
 
   if (q.startsWith('@')) {
     q = q.substring(1);
-    console.log('beginnt mit @', q);
+    // console.log('beginnt mit @', q);
     this.searchInUserCollection(q);
   } else if (q.startsWith('#')){
     q = q.substring(1);
@@ -99,9 +99,9 @@ searchMember($event) {
 }
 
 toggleSearchAt(){
-  console.log(this.searchAt);
+  // console.log(this.searchAt);
   this.searchAt = !this.searchAt;
-  console.log(this.searchAt);
+  // console.log(this.searchAt);
 }
 
 resetSearchState($event){
@@ -114,19 +114,10 @@ resetSearchState($event){
 
   chooseNewMember(user:User){
     this.chosenUser = user;
-    console.log(user);
+    // console.log(user);
     this.notChosen = false;
     this.chosenUser = user;
   }
-
-  // searchUserInFirestore(start, end) {
-  //   const collRef = collection(this.firestore, 'users');
-  //   const queryRef = query(collRef, orderBy('username'), limit(10), startAt(start), endAt(end));
-  //   const docRef = getDocs(queryRef);
-  //   return docRef;
-   
-
-  // }
 
   async searchInUserCollection(q) {
     // Suche in der 'users' Collection
@@ -184,7 +175,7 @@ resetSearchState($event){
   }
 
 separateUsersAndChannels(jsonArray) {
-  console.log(jsonArray);
+  // console.log(jsonArray);
     // Filtert die JSON-Objekte, die ein 'username'-Feld haben, und schiebt sie in das 'users'-Array
     const users = jsonArray.filter((jsonObject) => 'username' in jsonObject);
   
@@ -221,8 +212,8 @@ separateUsersAndChannels(jsonArray) {
   openShowChannelInformation(channel) {
     // this.changeDetect.detectChanges();
     // this.checkScreenSize();
-    console.log(channel);
-    console.log(this.drawerService.isSmallScreen);
+    // console.log(channel);
+    // console.log(this.drawerService.isSmallScreen);
     const dialogConfig = new MatDialogConfig();
     if (this.drawerService.isSmallScreen) {
 
@@ -253,12 +244,12 @@ separateUsersAndChannels(jsonArray) {
   chooseChannel(channel){
     this.chosenItem = channel;
     this.isChannel = true;
-    console.log(channel);
+    // console.log(channel);
     if(channel['members'].includes(localStorage.getItem('currentUserID'))){
       this.searchterm = channel['title'];
       this.search = false;
     } else {
-      console.log('ERst Channel beitreten');
+      // console.log('ERst Channel beitreten');
       this.openShowChannelInformation(channel);
     }
    
@@ -270,7 +261,7 @@ separateUsersAndChannels(jsonArray) {
       
       // let channelID = this.currentChannel;
       let description = this.message.value.description;
-      console.log(description);
+      // console.log(description);
       this.postService.savePost(this.currentUser, this.chosenItem['id'], description, this.postID, this.url);
       // this.channelService.pushActiveChannel(this.chosenItem);
       const url = "/home/channel/" + this.chosenItem['id'];
@@ -329,7 +320,7 @@ separateUsersAndChannels(jsonArray) {
     
       reader.onload = (event: any) => {
         this.url = event.target.result;
-        console.log('nach dem Lesen:', this.url); // this.url ist ein Bild im Base64 Format
+        // console.log('nach dem Lesen:', this.url); // this.url ist ein Bild im Base64 Format
         // this.setNewPic(this.url);
        
       };

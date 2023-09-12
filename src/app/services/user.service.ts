@@ -52,7 +52,7 @@ export class UserService implements OnInit {
   getUserByEmail(email: string) {
     const colRef = collection(this.firestore, 'users');
     const docRef = query((colRef), where('email', '==', email));
-    console.log(docRef);
+    // console.log(docRef);
   }
 
 
@@ -73,7 +73,7 @@ export class UserService implements OnInit {
         });
       return true;
     } catch (error) {
-      console.log('Fehler: ', error);
+      // console.log('Fehler: ', error);
       return false;
     }
   }
@@ -88,7 +88,7 @@ export class UserService implements OnInit {
         });
 
     } catch (error) {
-      console.log('Fehler: ', error);
+      // console.log('Fehler: ', error);
     }
   }
 
@@ -110,7 +110,7 @@ export class UserService implements OnInit {
       }
 
     } catch (error) {
-      console.log('Fehler: ', error);
+      // console.log('Fehler: ', error);
     }
   }
 }

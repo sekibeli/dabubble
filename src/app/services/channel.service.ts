@@ -91,7 +91,7 @@ export class ChannelService implements OnInit, OnDestroy {
         
          return channelMember;
       } else {
-         console.log('dokument existiert nicht');
+         // console.log('dokument existiert nicht');
          return [];
       }
 
@@ -147,7 +147,7 @@ export class ChannelService implements OnInit, OnDestroy {
             members: arrayUnion(user)
          })
       } else {
-         console.log('User ist schon Mitglied!');
+         // console.log('User ist schon Mitglied!');
       }
    }
 
@@ -190,7 +190,7 @@ export class ChannelService implements OnInit, OnDestroy {
                description: description
             });
       } catch (error) {
-         console.log('Fehler: ', error);
+         // console.log('Fehler: ', error);
       }
    }
 
@@ -210,7 +210,7 @@ export class ChannelService implements OnInit, OnDestroy {
            // Update the document with the modified members array
            await updateDoc(docRef, { members: updatedMembersArray });
          } else {
-           console.log('Document not found');
+         //   console.log('Document not found');
          }
        } catch (error) {
          console.error('Error deleting member:', error);

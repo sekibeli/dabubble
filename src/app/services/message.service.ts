@@ -29,7 +29,7 @@ export class MessageService {
     const from = localStorage.getItem('currentUserID');
     const to = localStorage.getItem('currentChatID');
     if (from === to) {
-      console.log('von:', from, 'zu:', to);
+      // console.log('von:', from, 'zu:', to);
       const collRef = query(collection(this.firestore, 'messages', from, 'messages'), where('fromID', '==', this.currentUserID));
       const collRefOrdered = query(collRef, orderBy('timestamp'));
       const docRef = collectionData(collRefOrdered, {idField: 'id'});
@@ -70,7 +70,7 @@ export class MessageService {
       }
     );
 
-    console.log('Message:', this.message);
+    // console.log('Message:', this.message);
     if (from === to) { 
       const collDocRef = collection(this.firestore, 'messages', from, 'messages');
       addDoc(collDocRef, this.message.toJSON()).then((result) => {
@@ -80,7 +80,7 @@ export class MessageService {
         setDoc(docRefWithID, this.message.toJSON());
         
       }).catch((error) => {
-        console.log(error);
+        // console.log(error);
       });
     } else {
       const collDocRef = collection(this.firestore, 'messages');
@@ -91,7 +91,7 @@ export class MessageService {
         setDoc(docRefWithID, this.message.toJSON());
         
       }).catch((error) => {
-        console.log(error);
+        // console.log(error);
       });
     }
 

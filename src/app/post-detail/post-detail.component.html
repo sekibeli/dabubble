@@ -101,10 +101,14 @@
             </div>
         </div>
         
-       <div class="postAnswer" (click)="getThread(this.postService.activeChannel, this.post.id); this.drawerService.open(); this.threadService.getPostForThread(this.post, this.author)">
-          <div class="blue">{{numberOfThreads}} Antworten </div>
+       <div *ngIf="numberOfThreads > 0" class="postAnswer" (click)="getThread(this.postService.activeChannel, this.post.id); this.drawerService.open(); this.threadService.getPostForThread(this.post, this.author)">
+          <div *ngIf="numberOfThreads == 1" class="blue">{{numberOfThreads}} Antwort </div>
+          <div *ngIf="numberOfThreads > 1" class="blue">{{numberOfThreads}} Antworten </div>
           <div *ngIf="lastAnswer" class="postTime">letzte Antwort {{lastAnswer}} Uhr</div>
         </div>
+        <div *ngIf="numberOfThreads == 0" class="postAnswer" (click)="getThread(this.postService.activeChannel, this.post.id); this.drawerService.open(); this.threadService.getPostForThread(this.post, this.author)">
+          <div class="blue">Schreibe die erste Antwort</div>
+                </div>
        
     </div>
     <div *ngIf="showEditForm" class="editbox">

@@ -167,7 +167,7 @@ export class PostDetailComponent implements OnInit, OnChanges {
   }
 
   editThisPost(post) {
-    console.log('channelid', this.currentChannel);
+    // console.log('channelid', this.currentChannel);
     this.originalPost = JSON.parse(JSON.stringify(post));
     this.showEditForm = true;
     this.showPost = false;
@@ -243,7 +243,7 @@ export class PostDetailComponent implements OnInit, OnChanges {
       const blob = new Blob([byteArray], { type: 'image/png' });
       this.downloadUrl = window.URL.createObjectURL(blob);
     } catch (e) {
-      console.log('Fehler bei der Umwandlung von Base64 zu Blob:', e);
+      // console.log('Fehler bei der Umwandlung von Base64 zu Blob:', e);
     }
   }
 

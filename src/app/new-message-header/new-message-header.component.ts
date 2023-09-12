@@ -39,15 +39,15 @@ export class NewMessageHeaderComponent implements OnInit {
 
   constructor(public dialog: MatDialog, private drawerService: DrawerService, private channelService: ChannelService) { }
   ngOnInit() {
-    console.log('für mobil:', this.isSmallScreen);
+    // console.log('für mobil:', this.isSmallScreen);
 
     combineLatest([this.startobs, this.endobs]).subscribe((value) => {
       this.searchInFirestore(value[0], value[1]).then((items) => {
         this.users = items;
-        console.log(items);
+        // console.log(items);
         this.result = this.separateUsersAndChannels(items);
-        console.log('USER', this.result.users);
-        console.log('CHANNEL', this.result.channels, this.result.channels.length);
+        // console.log('USER', this.result.users);
+        // console.log('CHANNEL', this.result.channels, this.result.channels.length);
       })
         .catch(error => {
           console.error("Error fetching data: ", error);
@@ -61,9 +61,9 @@ export class NewMessageHeaderComponent implements OnInit {
     let q = $event.target.value;
 
     if (q.startsWith('#')) {
-      console.log('beginnt mit #', q);
+      // console.log('beginnt mit #', q);
       q = q.substring(1);
-      console.log('beginnt mit #', q);
+      // console.log('beginnt mit #', q);
       this.searchInUserCollection(q);
     } else if (q.startsWith('@')){
       q = q.substring(1);
@@ -76,7 +76,7 @@ export class NewMessageHeaderComponent implements OnInit {
 
   chooseNewMember(user: User) {
     this.chosenUser = user;
-    console.log(user);
+    // console.log(user);
     this.notChosen = false;
     this.chosenUser = user;
   }
@@ -126,7 +126,7 @@ export class NewMessageHeaderComponent implements OnInit {
   }
 
   separateUsersAndChannels(jsonArray) {
-    console.log(jsonArray);
+    // console.log(jsonArray);
   
     const users = jsonArray.filter((jsonObject) => 'username' in jsonObject);
 
@@ -162,8 +162,8 @@ export class NewMessageHeaderComponent implements OnInit {
 
   openShowChannelInformation(channel) {
   
-    console.log(channel);
-    console.log(this.drawerService.isSmallScreen);
+    // console.log(channel);
+    // console.log(this.drawerService.isSmallScreen);
     const dialogConfig = new MatDialogConfig();
     if (this.drawerService.isSmallScreen) {
 
@@ -190,12 +190,12 @@ export class NewMessageHeaderComponent implements OnInit {
   }
 
   chooseChannel(channel) {
-    console.log(channel);
+    // console.log(channel);
     if (channel['members'].includes(localStorage.getItem('currentUserID'))) {
       this.searchterm = channel['title'];
       this.search = false;
     } else {
-      console.log('ERst Channel beitreten');
+      // console.log('ERst Channel beitreten');
       this.openShowChannelInformation(channel);
     }
 

@@ -63,7 +63,7 @@ export class PostService {
         this.post.id = postid;
         const docRefWithID = doc(this.firestore, 'channels', channelID, 'posts', postid);
         setDoc(docRefWithID, this.post.toJSON());
-        console.log('Anlage erfolgreich', this.post)
+        // console.log('Anlage erfolgreich', this.post)
       }).catch((error) => {
         // console.log(error);
       });
@@ -90,7 +90,7 @@ export class PostService {
 
 
   async updatePost(channelID, postID, description) {
-    console.log('channel', channelID, 'post', postID, 'Inhalt', description);
+    // console.log('channel', channelID, 'post', postID, 'Inhalt', description);
     const docRef = doc(this.firestore, 'channels', channelID, 'posts', postID);
 
     await updateDoc(docRef, {
