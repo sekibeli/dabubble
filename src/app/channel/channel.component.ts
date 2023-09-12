@@ -25,7 +25,7 @@ export class ChannelComponent {
   onProfileClick(event: Event) {
 
     this.isActive = !this.isActive;
-    console.log('event:', event);
+    // console.log('event:', event);
     this.drawerService.close();
     this.channelService.pushActiveChannel(this.channel);
     localStorage.setItem('currentChannelID', this.channel['id']);

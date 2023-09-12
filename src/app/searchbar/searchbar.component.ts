@@ -96,7 +96,7 @@ export class SearchbarComponent implements OnInit {
   }
 
   separateUsersAndChannels(jsonArray) {
-    console.log(jsonArray);
+    // console.log(jsonArray);
     // Filtert die JSON-Objekte, die ein 'username'-Feld haben, und schiebt sie in das 'users'-Array
     const users = jsonArray.filter((jsonObject) => 'username' in jsonObject);
 

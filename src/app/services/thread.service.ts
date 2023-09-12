@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class ThreadService {
-  private _postForThread: BehaviorSubject<any> = new BehaviorSubject<any>([]);
+  public _postForThread: BehaviorSubject<any> = new BehaviorSubject<any>([]);
   private _author: BehaviorSubject<any> = new BehaviorSubject<any>([])
   // private author;
   public thread;
@@ -16,6 +16,7 @@ export class ThreadService {
   public readonly threads = this._threads.asObservable();
   public readonly postForThread$ = this._postForThread.asObservable();
   public readonly author$ = this._author.asObservable();
+ 
 
   constructor() { }
 
@@ -37,8 +38,10 @@ export class ThreadService {
 
 
   getPostForThread(post, author) {
+
     this._postForThread.next(post);
     this._author.next(author);
+    // console.log('author: thread?', author);
   }
 
 

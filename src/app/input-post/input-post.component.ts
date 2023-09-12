@@ -7,6 +7,7 @@ import { PostService } from '../services/post.service';
 import { ActivatedRoute } from '@angular/router';
 import { ChannelService } from '../services/channel.service';
 import { UserService } from '../services/user.service';
+import { DrawerService } from '../services/drawer.service';
 
 
 @Component({
@@ -38,7 +39,7 @@ export class InputPostComponent implements OnInit, OnDestroy {
     description: new FormControl('', [Validators.required, Validators.minLength(2)]),
   })
 
-  constructor(public postService: PostService, public activatedRoute: ActivatedRoute, public channelService: ChannelService, private userService: UserService) {
+  constructor(public postService: PostService, public activatedRoute: ActivatedRoute, public channelService: ChannelService, private userService: UserService, private drawerService: DrawerService) {
     const currentChatPartner = JSON.parse(localStorage.getItem('currentChatUser'))
     this.user.next(currentChatPartner);
     this.currentChatLength = (Number(localStorage.getItem('currentChatLength')));
@@ -65,6 +66,7 @@ export class InputPostComponent implements OnInit, OnDestroy {
 
     this.chatMessage.reset();
     this.url = null;
+    this.drawerService.close();
   }
 
   toggleSearchAt() {

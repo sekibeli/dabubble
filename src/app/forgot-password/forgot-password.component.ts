@@ -37,10 +37,10 @@ export class ForgotPasswordComponent {
     const userEmail = this.forgotPasswordForm.get('email').value;
     this.auth.sendPasswordResetEmail(userEmail)
       .then(() => {
-        console.log('Passwort-Zurücksetzungs-E-Mail wurde gesendet.');
+        // console.log('Passwort-Zurücksetzungs-E-Mail wurde gesendet.');
       })
       .catch(error => {
-        console.error('Fehler beim Senden der Passwort-Zurücksetzungs-E-Mail:', error);
+        // console.error('Fehler beim Senden der Passwort-Zurücksetzungs-E-Mail:', error);
       });
     setTimeout(() => {
       this.route.navigateByUrl('login');

@@ -52,7 +52,7 @@ message: FormGroup = new FormGroup({
 constructor(public dialog: MatDialog, private drawerService: DrawerService, private channelService: ChannelService, private postService: PostService, private route: Router, private messageService: MessageService, private userService: UserService){}
 ngOnInit() {
   this.isSmallScreen = this.drawerService.isSmallScreen;
-  console.log('für mobil:', this.drawerService.isSmallScreen);
+  // console.log('für mobil:', this.drawerService.isSmallScreen);
   this.currentUser = localStorage.getItem("currentuserID");
   // combineLatest([this.startobs, this.endobs]).subscribe((value)=> {
   //   this.searchUserInFirestore(value[0], value[1]).then((user)=>{
@@ -74,7 +74,7 @@ ngOnInit() {
   })
   this.userService.getUserDataSorted().subscribe((users)=> {
     this.userSorted = users
-    console.log(this.userSorted);
+    // console.log(this.userSorted);
    
   })
   // console.log(this.result.users);   

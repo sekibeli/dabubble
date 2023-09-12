@@ -256,7 +256,7 @@ export class SmilyService {
       const docRef = await collectionData(collRef);
       return docRef;
     } catch (error) {
-      console.log("Ist noch nicht da: ", channelID, postID);
+      // console.log("Ist noch nicht da: ", channelID, postID);
       return null;
     }
   }

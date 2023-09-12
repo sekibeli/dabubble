@@ -1,6 +1,6 @@
 import { Injectable, OnInit, inject } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Firestore, collection, collectionData, doc, docData, getDoc, onSnapshot } from '@angular/fire/firestore';
+import { Firestore, collection, collectionData, doc, docData, getDoc, onSnapshot, setDoc } from '@angular/fire/firestore';
 import { GoogleAuthProvider, signOut } from 'firebase/auth';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '../models/user.class';
@@ -18,6 +18,7 @@ import { getAuth, setPersistence, browserSessionPersistence } from "firebase/aut
 export class AuthService implements OnInit {
   errormessage: BehaviorSubject<string> = new BehaviorSubject<string>('');
  result;
+ user: User;
   public userUID: string; //String mit der ID
   public currentUser; // User mit allen Eigenschaften
 
@@ -32,20 +33,42 @@ export class AuthService implements OnInit {
 
   ngOnInit() { }
 
+
   async signinWithGoogle() {
-   return await this.afs.signInWithPopup(new GoogleAuthProvider())
+    return await this.afs.signInWithPopup(new GoogleAuthProvider())
+      .then((result:any) => {
+        // console.log(result);
+        if (result && result.user) {
+          const collRef = doc(this.firestore, 'users', result.user.uid);
 
-      .then(result => {
+          this.userUID = result.user.uid;
+          this.currentUser = result.user;
+          this.saveCurrentUserIDInLocalStorage(this.userUID);
 
-        this.userUID = result.user.uid;
-        this.currentUser = result.user;
-        this.saveCurrentUserIDInLocalStorage(this.userUID);
-        this.pushNewUserInAllgemeinChannel(this.userUID);
-             })
-      .catch(error => {
-        console.log(error);
-      });
-  }
+          if (result.additionalUserInfo.isNewUser) {
+            this.user = new User({
+              id: result.user.uid,
+              username: result.additionalUserInfo.profile['name'],
+              email: result.user.email,
+              img: result.additionalUserInfo.profile.picture,
+              active: true
+            })
+
+            setDoc(collRef, this.user.toJSON());
+            localStorage.setItem('directMessage', 'false');
+            this.pushNewUserInAllgemeinChannel(this.userUID);
+          }
+          setTimeout(() => {
+            this.route.navigateByUrl('home/channel/BwYu94QGYDi8hQta31RP');
+          }, 1000);
+
+        }   else {
+          localStorage.setItem('directMessage', 'false');
+        } }).catch((error) => {
+          // console.error('Hier ist der Fehler: ', error)
+        });
+    }
+
 
   registerWithEmailAndPassword(user: { email: string, password: string }) {
     return this.afs.createUserWithEmailAndPassword(user.email, user.password);
@@ -63,8 +86,7 @@ export class AuthService implements OnInit {
       }, 1000);
 
     }).catch(error => {
-      // console.error(error);
-
+    
       switch (error.code) {
         case 'auth/wrong-password':
             // console.error('Falsches Passwort eingegeben.');

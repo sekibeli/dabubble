@@ -24,7 +24,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    console.log('currentUser:', this.currentUser['id']);
+    // console.log('currentUser:', this.currentUser['id']);
     this.userService.setUserStatus(this.currentUser['id'], true);
     localStorage.setItem("currentUserName", this.currentUser['username']);
   }
@@ -39,7 +39,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       this.userService.setUserStatus(this.currentUser['id'], false);
 
     }).catch((err) => {
-      console.log(err.message);
+      // console.log(err.message);
     });
     localStorage.setItem('currentUserID', '');
   }

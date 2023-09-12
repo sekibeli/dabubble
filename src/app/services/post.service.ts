@@ -65,7 +65,7 @@ export class PostService {
         setDoc(docRefWithID, this.post.toJSON());
         console.log('Anlage erfolgreich', this.post)
       }).catch((error) => {
-        console.log(error);
+        // console.log(error);
       });
     } else {
       channelID = this.activeChannel;
@@ -75,9 +75,9 @@ export class PostService {
         this.post.id = postid;
         const docRefWithID = doc(this.firestore, 'channels', channelID, 'posts', postId, 'threads', postid);
         setDoc(docRefWithID, this.post.toJSON())
-        console.log('Anlage erfolgreich', this.post)
+        // console.log('Anlage erfolgreich', this.post)
       }).catch((error) => {
-        console.log(error);
+        // console.log(error);
       });
     }
   }

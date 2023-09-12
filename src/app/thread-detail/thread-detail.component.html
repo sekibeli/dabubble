@@ -50,7 +50,8 @@
         </div>
             <div class="reactionsRow">
                 <img src="../../assets/img/add_reaction.svg" alt="" (click)="showPicker = !showPicker">
-                <div *ngFor="let reaction of reactions">
+           
+                <div *ngFor="let reaction of reactions$">
                   <ng-container *ngIf="reaction['user'].length > 0">
                     <div class="reactionBubble" 
                         (mouseover)="hoveredReaction = reaction"

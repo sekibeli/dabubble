@@ -14,129 +14,147 @@ import { ThreadService } from '../services/thread.service';
   styleUrls: ['./thread-detail.component.scss']
 })
 export class ThreadDetailComponent implements OnInit, OnDestroy, OnChanges {
-author;
-@ViewChild('textarea') textarea;
-@Input() thread;
-@Input() singlePost;
-showPicker : boolean = false;
+  author;
+  @ViewChild('textarea') textarea;
+  @Input() thread;
+ @Input() singlePost;
+  onePost;
+  aPost;
+  showPicker: boolean = false;
 
-@ViewChild('pdfCanvasThread') pdfCanvasThread: ElementRef;
-downloadUrl;
-public pdfDataUrl: string;  // Der Base64-kodierte PDF-String
-public isPDF: boolean = false;
-time;
-reactions;
-originalThread;
-currentChannelID;
-currentUserID;
-showEditForm: boolean = false;
-showPost:boolean = true;
-showEditThread:boolean = false;
-constructor(private userService: UserService, private dialog: MatDialog, private drawerService: DrawerService, private smilyService: SmilyService, private channelService:ChannelService, private threadService:ThreadService){
-  this.currentChannelID = localStorage.getItem('currentChannelID');
-this.currentUserID = localStorage.getItem("currentUserID");
-}
+  @ViewChild('pdfCanvasThread') pdfCanvasThread: ElementRef;
+  downloadUrl;
+  public pdfDataUrl: string;  // Der Base64-kodierte PDF-String
+  public isPDF: boolean = false;
+  time;
+  reactions$;
+  originalThread;
+  currentChannelID;
+  currentUserID;
+  showEditForm: boolean = false;
+  showPost: boolean = true;
+  showEditThread: boolean = false;
 
-ngOnInit(){
-  
-  if(this.thread && this.thread.author){
-    this.getAuthorDetails(this.thread);
+
+  constructor(private userService: UserService, private dialog: MatDialog, private drawerService: DrawerService, private smilyService: SmilyService, private channelService: ChannelService, private threadService: ThreadService) {
+    this.currentChannelID = localStorage.getItem('currentChannelID');
+    this.currentUserID = localStorage.getItem("currentUserID");
+   
+    this.threadService.postForThread$.subscribe((post) => {
+      // console.log(post);
+      this.onePost = post;
+    });
+
+
   }
-    this.time =  new Date(this.thread['timestamp']).toLocaleTimeString('de-DE', {hour: '2-digit', minute:'2-digit'});
-    // console.log(this.trueFalse);
-    // this.getFormatedDateFromTimestamp(this.thread['timestamp']);
+
+  ngOnInit() {
+    // console.log('thread-Detail erstellt');
+
+    if (this.thread && this.thread.author) {
+      // console.log(this.thread);
+      this.getAuthorDetails(this.thread);
+    }
+    this.time = new Date(this.thread['timestamp']).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
     this.loadPDF();
 
-if(!this.singlePost){
-  // console.log('bin raus');
-  return;
- 
-}
+    this.smilyService.getAllReactionsThread(localStorage.getItem('currentChannelID'), this.onePost['id'], this.thread['id'])
 
-
-
-console.log('INIT singlePost:', this.singlePost['id']);
-
-  // this.smilyService.getAllReactionsThread(localStorage.getItem('currentChannelID'), this.singlePost['id'], this.thread['id']).then((value) => {
-  //   value.subscribe((reactions) => {
-  //     console.log("reactions", reactions);
-     
-  //     this.reactions = reactions;
-      
-  //   });
-
-  // });
-
-  this.smilyService.getAllReactionsThread(localStorage.getItem('currentChannelID'), this.singlePost['id'], this.thread['id'])
-.then((value) => {
-  value.subscribe(
-    (reactions) => { // Erfolgreiche Ausführung
-      console.log("reactions", reactions);
-      this.reactions = reactions;
-    },
-    (error) => { // Fehlerfall
-      console.error('Problem beim Abonnieren');
-    }
-  );
-})
-.catch((error) => {
-  console.log('Problem bei der Promised-basierten Operation', error);
-});
-
+      .then((value) => {
+        value.subscribe(
+          (reactions) => { // Erfolgreiche Ausführung
+            // console.log("reactions", reactions);
+            this.reactions$ = reactions;
+          },
+          (error) => { // Fehlerfall
+            // console.error('Problem beim Abonnieren', error);
+          }
+        );
+      })
+      .catch((error) => {
+        // console.log('Problem bei der Promised-basierten Operation', error);
+      });
+  
+  
+  
   }
-   
+
   ngOnChanges(changes: SimpleChanges): void {
-    // console.log('change', changes)
-  }
+    // console.log('thread-Detail changes', changes);
+    if (changes.thread && changes.thread.currentValue !== changes.thread.previousValue) {
+      this.smilyService.getAllReactionsThread(localStorage.getItem('currentChannelID'), this.onePost['id'], this.thread['id'])
 
+      .then((value) => {
+        value.subscribe(
+          (reactions) => { // Erfolgreiche Ausführung
+            // console.log("reactions", reactions);
+            this.reactions$ = reactions;
+          },
+          (error) => { // Fehlerfall
+            // console.error('Problem beim Abonnieren', error);
+          }
+        );
+      })
+      .catch((error) => {
+        // console.log('Problem bei der Promised-basierten Operation', error);
+      });
+      // Hier kannst du Code ausführen, wenn sich die 'thread'-Eingangsvariable ändert.
+      this.thread = changes.thread.currentValue;
+
+      if (this.thread && this.thread.author) {
+        // console.log(this.thread);
+        this.getAuthorDetails(this.thread);
+      }
+  
+    }
+  
+  }
   ngOnDestroy(): void {
-    console.log('zerstört');
+    // console.log('thread-detail zerstört');
   }
 
-  activateTimer(){
+  activateTimer() {
     setTimeout(() => {
       this.showEditThread = false;
     }, 3000);
   }
 
-getAuthorDetails(post){
-  const userDataRef = this.userService.getCurrentUser(post['author']).subscribe((value)=>{
-   
-   
+  getAuthorDetails(thread) {
+    // console.log('von post', thread);
+    const userDataRef = this.userService.getCurrentUser(thread['author']).subscribe((value) => {
       this.author = value;
-      
-        
+      // console.log('das hier ist thread-author', thread['description'], this.author);
     });
   }
 
-  openProfile(user){
+  openProfile(user) {
     const dialogConfig = new MatDialogConfig();
-     
+
     if (this.drawerService.isSmallScreen) {
 
       dialogConfig.maxWidth = '100vw';
       dialogConfig.maxHeight = '90vh';
-      }
-    dialogConfig.data = { user: user};
-   
-    const dialogRef =  this.dialog.open(DialogProfileComponent, dialogConfig);
+    }
+    dialogConfig.data = { user: user };
+
+    const dialogRef = this.dialog.open(DialogProfileComponent, dialogConfig);
     dialogRef.componentInstance.user = user;
-    
+
   }
 
   convertBase64ToFile() {
     let base64Data = this.thread['file'];
-  
+
     // Entfernen eines möglichen Daten-URI-Schemas
     const base64Header = 'base64,';
     const headerIndex = base64Data.indexOf(base64Header);
     if (headerIndex > -1) {
       base64Data = base64Data.substr(headerIndex + base64Header.length);
     }
-  
+
     // Entfernen von Leerzeichen und Zeilenumbrüchen
     base64Data = base64Data.replace(/\s/g, '');
-  
+
     try {
       const byteCharacters = atob(base64Data);
       const byteNumbers = new Array(byteCharacters.length);
@@ -152,13 +170,12 @@ getAuthorDetails(post){
   }
 
   addReaction(event, post, thread) {
-    // const smily = `${event.emoji.native}`;
-    const channel = localStorage.getItem('currentChannelID')
-    console.log(event);
-    console.log(channel);
-    console.log(post);
-    console.log(thread);
-    console.log(localStorage.getItem("currentUserID"));
+     const channel = localStorage.getItem('currentChannelID')
+    // console.log(event);
+    // console.log(channel);
+    // console.log(post);
+    // console.log(thread);
+    // console.log(localStorage.getItem("currentUserID"));
     this.smilyService.saveReactionThread(event, channel, post, thread, localStorage.getItem('currentUserID'));
     this.showPicker = false;
 
@@ -167,51 +184,50 @@ getAuthorDetails(post){
 
   loadPDF() {
     this.pdfDataUrl = this.thread ? this.thread['file'] : '';  // Setze einen leeren String, wenn this.post oder this.post['file'] undefined ist
-    // this.pdfDataUrl = this.post['file'];
   
     if (this.pdfDataUrl && this.pdfDataUrl.startsWith('data:application/pdf')) {
       this.isPDF = true;
-      console.log('isPDF', this.isPDF);
+      // console.log('isPDF', this.isPDF);
     }
 
     if (this.isPDF) {
       pdfjsLib.GlobalWorkerOptions.workerSrc = "/assets/pdf.worker.min.js"
-     
+
       // Laden und rendern des pdf
       const loadingTask = pdfjsLib.getDocument({ data: atob(this.pdfDataUrl.split('base64,')[1]) });
 
       loadingTask.promise.then(pdf => {
-       
+
         return pdf.getPage(1);  // nur die erste Seite anzegen
       }).then(page => {
 
-        if(this.pdfCanvasThread){
-        const viewport = page.getViewport({ scale: 1.0 });
-        // const canvas = this.pdfCanvasThread.nativeElement;
-        const canvas = this.pdfCanvasThread ? this.pdfCanvasThread.nativeElement : null;
+        if (this.pdfCanvasThread) {
+          const viewport = page.getViewport({ scale: 1.0 });
+          // const canvas = this.pdfCanvasThread.nativeElement;
+          const canvas = this.pdfCanvasThread ? this.pdfCanvasThread.nativeElement : null;
 
-        const context = canvas.getContext('2d');
+          const context = canvas.getContext('2d');
 
-        const widthCanvas = 120;  //festgelegte Breite
-        const scaleWidth = widthCanvas / viewport.width;
+          const widthCanvas = 120;  //festgelegte Breite
+          const scaleWidth = widthCanvas / viewport.width;
 
-        canvas.height = 160;  // festgelegte Höhe
-        canvas.width = widthCanvas;
+          canvas.height = 160;  // festgelegte Höhe
+          canvas.width = widthCanvas;
 
-       
-        const scaledViewport = page.getViewport({ scale: scaleWidth });
 
-        const renderContext = {
-          canvasContext: context,
-          viewport: scaledViewport
+          const scaledViewport = page.getViewport({ scale: scaleWidth });
+
+          const renderContext = {
+            canvasContext: context,
+            viewport: scaledViewport
+          };
+          page.render(renderContext);
         };
-        page.render(renderContext);
-      };
       });
     }
   }
-    
-    downloadPDF() {
+
+  downloadPDF() {
     // PDF herunterladen
     const link = document.createElement('a');
     link.href = this.pdfDataUrl;
@@ -220,7 +236,7 @@ getAuthorDetails(post){
   }
 
   editThisThread(thread) {
-    console.log('channelid', this.channelService.currentChannelID.getValue());
+    // console.log('channelid', this.channelService.currentChannelID.getValue());
     this.originalThread = JSON.parse(JSON.stringify(thread));
     this.showEditForm = true;
     this.showPost = false;
@@ -229,7 +245,6 @@ getAuthorDetails(post){
 
   checkIfItIsCurrentUserPost() {
     return this.thread['author'] === localStorage.getItem('currentUserID');
-
   }
 
   updateThread() {
@@ -244,8 +259,5 @@ getAuthorDetails(post){
     Object.assign(this.thread, this.originalThread);
     this.showEditForm = false;
     this.showPost = true;
-
-
-
   }
 }

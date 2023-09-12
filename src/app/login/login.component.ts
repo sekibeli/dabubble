@@ -31,33 +31,34 @@ export class LoginComponent {
 
   loginWithGoogle() {
     const userData = Object.assign({ email: this.loginForm.value.username }, this.loginForm.value);
-    this.auth.signinWithGoogle().then((result: any) => {
-      if (result && result.user) {
-        const collRef = doc(this.firestore, 'users', result.user.uid);
+    this.auth.signinWithGoogle();
+    // .then((result: any) => {
+    //   if (result && result.user) {
+    //     const collRef = doc(this.firestore, 'users', result.user.uid);
 
 
-        if (result.additionalUserInfo.isNewUser) {
-          this.user = new User({
-            id: result.user.uid,
-            username: result.additionalUserInfo.profile['name'],
-            email: result.user.email,
-            img: result.additionalUserInfo.profile.picture,
-            active: true
-          })
+    //     if (result.additionalUserInfo.isNewUser) {
+    //       this.user = new User({
+    //         id: result.user.uid,
+    //         username: result.additionalUserInfo.profile['name'],
+    //         email: result.user.email,
+    //         img: result.additionalUserInfo.profile.picture,
+    //         active: true
+    //       })
 
-          setDoc(collRef, this.user.toJSON());
-          localStorage.setItem('directMessage', 'false');
-        }
-      } else {
-        localStorage.setItem('directMessage', 'false');
-      }
-      setTimeout(() => {
-        this.route.navigateByUrl('home/channel/BwYu94QGYDi8hQta31RP');
-      }, 1000);
+    //       setDoc(collRef, this.user.toJSON());
+    //       localStorage.setItem('directMessage', 'false');
+    //     }
+    //   } else {
+    //     localStorage.setItem('directMessage', 'false');
+    //   }
+    //   setTimeout(() => {
+    //     this.route.navigateByUrl('home/channel/BwYu94QGYDi8hQta31RP');
+    //   }, 1000);
 
-    }).catch((error) => {
-      console.error('Hier ist der Fehler: ', error)
-    });
+    // }).catch((error) => {
+    //   console.error('Hier ist der Fehler: ', error)
+    // });
   }
 
 

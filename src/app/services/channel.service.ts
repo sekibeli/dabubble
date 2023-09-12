@@ -141,7 +141,7 @@ export class ChannelService implements OnInit, OnDestroy {
                 this.check = result;
       })
       if (!this.check) {
-         console.log('User wird hinzugefügt');
+         // console.log('User wird hinzugefügt');
          const docRef = doc(this.firestore, 'channels', channelID);
          updateDoc(docRef, {
             members: arrayUnion(user)

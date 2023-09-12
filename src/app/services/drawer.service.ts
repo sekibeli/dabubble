@@ -36,7 +36,7 @@ getDrawerState() {
   }
 
   toggle(){
-    console.log(this.drawerState.value);
+    // console.log(this.drawerState.value);
     if(this.drawerState.value){
       this.drawerState.next(false);
     } else {

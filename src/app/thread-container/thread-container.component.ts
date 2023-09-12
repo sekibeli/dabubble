@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DrawerService } from '../services/drawer.service';
 import { ThreadService } from '../services/thread.service';
 
@@ -7,7 +7,7 @@ import { ThreadService } from '../services/thread.service';
   templateUrl: './thread-container.component.html',
   styleUrls: ['./thread-container.component.scss']
 })
-export class ThreadContainerComponent implements OnInit{
+export class ThreadContainerComponent implements OnInit, OnDestroy{
   timestamps:any = [];
 singlePost: any;
 threads;
@@ -15,6 +15,8 @@ thread;
 countsOfThreads; //  Anzahl der Threads
 
   constructor(private drawerService: DrawerService, private threadService: ThreadService ){
+    this.threadService.postForThread$.subscribe((post)=> {
+      this.singlePost = post;})
   }
 
  ngOnInit():void {
@@ -22,13 +24,14 @@ countsOfThreads; //  Anzahl der Threads
     this.threads = threads;
     this.countsOfThreads = this.threads.length;
     this.thread = this.threadService.thread;
-    this.createTimestampArray(this.threads);
+
    })
 
-  this.threadService.postForThread$.subscribe((post)=> {
-    this.singlePost = post;})
-   }
 
+   }
+ngOnDestroy(): void {
+  // console.log('container zerstört');
+}
 
   closeThread(){
     this.drawerService.close();
@@ -44,27 +47,9 @@ countsOfThreads; //  Anzahl der Threads
  * creates an array with the dates of all posts
  */
   createTimestampArray(threads){
-    
-    threads.forEach((element) => {
+        threads.forEach((element) => {
        this.timestamps.push(new Date(element['timestamp']).toLocaleString('de-DE', { weekday: 'long', day: '2-digit', month: 'long' }));
      });
         }
 
-     /**
-      * 
-      * @param strings the array with the dates of all posts as string
-      * @returns a new array with only booleans for use if a date of a post is shown or not
-      */
-//  dateCompare(strings) {
-//     let newArray = [true]; // Der erste Wert ist immer true
-//     for(let i = 1; i < strings.length; i++) {
-//         if(strings[i] !== strings[i - 1]) {
-//             newArray.push(true);
-//         } else {
-//             newArray.push(false);
-//         }
-//     }
-//     return newArray;
-// }
-
-}
+  }

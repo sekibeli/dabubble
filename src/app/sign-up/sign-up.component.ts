@@ -26,7 +26,6 @@ export class SignUpComponent {
     confirmPassword: new FormControl('', Validators.required)
   })
 
-  loginWithGoogle() { }
 
   registerWithEmailAndPassword() {
     console.log(this.signUpForm.value);
