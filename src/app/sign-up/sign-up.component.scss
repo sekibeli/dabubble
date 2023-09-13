@@ -19,6 +19,10 @@
     margin: 10px;
     animation: fadeIn ease 1s;
 }
+
+.sign-up {
+   opacity: 0; 
+}
 @keyframes fadeIn {
     0% {
       opacity: 0;
