@@ -15,14 +15,14 @@
         placeholder="Nachricht an #{{ currentChannel['title'] }} schreiben ...">
       </textarea>
       <div *ngIf="chatMessage.get('description').hasError('required') && chatMessage.get('description').touched">
-        Diese Nachricht ist erforderlich.
+       
       </div>
       <div *ngIf="chatMessage.get('description').hasError('minlength') && chatMessage.get('description').touched">
-        Die Nachricht muss mindestens 3 Zeichen lang sein.
+        
       </div>
 
       <div class="stick">
-        <div *ngIf="!singlePost && channelMessage" (click)="this.savePost(this.chatMessage)" [disabled]="!chatMessage.valid">
+        <div *ngIf="!singlePost && channelMessage" (click)="this.savePost(this.chatMessage)" [disabled]="!chatMessage.valid"  >
           <mat-icon>send</mat-icon>
         </div>
 
@@ -68,3 +68,7 @@
   </form>
 
 </div>
+
+
+
+

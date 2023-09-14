@@ -58,7 +58,8 @@ export class InputPostComponent implements OnInit, OnDestroy {
   }
 
   savePost(description, postId) {
-
+    
+if ( description.value.description.length > 1){
     this.currentChannelID = this.activatedRoute.snapshot.params['id'];
     let channelID = this.currentChannelID;
     description = this.chatMessage.value.description;
@@ -67,6 +68,7 @@ export class InputPostComponent implements OnInit, OnDestroy {
     this.chatMessage.reset();
     this.url = null;
     this.drawerService.close();
+}
   }
 
   toggleSearchAt() {
