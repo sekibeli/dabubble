@@ -8,7 +8,7 @@ import { UserService } from './user.service';
 })
 export class AutologoutService {
   currentUser; 
-  private idleTimeLimit: number = 60 * 60 * 1000; // 60 Minuten in Millisekunden
+  private idleTimeLimit: number = 10 * 60 * 1000; // 60 Minuten in Millisekunden
   private timer;
   
   

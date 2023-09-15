@@ -68,6 +68,7 @@ export class InputComponent implements OnInit, OnDestroy {
 
 
   savePost(description, postId) {
+    console.log('Ausgabe', description.value.description.length);
     this.currentChannel = this.activatedRoute.snapshot.params['id'];
     let channelID = this.currentChannel;
     description = this.chatMessage.value.description;
@@ -77,6 +78,8 @@ export class InputComponent implements OnInit, OnDestroy {
 
 
   saveMessage(description:string) {
+  
+    if(this.chatMessage.value.description.length > 1){
     description = this.chatMessage.value.description;
     if (this.url) {
       this.messageService.saveMessage(description, this.url);
@@ -86,6 +89,7 @@ export class InputComponent implements OnInit, OnDestroy {
 
     this.chatMessage.reset();
     this.url = null;
+  }
   }
 
 

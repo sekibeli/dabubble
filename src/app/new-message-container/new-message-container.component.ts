@@ -257,10 +257,12 @@ separateUsersAndChannels(jsonArray) {
 
    sendMessage(message){
     // if (this.url = '') this.url = null;
+    if(this.message.value.description.length > 1){
     if(this.isChannel){
       
       // let channelID = this.currentChannel;
       let description = this.message.value.description;
+
       // console.log(description);
       this.postService.savePost(this.currentUser, this.chosenItem['id'], description, this.postID, this.url);
       // this.channelService.pushActiveChannel(this.chosenItem);
@@ -276,6 +278,7 @@ separateUsersAndChannels(jsonArray) {
       this.route.navigateByUrl(url);
      
     }
+  }
    }
 
    onProfileClick(){

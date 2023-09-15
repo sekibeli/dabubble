@@ -55,50 +55,7 @@
     </div> 
     </div>
     
-    <!-- <div class="input-container">
-      
-        <form class="chatInput input-container" [formGroup]="message">
-          <div>
-            <emoji-mart
-              class="emoji-mart"
-              *ngIf="showEmojiPicker"
-              (emojiSelect)="addEmoji($event)"
-              [set] = "apple"
-              [enableSearch] = "false"
-              [showPreview] = "false"
-              title="Choose your emoji"
-            ></emoji-mart>
-          </div>
-        <div class="relative">
-        <textarea  formControlName="description" id="message" name="meineTextarea"  rows="4" placeholder="Eine neue Message schreiben ..."></textarea>
-        
-        <div class="stick">
-        <div (click)="sendMessage(this.message)"><mat-icon>send</mat-icon></div>
-        
-        </div>
-                
-        <div class="inputOptions"> 
-          <div class="addDevide"><label for="fileInputMessage">
-            <img src="../../assets/img/plus.svg" alt=""></label>
-            <input type="file" id="fileInputMessage" style="display:none;" (change)="onSelectDocument($event)"> </div> 
-            <div class="emoji"  (click)="showEmojiPicker = !showEmojiPicker">
-              <img src="../../assets/img/addEmoji.svg" alt="">
-              <img src="../../assets/img/addat.svg" alt="">
-        </div>
-       
-      </div>
-      <div>
-      <div *ngIf="url" class="file-preview">
-        <img class="attachement" *ngIf="isImage(url)" [src]="url" width="70px"/>
-      
-
-        <div class="attachement" *ngIf="!isImage(url)"><img src="../../assets/img/pdf50.png" alt=""></div>
-      </div>
-      </div>
-      </div>
-        </form>
-              
-   </div> -->
+   
 
 
    <div class="input-container">
@@ -119,20 +76,7 @@
       <div class="relative">
         
         <textarea #textarea formControlName="description" id="my-message" name="meineTextarea"  rows="4" placeholder="Eine neue Message schreiben ..."></textarea>
-        <!-- <textarea
-          *ngIf="
-            !singlePost &&
-            channelMessage &&
-            (this.channelService.displayedChannel | async) as currentChannel
-          "
-          formControlName="description"
-          id="message"
-          name="meineTextarea"
-          rows="4"
-          placeholder="Nachricht an #{{ currentChannel['title'] }} schreiben ..."
-        >  
-        </textarea> -->
-  
+
       
         <div class="stick">
           <div (click)="sendMessage(this.message)"><mat-icon>send</mat-icon></div>
